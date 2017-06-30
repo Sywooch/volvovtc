@@ -4,7 +4,8 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Редактировать трейлер - Volvo Trucks';
+$action = $_GET['action'] == 'edit' ? 'Редактировать' : 'Добавить';
+$this->title = $action . ' трейлер - Volvo Trucks';
 
 ?>
 
@@ -14,6 +15,7 @@ $this->title = 'Редактировать трейлер - Volvo Trucks';
             'template' => "<div class=\"input-field col s12\">{label}{input}</div>",
             'options' => ['class' => 'row'],
         ]]) ?>
+    <h5 class="light col s12"><?= $action ?> трейлер</h5>
     <div class="col l6 m6 s12">
         <div class="card-panel grey lighten-4">
             <?php if($model->picture == null) : ?>
@@ -50,10 +52,21 @@ $this->title = 'Редактировать трейлер - Volvo Trucks';
                 ])->label(false) ?>
         </div>
     </div>
-    <div class="fixed-action-btn">
+    <div class="fixed-action-btn vertical">
         <?=Html::submitButton(Html::tag('i', 'save', [
             'class' => 'large material-icons'
         ]), ['class' => 'btn-floating btn-large red']) ?>
+        <ul>
+            <li>
+                <a onclick='return confirm("Удалить?")' href="<?=Url::to([
+                    'site/trailers',
+                    'id' => $model->id,
+                    'action' => 'delete'
+                ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
+                    <i class="material-icons">delete</i>
+                </a>
+            </li>
+        </ul>
     </div>
     <?php ActiveForm::end() ?>
 </div>

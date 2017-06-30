@@ -8,10 +8,11 @@ use yii\web\UploadedFile;
 
 class TrailersForm extends Model{
 
+    public $id;
     public $name;
     public $picture;
     public $description;
-    public $game;
+    public $game = 'ets';
 
     public function rules(){
         return [
@@ -24,6 +25,7 @@ class TrailersForm extends Model{
     public function __construct($id = null){
         if(isset($id)){
             $trailer = Trailers::findOne($id);
+            $this->id = $trailer->id;
             $this->name = $trailer->name;
             $this->description = $trailer->description;
             $this->game = $trailer->game;
@@ -53,6 +55,15 @@ class TrailersForm extends Model{
             $picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
         }
         return $trailer->update() != false;
+    }
+
+    public function attributeLabels(){
+        return [
+            'name' => 'Название трейлера',
+            'description' => 'Описание',
+            'picture' => 'Изображение',
+            'game' => 'Игра',
+        ];
     }
 
 }
