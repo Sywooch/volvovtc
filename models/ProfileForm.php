@@ -1,0 +1,178 @@
+<?php
+
+namespace app\models;
+
+use Yii;
+use yii\base\Model;
+use yii\web\UploadedFile;
+
+
+class ProfileForm extends Model{
+
+    public $username;
+    public $email;
+    public $visible_email;
+    public $password;
+    public $password_new;
+    public $password_new_2;
+    public $first_name;
+    public $last_name;
+    public $birth_date;
+    public $country;
+    public $city;
+    public $vk;
+    public $steam;
+    public $steamid64;
+    public $visible_truckersmp;
+    public $truckersmp;
+    public $has_ats;
+    public $has_ets;
+    public $nickname;
+    public $company;
+    public $picture;
+    public $bg_image;
+
+    public function rules() {
+        return [
+            [['username', 'email'], 'required', 'message' => 'Обязательное поле'],
+            [['username'], 'checkUsername'],
+            [['email'], 'checkEmail'],
+            [['visible_email', 'has_ats', 'has_ets'], 'boolean'],
+            [['email'], 'email', 'message' => 'Неправильный E-Mail'],
+            [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'http', 'message' => 'Неправильная ссылка'],
+            [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'company'], 'string']
+        ];
+    }
+    public function checkUsername($attribute, $params){
+        $user = User::find()->where(['username' => $this->username])->andWhere(['!=', 'id', Yii::$app->user->identity->id])->all();
+        if(count($user) > 0){
+            $this->addError($attribute, 'Такой логин уже зарегистрирован');
+        }
+    }
+
+    public function checkEmail($attribute, $params){
+        $user = User::find()->where(['email' => $this->email])->andWhere(['!=', 'id', Yii::$app->user->identity->id])->all();
+        if(count($user) > 0){
+            $this->addError($attribute, 'Такой E-Mail уже зарегистрирован');
+        }
+    }
+
+    public function editProfile(){
+        $errors = array();
+        $user = User::findIdentity(Yii::$app->user->identity->id);
+        $form = Yii::$app->request->post('ProfileForm');
+        if(isset($_POST['save_profile'])){
+            $user->username = $form['username'];
+            $user->email = $form['email'];
+            $user->visible_email = $form['visible_email'];
+            $user->has_ats = $form['has_ats'];
+            $user->has_ets = $form['has_ets'];
+            $user->vk = $form['vk'];
+            $user->steam = $form['steam'];
+            if($form['steam'] != ''){
+                $user->steamid = Steam::getUser64ID($form['steam']);
+                $user->truckersmp = 'https://truckersmp.com/user/' . TruckersMP::getUserID($user->steamid);
+                $user->visible_truckersmp = $form['visible_truckersmp'];
+            }
+            $user->truckersmp = $form['truckersmp'];
+            $user->first_name = $form['first_name'];
+            $user->last_name = $form['last_name'];
+            $user->country = $form['country'];
+            $user->city = $form['city'];
+            $user->birth_date = $form['birth_date'];
+            $user->nickname = $form['nickname'];
+            $user->company = $form['company'];
+            if($image = UploadedFile::getInstance($this, 'picture')){
+                if($user->picture !== 'default.jpg'){
+                    unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/'.$user->picture);
+                }
+                $user->picture = $user->id.'.'.$image->extension;
+                $form['picture'] = $user->picture;
+                Yii::$app->user->identity->picture = $user->picture;
+                $image->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/'.$user->picture);
+            }
+            if($image = UploadedFile::getInstance($this, 'bg_image')){
+                if($user->bg_image !== 'default.jpg'){
+                    unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/'.$user->bg_image);
+                }
+                $user->bg_image = $user->id.'.'.$image->extension;
+                $form['picture'] = $user->bg_image;
+                Yii::$app->user->identity->bg_image = $user->bg_image;
+                $image->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/'.$user->bg_image);
+            }
+            $this->updateIdentity($form);
+        }
+        if(isset($_POST['save_profile_password'])){
+            if($user->validatePassword($form['password'])){
+                if($form['password_new'] === $form['password_new_2']) {
+                    $user->password = Yii::$app->getSecurity()->generatePasswordHash($form['password_new']);
+                } else {
+                    $errors[] = 'Новые пароли не совпадают';
+                }
+            }else{
+                $errors[] = 'Неверный старый пароль';
+            }
+        }
+        return $user->update() !== false ? true : false;
+
+    }
+
+    private function updateIdentity($data){
+        Yii::$app->user->identity->username = $data['username'];
+        Yii::$app->user->identity->email = $data['email'];
+        Yii::$app->user->identity->visible_email = $data['visible_email'];
+        Yii::$app->user->identity->has_ats = $data['has_ats'];
+        Yii::$app->user->identity->has_ets = $data['has_ets'];
+        Yii::$app->user->identity->vk = $data['vk'];
+        Yii::$app->user->identity->steam = $data['steam'];
+        Yii::$app->user->identity->steamid = $data['steamid64'];
+        Yii::$app->user->identity->truckersmp = $data['truckersmp'];
+        Yii::$app->user->identity->visible_truckersmp = $data['visible_truckersmp'];
+        Yii::$app->user->identity->first_name = $data['first_name'];
+        Yii::$app->user->identity->last_name = $data['last_name'];
+        Yii::$app->user->identity->country = $data['country'];
+        Yii::$app->user->identity->city = $data['city'];
+        Yii::$app->user->identity->birth_date = $data['birth_date'];
+        Yii::$app->user->identity->nickname = $data['nickname'];
+        Yii::$app->user->identity->company = $data['company'];
+    }
+
+    public static function updateImage($id, $file) {
+        $user = User::findOne($id);
+        if($user->picture != 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/' . $user->picture);
+        switch ($file['type']){
+            case 'image/png': $ext = '.png'; break;
+            case 'image/gif': $ext = '.gif'; break;
+            case 'image/jpeg' :
+            default: $ext = '.jpg';
+        }
+        $user->picture = $user->id . $ext;
+        $user->update();
+        $dir = $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/' . $user->picture;
+        $path = false;
+        if(move_uploaded_file($file['tmp_name'], $dir)){
+            $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $dir);
+        }
+        return $path;
+    }
+
+    public static function updateBgImage($id, $file) {
+        $user = User::findOne($id);
+        if($user->bg_image != 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/' . $user->bg_image);
+        switch ($file['type']){
+            case 'image/png': $ext = '.png'; break;
+            case 'image/gif': $ext = '.gif'; break;
+            case 'image/jpeg' :
+            default: $ext = '.jpg';
+        }
+        $user->bg_image = $user->id . $ext;
+        $user->update();
+        $dir = $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/' . $user->bg_image;
+        $path = false;
+        if(move_uploaded_file($file['tmp_name'], $dir)){
+            $path = str_replace($_SERVER['DOCUMENT_ROOT'], '', $dir);
+        }
+        return $path;
+    }
+
+}
