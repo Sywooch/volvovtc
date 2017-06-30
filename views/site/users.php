@@ -21,7 +21,7 @@ $this->title = 'Зарегистрированые пользователи са
             </div>
         </form>
     </div>
-    <h5>Всего <?= $total ?></h5>
+    <h5 class="light">Всего <?= $total ?></h5>
     <?php foreach($users as $user): ?>
         <div class="card-panel grey lighten-4 user">
             <div class="link-image">
