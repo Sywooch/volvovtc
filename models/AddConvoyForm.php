@@ -129,6 +129,7 @@ class AddConvoyForm extends Model{
                 $convoy->trailer_picture = $convoy->id.'.jpg';
                 $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/trailers/'.$convoy->trailer_picture);
             }
+            $convoy->update();
             return $convoy->id;
         }else{
             return false;
