@@ -19,7 +19,7 @@ $this->title = $action . ' трейлер - Volvo Trucks';
     <div class="col l6 m6 s12">
         <div class="card-panel grey lighten-4">
             <?php if($model->picture == null) : ?>
-                <img src="<?= Yii::$app->request->baseUrl ?>/images/trailers/default.png" class="responsive-img z-depth-3">
+                <img src="<?= Yii::$app->request->baseUrl ?>/images/trailers/default.jpg" class="responsive-img z-depth-3">
             <?php else: ?>
                 <img src="<?= Yii::$app->request->baseUrl ?>/images/trailers/<?= $model->picture ?>" class="materialboxed responsive-img z-depth-3">
             <?php endif ?>
