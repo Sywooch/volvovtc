@@ -85,7 +85,7 @@ $config = [
                 'rules/<action:\w+>/' => 'site/rules',
 
                 // trailers
-                'trailers/<action:\w+>/<id:\d+>/' => 'site/trailers',
+                'trailers/<id:\d+>/<action:\w+>/' => 'site/trailers',
                 'trailers/<action:\w+>/' => 'site/trailers',
 
                 // general

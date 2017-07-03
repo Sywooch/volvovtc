@@ -47,8 +47,9 @@ $this->title = 'Трейлеры - Volvo Trucks';
         <?php if($key % 2 != 0) : ?>
             <div class="clearfix"></div>
         <?php endif ?>
-    <?php endforeach;
-    if(\app\models\User::isAdmin()) : ?>
+    <?php endforeach; ?>
+    <div class="clearfix"></div>
+    <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn">
             <a href="<?=Url::to(['site/trailers', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         </div>
