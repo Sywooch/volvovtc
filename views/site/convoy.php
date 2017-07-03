@@ -23,40 +23,85 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <?= \app\models\Convoys::getDLCString(unserialize($convoy->dlc)) ?>
                 </p>
             <?php endif ?>
-            <ul class="browser-default">
-                <li>Дата: <b><?=  $convoy->date ?></b></li>
-                <li>Сборы в <b><?php  $time = new DateTime($convoy->meeting_time); echo $time->format('H:i') ?></b> (по Москве)</li>
-                <li>Выезжаем в <b><?php  $time = new DateTime($convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)</li>
-                <li>Связь: <b><?=  $convoy->communications ?></b></li>
-                <li>Игровая рация:
-                    <?php if($convoy->open): ?><b>15 канал</b>
-                    <?php else: ?><b>17 канал</b>
-                    <?php endif ?>
-                </li>
-            </ul>
-            <ul class="browser-default">
-                <li>Начальная точка: <b><?=  $convoy->start_city ?> (<?=  $convoy->start_company ?>)</b></li>
-                <li>Отдых: <b><?=  $convoy->rest ?></b></li>
-                <li>Конечная точка: <b><?=  $convoy->finish_city ?> (<?=  $convoy->finish_company ?>)</b></li>
-                <li>Сервер <b><?=  $convoy->server ?></b></li>
-                <li>Протяженность: <b><?=  $convoy->length ?></b></li>
-            </ul>
-            <ul class="collapsible" data-collapsible="accordion">
-                <li>
-                    <div class="collapsible-header">
-                        <i class="material-icons">add_circle</i>Дополнительная информация<?php if($convoy->open == '1'): ?> для сотрудников ВТК Volvo Trucks<?php endif ?>
-                    </div>
-                    <div class="collapsible-body">
-                        <ul class="force-list-style" style="margin-bottom: 20px">
-                            <li><b><?=  $convoy->truck_var ?></b></li>
-                            <li>Прицеп: <b><?=  $convoy->trailer_name ?></b></li>
-                        </ul>
-                        <?php if($convoy->trailer_picture) : ?>
-                            <img class="materialboxed" src="<?=Yii::$app->request->baseUrl?>/images/convoys/trailers/<?=  $convoy->trailer_picture ?>?t=<?= time() ?>" width="100%" alt="<?=  $convoy->trailer_name ?>">
-                        <?php endif; ?>
-                    </div>
-                </li>
-            </ul>
+            <div class="row">
+                <div class="col l6 s12">
+                    <ul class="browser-default">
+                        <li>Дата: <b><?=  $convoy->date ?></b></li>
+                        <li>Сборы в <b><?php  $time = new DateTime($convoy->meeting_time); echo $time->format('H:i') ?></b> (по Москве)</li>
+                        <li>Выезжаем в <b><?php  $time = new DateTime($convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)</li>
+                        <li>Связь: <b><?=  $convoy->communications ?></b></li>
+                        <li>Игровая рация:
+                            <?php if($convoy->open): ?><b>15 канал</b>
+                            <?php else: ?><b>17 канал</b>
+                            <?php endif ?>
+                        </li>
+                    </ul>
+                </div>
+                <div class="col l6 s12">
+                    <ul class="browser-default">
+                        <li>Начальная точка: <b><?=  $convoy->start_city ?> (<?=  $convoy->start_company ?>)</b></li>
+                        <li>Отдых: <b><?=  $convoy->rest ?></b></li>
+                        <li>Конечная точка: <b><?=  $convoy->finish_city ?> (<?=  $convoy->finish_company ?>)</b></li>
+                        <li>Сервер <b><?=  $convoy->server ?></b></li>
+                        <li>Протяженность: <b><?=  $convoy->length ?></b></li>
+                    </ul>
+                </div>
+            </div>
+
+            <?php $trailer_name = 'Любой прицеп';
+            if($convoy->trailer):
+                if($convoy->trailer == '-1') {
+                    $trailer_name = 'Без прицепа';
+                }else{
+                    $trailer = \app\models\Trailers::findOne($convoy->trailer);
+                    $trailer_image = $trailer->picture;
+                    $trailer_name = $trailer->name;
+                } ?>
+            <?php endif ?>
+            <?php if($convoy->open) : ?>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header">
+                            <i class="material-icons">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
+                        </div>
+                        <div class="collapsible-body">
+                            <ul class="force-list-style" style="margin: 0 0 20px 0">
+                                <li><b><?=  $convoy->truck_var ?></b></li>
+                                <li>Прицеп: <b><?= $trailer_name ?></b>
+                                    <?php if($mod) : ?> -
+                                        <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
+                                            Загрузить модификацию
+                                        </a>
+                                    <?php endif ?></li>
+                            </ul>
+                            <?php if(isset($trailer_image)) : ?>
+                                <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
+                            <?php endif; ?>
+                            <?php if($convoy->extra_picture) : ?>
+                                <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
+                            <?php endif ?>
+                        </div>
+                    </li>
+                </ul>
+            <?php else : ?>
+                <h5 class="light">Дополнительная информация</h5>
+                <ul class="force-list-style" style="margin: 0 0 20px 30px">
+                    <li><b><?=  $convoy->truck_var ?></b></li>
+                    <li>Прицеп: <b><?= $trailer_name ?></b>
+                        <?php if($mod) : ?> -
+                            <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
+                                Загрузить модификацию
+                            </a>
+                        <?php endif ?></li>
+                </ul>
+                <?php if(isset($trailer_image)) : ?>
+                    <img class="materialboxed" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
+                <?php endif; ?>
+                <?php if($convoy->extra_picture) : ?>
+                    <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
+                <?php endif ?>
+            <?php endif ?>
+
         </div>
         <div class="card-action">
             <a href="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->picture_full ?>" target="_blank" class="indigo-text text-darken-3">Оригинал маршрута</a>

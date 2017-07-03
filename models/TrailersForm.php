@@ -38,11 +38,16 @@ class TrailersForm extends Model{
         $trailer->name = $this->name;
         $trailer->description = $this->description;
         $trailer->game = $this->game;
-        if($picture = UploadedFile::getInstance($this, 'picture')){
-            $trailer->picture = $trailer->id.'-f.'.$picture->extension;
-            $picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
+        if($trailer->save()){
+            if($picture = UploadedFile::getInstance($this, 'picture')){
+                $trailer->picture = $trailer->id.'.'.$picture->extension;
+                $picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
+                return $trailer->update() != false;
+            }else{
+                return true;
+            }
         }
-        return $trailer->save();
+        return false;
     }
 
     public function editTrailer($id){
@@ -51,7 +56,7 @@ class TrailersForm extends Model{
         $trailer->description = $this->description;
         $trailer->game = $this->game;
         if($picture = UploadedFile::getInstance($this, 'picture')){
-            $trailer->picture = $trailer->id.'-f.'.$picture->extension;
+            $trailer->picture = $trailer->id.'.'.$picture->extension;
             $picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
         }
         return $trailer->update() != false;

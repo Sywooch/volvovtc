@@ -18,6 +18,7 @@ class AddModForm extends Model{
     public $mega_link;
     public $author;
     public $warning;
+    public $trailer;
 
     public function __construct($id = null){
         if(isset($id)){
@@ -31,6 +32,7 @@ class AddModForm extends Model{
             $this->gdrive_link = $mod->gdrive_link;
             $this->mega_link = $mod->mega_link;
             $this->author = $mod->author;
+            $this->trailer = $mod->trailer;
         }
     }
 
@@ -38,7 +40,8 @@ class AddModForm extends Model{
         return [
             [['category', 'title'], 'required'],
             [['title', 'yandex_link', 'gdrive_link', 'mega_link', 'author', 'warning'], 'string', 'max' => 255],
-            [['description'], 'string', 'max' => 2048]
+            [['description'], 'string', 'max' => 2048],
+            [['trailer'], 'safe'],
         ];
     }
 
@@ -52,7 +55,8 @@ class AddModForm extends Model{
             'yandex_link' => 'Ссылка в Yandex',
             'gdrive_link' => 'Ссылка в Google Drive',
             'mega_link' => 'Ссылка в MEGA',
-            'author' => 'Автор модификации'
+            'author' => 'Автор модификации',
+            'trailer' => 'Трейлер',
         ];
     }
 
@@ -70,6 +74,7 @@ class AddModForm extends Model{
         $mod->gdrive_link = $this->gdrive_link;
         $mod->mega_link = $this->mega_link;
         $mod->author = $this->author;
+        $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
         $mod->sort = ($last_mod ? intval($last_mod->sort) : 0)+1;
         if($file = UploadedFile::getInstance($this, 'file')){
             $mod->file_name = $this->transliterate($file->name);
@@ -101,6 +106,13 @@ class AddModForm extends Model{
         $mod->gdrive_link = $this->gdrive_link;
         $mod->mega_link = $this->mega_link;
         $mod->author = $this->author;
+        $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
+        if($this->trailer != '0') {
+            if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture)){
+                unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
+            }
+            $mod->picture = null;
+        }
         $pic_change = false;
         $file_change = false;
         if($file = UploadedFile::getInstance($this, 'file')){
@@ -110,9 +122,10 @@ class AddModForm extends Model{
             $file_change = true;
         }
         if($img = UploadedFile::getInstance($this, 'picture')){
-            if($mod->picture !== 'default.jpg'){
+            if($mod->picture !== 'default.jpg' && $mod->picture != null){
                 unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
             }
+            $mod->trailer = null;
             $mod->picture = $mod->id.'.'.$img->extension;
             $img->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
             $pic_change = true;

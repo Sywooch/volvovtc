@@ -107,18 +107,27 @@ AppAsset::register($this);
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
                     <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">МОДЫ</a></li>
-                    <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">ВОДИТЕЛИ</a></li>
+                    <?php if(\app\models\User::isAdmin()) : ?>
+                        <li id="manage-btn">
+                            <a href="<?=Url::to(['site/profile'])?>">УПРАВЛЕНИЕ</a>
+                            <ul id="manage-dropdown" class="z-depth-2">
+                                <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons left">supervisor_account</i>СОТРУДНИКИ</a></li>
+                                <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons left">insert_chart</i>СТАТИСТИКА</a></li>
+                                <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
+                                <li><a href="<?=Url::to(['site/trailers'])?>"><i class="material-icons left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                            </ul>
+                        </li>
+                    <?php else: ?>
+                        <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">ВОДИТЕЛИ</a></li>
+                    <?php endif ?>
                     <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">ЗАЯВЛЕНИЯ</a></li>
                     <?php if(Yii::$app->user->isGuest) : ?>
                     <li<?php if(Yii::$app->controller->action->id === 'login'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/login'])?>">ВОЙТИ</a></li>
                     <?php else : ?>
                     <li<?php if(Yii::$app->controller->action->id === 'profile'){?> class="active"<?php } ?> id="profile-btn">
-                        <a href="<?=Url::to(['site/profile'])?>"><i class="material-icons right">arrow_drop_down</i>ПРОФИЛЬ</a>
+                        <a href="<?=Url::to(['site/profile'])?>">ПРОФИЛЬ</a>
                         <ul id="profile-dropdown" class="z-depth-2">
                             <li><a href="<?=Url::to(['site/profile', 'action' => 'edit'])?>"><i class="material-icons left">settings</i>РЕДАКТИРОВАТЬ</a></li>
-							<?php if(app\models\User::isAdmin()): ?>
-								<li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
-							<?php endif ?>
                             <li><a href="<?=Url::to(['site/logout'])?>"><i class="material-icons left">exit_to_app</i>ВЫЙТИ</a></li>
                         </ul>
                     </li>

@@ -17,7 +17,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
                     </button>
                     <input placeholder="Искать трейлер" type="text" name="q" <?php if(Yii::$app->request->get('q')): ?>value="<?= Yii::$app->request->get('q') ?>"<?php endif ?>>
                     <?php if(Yii::$app->request->get('q')) : ?>
-                        <a href="<?= Url::to(['site/users']) ?>" class="search-reset waves-effect circle">
+                        <a href="<?= Url::to(['site/trailers']) ?>" class="search-reset waves-effect circle">
                             <i class="material-icons">clear</i>
                         </a>
                     <?php endif; ?>
@@ -26,7 +26,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
         </div>
     </div>
     <h5 class="light col s12">Всего <?= $total ?></h5>
-    <?php foreach ($trailers as $trailer): ?>
+    <?php foreach ($trailers as $key => $trailer): ?>
         <div class="col l6 m6 s12">
             <div class="card grey lighten-4">
                 <div class="card-image">
@@ -44,6 +44,9 @@ $this->title = 'Трейлеры - Volvo Trucks';
                 <?php endif ?>
             </div>
         </div>
+        <?php if($key % 2 != 0) : ?>
+            <div class="clearfix"></div>
+        <?php endif ?>
     <?php endforeach;
     if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn">

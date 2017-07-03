@@ -15,4 +15,15 @@ class Trailers extends ActiveRecord{
         return $trailer->delete();
     }
 
+    public static function getTrailers($append = array()){
+        $trailers_db = Trailers::find()->select(['id', 'name'])->orderBy(['name' => SORT_ASC])->all();
+        foreach ($append as $key => $value) {
+            $trailers[$key] = $value;
+        }
+        foreach ($trailers_db as $trailer) {
+            $trailers[$trailer->id] = $trailer->name;
+        }
+        return $trailers;
+    }
+
 }

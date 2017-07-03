@@ -58,11 +58,11 @@ table.highlight>tbody>tr.yellow:hover{ background-color: #f1eab4 !important;}
 /* navbar */
 nav .nav-wrapper a{color: black;}
 .brand-logo img{height: 40px; padding-left: 10px; vertical-align: middle;}
-#profile-btn{position: relative;}
-#profile-btn:hover #profile-dropdown{display: block;}
-#profile-dropdown{position: absolute; right: 0; display: none; background-color: #fff;}
-#profile-dropdown li{width: 100%;}
-#profile-dropdown li a{min-width: 250px;}
+#profile-btn, #manage-btn{position: relative;}
+#profile-btn:hover #profile-dropdown, #manage-btn:hover #manage-dropdown{display: block;}
+#profile-dropdown, #manage-dropdown{position: absolute; right: 0; display: none; background-color: #fff;}
+#profile-dropdown li, #manage-dropdown li{width: 100%;}
+#profile-dropdown li a, #manage-dropdown li a{min-width: 270px; white-space: nowrap}
 #notification-item{position: relative; color: #000; transition: .3s ease color, .3s ease background-color;}
 #notification-item .notification-list{display: none; position: absolute;right: 0;min-width: 400px;background-color: #fff;}
 #notification-item .notification-list li{padding: 0 0 0 10px; transition: 4s ease background-color; border-bottom: 1px solid #e6e6e6;}

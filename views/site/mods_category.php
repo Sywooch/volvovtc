@@ -28,13 +28,14 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
             <?php endif ?>
             <?php if($mods):
                 $i = 1;
-                foreach ($mods as $mod): ?>
+                foreach ($mods as $mod):
+                    $trailer_data = \app\models\Mods::getTrailerData($mod); ?>
                     <div class="row mod <?php if($mod->visible == '0'): ?>grey lighten-2<?php endif ?>">
                         <div class="mod-number col l1 s1">
                             <h5><?= $i++ ?></h5>
                         </div>
                         <div class="mod-img col l4 s11">
-                            <img class="materialboxed z-depth-3" width="100%" src="<?=Yii::$app->request->baseUrl?>/images/mods/<?= $mod->picture ?>">
+                            <img class="materialboxed z-depth-3" width="100%" src="<?=Yii::$app->request->baseUrl?>/images/<?= $trailer_data['image'] ?>">
                         </div>
                         <div class="mod-info col l4 s12">
                             <div class="mod-title">

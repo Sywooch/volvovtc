@@ -14,6 +14,7 @@ class Mods extends ActiveRecord{
             [['description'], 'string', 'max' => 2048],
             [['picture'], 'string', 'max' => 45],
             [['game'], 'string', 'max' => 3],
+            [['trailer'], 'safe'],
         ];
     }
 
@@ -28,7 +29,7 @@ class Mods extends ActiveRecord{
         if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name)){
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name);
         }
-        if($mod->picture !== 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
+        if($mod->picture && $mod->picture !== 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
         return $mod->delete();
     }
 
@@ -48,6 +49,35 @@ class Mods extends ActiveRecord{
         $mod->sort = $sortTmp;
         $mod_2->sort = $modSort_2;
         return $mod_2->update() == 1 && $mod->update() == 1 ? true : false;
+    }
+
+    public static function getTrailerData($mod){
+        $description = '';
+        $name = '';
+        $image = 'mods/default.jpg';
+        if($mod->trailer && !$mod->picture) {
+            $trailer = \app\models\Trailers::findOne($mod->trailer);
+            $image = 'trailers/'.$trailer->picture;
+            $name = $trailer->name;
+            $description = $trailer->description;
+        }
+        if($mod->picture){
+            $image = 'mods/'. $mod->picture;
+        }
+        return [
+            'image' => $image,
+            'name' => $name,
+            'description' => $description,
+        ];
+    }
+
+    public static function getModByTrailer($trailer){
+        if($trailer != '0' && $trailer != '-1'){
+            $mod = Mods::findOne(['trailer' => $trailer]);
+            return $mod ? $mod : false;
+        }else{
+            return false;
+        }
     }
 
 }

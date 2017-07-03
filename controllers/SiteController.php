@@ -289,10 +289,28 @@ class SiteController extends Controller{
     
     public function actionConvoys(){
 
+        // handling ajax
+        if(Yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if(Yii::$app->request->post('action') == 'get_trailer') {
+                if($trailer = Trailers::findOne(Yii::$app->request->post('id'))){
+                    return [
+                        'name' => $trailer->name,
+                        'description' => $trailer->description,
+                        'image' => $trailer->picture,
+                        'status' => 'OK'
+                    ];
+                }
+            }
+            return [
+                'status' => 'Error'
+            ];
+        }
+
         // handling add convoy
         if(Yii::$app->request->get('action') == 'add'){
             // if admin
-            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1){
+            if(User::isAdmin()){
                 $model = new AddConvoyForm();
                 if($model->load(Yii::$app->request->post()) && $model->validate()){
                     if($id = $model->addConvoy()){
@@ -302,7 +320,8 @@ class SiteController extends Controller{
                     }
                 }
                 return $this->render('add_convoy', [
-                    'model' => $model
+                    'model' => $model,
+                    'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'])
                 ]);
             }else{
                 return $this->render('error');
@@ -312,7 +331,7 @@ class SiteController extends Controller{
         // handling edit convoy
         if(Yii::$app->request->get('action') == 'edit' && $id = Yii::$app->request->get('id')){
             // if admin
-            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1){
+            if(User::isAdmin()){
                 $model = new AddConvoyForm($id);
                 if($model->load(Yii::$app->request->post()) && $model->validate()){
                     if(!$model->editConvoy($id)){
@@ -322,7 +341,9 @@ class SiteController extends Controller{
                     }
                 }else{
                     return $this->render('edit_convoy', [
-                        'model' => $model
+                        'model' => $model,
+                        'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа']),
+                        'trailer_data' => Convoys::getTrailerData($model)
                     ]);
                 }
             }else{
@@ -359,7 +380,8 @@ class SiteController extends Controller{
             $convoy->truck_var = Convoys::getVariationName($convoy->truck_var);
             $convoy->date = $this->getRuDate($convoy->date);
             return $this->render('convoy', [
-                'convoy' => $convoy
+                'convoy' => $convoy,
+                'mod' => Mods::getModByTrailer($convoy->trailer)
             ]);
         }
 
@@ -657,6 +679,24 @@ class SiteController extends Controller{
     
     public function actionModifications(){
 
+        // handling ajax
+        if(Yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if(Yii::$app->request->post('action') == 'get_trailer') {
+                if($trailer = Trailers::findOne(Yii::$app->request->post('id'))){
+                    return [
+                        'name' => $trailer->name,
+                        'description' => $trailer->description,
+                        'image' => $trailer->picture,
+                        'status' => 'OK'
+                    ];
+                }
+            }
+            return [
+                'status' => 'Error'
+            ];
+        }
+
         // handling adding mods - if admin only
         if(Yii::$app->request->get('action') == 'add' && User::isAdmin()){
             $model = new AddModForm();
@@ -667,7 +707,8 @@ class SiteController extends Controller{
             }
             return $this->render('add_mod', [
                 'model' => $model,
-                'categories' => ModsCategories::getCatsWithSubCats()
+                'categories' => ModsCategories::getCatsWithSubCats(),
+                'trailers' => Trailers::getTrailers(['0' => 'Нет прицепа']),
             ]);
         }
 
@@ -686,7 +727,9 @@ class SiteController extends Controller{
             }
             return $this->render('edit_mod', [
                 'model' => $model,
-                'categories' => ModsCategories::getCatsWithSubCats()
+                'categories' => ModsCategories::getCatsWithSubCats(),
+                'trailers' => Trailers::getTrailers(['0' => 'Нет прицепа']),
+                'trailer_data' => Mods::getTrailerData($model)
             ]);
         }
 
@@ -1028,7 +1071,7 @@ class SiteController extends Controller{
             'defaultPageSize' => 10,
             'totalCount' => $total
         ]);
-        $trailers = $query->offset($pagination->offset)->limit($pagination->limit)->all();
+        $trailers = $query->orderBy(['name' => SORT_ASC])->offset($pagination->offset)->limit($pagination->limit)->all();
         return $this->render('trailers',[
             'trailers' => $trailers,
             'currentPage' => Yii::$app->request->get('page', 1),

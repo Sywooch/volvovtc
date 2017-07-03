@@ -14,8 +14,8 @@ class Convoys extends ActiveRecord{
     public function rules(){
         return [
             [['time', 'date'], 'safe'],
-            [['truck_var', 'visible', 'open'], 'integer'],
-            [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'trailer_name'], 'string', 'max' => 255],
+            [['truck_var', 'visible', 'open', 'trailer'], 'integer'],
+            [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'trailer_name', 'extra_picture'], 'string', 'max' => 255],
             [['rest'], 'string', 'max' => 1024],
             [['description'], 'string', 'max' => 2048],
             [['server', 'trailer_picture'], 'string', 'max' => 45],
@@ -32,8 +32,8 @@ class Convoys extends ActiveRecord{
         if($convoy->picture_small && file_exists(Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small)) {
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
         }
-        if($convoy->trailer_picture && file_exists(Yii::$app->request->baseUrl.'/web/images/convoys/trailers/'.$convoy->trailer_picture)) {
-            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/trailers/'.$convoy->trailer_picture);
+        if($convoy->extra_picture && file_exists(Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture)) {
+            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
         }
         return $convoy->delete();
     }
@@ -75,7 +75,7 @@ class Convoys extends ActiveRecord{
 
     public static function getDLCString($dlc){
         $need = false;
-        $string = 'Для участия необходимо ';
+        $string = '<i class="material-icons left" style="font-size: 22px">warning</i>Для участия необходимо ';
         foreach ($dlc as $key => $item){
             if($item == '1'){
                 $string .= 'DLC '.$key.', ';
@@ -83,6 +83,23 @@ class Convoys extends ActiveRecord{
             }
         }
         return $need ? substr($string, 0, strlen($string) - 2) : false;
+    }
+
+    public static function getTrailerData($convoy){
+        $description = '';
+        $name = '';
+        $image = 'trailers/default.jpg';
+        if($convoy->trailer != 0 && $convoy->trailer != -1) {
+            $trailer = \app\models\Trailers::findOne($convoy->trailer);
+            $image = 'trailers/'.$trailer->picture;
+            $name = $trailer->name;
+            $description = $trailer->description;
+        }
+        return [
+            'image' => $image,
+            'name' => $name,
+            'description' => $description,
+        ];
     }
 
 }

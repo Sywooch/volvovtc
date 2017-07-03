@@ -10,6 +10,7 @@ class AddConvoyForm extends Model{
 
     public $picture_full;
     public $picture_small;
+    public $extra_picture;
     public $start_city;
     public $start_company;
     public $finish_city;
@@ -24,6 +25,7 @@ class AddConvoyForm extends Model{
     public $date;
     public $trailer_picture;
     public $trailer_name;
+    public $trailer;
     public $truck_picture;
     public $truck_var = '1';
     public $communications;
@@ -51,11 +53,13 @@ class AddConvoyForm extends Model{
             $this->meeting_time = $m_time->format('H:i');
             $this->date = $d_time->format('Y-m-d');
             $this->trailer_name = $convoy->trailer_name;
+            $this->trailer = $convoy->trailer;
             $this->truck_var = $convoy->truck_var;
             $this->title = $convoy->title;
             $this->communications = $convoy->communications;
             $this->visible = $convoy->visible;
             $this->open = $convoy->open;
+            $this->extra_picture = $convoy->extra_picture;
             $this->dlc = unserialize($convoy->dlc);
         }
     }
@@ -65,7 +69,7 @@ class AddConvoyForm extends Model{
             [['start_city', 'start_company', 'finish_city', 'finish_company', 'server', 'departure_time', 'date'], 'required'],
             [['rest', 'description', 'length', 'trailer_name', 'truck_var', 'title', 'communications', 'meeting_time'], 'string'],
             [['open', 'visible'], 'boolean'],
-            [['dlc'], 'safe']
+            [['dlc', 'trailer', 'extra_picture'], 'safe']
         ];
     }
 
@@ -74,6 +78,7 @@ class AddConvoyForm extends Model{
             'id' => 'ID',
             'picture_full' => 'Ссылка на оригинал маршрута',
             'picture_small' => 'Ссылка на превью маршрута',
+            'extra_picture' => 'Дополнительное изображение',
             'start_city' => 'Стартовый город',
             'start_company' => 'Стартовое место',
             'finish_city' => 'Конечный город',
@@ -87,6 +92,7 @@ class AddConvoyForm extends Model{
             'date' => 'Дата проведения конвоя',
             'trailer_picture' => 'Изображение груза/трейлера',
             'trailer_name' => 'Название груза/трейлера',
+            'trailer' => 'Трейлер',
             'truck_picture' => 'Изображение тягача',
             'truck_var' => 'Вариация тягача',
             'title' => 'Название конвоя',
@@ -109,6 +115,7 @@ class AddConvoyForm extends Model{
         $convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
         $convoy->date = $this->date;
         $convoy->trailer_name = $this->trailer_name;
+        $convoy->trailer = $this->trailer;
         $convoy->truck_var = $this->truck_var;
         $convoy->title = $this->title;
         $convoy->open = $this->open;
@@ -125,9 +132,9 @@ class AddConvoyForm extends Model{
                 $convoy->picture_small = $convoy->id.'-s.'.$map_small->extension;
                 $map_small->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
             }
-            if($trailer = UploadedFile::getInstance($this, 'trailer_picture')){
-                $convoy->trailer_picture = $convoy->id.'.jpg';
-                $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/trailers/'.$convoy->trailer_picture);
+            if($trailer = UploadedFile::getInstance($this, 'extra_picture')){
+                $convoy->extra_picture = $convoy->id.'-1.'.$trailer->extension;
+                $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
             }
             $convoy->update();
             return $convoy->id;
@@ -151,6 +158,7 @@ class AddConvoyForm extends Model{
         $convoy->departure_time = $date->format('Y-m-d ').$this->departure_time;
         $convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
         $convoy->trailer_name = $this->trailer_name;
+        $convoy->trailer = $this->trailer;
         $convoy->truck_var = $this->truck_var;
         $convoy->title = $this->title;
         $convoy->open = $this->open;
@@ -166,9 +174,9 @@ class AddConvoyForm extends Model{
             $convoy->picture_small = $convoy->id.'-s.'.$map_small->extension;
             $map_small->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
         }
-        if($trailer = UploadedFile::getInstance($this, 'trailer_picture')){
-            $convoy->trailer_picture = $convoy->id.'.jpg';
-            $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/trailers/'.$convoy->trailer_picture);
+        if($trailer = UploadedFile::getInstance($this, 'extra_picture')){
+            $convoy->extra_picture = $convoy->id.'-1.'.$trailer->extension;
+            $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
         }
         return $convoy->update() !== false ? true : false;
     }
