@@ -2,8 +2,8 @@
 
 return [
     'class' => 'yii\db\Connection',
-    'dsn' => 'mysql:host=viiper94.mysql.ukraine.com.ua;dbname=viiper94_volvo',
-    'username' => 'viiper94_volvo',
-    'password' => 'kfllt8aj',
+    'dsn' => 'mysql:host=ost;dbname=dbname',
+    'username' => 'username',
+    'password' => 'password',
     'charset' => 'utf8',
 ];
