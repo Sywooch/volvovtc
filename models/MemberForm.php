@@ -127,7 +127,7 @@ class MemberForm extends Model{
         $user->vk = $this->vk;
         $user->steam = $this->steam;
         $user->steamid = Steam::getUser64ID($user->steam);
-        $user->truckersmp = 'https://truckersmp.com/user/' . TruckersMP::getUserID($user->steamid);
+        $user->steamid ? $user->truckersmp = 'https://truckersmp.com/user/' . TruckersMP::getUserID($user->steamid) : null;
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
         $user->birth_date = $this->birth_date;
