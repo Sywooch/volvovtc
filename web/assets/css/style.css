@@ -73,6 +73,8 @@ nav .nav-wrapper a{color: black;}
 .new-notifications{position: absolute;width: 10px;height: 10px;bottom: 14px;right: 8px;border-radius: 50%;}
 .clear-notification{ cursor: pointer;}
 .userView{background-size: cover;}
+.side-nav .collapsible-body li a{ padding-left:87px;}
+.side-nav .collapsible-header{padding: 0 32px;}
 
 @media (max-width: 1140px) and (min-width: 992px){
 	.brand-logo img{height: 21px;margin-bottom: 5px;}

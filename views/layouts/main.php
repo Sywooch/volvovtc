@@ -72,8 +72,21 @@ AppAsset::register($this);
                         <i class="material-icons">contacts</i>ВСТУПИТЬ</a>
                 </li>
             <?php endif ?>
-            <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">
-                    <i class="material-icons">view_module</i>ВОДИТЕЛИ</a>
+            <li>
+                <ul class="collapsible collapsible-accordion">
+                    <?php $controller_id = ['trailers', 'users', 'members'] ?>
+                    <li>
+                        <a class="collapsible-header waves-effect"><i class="material-icons">view_module</i>ВОДИТЕЛИ</a>
+                        <div class="collapsible-body">
+                            <ul>
+                                <li><a href="<?=Url::to(['site/members'])?>">СОТРУДНИКИ</a></li>
+                                <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
+                                <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
+                                <li><a href="<?=Url::to(['site/trailers'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
                     <i class="material-icons">receipt</i>ЗАЯВЛЕНИЯ</a>
@@ -86,10 +99,20 @@ AppAsset::register($this);
                         <i class="material-icons">exit_to_app</i>ВОЙТИ</a>
                 </li>
             <?php else : ?>
-                <li<?php if(Yii::$app->controller->action->id === 'profile'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/profile'])?>">
-                        <i class="material-icons">person</i>ПРОФИЛЬ</a>
+                <li<?php if(Yii::$app->controller->action->id === 'profile'){?> class="active"<?php } ?>>
+                    <ul class="collapsible collapsible-accordion">
+                        <li>
+                            <a class="collapsible-header waves-effect"><i class="material-icons">person</i>ПРОФИЛЬ</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="<?=Url::to(['site/profile'])?>">СМОТРЕТЬ ПРОФИЛЬ</a></li>
+                                    <li><a href="<?=Url::to(['site/profile', 'action' => 'edit'])?>">РЕДАКТИРОВАТЬ</a></li>
+                                    <li><a href="<?=Url::to(['site/logout'])?>">ВЫЙТИ</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
                 </li>
-                <li><a href="<?=Url::to(['site/logout'])?>"><i class="material-icons">exit_to_app</i>ВЫЙТИ</a></li>
             <?php endif ?>
         </ul>
     </div>
