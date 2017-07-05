@@ -35,7 +35,7 @@ class Mail{
             "viiper94@gmail.com", // Mayday
             "a.borisov97@mail.ru", // Canyon
             "racer16@inbox.lv", // Fox
-            "lankin.i91@gmail.com", // Forward
+            //"lankin.i91@gmail.com", // Forward
         ];
 
         $subject = "Новое заявление на сайте VolvoVTC.com";
