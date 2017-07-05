@@ -13,7 +13,7 @@ class TruckersMP{
     public static function isMemberBanned($truckersmp){
         $banned = false;
 
-        $id = explode('/', $truckersmp)[4];
+        $id = explode('/', $truckersmp)[4]; // convert url to numeric id
         //$id = '861317'; // for test purposes
 
         $bans = json_decode(file_get_contents('https://api.ets2mp.com/bans/'.$id));

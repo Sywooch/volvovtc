@@ -10,7 +10,7 @@ $this->title = 'Водители Volvo Trucks';
     <table class="centered highlight bordered">
         <thead>
             <tr class="grey darken-2 white-text">
-                <th></th>
+                <th class="first"></th>
                 <th>Никнейм</th>
                 <th>Имя Фамилия</th>
                 <th>Профили</th>
@@ -47,7 +47,7 @@ $this->title = 'Водители Volvo Trucks';
                 </tr>
             </thead>
             <?php foreach($members as $member) : ?>
-                <tr class="<?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>yellow lighten-4<?php endif ?><?php if($member->banned): ?>red lighten-4<?php endif ?>" >
+                <tr class="<?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>yellow lighten-4<?php endif ?><?php if($member->banned): ?>red lighten-4<?php endif ?>" data-uid="<?= $member->user_id->id ?>">
                     <td><?= $i++ ?></td>
                     <td style="text-align: left; padding-left: 20px;white-space: nowrap;">
                         <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member->user_id)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->user_id->picture ?>)"></a>
@@ -237,3 +237,17 @@ $this->title = 'Водители Volvo Trucks';
         </div>
     <?php endif ?>
 </div>
+<?php if(\app\models\User::isAdmin()): ?>
+    <script>
+        $(document).ready(function(){
+            var steamid64 = {
+                <?php foreach ($all_members as $members):
+                    foreach ($members as $member): ?>
+                        <?= $member->user_id->id ?> : <?= $member->user_id->steamid ?>,
+                    <?php endforeach;
+                endforeach; ?>
+            }
+            loadMembersBans(steamid64);
+        });
+    </script>
+<?php endif ?>

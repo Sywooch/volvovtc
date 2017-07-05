@@ -29,6 +29,9 @@ AppAsset::register($this);
         ga('send', 'pageview');
     </script>
     <?php $this->head() ?>
+    <?php if(\app\models\User::isAdmin()): ?>
+        <script src="<?= Yii::$app->request->baseUrl ?>/assets/js/admin.js"></script>
+    <?php endif ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
@@ -210,11 +213,8 @@ AppAsset::register($this);
         </div>
     </footer>
 </div>
-<?php if(\app\models\User::isAdmin()): ?>
-    <script src="<?= Yii::$app->request->baseUrl ?>/assets/js/admin.js"></script>
-<?php endif ?>
 <?php if(Yii::$app->controller->action->id === 'news' || Yii::$app->controller->action->id === 'variations') : ?>
-<script src="<?= Yii::$app->request->baseUrl ?>/assets/js/fotorama.js"></script>
+    <script src="<?= Yii::$app->request->baseUrl ?>/assets/js/fotorama.js"></script>
 <?php endif ?>
 <?php $this->endBody() ?>
 </body>

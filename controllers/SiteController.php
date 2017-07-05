@@ -834,6 +834,21 @@ class SiteController extends Controller{
         $members = VtcMembers::getMembers(false);
         $all_members = VtcMembers::getAllMembers();
         if(Yii::$app->request->get('action') == 'stats'){
+
+            // handling ajax
+            if(Yii::$app->request->isAjax){
+                Yii::$app->response->format = Response::FORMAT_JSON;
+                if(Yii::$app->request->post('method') == 'get_bans') {
+                    return [
+                        'bans' => VtcMembers::getBans(Yii::$app->request->post('steamid64')),
+                        'status' => 'OK'
+                    ];
+                }
+                return [
+                    'status' => 'Error'
+                ];
+            }
+
             return $this->render('members-stat', [
                 'all_members' => $members
             ]);

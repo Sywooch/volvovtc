@@ -60,7 +60,7 @@ $(document).ready(function(){
                     $('#modal1').find('#total-scores').html(response.scores.total);
                     $('[data-scores-other-id="'+data.id+'"]').html(response.scores.other == '0' ? '' : response.scores.other);
                     $('[data-scores-month-id="'+data.id+'"]').html(response.scores.month == '0' ? '' : response.scores.month);
-                    $('[data-scores-total-id="'+data.id+'"]').html(response.scores.total == '0' ? '' : response.scores.total);
+                    $('[data-scores-total-id="'+data.id+'"] b').html(response.scores.total == '0' ? '' : response.scores.total);
                     $('[data-id="'+data.id+'"]').attr('data-scores-total', response.scores.total);
                     $('[data-id="'+data.id+'"]').attr('data-scores-month', response.scores.month);
                     $('[data-id="'+data.id+'"]').attr('data-scores-other', response.scores.other);
@@ -193,3 +193,44 @@ $(document).ready(function(){
     });
 
 });
+
+function loadMembersBans(steamid64){
+
+    $.ajax({
+        cache: false,
+        dataType : 'json',
+        type : 'POST',
+        data : {
+            steamid64 : steamid64,
+            method : 'get_bans'
+        },
+        beforeSend : function(){
+            $('th.first').append('<div class="preloader-wrapper tiny active">'+
+                '<div class="spinner-layer spinner-red-only">'+
+                '<div class="circle-clipper left">'+
+                '<div class="circle"></div>'+
+                '</div>' +
+                '<div class="gap-patch">'+
+                '<div class="circle"></div>'+
+                '</div>' +
+                '<div class="circle-clipper right">'+
+                '<div class="circle"></div>'+
+                '</div>'+
+                '</div>'+
+                '</div>');
+        },
+        success : function(response){
+            if(response.status == 'OK'){
+                $.each(response.bans, function(uid, banned){
+                    if(banned == true){
+                        $('tr[data-uid='+uid+']').removeClass('yellow lighten-4').addClass('red lighten-4');
+                    }
+                });
+            }
+        },
+        complete : function(){
+            $('th.first').find('.preloader-wrapper').remove();
+        }
+    });
+
+}

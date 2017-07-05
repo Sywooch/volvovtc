@@ -178,6 +178,8 @@ nav .nav-wrapper a{color: black;}
 .center button, .center a.btn{ margin: 5px 0;}
 .modal-member-scores span{ font-size: 30px;}
 #modal1 #nickname{ text-decoration: underline; color: #000;}
+th.first{padding: 0;}
+th.first .preloader-wrapper{vertical-align: middle;}
 
 @media (max-width: 710px){
 	.member-info{ display: block; text-align: center;}
