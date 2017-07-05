@@ -109,7 +109,7 @@ AppAsset::register($this);
                     <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">МОДЫ</a></li>
                     <?php if(\app\models\User::isAdmin()) : ?>
                         <li id="manage-btn">
-                            <a href="<?=Url::to(['site/profile'])?>">УПРАВЛЕНИЕ</a>
+                            <a href="<?=Url::to(['site/members\', \'action\' => \'stats'])?>">УПРАВЛЕНИЕ</a>
                             <ul id="manage-dropdown" class="z-depth-2">
                                 <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons left">supervisor_account</i>СОТРУДНИКИ</a></li>
                                 <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons left">insert_chart</i>СТАТИСТИКА</a></li>
