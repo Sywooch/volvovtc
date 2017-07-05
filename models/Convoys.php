@@ -24,6 +24,37 @@ class Convoys extends ActiveRecord{
         ];
     }
 
+    public static function getNearestConvoy(){
+        $nearest_convoy_query = Convoys::find()
+            ->select(['id', 'title', 'picture_full', 'picture_small', 'description', 'departure_time'])
+            ->where(['visible' => '1'])
+            ->andWhere(['>=', 'departure_time', gmdate('Y-m-d ').(intval(gmdate('H'))+2).':'.gmdate('i:s')]);
+        if(!User::isVtcMember()) $nearest_convoy_query = $nearest_convoy_query->andWhere(['open' => '1']); // only open convoys for guests
+        $nearest_convoy = $nearest_convoy_query->orderBy(['date' => SORT_ASC])->one();
+        return $nearest_convoy;
+    }
+
+    public static function getFutureConvoys(){
+        $convoys_query = Convoys::find()->select(['id', 'picture_small', 'title', 'departure_time', 'visible'])
+            ->andWhere(['>=', 'departure_time', gmdate('Y-m-d ').(intval(gmdate('H'))+2).':'.gmdate('i:s')]);
+        if(!User::isVtcMember()) $convoys_query = $convoys_query->andWhere(['open' => '1']); // only open convoys for guests
+        if(!User::isAdmin()) $convoys_query = $convoys_query->andWhere(['visible' => '1']); // ony visible convoys for non-admins
+        $convoys = $convoys_query->orderBy(['date' => SORT_ASC])->all();
+        return $convoys;
+    }
+
+    public static function getPastConvoys(){
+        if(User::isVtcMember()){
+            $hidden_convoys = Convoys::find()
+                ->select(['id', 'picture_small', 'title', 'departure_time', 'visible'])
+                ->andWhere(['<', 'departure_time', gmdate('Y-m-d ') . (intval(gmdate('H')) + 2) . ':' . gmdate('i:s')]);
+            if(!User::isAdmin()) $hidden_convoys->andWhere(['visible' => '1']); // ony visible convoys for non-admins
+            $hidden_convoys = $hidden_convoys->orderBy(['date' => SORT_ASC])->all();
+            return $hidden_convoys;
+        }
+        return false;
+    }
+
     public static function deleteConvoy($id){
         $convoy = Convoys::findOne($id);
         if($convoy->picture_full && file_exists(Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full)) {

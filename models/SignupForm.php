@@ -105,7 +105,7 @@ class SignupForm extends Model{
         $user->registered = date('Y-m-d');
 //        \Kint::dump($user);
         if($user->save()){
-            Mail::newUserToAdmin($user);
+//            Mail::newUserToAdmin($user);
             return $user->id;
         }else{
             return false;

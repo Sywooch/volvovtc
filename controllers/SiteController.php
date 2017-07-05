@@ -387,40 +387,10 @@ class SiteController extends Controller{
 
         // displaying all convoys
         else{
-            $nearest_convoy_query = Convoys::find()
-                ->select(['id', 'title', 'picture_full', 'picture_small', 'description', 'departure_time'])
-                ->where(['visible' => '1'])
-                ->andWhere(['>=', 'departure_time', gmdate('Y-m-d ').(intval(gmdate('H'))+2).':'.gmdate('i:s')]);
-            $convoys_query = Convoys::find()->select(['id', 'title', 'departure_time', 'visible'])
-                ->andWhere(['>=', 'departure_time', gmdate('Y-m-d ').(intval(gmdate('H'))+2).':'.gmdate('i:s')]);
-            if(Yii::$app->user->isGuest){
-                $is_member = false;
-            }else{
-                $is_member = VtcMembers::find()
-                    ->where(['user_id' => Yii::$app->user->identity->id])
-                    ->one() ? true : false;
-            }
-            // if not vtc member
-            if(!$is_member){
-                $nearest_convoy_query = $nearest_convoy_query->andWhere(['open' => '1']);
-                $convoys_query = $convoys_query->andWhere(['open' => '1']);
-            }
-            // if admin - get all convoys
-            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1) {
-                $hidden_convoys = Convoys::find()
-                    ->select(['id', 'title', 'departure_time', 'visible'])
-                    ->andWhere(['<', 'departure_time', gmdate('Y-m-d ') . (intval(gmdate('H')) + 2) . ':' . gmdate('i:s')])
-                    ->orderBy(['date' => SORT_ASC])->all();
-            }else{
-                $hidden_convoys = false;
-                $convoys_query = $convoys_query->andWhere(['visible' => '1']);
-            }
-            $nearest_convoy = $nearest_convoy_query->orderBy(['date' => SORT_ASC])->one();
-            $convoys = $convoys_query->orderBy(['date' => SORT_ASC])->all();
             return $this->render('convoys', [
-                'convoys' => $convoys,
-                'nearest_convoy' => $nearest_convoy,
-                'hidden_convoys' => $hidden_convoys
+                'convoys' => Convoys::getFutureConvoys(),
+                'nearest_convoy' => Convoys::getNearestConvoy(),
+                'hidden_convoys' => Convoys::getPastConvoys()
             ]);
         }
     }
