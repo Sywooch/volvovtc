@@ -31,7 +31,7 @@ $(document).ready(function(){
             id : $(this).attr('data-id'),
             scores : $(this).data('scores'),
             target: $(this).data('target')
-        }
+        };
         $.ajax({
             cache: false,
             dataType : 'json',
@@ -221,11 +221,22 @@ function loadMembersBans(steamid64){
         },
         success : function(response){
             if(response.status == 'OK'){
+                var countBans = 0;
                 $.each(response.bans, function(uid, banned){
                     if(banned == true){
                         $('tr[data-uid='+uid+']').removeClass('yellow lighten-4').addClass('red lighten-4');
+                        countBans++;
                     }
                 });
+                if(countBans == 0){
+                    Materialize.toast('Банов не найдено', 6000);
+                }else if(countBans == 1){
+                    Materialize.toast('Найден 1 бан!', 6000);
+                }else if(countBans >= 2 && countBans <= 4){
+                    Materialize.toast('Найдено '+countBans+' бана!!', 6000);
+                }else{
+                    Materialize.toast('Найдено '+countBans+' банов!!!', 6000);
+                }
             }
         },
         complete : function(){
