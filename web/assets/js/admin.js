@@ -205,6 +205,7 @@ function loadMembersBans(steamid64){
             method : 'get_bans'
         },
         beforeSend : function(){
+            Materialize.toast('Загружаем баны...', 3000);
             $('th.first').append('<div class="preloader-wrapper tiny active">'+
                 '<div class="spinner-layer spinner-red-only">'+
                 '<div class="circle-clipper left">'+
