@@ -5,7 +5,7 @@ namespace app\models;
 
 class Steam{
 
-    public static $key = 'D5DE081206F0F2212E331852DC3CEC83';
+    private static $key = '4B20D16FDEF836EB866804F847F585A3';
 
     public static function getUser64ID($url){
         $url = str_replace(['http://', 'https://'], '', $url);
