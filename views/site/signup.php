@@ -45,7 +45,7 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                     ])->error(false)->label('Показать профиль TruckersMP') ?>
                 <?php $display = $model->visible_truckersmp ? 'block' : 'none' ?>
                 <?= $form->field($model, 'truckersmp')->textInput(['style' => 'display: '.$display, 'readonly' => true])->label(false) ?>
-                <?= $form->field($model, 'company')->textInput()->label('В какой ВТК вы состоите') ?>
+<!--                --><?//= $form->field($model, 'company')->textInput()->label('В какой ВТК вы состоите') ?>
                 <?= $form->field($model, 'has_ets', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox(['label' => null])->error(false)->label('Есть <b>Euro Truck Simulator 2</b>') ?>
                 <?= $form->field($model, 'has_ats', ['template' => '<div>{input}{label}</div>'])
