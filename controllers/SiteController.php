@@ -796,10 +796,6 @@ class SiteController extends Controller{
                 }
             }
         }
-        $get_bans = false;
-        if(User::isAdmin()){
-            $get_bans = true;
-        }
         VtcMembers::cleanVacations();
         $members = VtcMembers::getMembers(false);
         $all_members = VtcMembers::getAllMembers();
@@ -1083,7 +1079,7 @@ class SiteController extends Controller{
                 '12' => 'декабря'
             ];
             $fdate = new \DateTime($date);
-            return $fdate->format('j') . ' ' . $month[$fdate->format('m')] . ' ' . $fdate->format('Y');
+            return $fdate->format('j') . ' ' . $month[$fdate->format('m')] . ' ' . $fdate->format('Y') . 'г.';
         }else{
             return false;
         }
