@@ -75,22 +75,28 @@ AppAsset::register($this);
                         <i class="material-icons">contacts</i>ВСТУПИТЬ</a>
                 </li>
             <?php endif ?>
-            <li>
-                <ul class="collapsible collapsible-accordion">
-                    <?php $controller_id = ['trailers', 'users', 'members'] ?>
-                    <li>
-                        <a class="collapsible-header waves-effect"><i class="material-icons">view_module</i>ВОДИТЕЛИ</a>
-                        <div class="collapsible-body">
-                            <ul>
-                                <li><a href="<?=Url::to(['site/members'])?>">СОТРУДНИКИ</a></li>
-                                <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
-                                <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
-                                <li><a href="<?=Url::to(['site/trailers'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </li>
+            <?php if(\app\models\User::isAdmin()) : ?>
+                <li>
+                    <ul class="collapsible collapsible-accordion">
+                        <?php $controller_id = ['trailers', 'users', 'members'] ?>
+                        <li>
+                            <a class="collapsible-header waves-effect"><i class="material-icons">view_module</i>УПРАВЛЕНИЕ</a>
+                            <div class="collapsible-body">
+                                <ul>
+                                    <li><a href="<?=Url::to(['site/members'])?>">СОТРУДНИКИ</a></li>
+                                    <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
+                                    <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
+                                    <li><a href="<?=Url::to(['site/trailers'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </li>
+            <?php else: ?>
+                <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
+                        <i class="material-icons">view_module</i>ВОДИТЕЛИ</a>
+                </li>
+            <?php endif ?>
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
                     <i class="material-icons">receipt</i>ЗАЯВЛЕНИЯ</a>
             </li>
@@ -182,7 +188,7 @@ AppAsset::register($this);
             </div>
         </nav>
     </div>
-    <main>
+    <main class="<?= Yii::$app->controller->action->id ?>">
         <?= $content ?>
     </main>
     <footer class="page-footer grey lighten-3 ">

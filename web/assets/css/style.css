@@ -108,25 +108,28 @@ nav .nav-wrapper a{color: black;}
 .reset-pwd{max-width: 700px;}
 
 /* mods */
+.modifications .parallax-container{box-shadow: inset 1px -9px 14px -8px rgba(0,0,0,0.3);}
 .flex{display: flex;}
 .flex .categories{padding-left: 15px;}
 .game-mods{justify-content: center;}
-.game-mods a{ opacity:0.85; transition: .3s ease opacity;}
-.game-mods a:hover{opacity: 1;}
+.game-mods a{ width: 250px; margin-bottom: 20px;}
+/*.game-mods a{ opacity:1; transition: .3s ease opacity;}*/
+/*.game-mods a:hover{opacity: 1;}*/
 .game-mods img{ float: left;}
 .flex .mods-img{width: 120px; height: 111px; background-position: bottom; background-size: cover;}
-.categories .btn, .mod-order .btn{width: 242px}
+.categories .btn, .categories .btn-flat, .mod-order .btn{width: 242px}
 .mod{margin: 10px 0;}
 /*.mod-img{max-height: 150px; overflow: hidden;}*/
 .mod-number{text-align: center;}
 .mod-title{font-weight: bold;}
 .mod-warning{font-style: italic;}
-.mod-links li{text-align: center;}
-.mod-links a{width: 100%}
+.mod-links a{display: inline-block; vertical-align: text-top;}
+.mod-actions{ margin-top: 7px; display: inline-block;}
 .mod-order{justify-content: center; margin: 50px 0;}
 .mod-order a{ margin: 0 10px; min-width: 56px;}
 .subcategories{ margin-bottom: 20px;}
-.subcategories a{ width:100%; margin-bottom: 10px;}
+.subcategories a{ width:100%; margin-bottom: 10px; text-align: center;}
+h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 
 /* rules */
 .rules-form{ margin: 10px 0;}

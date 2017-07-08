@@ -16,13 +16,15 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                 <div class="col l6 s12 game-mods center-align">
                     <h6>МОДЫ ДЛЯ ETS2</h6>
                     <ul>
+
                         <li>
                             <a href="<?=Url::to([
                                 'site/modifications',
                                 'game' => 'ets',
                                 'category' => 'trucks'
-                            ])?>" class="waves-effect waves-light z-depth-3">
-                                <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-trucks.jpg" class="responsive-img" alt="Тягачи и аксессуары">
+                            ])?>" class="btn indigo darken-3 waves-effect waves-light">
+<!--                                <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-trucks.jpg" class="responsive-img" alt="Тягачи и аксессуары">-->
+                                Тягачи и аксессуары
                             </a>
                         </li>
                         <li>
@@ -31,8 +33,8 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                 'game' => 'ets',
                                 'category' => 'trailers',
                                 'subcategory' => 'machinery'
-                            ])?>" class="waves-effect waves-light z-depth-3">
-                                <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-trailers.jpg" class="responsive-img" alt="Прицепы">
+                            ])?>" class="btn indigo darken-3 waves-effect waves-light">Прицепы
+<!--                                <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-trailers.jpg" class="responsive-img" alt="Прицепы">-->
                             </a>
                         </li>
                         <li>
@@ -41,8 +43,8 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                 'game' => 'ets',
                                 'category' => 'schwarzmullers',
                                 'subcategory' => 'machinery'
-                            ])?>" class="waves-effect waves-light z-depth-3">
-                                <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-schwarz.jpg" class="responsive-img" alt="Schwarzmüller">
+                            ])?>" class="btn indigo darken-3 waves-effect waves-light">Schwarzmüller
+<!--                                <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-schwarz.jpg" class="responsive-img" alt="Schwarzmüller">-->
                             </a>
                         </li>
                         <li>
@@ -51,8 +53,8 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                 'game' => 'ets',
                                 'category' => 'coloredtrailers',
                                 'subcategory' => 'containerscurtainsliders'
-                            ])?>" class="waves-effect waves-light z-depth-3">
-                                <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-colored-trailers.jpg" class="responsive-img" alt="Цветные прицепы">
+                            ])?>" class="btn indigo darken-3 waves-effect waves-light">Цветные прицепы
+<!--                                <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-colored-trailers.jpg" class="responsive-img" alt="">-->
                             </a>
                         </li>
                     </ul>
@@ -66,8 +68,8 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                     'site/modifications',
                                     'game' => 'ats',
                                     'category' => 'trucks'
-                                ])?>" class="waves-effect waves-light z-depth-3">
-                                    <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-trucks-ats.jpg" class="responsive-img" alt="Тягачи и аксессуары">
+                                ])?>" class="btn indigo darken-3 waves-effect waves-light z-depth-3">Тягачи и аксессуары
+<!--                                    <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-trucks-ats.jpg" class="responsive-img" alt="">-->
                                 </a>
                             </li>
                             <li>
@@ -76,8 +78,8 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                     'game' => 'ats',
                                     'category' => 'trailers',
                                     'subcategory' => 'machinery'
-                                ])?>" class="waves-effect waves-light z-depth-3">
-                                    <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-trailers-ats.jpg" class="responsive-img" alt="Прицепы">
+                                ])?>" class="btn indigo darken-3 waves-effect waves-light z-depth-3">Прицепы
+<!--                                    <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-trailers-ats.jpg" class="responsive-img" alt="">-->
                                 </a></li>
                             <li>
                                 <a href="<?=Url::to([
@@ -85,8 +87,8 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                     'game' => 'ats',
                                     'category' => 'coloredtrailers',
                                     'subcategory' => 'containerscurtainsliders'
-                                ])?>" class="waves-effect waves-light z-depth-3">
-                                    <img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-colored-trailers-ats.jpg" class="responsive-img" alt="Цветные прицепы">
+                                ])?>" class="btn indigo darken-3 waves-effect waves-light z-depth-3">Цветные прицепы
+<!--                                    <img src="--><?//=Yii::$app->request->baseUrl?><!--/assets/img/mods/mods-colored-trailers-ats.jpg" class="responsive-img" alt="">-->
                                 </a></li>
                         </ul>
                     </div>
