@@ -26,7 +26,7 @@ class Convoys extends ActiveRecord{
 
     public static function getNearestConvoy(){
         $nearest_convoy_query = Convoys::find()
-            ->select(['id', 'title', 'picture_full', 'picture_small', 'description', 'departure_time'])
+//            ->select(['id', 'title', 'picture_full', 'picture_small', 'description', 'departure_time'])
             ->where(['visible' => '1'])
             ->andWhere(['>=', 'departure_time', gmdate('Y-m-d ').(intval(gmdate('H'))+2).':'.gmdate('i:s')]);
         if(!User::isVtcMember()) $nearest_convoy_query = $nearest_convoy_query->andWhere(['open' => '1']); // only open convoys for guests

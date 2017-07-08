@@ -7,6 +7,10 @@ $this->title = 'Конвои Volvo Trucks';
 
 <div class="container">
     <?php if($nearest_convoy) : ?>
+    <h5 class="light">
+        Ближайший конвой
+        <span class="badge green white-text"><?= \app\controllers\SiteController::getRuDate($nearest_convoy->departure_time) ?></span>
+    </h5>
     <div class="card grey lighten-4">
         <div class="card-image convoy-map">
 			<?php if($nearest_convoy->picture_full): ?>
@@ -14,12 +18,19 @@ $this->title = 'Конвои Volvo Trucks';
 			<?php else: ?>
 				<img src="<?=Yii::$app->request->baseUrl?>/assets/img/no_route.jpg">
 			<?php endif ?>
-            <span class="card-title text-shadow">Ближайший конвой</span>
+            <span class="card-title text-shadow"><?= $nearest_convoy->title ?></span>
         </div>
         <div class="card-content">
-            <h5><?= $nearest_convoy->title ?><span class="badge green white-text"><?= \app\controllers\SiteController::getRuDate($nearest_convoy->departure_time) ?></span></h5>
-
             <span><?= $nearest_convoy->description ?></span>
+            <ul class="browser-default">
+                <li>Дата: <b><?=  \app\controllers\SiteController::getRuDate($nearest_convoy->date) ?></b></li>
+                <li>Выезжаем в <b><?php  $time = new DateTime($nearest_convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)</li>
+                <li>Связь: <b><?=  $nearest_convoy->communications ?></b></li>
+                <li>Начальная точка: <b><?=  $nearest_convoy->start_city ?> (<?=  $nearest_convoy->start_company ?>)</b></li>
+                <li>Отдых: <b><?=  $nearest_convoy->rest ?></b></li>
+                <li>Конечная точка: <b><?=  $nearest_convoy->finish_city ?> (<?=  $nearest_convoy->finish_company ?>)</b></li>
+                <li>Сервер <b><?= \app\models\Convoys::getSeverName($nearest_convoy->server) ?></b></li>
+            </ul>
         </div>
         <div class="card-action">
             <a href="<?=Url::to(['site/convoys', 'id' => $nearest_convoy->id])?>" class="indigo-text text-darken-3">Подробнее</a>
