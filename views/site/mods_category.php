@@ -109,7 +109,7 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
         <?php endif ?>
         <?php if(\app\models\User::isAdmin()): ?>
             <div class="fixed-action-btn">
-                <a href="<?=Url::to(['site/modifications', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                <a href="<?=Url::to(['site/modifications', 'action' => 'add', 'cat' => $_GET['game'].'/'.$_GET['category'].'/'.$_GET['subcategory']])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
             </div>
         <?php endif ?>
 </div>

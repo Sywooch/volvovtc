@@ -53,6 +53,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <h5>Основная информация</h5>
+                <?php $model->category = $_GET['cat']; ?>
                 <?= $form->field($model, 'category')->dropDownList($categories)->error(false) ?>
                 <div class="input-field">
                     <?= $form->field($model, 'title')->textInput()->error(false) ?>
