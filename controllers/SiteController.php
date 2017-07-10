@@ -764,6 +764,8 @@ class SiteController extends Controller{
     }
     
     public function actionMembers(){
+
+        // edit member
         if(Yii::$app->request->get('action') == 'edit' && Yii::$app->request->get('id') && User::isAdmin()){
             $model = new MemberForm(Yii::$app->request->get('id'));
             if($model->load(Yii::$app->request->post()) && $model->validate()){
@@ -775,16 +777,21 @@ class SiteController extends Controller{
                 'model' => $model
             ]);
         }
+
         // set all members month and other scores to '0'
         if(Yii::$app->request->get('action') == 'zero' && User::isAdmin()){
             VtcMembers::zeroScores();
             return $this->redirect(['site/members', 'action' => 'stats']);
         }
+
+        // fire member
         if(Yii::$app->request->get('action') == 'fired' && Yii::$app->request->get('id') && User::isAdmin()){
             if(VtcMembers::fireMember(Yii::$app->request->get('id'))){
                 return $this->redirect(['site/members']);
             }
         }
+
+        // handling ajax
         if(Yii::$app->request->isAjax){
             if(Yii::$app->request->post('id') && Yii::$app->request->post('scores') && Yii::$app->request->post('target')){
                 if($result = VtcMembers::addScores(Yii::$app->request->post('id'), Yii::$app->request->post('scores'), Yii::$app->request->post('target'))){
@@ -796,6 +803,8 @@ class SiteController extends Controller{
                 }
             }
         }
+
+        // displaying stats
         VtcMembers::cleanVacations();
         $members = VtcMembers::getMembers(false);
         $all_members = VtcMembers::getAllMembers();

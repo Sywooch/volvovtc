@@ -18,4 +18,13 @@ class Steam{
         }
     }
 
+    public static function getPlayerNickname($steamid){
+        $json = json_decode(file_get_contents('http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.self::$key.'&steamids='.$steamid));
+        if(count($json->response->players) > 0){
+            return $json->response->players[0]->personaname;
+        }else{
+            return false;
+        }
+    }
+
 }

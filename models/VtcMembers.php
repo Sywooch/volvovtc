@@ -109,4 +109,18 @@ class VtcMembers extends ActiveRecord{
         return $bans;
     }
 
+    public static function getMemberNickname($id){
+        $member = VtcMembers::findOne($id);
+        $user = User::findOne($member->user_id);
+        $truckersmp = TruckersMP::getMemberTruckersMpNickname($user->steamid);
+        $steam = Steam::getPlayerNickname($user->steamid);
+        if(strpos($truckersmp, '[Volvo Trucks]') !== false){
+            return str_replace(['[Volvo Trucks]', '[Volvo Trucks] '], '', $truckersmp);
+        }else if(strpos($steam, '[Volvo Trucks]') !== false){
+            return str_replace(['[Volvo Trucks]', '[Volvo Trucks] '], '', $steam);
+        }else{
+            return $user->nickname;
+        }
+    }
+
 }
