@@ -49,7 +49,7 @@ $this->title = 'Конвои Volvo Trucks';
             </div>
         </div>
     <?php endif; ?>
-    <?php if(count($convoys) > 1 || $hidden_convoys) : ?>
+    <?php if(count($convoys) > 1) : ?>
         <h5 class="light" style="margin-top: 50px;">Все конвои Volvo Trucks</h5>
         <div class="row">
             <?php foreach($convoys as $convoy) :
@@ -57,7 +57,7 @@ $this->title = 'Конвои Volvo Trucks';
                 $time = $dt->format('H:i'); ?>
                 <div class="col l6 s12">
                     <div class="card grey lighten-4 ">
-                        <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $convoy->picture_small ?>)">
+                        <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $convoy->picture_small ?>?t=<?= time() ?>)">
                             <a href="<?=Url::to(['site/convoys', 'id' => $convoy->id])?>" style="display: block;width: 100%;height: 100%;"></a>
                         </div>
                         <div class="card-content" style="min-height: 120px;">
@@ -86,14 +86,17 @@ $this->title = 'Конвои Volvo Trucks';
 
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header"><i class="material-icons">archive</i>Архив конвоев</div>
-                <div class="collapsible-body">
+                <div class="collapsible-header grey lighten-4"><i class="material-icons">archive</i>Архив конвоев</div>
+                <div class="collapsible-body grey lighten-4">
                     <ul class="force-list-style">
                         <?php foreach($hidden_convoys as $convoy) : ?>
                             <li>
                                 <a class="black-text light" href="<?= Url::to(['site/convoys', 'id' => $convoy->id]) ?>">
                                     <?= $convoy->title ?> - <?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?>
                                 </a>
+                                <?php if(\app\models\User::isAdmin()) : ?>
+                                    <i class="material-icons tiny grey-text" style="vertical-align: text-top;"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
+                                <?php endif ?>
                             </li>
                         <?php endforeach ?>
                     </ul>

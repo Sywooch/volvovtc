@@ -61,10 +61,10 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             <?php if($convoy->open) : ?>
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header">
+                        <div class="collapsible-header grey lighten-4">
                             <i class="material-icons">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
                         </div>
-                        <div class="collapsible-body">
+                        <div class="collapsible-body grey lighten-4">
                             <ul class="force-list-style" style="margin: 0 0 20px 0">
                                 <li><b><?=  $convoy->truck_var ?></b></li>
                                 <li>Прицеп: <b><?= $trailer_name ?></b>
