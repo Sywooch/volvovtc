@@ -83,13 +83,16 @@ $this->title = 'Конвои Volvo Trucks';
                 </div>
             <?php endforeach ?>
         </div>
-
+    <?php endif; ?>
+    <?php if(count($hidden_convoys) > 0) : ?>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header grey lighten-4"><i class="material-icons">archive</i>Архив конвоев</div>
                 <div class="collapsible-body grey lighten-4">
                     <ul class="force-list-style">
-                        <?php foreach($hidden_convoys as $convoy) : ?>
+                        <?php foreach($hidden_convoys as $convoy) :
+                            $dt = new DateTime($convoy->departure_time);
+                            $time = $dt->format('H:i'); ?>
                             <li>
                                 <a class="black-text light" href="<?= Url::to(['site/convoys', 'id' => $convoy->id]) ?>">
                                     <?= $convoy->title ?> - <?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?>
@@ -103,8 +106,8 @@ $this->title = 'Конвои Volvo Trucks';
                 </div>
             </li>
         </ul>
-    <?php endif;
-    if(\app\models\User::isAdmin()) : ?>
+    <?php endif ?>
+    <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn">
             <a href="<?=Url::to(['site/convoys', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
         </div>
