@@ -31,7 +31,7 @@ class RecruitForm extends Model{
     public function rules(){
         return [
             [['hear_from', 'invited_by', 'comment', 'reason'], 'string'],
-            [['user_id', 'status'], 'integer'],
+            [['user_id', 'status', 'viewed'], 'integer'],
         ];
     }
 
