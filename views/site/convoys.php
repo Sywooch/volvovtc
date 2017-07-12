@@ -44,6 +44,9 @@ $this->title = 'Конвои Volvo Trucks';
                     <div class="card-content">
                         <span class="card-title">Пока что нет конвоев =(</span>
                         <p>Следующий конвой уже готовится, и совсем скоро появится здесь.</p>
+                        <?php if(!\app\models\User::isVtcMember()) : ?>
+                            <p><a href="<?= Url::to(['site/recruit']) ?>">Вступай</a> в компанию, что бы видеть закрытые конвои!</p>
+                        <?php endif ?>
                     </div>
                 </div>
             </div>
@@ -84,7 +87,7 @@ $this->title = 'Конвои Volvo Trucks';
             <?php endforeach ?>
         </div>
     <?php endif; ?>
-    <?php if(count($hidden_convoys) > 0) : ?>
+    <?php if(\app\models\User::isVtcMember() && count($hidden_convoys) > 0) : ?>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header grey lighten-4"><i class="material-icons">archive</i>Архив конвоев</div>
