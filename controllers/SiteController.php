@@ -372,6 +372,16 @@ class SiteController extends Controller{
             }
         }
 
+        // handling removing extra picture
+        if(Yii::$app->request->get('action') == 'delete_extra_picture' && User::isAdmin()){
+            if($id = Yii::$app->request->get('id')){
+                Convoys::deleteExtraPicture($id);
+                return $this->redirect(['site/convoys', 'action' => 'edit', 'id' => $id]);
+            }else{
+                return false;
+            }
+        }
+
         // displaying exact convoy
         if(Yii::$app->request->get('id') && !Yii::$app->request->get('action')){
             if(!$convoy = Convoys::findOne(Yii::$app->request->get('id'))) return $this->render('error');

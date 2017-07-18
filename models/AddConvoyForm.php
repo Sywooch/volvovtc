@@ -11,6 +11,7 @@ class AddConvoyForm extends Model{
     public $picture_full;
     public $picture_small;
     public $extra_picture;
+    public $add_info;
     public $start_city;
     public $start_company;
     public $finish_city;
@@ -29,6 +30,7 @@ class AddConvoyForm extends Model{
     public $truck_picture;
     public $truck_var = '1';
     public $communications;
+    public $author;
     public $visible = true;
     public $open = false;
     public $dlc_ge = false;
@@ -60,6 +62,8 @@ class AddConvoyForm extends Model{
             $this->visible = $convoy->visible;
             $this->open = $convoy->open;
             $this->extra_picture = $convoy->extra_picture;
+            $this->add_info = $convoy->add_info;
+            $this->author = $convoy->author;
             $this->dlc = unserialize($convoy->dlc);
         }
     }
@@ -69,6 +73,7 @@ class AddConvoyForm extends Model{
             [['start_city', 'start_company', 'finish_city', 'finish_company', 'server', 'departure_time', 'date'], 'required'],
             [['rest', 'description', 'length', 'trailer_name', 'truck_var', 'title', 'communications', 'meeting_time'], 'string'],
             [['open', 'visible'], 'boolean'],
+            [['add_info', 'author'], 'string'],
             [['dlc', 'trailer', 'extra_picture'], 'safe']
         ];
     }
@@ -79,6 +84,7 @@ class AddConvoyForm extends Model{
             'picture_full' => 'Ссылка на оригинал маршрута',
             'picture_small' => 'Ссылка на превью маршрута',
             'extra_picture' => 'Дополнительное изображение',
+            'add_info' => 'Дополнительная информация',
             'start_city' => 'Стартовый город',
             'start_company' => 'Стартовое место',
             'finish_city' => 'Конечный город',
@@ -97,6 +103,7 @@ class AddConvoyForm extends Model{
             'truck_var' => 'Вариация тягача',
             'title' => 'Название конвоя',
             'communications' => 'Связь',
+            'author' => 'Конвой сделал',
         ];
     }
 
@@ -122,6 +129,8 @@ class AddConvoyForm extends Model{
         $convoy->dlc = serialize($this->dlc);
         $convoy->visible = $this->visible;
         $convoy->communications = $this->communications;
+        $convoy->add_info = $this->add_info;
+        $convoy->author = $this->author;
         if($convoy->save() == 1){
             if($map_full = UploadedFile::getInstance($this, 'picture_full')){
                 $convoy->picture_full = $convoy->id.'-f.'.$map_full->extension;
@@ -165,6 +174,10 @@ class AddConvoyForm extends Model{
         $convoy->dlc = serialize($this->dlc);
         $convoy->visible = $this->visible;
         $convoy->communications = $this->communications;
+        $convoy->add_info = $this->add_info;
+        $convoy->author = $this->author;
+        $convoy->updated = date('Y-m-d H:i', strtotime('+1 hour'));
+        $convoy->updated_by = Yii::$app->user->id;
         if($map_full = UploadedFile::getInstance($this, 'picture_full')){
             $convoy->picture_full = $convoy->id.'-f.'.$map_full->extension;
             $convoy->picture_small = $convoy->id.'-f.'.$map_full->extension;

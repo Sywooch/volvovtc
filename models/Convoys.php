@@ -13,14 +13,15 @@ class Convoys extends ActiveRecord{
 
     public function rules(){
         return [
-            [['time', 'date'], 'safe'],
-            [['truck_var', 'visible', 'open', 'trailer'], 'integer'],
+            [['time', 'date', 'updated'], 'safe'],
+            [['truck_var', 'visible', 'open', 'trailer', 'updated_by'], 'integer'],
             [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'trailer_name', 'extra_picture'], 'string', 'max' => 255],
             [['rest'], 'string', 'max' => 1024],
             [['description'], 'string', 'max' => 2048],
+            [['add_info'], 'string', 'max' => 512],
             [['server', 'trailer_picture'], 'string', 'max' => 45],
             [['length'], 'string', 'max' => 10],
-            [['dlc'], 'string']
+            [['dlc', 'author'], 'string']
         ];
     }
 
@@ -73,6 +74,12 @@ class Convoys extends ActiveRecord{
         $convoy = Convoys::findOne($id);
         $convoy->visible = Yii::$app->request->get('action') == 'show' ? '1' : '0';
         return $convoy->update() == 1 ? true : false;
+    }
+
+    public static function deleteExtraPicture($id) {
+        $convoy = Convoys::findOne($id);
+        $convoy->extra_picture = null;
+        $convoy->save();
     }
 
     public static function getSeverName($short){

@@ -94,6 +94,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                             </a>
                         <?php endif ?></li>
                 </ul>
+                <?php if($convoy->add_info) : ?>
+                    <p><?= $convoy->add_info ?></p>
+                <?php endif ?>
                 <?php if(isset($trailer_image)) : ?>
                     <img class="materialboxed" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
                 <?php endif; ?>
@@ -101,7 +104,20 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
                 <?php endif ?>
             <?php endif ?>
-
+            <?php if($convoy->author) : ?>
+                <h6 class="grey-text">Конвой сделал: <?= $convoy->author ?></h6>
+            <?php endif ?>
+            <?php if($convoy->updated && \app\models\User::isAdmin()) :
+                $date = new \DateTime($convoy->updated); ?>
+                <h6 class="grey-text">
+                    Последнее обновление:
+                    <?php if($convoy->updated_by) :
+                        $user = \app\models\User::findOne($convoy->updated_by) ?>
+                        <?= $user->first_name . ' ' . $user->last_name ?> -
+                    <?php endif ?>
+                    <?= \app\controllers\SiteController::getRuDate($convoy->updated) ?> в <?= $date->format('H:i') ?>
+                </h6>
+            <?php endif ?>
         </div>
         <div class="card-action">
             <a href="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->picture_full ?>" target="_blank" class="indigo-text text-darken-3">Оригинал маршрута</a>

@@ -153,13 +153,16 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                         <?= $form->field($model, 'trailer')->dropdownList($trailers, ['id' => 'trailer-select', 'class' => 'browser-default', 'data-target' => 'trailers'])->error(false)->label(false) ?>
                     </div>
                     <div class="input-field col l1 s2 center" style="line-height: 66px;">
-                        <a href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
+                        <a target="_blank" href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
                             <i class="material-icons small">add</i>
                         </a>
                     </div>
                 </div>
+                <div class="input-field">
+                    <?= $form->field($model, 'author')->textInput() ?>
+                </div>
                 <?= $form->field($model, 'open', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->label('Это открытый конвой') ?>
+                    ->checkbox(['label' => null])->label('Это открытый конвой (будет виден гостям)') ?>
                 <?= $form->field($model, 'visible', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox(['label' => null])->label('Сделать конвой видимым') ?>
             </div>
@@ -173,14 +176,24 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                     <span class="light" id="trailer-description"><?= $trailer_data['description'] ?></span>
                     <img src="<?= Yii::$app->request->baseUrl . '/images/' . $trailer_data['image'] ?>" class="responsive-img z-depth-2" id="trailer-image">
                 </div>
+                <?php if($model->extra_picture) : ?>
+                    <img src="<?= Yii::$app->request->baseUrl . '/images/convoys/' . $model->extra_picture ?>" class="responsive-img z-depth-2">
+                    <a href="<?= Url::to(['site/convoys', 'action' => 'delete_extra_picture', 'id' => $_GET['id']]) ?>" class="btn indigo darken-3 waves-effect waves-light" onclick="return confirm('Удалить дополнительное изображение?')">
+                        <i class="material-icons left">clear</i>Удалить
+                    </a>
+                <?php endif ?>
                 <div class="input-field file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
+                        <i class="material-icons left">add</i>
                         <span>Дополнительное изображение</span>
                         <?= $form->field($model, 'extra_picture')->fileInput()->label(false)->error(false) ?>
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path validate" type="text">
                     </div>
+                </div>
+                <div class="input-field file-field">
+                    <?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea']) ?>
                 </div>
             </div>
         </div>
