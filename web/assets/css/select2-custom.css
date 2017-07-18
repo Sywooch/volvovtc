@@ -10,6 +10,7 @@
 .select2-container--default .select2-selection--single .select2-selection__arrow{
 	height: 3rem;
 	line-height: 3rem;
+	padding-left: 0;
 }
 .select2-container:focus, .form-group:focus, .selection, .select2-selection, .select2-selection__rendered{
 	outline: none;
