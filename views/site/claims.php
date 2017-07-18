@@ -231,7 +231,11 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                                     <?php $user = User::find()->select(['id', 'picture', 'nickname', 'last_active'])->where(['id' => $member->user_id])->one();?>
                                     <a href="<?= Url::to(['site/profile', 'id' => $member->user_id]) ?>" class="circle z-depth-3 claim-img <?php if(User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/users/<?= $user->picture ?>)">
                                     </a>
-                                    <span class="center-align title"><b>[Volvo Trucks] <?= htmlentities($member->old_nickname) ?></b> &rArr; <b>[Volvo Trucks] <?= htmlentities($member->new_nickname) ?></b></span>
+                                    <span class="center-align title">
+                                        <b>[Volvo Trucks] <?= htmlentities($member->old_nickname) ?></b>
+                                        &rArr;
+                                        <b style="white-space: nowrap">[Volvo Trucks] <?= htmlentities($member->new_nickname) ?></b>
+                                    </span>
                                     <span class="center-align title"><?= \app\controllers\SiteController::getRuDate($member->date) ?></span>
                                     <span class="center-align title badge-block">
                                         <?php switch ($member->status){
@@ -316,7 +320,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                                     <?php $user = User::find()->select(['picture', 'nickname', 'id', 'last_active'])->where(['id' => $claim->user_id])->one() ?>
                                     <a href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>" class="circle z-depth-3 claim-img <?php if(User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/users/<?= $user->picture ?>)">
                                     </a>
-                                    <span class="center-align title"><b>[Volvo Trucks] <?= htmlentities($user->nickname) ?></b></span>
+                                    <span class="center-align title">[Volvo Trucks] <?= htmlentities($user->nickname) ?></span>
                                     <span class="center-align title">С <?= \app\controllers\SiteController::getRuDate($claim->date) ?><br>
 									<b><?= $claim->vacation_undefined == '1' ? 'На Н. срок' : 'По ' . \app\controllers\SiteController::getRuDate($claim->to_date) ?></b></span>
                                     <span class="center-align title badge-block">

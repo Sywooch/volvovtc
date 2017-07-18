@@ -207,7 +207,7 @@ use yii\widgets\ActiveForm;
                 <?php if($user->nickname) : ?>
                     <span class="card-title text-shadow">
                         <?php if($user->company): ?>
-                            [<?=$user->company.'] ' ?>
+                            [<?=$user->company ?>]
                         <?php endif ?>
                         <?=htmlentities($user->nickname) ?>
                     </span>
