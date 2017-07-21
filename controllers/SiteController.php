@@ -682,7 +682,8 @@ class SiteController extends Controller{
             $model = new AddModForm();
             if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->addMod() != false){
-                    return $this->redirect(['site/modifications']);
+                    $cat = explode('/', $model->category);
+                    return $this->redirect(['site/modifications', 'game' => $cat[0], 'category' => $cat[1], 'subcategory' => $cat[2]]);
                 }
             }
             return $this->render('add_mod', [
@@ -743,7 +744,7 @@ class SiteController extends Controller{
         && Yii::$app->request->get('id') && User::isAdmin()){
             $mod = Mods::findOne(Yii::$app->request->get('id'));
             if(Mods::resortMod(Yii::$app->request->get('id'))){
-                return $this->redirect(['site/modifications', 'game' => $mod->game, 'category' => $mod->category]);
+                return $this->redirect(['site/modifications', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
             }else{
                 $errors[] = 'Возникла ошибка';
             }
