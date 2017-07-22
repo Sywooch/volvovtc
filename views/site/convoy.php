@@ -66,7 +66,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                         </div>
                         <div class="collapsible-body grey lighten-4">
                             <ul class="force-list-style" style="margin: 0 0 20px 0">
-                                <li><b><?=  $convoy->truck_var ?></b></li>
+                                <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
                                 <li>Прицеп: <b><?= $trailer_name ?></b>
                                     <?php if($mod) : ?> -
                                         <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
@@ -86,7 +86,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             <?php else : ?>
                 <h5 class="light">Дополнительная информация</h5>
                 <ul class="force-list-style" style="margin: 0 0 20px 30px">
-                    <li><b><?=  $convoy->truck_var ?></b></li>
+                    <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
                     <li>Прицеп: <b><?= $trailer_name ?></b>
                         <?php if($mod) : ?> -
                             <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
