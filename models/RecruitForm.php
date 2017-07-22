@@ -15,7 +15,25 @@ class RecruitForm extends Model{
     public $user_id;
     public $viewed;
 
+    public $first_name;
+    public $last_name;
+    public $birth_date;
+    public $city;
+    public $country;
+    public $steam;
+    public $vk;
+
+    public $user;
+
     public function __construct($id = null){
+        $this->user = User::findOne(Yii::$app->user->id);
+        $this->steam = $this->user->steam;
+        $this->vk = $this->user->vk;
+        $this->first_name = $this->user->first_name;
+        $this->last_name = $this->user->last_name;
+        $this->birth_date = $this->user->birth_date;
+        $this->city = $this->user->city;
+        $this->country = $this->user->country;
         if(isset($id)){
             $claim = ClaimsRecruit::findOne($id);
             $this->user_id = $claim->user_id;
@@ -32,7 +50,56 @@ class RecruitForm extends Model{
         return [
             [['hear_from', 'invited_by', 'comment', 'reason'], 'string'],
             [['user_id', 'status', 'viewed'], 'integer'],
+            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'required', 'message' => 'Заполдните все обязательные поля'],
+            [['steam'], 'url', 'message' => 'Неверная ссылка Steam', 'defaultScheme' => 'https'],
+            [['vk'], 'url', 'message' => 'Неверная ссылка VK', 'defaultScheme' => 'https'],
+            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'checkUserAttributes']
         ];
+    }
+
+    public function checkUserAttributes($attribute, $params){
+        if($this->$attribute){
+            switch ($attribute){
+                case 'first_name' : $this->user->first_name = $this->first_name; break;
+                case 'last_name' : $this->user->last_name = $this->last_name; break;
+                case 'birth_date' : $this->user->birth_date = $this->birth_date; break;
+                case 'country' : $this->user->country = $this->country; break;
+                case 'city' : $this->user->city = $this->city; break;
+                case 'vk' : {
+                    $regex = '%^(https?:\/\/)?vk.com\/[^\/]*\/?$%';
+                    if(!preg_match($regex, $this->vk)){
+                        $this->addError($attribute, 'Укажите профиль ВК в виде "<b>http://vk.com/</b><i>ваш_id</i>"');
+                        $this->vk = '';
+                    }else{
+                        $this->user->vk = $this->vk;
+                    }
+                    break;
+                }
+                case 'steam' : {
+                    if(!$this->validateUrl('steam', $this->steam)){
+                        $this->addError($attribute, 'Укажите профиль Steam в виде "<b>http://steamcommunity.com/</b><i>id,profiles</i><b>/</b><i>ваш_id</i>"');
+                        $this->steam = '';
+                    }else{
+                        $this->user->steam = $this->steam;
+                        $this->user->steamid = Steam::getUser64ID($this->steam);
+                        $this->user->truckersmp = $this->user->steamid ? 'https://truckersmp.com/user/' . TruckersMP::getUserID($this->user->steamid) : null;
+                    }
+                }
+            }
+        }
+    }
+
+    public static function validateUrl($service, $url){
+        switch ($service){
+            case 'vk' : $regex = '%^(https?:\/\/)?vk.com\/[^\/]{1,}\/?$%'; break;
+            case 'steam' :
+            default : $regex = '%^(https?:\/\/)?steamcommunity\.com\/(id|profiles)\/[^\/]{1,}\/?$%'; break;
+        }
+        return preg_match($regex, $url) ? true : false;
+    }
+
+    public function afterValidate() {
+        $this->user->update();
     }
 
     public function addClaim(){

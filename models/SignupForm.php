@@ -30,22 +30,23 @@ class SignupForm extends Model{
     public function rules() {
         return [
             [['username', 'email', 'password', 'password_2'], 'required', 'message' => 'Обязательные поля не заполнены'],
-			[['password', 'password_2'], 'string', 'min' => 6],
+            [['password', 'password_2'], 'string', 'min' => 6],
             [['email'], 'email', 'message' => 'Невалидный E-Mail'],
+            [['username', 'email', 'password', 'password_2', 'steam', 'vk'], 'trim'],
             [['has_ets', 'has_ats', 'visible_email', 'visible_truckersmp'], 'boolean'],
-            [['username', 'first_name', 'last_name', 'country', 'city', 'birth_date',
-                'truckersmp', 'nickname', 'company', 'steamid64'], 'string'],
+            [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'company', 'steamid64'], 'string'],
+            [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'https', 'message' => 'Неправильная ссылка'],
             [['email'], 'checkEmail'],
             [['steam'], 'checkSteam'],
             [['vk'], 'checkVk'],
             [['username'], 'checkUsername'],
-            [['password_2'], 'checkPasswords'],
+            ['password', 'compare', 'compareAttribute' => 'password_2', 'message' => 'Повторный пароль не совпадает'],
         ];
     }
 
     public function checkSteam($attribute, $params) {
         if($this->steam){
-            $regex = '%(https?:\/\/)?steamcommunity\.com\/(id|profiles)\/[^\/]*\/?%';
+            $regex = '%^(https?:\/\/)?steamcommunity\.com\/(id|profiles)\/[^\/]{1,}\/?$%';
             if(!preg_match($regex, $this->steam)){
                 $this->addError($attribute, 'Укажите профиль Steam в виде "<b>http://steamcommunity.com/</b><i>id,profiles</i><b>/</b><i>ваш_id</i>"');
             }
@@ -54,16 +55,10 @@ class SignupForm extends Model{
 
     public function checkVk($attribute, $params) {
         if($this->vk){
-            $regex = '%(https?:\/\/)?vk.com\/[^\/]*\/?%';
+            $regex = '%^(https?:\/\/)?vk.com\/[^\/]{1,}\/?$%';
             if(!preg_match($regex, $this->vk)){
                 $this->addError($attribute, 'Укажите профиль ВК в виде "<b>http://vk.com/</b><i>ваш_id</i>"');
             }
-        }
-    }
-
-    public function checkPasswords($attribute, $params) {
-        if($this->password != $this->password_2){
-            $this->addError($attribute, 'Проверочный пароль не совпадает');
         }
     }
 
@@ -105,7 +100,7 @@ class SignupForm extends Model{
         $user->registered = date('Y-m-d');
 //        \Kint::dump($user);
         if($user->save()){
-//            Mail::newUserToAdmin($user);
+            Mail::newUserToAdmin($user);
             return $user->id;
         }else{
             return false;

@@ -35,14 +35,36 @@ class ProfileForm extends Model{
     public function rules() {
         return [
             [['username', 'email'], 'required', 'message' => 'Обязательное поле'],
+            [['username', 'email', 'steam', 'vk'], 'trim'],
             [['username'], 'checkUsername'],
             [['email'], 'checkEmail'],
             [['visible_email', 'has_ats', 'has_ets'], 'boolean'],
             [['email'], 'email', 'message' => 'Неправильный E-Mail'],
-            [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'http', 'message' => 'Неправильная ссылка'],
+            [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'https', 'message' => 'Неправильная ссылка'],
+            [['steam'], 'checkSteam'],
+            [['vk'], 'checkVk'],
             [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'company'], 'string']
         ];
     }
+
+    public function checkSteam($attribute, $params) {
+        if($this->steam){
+            $regex = '%^(https?:\/\/)?steamcommunity\.com\/(id|profiles)\/[^\/]{1,}\/?$%';
+            if(!preg_match($regex, $this->steam)){
+                $this->addError($attribute, 'Укажите профиль Steam в виде "<b>http://steamcommunity.com/</b><i>id,profiles</i><b>/</b><i>ваш_id</i>"');
+            }
+        }
+    }
+
+    public function checkVk($attribute, $params) {
+        if($this->vk){
+            $regex = '%^(https?:\/\/)?vk.com\/[^\/]{1,}\/?$%';
+            if(!preg_match($regex, $this->vk)){
+                $this->addError($attribute, 'Укажите профиль ВК в виде "<b>http://vk.com/</b><i>ваш_id</i>"');
+            }
+        }
+    }
+
     public function checkUsername($attribute, $params){
         $user = User::find()->where(['username' => $this->username])->andWhere(['!=', 'id', Yii::$app->user->identity->id])->all();
         if(count($user) > 0){

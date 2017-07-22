@@ -119,13 +119,13 @@ use yii\widgets\ActiveForm;
                 ])->label('Профиль VK') ?>
                 <?= $form->field($model, 'steam')->textInput([
                     'value' => $user->steam,
-                    'readonly' => $member ? 'true' : 'false'
+                    'readonly' => $member ? 'true' : false
                 ])->label('Профиль Steam') ?>
                 <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>
                 <?= $form->field($model, 'visible_truckersmp', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox([
                         'label' => null,
-                        'disabled' => $user->steam == '' || $member? 'true' : false
+                        'disabled' => $user->steam == '' || $member ? 'true' : false
                     ])->error(false)->label('Показать профиль TruckersMP') ?>
                 <?php $display = $user->visible_truckersmp == '1' ? 'block' : 'none' ?>
                 <?= $form->field($model, 'truckersmp')->textInput([

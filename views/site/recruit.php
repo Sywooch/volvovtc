@@ -74,9 +74,32 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                 <span class="recruit-text-s text-shadow">Шаг 3</span>
             </div>
             <div class="card-content">
-                <?=$form->field($model, 'invited_by')->textInput()->label('Кто Вас пригласил в ВТК Volvo Trucks?')?>
-                <?=$form->field($model, 'hear_from')->textarea(['class' => 'materialize-textarea'])->label('Как вы узнали про ВТК Volvo Trucks?')?>
-                <?=$form->field($model, 'comment')->textarea(['class' => 'materialize-textarea'])->label('Ваш комментарий к заявке')?>
+                <?php if(!$model->first_name) : ?>
+                    <?= $form->field($model, 'first_name')->textInput()->label('Имя (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?php if(!$model->last_name) : ?>
+                    <?= $form->field($model, 'last_name')->textInput()->label('Фамилия (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?php if(!$model->birth_date) : ?>
+                    <?= $form->field($model, 'birth_date')->input('date', ['class' => 'datepicker'])->label('Дата рождения (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?php if(!$model->country) : ?>
+                    <?= $form->field($model, 'country')->textInput()->label('Страна (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?php if(!$model->city) : ?>
+                    <?= $form->field($model, 'city')->textInput()->label('Город (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?php if(!\app\models\RecruitForm::validateUrl('vk', $model->vk)) :
+                    $model->vk = ''; ?>
+                    <?= $form->field($model, 'vk')->textInput()->label('Ссылка на Ваш профиль ВКонтакте (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?php if(!\app\models\RecruitForm::validateUrl('steam', $model->steam)) :
+                    $model->steam = ''; ?>
+                    <?= $form->field($model, 'steam')->textInput()->label('Ссылка на Ваш профиль в Steam (обязательно)')->error(false) ?>
+                <?php endif ?>
+                <?= $form->field($model, 'invited_by')->textInput()->label('Кто Вас пригласил в ВТК Volvo Trucks?') ?>
+                <?= $form->field($model, 'hear_from')->textarea(['class' => 'materialize-textarea'])->label('Как вы узнали про ВТК Volvo Trucks?') ?>
+                <?= $form->field($model, 'comment')->textarea(['class' => 'materialize-textarea'])->label('Ваш комментарий к заявке') ?>
             </div>
             <div class="card-action">
                 <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons left">arrow_back</i>Назад</a>
@@ -91,3 +114,11 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
     <?php endif ?>
 
 </div>
+<?php if($model->hasErrors()) :
+    //Kint::dump($model->errors)?>
+    <script>
+        <?php foreach ($model->errors as $error): ?>
+        Materialize.toast('<?= $error[0] ?>', 6000);
+        <?php endforeach; ?>
+    </script>
+<?php endif ?>
