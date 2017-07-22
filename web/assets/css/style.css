@@ -1,4 +1,5 @@
 body{background-color: #fff;}
+a{color: #3f51b5;}
 
 /* form fields and labels */
 .has-error input{ color: #f00;}
