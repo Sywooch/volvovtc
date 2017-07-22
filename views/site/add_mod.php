@@ -20,10 +20,10 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Изображение/трейлер</h5>
                 <div class="row">
-                    <div class="input-field col l11 s10">
+                    <div class="col l11 s10">
                         <?= $form->field($model, 'trailer')->dropdownList($trailers, ['id' => 'trailer-select', 'class' => 'browser-default', 'data-target' => 'mods'])->error(false)->label(false) ?>
                     </div>
-                    <div class="input-field col l1 s2 center" style="line-height: 66px;">
+                    <div class="col l1 s2 center" style="line-height: 66px;">
                         <a href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
                             <i class="material-icons small">add</i>
                         </a>
