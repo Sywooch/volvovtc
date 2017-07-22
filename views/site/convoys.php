@@ -59,7 +59,7 @@ $this->title = 'Конвои Volvo Trucks';
                 $dt = new DateTime($convoy->departure_time);
                 $time = $dt->format('H:i'); ?>
                 <div class="col l6 s12">
-                    <div class="card grey lighten-4 ">
+                    <div class="card grey lighten-4 hoverable">
                         <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $convoy->picture_small ?>?t=<?= time() ?>)">
                             <a href="<?=Url::to(['site/convoys', 'id' => $convoy->id])?>" style="display: block;width: 100%;height: 100%;"></a>
                         </div>

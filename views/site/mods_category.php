@@ -32,7 +32,7 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
                 $trailer_data = \app\models\Mods::getTrailerData($mod);
                 $class = $mod->visible == '1' ? 'grey' : 'yellow' ?>
                 <div class="col l6 s12">
-                    <div class="card <?= $class ?> lighten-4">
+                    <div class="card <?= $class ?> lighten-4 hoverable">
                         <div class="card-image mod-img">
                             <img class="materialboxed" width="100%" src="<?=Yii::$app->request->baseUrl?>/images/<?= $trailer_data['image'] ?>">
                         </div>

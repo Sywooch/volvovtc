@@ -45,7 +45,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                         } ?>
                         <li>
                             <div class="collapsible-header collection-item avatar <?= $badge_color ?>">
-                                <div class="collapsible-top valign-wrapper flex">
+                                <div class="collapsible-top valign-wrapper">
                                     <?php $user = User::find()->select(['picture', 'first_name', 'last_name', 'last_active'])->where(['id' => $recruit->user_id])->one() ?>
                                     <a href="<?=Url::to(['site/profile', 'id' => $recruit->user_id])?>" class="circle z-depth-3 claim-img <?php if(User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $user->picture ?>)">
                                     </a>
@@ -62,7 +62,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                                         </span>
                                     <?php endif ?>
                                 </div>
-                                <div class="collapsible-bottom center">
+                                <div class="collapsible-bottom">
                                     <?php if(User::isAdmin() && $recruit->status == 0) : ?>
                                         <a onclick='return confirm("Одобрить заявку?")' href="<?= Url::to(['site/claims',
                                             'claim' => 'recruit',
@@ -140,7 +140,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                         } ?>
                             <li>
                                 <div class="collapsible-header collection-item avatar <?= $badge_color ?>">
-                                    <div class="collapsible-top valign-wrapper flex">
+                                    <div class="collapsible-top valign-wrapper">
                                         <?php $user = User::find()->select(['picture', 'nickname', 'id', 'last_active'])->where(['id' => $claim->user_id])->one(); ?>
                                         <a href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>" class="circle z-depth-3 claim-img <?php if(User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/users/<?= $user->picture ?>)"></a>
                                         <span class="center-align title">[Volvo Trucks] <?= htmlentities($user->nickname) ?></span>
@@ -155,7 +155,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                                         </span>
                                         <?php endif ?>
                                     </div>
-                                    <div class="collapsible-bottom center">
+                                    <div class="collapsible-bottom">
                                         <?php if(User::isAdmin() && $claim->status == 0) : ?>
                                             <a onclick='return confirm("Одобрить заявку?")'
                                                href="<?= Url::to(['site/claims',
@@ -227,7 +227,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                         } ?>
                         <li>
                             <div class="collection-item avatar <?= $badge_color ?>">
-                                <div class="collapsible-top valign-wrapper flex">
+                                <div class="collapsible-top valign-wrapper">
                                     <?php $user = User::find()->select(['id', 'picture', 'nickname', 'last_active'])->where(['id' => $member->user_id])->one();?>
                                     <a href="<?= Url::to(['site/profile', 'id' => $member->user_id]) ?>" class="circle z-depth-3 claim-img <?php if(User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/users/<?= $user->picture ?>)">
                                     </a>
@@ -255,7 +255,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                                         </span>
                                     <?php endif ?>
                                 </div>
-                                <div class="collapsible-bottom center">
+                                <div class="collapsible-bottom">
                                     <?php if(User::isAdmin() && $member->status == 0) : ?>
                                         <a onclick='return confirm("Одобрить заявку?")' href="<?= Url::to(['site/claims',
                                             'claim' => 'nickname',
@@ -316,7 +316,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                         } ?>
                         <li>
                             <div class="collapsible-header collection-item avatar <?= $badge_color ?>">
-                                <div class="collapsible-top valign-wrapper flex">
+                                <div class="collapsible-top valign-wrapper">
                                     <?php $user = User::find()->select(['picture', 'nickname', 'id', 'last_active'])->where(['id' => $claim->user_id])->one() ?>
                                     <a href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>" class="circle z-depth-3 claim-img <?php if(User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/users/<?= $user->picture ?>)">
                                     </a>
@@ -333,7 +333,7 @@ $is_member = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->
                                         </span>
                                     <?php endif ?>
                                 </div>
-                                <div class="collapsible-bottom center">
+                                <div class="collapsible-bottom">
                                     <?php if(User::isAdmin() && $claim->status == 0) : ?>
                                         <a onclick='return confirm("Одобрить заявку?")'
                                            href="<?= Url::to(['site/claims',

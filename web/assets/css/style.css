@@ -206,9 +206,11 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .claims .claim-img{background-size: cover; background-position: center top; }
 .claims .badge-block{display: flex; justify-content: center;}
 .claims .badge-block span.badge{margin-left: 0;}
-.claims .collapsible-top{margin: 20px 0; flex-wrap: wrap;}
+.claims .collapsible-top{margin: 20px 0; flex-wrap: wrap; width: 100%;}
 .claims .collapsible-top .title{flex: 1; min-width: 175px;}
+.claims .collapsible-bottom{ margin: 0 auto;}
 .claims .collapsible-header i{font-size: 1.3rem; line-height: inherit; width: auto;}
+.claims .collapsible-header{flex-wrap: wrap;}
 .viewed-by{line-height: 37px; text-align: right;}
 
 @media (max-width: 900px){

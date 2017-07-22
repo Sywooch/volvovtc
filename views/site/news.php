@@ -9,7 +9,7 @@ $this->title = 'Новости - Volvo Trucks';
 
 <div class="container">
     <?php foreach($news as $item) : ?>
-    <div class="card <?php if($item->visible == '1') :?>grey<?php else :?>yellow<?php endif ?> lighten-4">
+    <div class="card <?php if($item->visible == '1') :?>grey<?php else :?>yellow<?php endif ?> lighten-4 hoverable">
         <div class="card-image">
             <div class="fotorama" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/9">
                 <?php foreach(unserialize($item->picture) as $img) : ?>
