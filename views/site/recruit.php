@@ -81,7 +81,8 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                     <?= $form->field($model, 'last_name')->textInput()->label('Фамилия (обязательно)')->error(false) ?>
                 <?php endif ?>
                 <?php if(!$model->birth_date) : ?>
-                    <?= $form->field($model, 'birth_date')->input('date', ['class' => 'datepicker'])->label('Дата рождения (обязательно)')->error(false) ?>
+                    <?= $form->field($model, 'birth_date', ['template' => '<div class="col l9 s11">{label}{input}</div>'])
+                        ->input('date', ['class' => 'datepicker'])->label('Дата рождения (обязательно)')->error(false) ?>
                 <?php endif ?>
                 <?php if(!$model->country) : ?>
                     <?= $form->field($model, 'country')->textInput()->label('Страна (обязательно)')->error(false) ?>

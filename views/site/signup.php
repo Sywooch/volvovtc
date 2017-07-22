@@ -34,7 +34,9 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
             <div class="col l6 s12">
                 <?= $form->field($model, 'country')->textInput()->label('Страна') ?>
                 <?= $form->field($model, 'city')->textInput()->label('Город') ?>
-                <?= $form->field($model, 'birth_date')->input('date', ['class' => 'datepicker'])->label('Дата рождения') ?>
+                <div class="col s11">
+                    <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', ['class' => 'datepicker'])->label('Дата рождения') ?>
+                </div>
                 <?= $form->field($model, 'vk')->textInput()->label('Профиль VK') ?>
                 <?= $form->field($model, 'steam')->textInput()->label('Профиль Steam') ?>
                 <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>

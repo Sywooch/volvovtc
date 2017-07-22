@@ -85,31 +85,35 @@ use yii\widgets\ActiveForm;
                         ->hiddenInput(['readonly' => true, 'value' => $user->birth_date])
                         ->label(false) ?>
                 <?php else: ?>
-                    <?= $form->field($model, 'birth_date')->input('date', [
-                        'class' => 'datepicker-profile',
-                        'readonly' => $member ? 'true' : false
-                    ])->label('Дата рождения') ?>
-                    <script>
-                        $datepicker = $('.datepicker-profile').pickadate({
-                            min: new Date(1950,1,1),
-                            max: true,
-                            today: 'Сегодня',
-                            clear: 'Очистить',
-                            close: 'Закрыть',
-                            monthsFull: ['Января', 'Февраля', 'Марта', 'Апреля', 'Мая', 'Июня', 'Июля', 'Августа', 'Сентября', 'Октября', 'Ноября', 'Декабря'],
-                            monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                            weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                            weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                            selectMonths: true, // Creates a dropdown to control month
-                            selectYears: 60, // Creates a dropdown of 15 years to control year
-                            firstDay: 'Понедельник',
-                            formatSubmit: 'yyyy-mm-dd'
-                        });
-                        <?php if($user->birth_date) : ?>
-                            var picker = $datepicker.pickadate('picker');
-                            picker.set('select', '<?= $user->birth_date ?>', { format: 'yyyy-mm-dd' });
-                        <?php endif; ?>
-                    </script>
+                    <div class="col s11">
+                        <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', [
+                            'class' => 'datepicker',
+                            'readonly' => $member ? 'true' : false
+                        ])->label('Дата рождения') ?>
+                        <script>
+                            $datepicker = $('.datepicker-profile').pickadate({
+                                min: new Date(1950,1,1),
+                                max: new Date(2011,11,31),
+                                today: 'Сегодня',
+                                clear: 'Очистить',
+                                close: 'Закрыть',
+                                monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
+                                monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
+                                weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
+                                weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
+                                selectMonths: true, // Creates a dropdown to control month
+                                selectYears: 60, // Creates a dropdown of 15 years to control year
+                                firstDay: 'Понедельник',
+                                formatSubmit: 'yyyy-mm-dd',
+                                closeOnSelect: false,
+                                hiddenName: true
+                            });
+                            <?php if($user->birth_date) : ?>
+                                var picker = $datepicker.pickadate('picker');
+                                picker.set('select', '<?= $user->birth_date ?>', { format: 'yyyy-mm-dd' });
+                            <?php endif; ?>
+                        </script>
+                    </div>
                 <?php endif ?>
             </div>
             <div class="col l6 s12">

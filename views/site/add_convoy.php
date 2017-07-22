@@ -69,9 +69,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <h5>Сборы</h5>
-                <div class="input-field">
-                    <?= $form->field($model, 'date')->input('date', ['class' => 'datepicker-convoy'])->error(false) ?>
-                </div>
+                <?= $form->field($model, 'date')->input('date', ['class' => 'datepicker-convoy'])->error(false) ?>
                 <?= $form->field($model, 'meeting_time')->input('time')->error(false) ?>
                 <?= $form->field($model, 'departure_time')->input('time')->error(false) ?>
                 <?= $form->field($model, 'server')->dropdownList([
