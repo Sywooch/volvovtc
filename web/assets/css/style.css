@@ -242,7 +242,7 @@ th.first .preloader-wrapper{vertical-align: middle;}
 
 /* users */
 .search{ padding: 0;}
-.search [name=q], .search .input-field input[name=q]:focus{margin-bottom: 0; border-bottom: none !important; box-shadow: none !important;}
+.search [name=q], .search .input-field input[name=q], .search .input-field input[name=q]:focus{margin-bottom: 0; border-bottom: none !important; box-shadow: none !important;}
 .user-search, .user-search:focus{border: none;background-color: transparent; color: #000;}
 .input-field .prefix.active{ color: #0d3896;}
 .search-reset{position: absolute;display: block;width: 45px;height: 45px;line-height: 45px;right: 0;top: 0;color: #000;text-align: center;}
