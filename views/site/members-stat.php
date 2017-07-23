@@ -5,7 +5,6 @@ use yii\helpers\Url;
 $this->title = 'Водители Volvo Trucks';
 
 ?>
-
 <div class="members-stat" style="overflow-x: scroll">
     <table class="centered highlight bordered">
         <thead>
@@ -51,7 +50,7 @@ $this->title = 'Водители Volvo Trucks';
                     <td><?= $i++ ?></td>
                     <td style="text-align: left; padding-left: 20px;white-space: nowrap;">
                         <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member->user_id)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->user_id->picture ?>)"></a>
-                        <a href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="black-text">[Volvo Trucks] <?= $member->user_id->nickname ?></a>
+                        <a href="<?= \app\models\User::isAdmin() ? Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) : Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="black-text">[Volvo Trucks] <?= $member->user_id->nickname ?></a>
                         <?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>
                             <span class="member-vacation" style="display: block;margin-left: 80px">В отпуске <?= $member->vacation_undefined == '1' ? 'на н. срок' : 'до ' . \app\controllers\SiteController::getRuDate($member->vacation) ?></span>
                         <?php endif ?>
@@ -127,7 +126,7 @@ $this->title = 'Водители Volvo Trucks';
                     </td>
                     <?php if(\app\models\User::isAdmin()) : ?>
                         <td>
-                            <a href="<?php if($member->user_id->admin):?><?= Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) ?><?php else: ?>#modal1<?php endif ?>" data-id="<?= $member->id ?>" data-scores-other="<?= $member->scores_other ?>" data-scores-month="<?= $member->scores_month ?>" data-scores-total="<?= $member->scores_total ?>" data-nickname="<?= $member->user_id->nickname ?>" data-profile-link="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" data-edit-profile-link="<?= Url::to(['site/members', 'id' => $member->id, 'action' => 'edit']) ?>" class="indigo-text iconed">edit</a>
+                            <a href="<?= $member->user_id->admin ? Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) : '#modal1' ?>" data-id="<?= $member->id ?>" data-scores-other="<?= $member->scores_other ?>" data-scores-month="<?= $member->scores_month ?>" data-scores-total="<?= $member->scores_total ?>" data-nickname="<?= $member->user_id->nickname ?>" data-profile-link="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" data-edit-profile-link="<?= Url::to(['site/members', 'id' => $member->id, 'action' => 'edit']) ?>" class="indigo-text iconed modal-trigger">edit</a>
                         </td>
                     <?php endif ?>
                     <td style="min-width: 90px">
