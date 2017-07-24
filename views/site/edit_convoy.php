@@ -45,7 +45,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                 <div class="input-field">
                     <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
                 </div>
-                <div class="input-field center">
+                <div class="center">
                     <?= $form->field($model, 'dlc[Going East!]', [
                         'template' => '{input}{label}',
                         'options' => [
