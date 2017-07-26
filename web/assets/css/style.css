@@ -193,7 +193,7 @@ th.first .preloader-wrapper{vertical-align: middle;}
 }
 @media (max-width: 525px){
 	.user-links li{ display: block; margin-top: 2px;}
-	.user-links{ width: 25px !important;}
+	.members .user-links{ width: 25px !important;}
 }
 
 /* claims */
@@ -250,6 +250,17 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .user{display: flex;}
 .link-image a{height: 188px; width: 188px; margin-right: 20px; background-size: cover; background-position: center top;}
 .user-links ul li{display: block; margin: 5px;}
+@media (max-width: 778px){
+	.user{flex-wrap: wrap; justify-content: center;}
+	.link-image{margin-bottom: 10px; flex: 1; text-align: center;}
+	.link-image a{margin-right: 0; width: 100px; height: 100px;}
+    .user-info{ order: 1;}
+	.users .socials{ margin: 0;}
+	.users .socials li{ height: 30px; width: 30px; background-size: cover;}
+    .users .socials .vk{background-position: -60px 0;}
+    .users .socials .steam{background-position: -30px 0;}
+    .users .socials .truckers-mp{background-position: 30px 0;}
+}
 
  /* datepicker */
 .picker__weekday-display{background-color: #072b7b;}

@@ -23,14 +23,14 @@ $this->title = 'Зарегистрированые пользователи са
     </div>
     <h5 class="light">Всего <?= $total ?></h5>
     <?php foreach($users as $user): ?>
-        <div class="card-panel grey lighten-4 user">
+        <div class="card-panel grey lighten-4 user hoverable">
             <div class="link-image">
                 <a href="<?= Url::to(['site/profile', 'id' => $user->id]) ?>" class=" circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/web/images/users/<?= $user->picture ?>)">
                 </a>
             </div>
             <div class="user-info row">
                 <div class="col l12 s12">
-                    <div class="col l5 s5 right-align"><span><b><?= $user->company != '' ? '['.$user->company.']' : '' ?></b></span></div>
+                    <div class="col l5 s5 right-align"><span class="truncate" style="white-space: nowrap;"><b><?= $user->company != '' ? '['.$user->company.']' : '' ?></b></span></div>
                     <div class="col l7 s7 profile-info"><span><b><?=$user->nickname?></b></span></div>
                 </div>
                 <div class="col l12 s12">
@@ -54,8 +54,8 @@ $this->title = 'Зарегистрированые пользователи са
                     <div class="col l7 s7 profile-info"><span><b><?=$user->city?></b></span></div>
                 </div>
                 <div class="col l12 s12">
-                    <div class="col l5 s5 right-align"><span>Зарегестрирован:</span></div>
-                    <div class="col l7 s7 profile-info"><span><b><?= \app\controllers\SiteController::getRuDate($user->registered) ?></b></span></div>
+                    <div class="col l5 s5 right-align truncate"><span>Зарегестрирован:</span></div>
+                    <div class="col l7 s7 profile-info truncate"><span><b><?= \app\controllers\SiteController::getRuDate($user->registered) ?></b></span></div>
                 </div>
             </div>
             <div class="user-links">
