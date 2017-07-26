@@ -10,7 +10,7 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
 <div class="container login-container">
     <?php $form = ActiveForm::begin([
         'fieldConfig' => [
-            'template' => "<div class=\"input-field col s11\">{label}{input}</div>",
+            'template' => "<div class=\"input-field col l11 s12\">{label}{input}</div>",
             'options' => ['class' => 'row']
         ],
     ]); ?>
@@ -29,7 +29,6 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                 <?= $form->field($model, 'password')->passwordInput()->label('*Пароль (мин. 6 символов)')->error(false) ?>
                 <?= $form->field($model, 'password_2')->passwordInput()->label('*Повторите пароль (мин. 6 символов)')->error(false) ?>
                 <?= $form->field($model, 'nickname')->textInput()->label('Ваш игровой псевдоним') ?>
-                <div class="g-recaptcha" data-sitekey="6LfjRyIUAAAAAJeHEkWoN3zT2lND2N7D2fPy8Nwv"></div>
             </div>
             <div class="col l6 s12">
                 <?= $form->field($model, 'country')->textInput()->label('Страна') ?>
@@ -52,6 +51,7 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                     ->checkbox(['label' => null])->error(false)->label('Есть <b>Euro Truck Simulator 2</b>') ?>
                 <?= $form->field($model, 'has_ats', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox(['label' => null])->error(false)->label('Есть <b>American Truck Simulator</b>') ?>
+                <div class="g-recaptcha" style="overflow: hidden; margin-top: 10px;" data-sitekey="6LfjRyIUAAAAAJeHEkWoN3zT2lND2N7D2fPy8Nwv"></div>
             </div>
         </div>
         <div class="card-action">
