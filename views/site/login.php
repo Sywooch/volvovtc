@@ -9,7 +9,7 @@ $this->title = 'Войти на сайт - Volvo Trucks';
 <div class="container login-container">
     <?php $form = ActiveForm::begin([
         'fieldConfig' => [
-            'template' => "<div class=\"input-field col l9 s10\">{label}{input}</div>",
+            'template' => "<div class=\"input-field col l9 s12\">{label}{input}</div>",
             'options' => ['class' => 'row']
         ],
     ]); ?>
@@ -29,9 +29,10 @@ $this->title = 'Войти на сайт - Volvo Trucks';
                 'class' => 'btn indigo darken-3 waves-effect waves-light'
             ])?>
             <a href="<?=Url::to(['site/signup'])?>" class="btn-flat waves-effect">
-                <i class="material-icons right">add</i>Зарегистрироваться
+                <i class="material-icons right">add</i>Регистрация
             </a>
-            <a href="#modal1" class="btn-flat waves-effect right">Забыли пароль?</a>
+            <a href="#modal1" class="btn-flat waves-effect right modal-trigger">Забыли пароль?</a>
+            <div class="clearfix"></div>
         </div>
     </div>
     <?php ActiveForm::end(); ?>
@@ -48,8 +49,8 @@ $this->title = 'Войти на сайт - Volvo Trucks';
         <div class="input-field col s2 preloader"></div>
     </div>
     <div class="modal-footer">
-        <a href="#" class="modal-action modal-close waves-effect btn-flat indigo-text text-darken-3">Закрыть</a>
-        <a href="#" class="send-reset waves-effect btn-flat indigo-text text-darken-3">Далее</a>
+        <a class="modal-action modal-close waves-effect btn-flat indigo-text text-darken-3">Закрыть</a>
+        <a class="send-reset waves-effect btn-flat indigo-text text-darken-3">Далее</a>
     </div>
 </div>
 <?php if($model->hasErrors()) :

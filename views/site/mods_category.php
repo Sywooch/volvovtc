@@ -4,11 +4,13 @@ use yii\helpers\Url;
 
 $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks'; ?>
 
-<div class="parallax-container">
+<div class="parallax-container" style="height: 400px;">
+    <div class="container">
+        <h4 class="parallax-title light white-text text-shadow"><?= $category->title ?></h4>
+    </div>
     <div class="parallax"><img src="<?=Yii::$app->request->baseUrl?>/images/mods/categories/<?=$category->picture?>"></div>
 </div>
 <div class="container">
-    <h5 class="light">Прицепы для ETS2MP</h5>
     <?php if(count($all_subcategories) > 1) : ?>
         <div class="row subcategories">
             <?php foreach($all_subcategories as $key => $subcat) :
