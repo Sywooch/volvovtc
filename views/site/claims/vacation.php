@@ -7,7 +7,7 @@ use app\models\User; ?>
 
     <div class="valign-wrapper" style="justify-content: space-between">
         <h5>Заявления на отпуск</h5>
-        <?php if(!User::isVtcMember()) : ?>
+        <?php if(User::isVtcMember()) : ?>
             <a href="<?= Url::to(['site/claims', 'claim' => 'vacation', 'action' => 'add']) ?>" class="btn indigo waves-effect waves-light">
                 Подать заявление на отпуск<i class="material-icons right">add_circle</i>
             </a>
@@ -33,11 +33,11 @@ use app\models\User; ?>
                         <div style="max-width: 70%">
                             <p><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
                             <?php if($claim->reason) : ?>
-                                <p><b>Причина:</b> <?= htmlentities($claim->reason) ?></p>
+                                <p><b>Причина:</b> <?= strip_tags($claim->reason, '<br>') ?></p>
                             <?php endif ?>
                         </div>
                         <div class="right-align" style="flex: 1;">
-                            <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?></p>
+                            <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?><br><?= strip_tags($claim->reason) ?></p>
                             <?php if($claim->viewed):
                                 $by = User::find()->where(['id' => $claim->viewed])->one() ?>
                                 <p class="grey-text">Рассмотрел: <?= $by->first_name ?> <?= $by->last_name ?></p>

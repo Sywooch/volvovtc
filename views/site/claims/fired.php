@@ -33,7 +33,7 @@ use app\models\User; ?>
                         <div style="max-width: 70%">
                             <p><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
                             <?php if($claim->reason) : ?>
-                                <p><b>Причина увольнения:</b> <?= htmlentities($claim->reason) ?></p>
+                                <p><b>Причина увольнения:</b> <?= strip_tags($claim->reason, '<br>') ?></p>
                             <?php endif ?>
                         </div>
                         <div class="right-align" style="flex: 1;">

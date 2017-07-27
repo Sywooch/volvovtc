@@ -36,7 +36,7 @@ class FiredForm extends Model{
         $user = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->user->id])->one();
         $claim->member_id = $user->id;
         $claim->user_id = Yii::$app->user->id;
-        $claim->reason = $this->reason;
+        $claim->reason = nl2br($this->reason);
         $claim->date = date('Y-m-d');
         Mail::newClaimToAdmin('на увольнение', $claim);
         return $claim->save();

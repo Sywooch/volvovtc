@@ -34,17 +34,17 @@ use app\models\User; ?>
                         <div style="max-width: 70%">
                             <p><?= \app\controllers\SiteController::getRuDate($recruit->date) ?></p>
                             <?php if($recruit->hear_from) : ?>
-                                <p><b>Откуда узнали?</b> <?= htmlentities($recruit->hear_from) ?></p>
+                                <p><b>Откуда узнали?</b> <?= strip_tags($recruit->hear_from) ?></p>
                             <?php endif ?>
                             <?php if($recruit->invited_by) : ?>
-                                <p><b>Кто пригласил?</b> <?= htmlentities($recruit->invited_by) ?></p>
+                                <p><b>Кто пригласил?</b> <?= strip_tags($recruit->invited_by) ?></p>
                             <?php endif ?>
                             <?php if($recruit->comment) : ?>
-                                <p><b>Комментарий:</b> <?= htmlentities($recruit->comment) ?></p>
+                                <p><b>Комментарий:</b> <?= strip_tags($recruit->comment, '<br>'); ?></p>
                             <?php endif ?>
                         </div>
                         <div class="right-align" style="flex: 1;">
-                            <p><b class="fs17"><?= \app\models\ClaimsRecruit::getStatusTitle($recruit->status) ?></b><br><?= $recruit->reason ?></p>
+                            <p><b class="fs17"><?= \app\models\ClaimsRecruit::getStatusTitle($recruit->status) ?></b><br><?= strip_tags($recruit->reason) ?></p>
                             <?php if($recruit->viewed):
                                 $by = User::find()->where(['id' => $recruit->viewed])->one() ?>
                                 <p class="grey-text">Рассмотрел: <?= $by->first_name ?> <?= $by->last_name ?></p>
