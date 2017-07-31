@@ -29,14 +29,14 @@ use app\models\User; ?>
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>">[Volvo Trucks] <?= htmlentities($user->nickname) ?></a>
-                    <div class="flex">
+                    <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
+                            <p class="nowrap"><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
                             <?php if($claim->reason) : ?>
                                 <p><b>Причина увольнения:</b> <?= strip_tags($claim->reason, '<br>') ?></p>
                             <?php endif ?>
                         </div>
-                        <div class="right-align" style="flex: 1;">
+                        <div class="claim-status" style="flex: 1;">
                             <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?></p>
                             <?php if($claim->viewed):
                                 $by = User::find()->where(['id' => $claim->viewed])->one() ?>

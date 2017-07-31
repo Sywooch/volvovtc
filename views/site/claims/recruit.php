@@ -30,9 +30,9 @@ use app\models\User; ?>
             <div class="card-stacked">
                 <div class="card-content">
                     <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $recruit->user_id]) ?>"><?= $user->first_name ?> <?= $user->last_name ?></a>
-                    <div class="flex">
+                    <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p><?= \app\controllers\SiteController::getRuDate($recruit->date) ?></p>
+                            <p class="nowrap"><?= \app\controllers\SiteController::getRuDate($recruit->date) ?></p>
                             <?php if($recruit->hear_from) : ?>
                                 <p><b>Откуда узнали?</b> <?= strip_tags($recruit->hear_from) ?></p>
                             <?php endif ?>
@@ -43,7 +43,7 @@ use app\models\User; ?>
                                 <p><b>Комментарий:</b> <?= strip_tags($recruit->comment, '<br>'); ?></p>
                             <?php endif ?>
                         </div>
-                        <div class="right-align" style="flex: 1;">
+                        <div class="claim-status" style="flex: 1;">
                             <p><b class="fs17"><?= \app\models\ClaimsRecruit::getStatusTitle($recruit->status) ?></b><br><?= strip_tags($recruit->reason) ?></p>
                             <?php if($recruit->viewed):
                                 $by = User::find()->where(['id' => $recruit->viewed])->one() ?>

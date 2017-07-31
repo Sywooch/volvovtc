@@ -33,11 +33,11 @@ use app\models\User; ?>
                         &rArr;
                         <span class="new-nickname">[Volvo Trucks] <?= htmlentities($claim->new_nickname) ?></span>
                     </a>
-                    <div class="flex">
+                    <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
+                            <p class="nowrap"><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
                         </div>
-                        <div class="right-align" style="flex: 1;">
+                        <div class="claim-status" style="flex: 1;">
                             <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?></p>
                             <?php if($claim->viewed):
                                 $by = User::find()->where(['id' => $claim->viewed])->one() ?>
