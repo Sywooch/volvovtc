@@ -209,6 +209,7 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .tabs{border-bottom: solid 1px #0d3896;}
 .tabs .tab a{color: #5987ea;}
 .tabs .tab a:hover, .tabs .tab a.active{color: #0d3896;}
+.tabs .claims-count{width: 17px;display: inline-block;height: 17px;vertical-align: text-bottom;line-height: 17px;font-size: 11px;margin-left: 10PX;}
 .tabs .indicator{background-color: #0d3896;}
 .claims h5{margin-left: 15px;}
 .claims .claim-img{background-size: cover; background-position: center center; width: 150px; border-right: 1px solid #e4e4e4;}
