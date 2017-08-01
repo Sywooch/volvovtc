@@ -27,7 +27,7 @@ $this->title = $news->title . ' - Volvo Trucks';
                 'id' => $news->id,
                 'action' => 'edit'
             ])?>" class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Редактировать">
-                <i class="large material-icons">mode_edit</i>
+                <i class="large material-icons notranslate">mode_edit</i>
             </a>
             <ul>
                 <li>
@@ -36,7 +36,7 @@ $this->title = $news->title . ' - Volvo Trucks';
                         'id' => $news->id,
                         'action' => 'delete'
                     ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить" onclick='return confirm("Удалить?")'>
-                        <i class="material-icons">delete</i>
+                        <i class="material-icons notranslate">delete</i>
                     </a>
                 </li>
                 <li>
@@ -46,7 +46,7 @@ $this->title = $news->title . ' - Volvo Trucks';
                         'action' => $news->visible == '1' ? 'hide' : 'show'
                     ])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="<?= $news->visible == '1' ?
                         'Скрыть новость' : 'Сделать видимой' ?>">
-                        <i class="material-icons"><?= $news->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
+                        <i class="material-icons notranslate"><?= $news->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
                     </a>
                 </li>
             </ul>

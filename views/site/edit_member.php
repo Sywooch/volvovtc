@@ -209,7 +209,7 @@ $this->title = 'Редактирование информации о водит�
         </div>
         <div class="fixed-action-btn vertical">
             <?=Html::submitButton(''.
-                Html::tag('i', 'save', ['class' => 'material-icons right']), [
+                Html::tag('i', 'save', ['class' => 'material-icons notranslate right']), [
                 'class' => 'btn-floating btn-large red waves-effect waves-light tooltipped',
                 'name' => 'save_member',
                 'data-position' => 'left',
@@ -222,7 +222,7 @@ $this->title = 'Редактирование информации о водит�
                         'id' => $model->id,
                         'action' => 'fired'
                     ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Уволить" onclick='return confirm("Уволить водителя?")'>
-                        <i class="material-icons">clear</i>
+                        <i class="material-icons notranslate">clear</i>
                     </a>
                 </li>
             </ul>

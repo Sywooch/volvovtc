@@ -31,7 +31,7 @@ $this->title = 'Volvo Trucks - TruckersMP';
         <div class="row">
             <div class="col s12 m4">
                 <div class="center">
-                    <h2 class="indigo-text darken-3"><i class="material-icons">flash_on</i></h2>
+                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">flash_on</i></h2>
                     <h5>Динамика</h5>
                     <p class="light fs17">Мы на постоянной основе проводим внутренние конвои, а для преданных поклонников ВТК есть возможность сделать доставку важного груза с профессионалами нашей дружной команды. <br>Volvo Trucks - это динамичная, прогрессивная компания с парусом наполняемым ветром свободы. </p>
                     <a href="<?= Url::to(['site/members']) ?>" class="btn indigo darken-3 waves-effect waves-light">Водители</a>
@@ -39,7 +39,7 @@ $this->title = 'Volvo Trucks - TruckersMP';
             </div>
             <div class="col s12 m4">
                 <div class="center">
-                    <h2 class="indigo-text darken-3"><i class="material-icons">group</i></h2>
+                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">group</i></h2>
                     <h5>Квалификация</h5>
                     <p class="light fs17">Что важно для любой команды? Любой из Вас скажет это опыт и этого не отнять у Volvo Trucks. В нашей команде исключительно профессиональные водители ETS2, готовые выполнить доставку любой сложности в любой уголок игрового мира. Только с нами Вы узнаете то, чего не узнаете с другими. Наш девиз подтвержден годами существования ВТК: Опыт, точность, дисциплина!</p>
                     <a href="<?= Url::to(['site/rules']) ?>" class="btn indigo darken-3 waves-effect waves-light">Правила</a>
@@ -47,7 +47,7 @@ $this->title = 'Volvo Trucks - TruckersMP';
             </div>
             <div class="col s12 m4">
                 <div class="center">
-                    <h2 class="indigo-text darken-3"><i class="material-icons">settings</i></h2>
+                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">settings</i></h2>
                     <h5>Узнаваемость</h5>
                     <p class="light fs17">Наша Компания отличается высокой дисциплиной, качеством перевозок и взаимовыручкой между водителями.
                         Каждый сотрудник Volvo Trucks выделяется на дороге, благодаря строгому фирменному стилю тягача и безупречной манере вождения.</p>

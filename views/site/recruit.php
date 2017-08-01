@@ -27,7 +27,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                 </ol>
             </div>
             <div class="card-action">
-                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light">Далее<i class="material-icons right">arrow_forward</i></a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light">Далее<i class="material-icons notranslate right">arrow_forward</i></a>
             </div>
         </div>
 
@@ -51,8 +51,8 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
 
             </div>
             <div class="card-action">
-                <a href="<?= Url::to(['site/recruit', 'step' => '1']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons left">arrow_back</i>Назад</a>
-                <a href="<?= Url::to(['site/recruit', 'step' => '3']) ?>" class="btn indigo darken-3 waves-effect waves-light disabled" id="recruit-btn">Далее<i class="material-icons right">arrow_forward</i></a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '1']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons notranslate left">arrow_back</i>Назад</a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '3']) ?>" class="btn indigo darken-3 waves-effect waves-light disabled" id="recruit-btn">Далее<i class="material-icons notranslate right">arrow_forward</i></a>
             </div>
         </div>
 
@@ -103,9 +103,9 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                 <?= $form->field($model, 'comment')->textarea(['class' => 'materialize-textarea'])->label('Ваш комментарий к заявке') ?>
             </div>
             <div class="card-action">
-                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons left">arrow_back</i>Назад</a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons notranslate left">arrow_back</i>Назад</a>
                 <?=Html::submitButton('Подать заявку '.
-                    Html::tag('i', 'send', ['class' => 'material-icons right']), [
+                    Html::tag('i', 'send', ['class' => 'material-icons notranslate right']), [
                     'class' => 'btn indigo darken-3 waves-effect waves-light'
                 ])?>
             </div>

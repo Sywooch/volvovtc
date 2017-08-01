@@ -12,7 +12,7 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
         <div class="card-content">
             <div class="row center">
                 <a href="<?= Url::to(['site/members', 'action' => 'stats']) ?>" class="btn btn-large indigo darken-3 waves-effect waves-light">
-                    <i class="material-icons left">grid_on</i>Смотреть таблицу статистики</a>
+                    <i class="material-icons notranslate left">grid_on</i>Смотреть таблицу статистики</a>
             </div>
             <div class="row">
                 <ul class="collection">

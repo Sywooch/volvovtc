@@ -56,7 +56,7 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
         </div>
         <div class="card-action">
             <?=Html::submitButton('Зарегистрироваться '.
-                Html::tag('i', 'send', ['class' => 'material-icons right']), [
+                Html::tag('i', 'send', ['class' => 'material-icons notranslate right']), [
                 'class' => 'btn indigo darken-3 waves-effect waves-light'
             ])?>
         </div>

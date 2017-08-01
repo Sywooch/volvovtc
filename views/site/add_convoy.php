@@ -135,7 +135,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                     </div>
                     <div class="col l1 s2 center" style="line-height: 66px;">
                         <a target="_blank" href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
-                            <i class="material-icons small">add</i>
+                            <i class="material-icons notranslate small">add</i>
                         </a>
                     </div>
                 </div>
@@ -171,7 +171,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         </div>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons'
+                    'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?php ActiveForm::end(); ?>

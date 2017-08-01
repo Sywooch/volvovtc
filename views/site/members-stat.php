@@ -74,7 +74,7 @@ $this->title = 'Водители Volvo Trucks';
                         <?php if($member->user_id->admin) : ?>
                             <span>&mdash;</span>
                         <?php else: ?>
-                            <i class="material-icons <?= $member->can_lead == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->can_lead == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->can_lead == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
                         <?php endif ?>
@@ -83,7 +83,7 @@ $this->title = 'Водители Volvo Trucks';
                         <?php if($member->user_id->admin) : ?>
                             <span>&mdash;</span>
                         <?php else: ?>
-                            <i class="material-icons <?= $member->can_center == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->can_center == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->can_center == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
                         <?php endif ?>
@@ -92,7 +92,7 @@ $this->title = 'Водители Volvo Trucks';
                         <?php if($member->user_id->admin) : ?>
                             <span>&mdash;</span>
                         <?php else: ?>
-                            <i class="material-icons <?= $member->can_close == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->can_close == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->can_close == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
                         <?php endif ?>
@@ -126,20 +126,20 @@ $this->title = 'Водители Volvo Trucks';
                     </td>
                     <?php if(\app\models\User::isAdmin()) : ?>
                         <td>
-                            <a href="<?= $member->user_id->admin ? Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) : '#modal1' ?>" data-id="<?= $member->id ?>" data-scores-other="<?= $member->scores_other ?>" data-scores-month="<?= $member->scores_month ?>" data-scores-total="<?= $member->scores_total ?>" data-nickname="<?= $member->user_id->nickname ?>" data-profile-link="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" data-edit-profile-link="<?= Url::to(['site/members', 'id' => $member->id, 'action' => 'edit']) ?>" class="indigo-text iconed modal-trigger">edit</a>
+                            <a href="<?= $member->user_id->admin ? Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) : '#modal1' ?>" data-id="<?= $member->id ?>" data-scores-other="<?= $member->scores_other ?>" data-scores-month="<?= $member->scores_month ?>" data-scores-total="<?= $member->scores_total ?>" data-nickname="<?= $member->user_id->nickname ?>" data-profile-link="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" data-edit-profile-link="<?= Url::to(['site/members', 'id' => $member->id, 'action' => 'edit']) ?>" class="indigo-text iconed modal-trigger notranslate">edit</a>
                         </td>
                     <?php endif ?>
                     <td style="min-width: 90px">
                         <?php if($member->user_id->admin) : ?>
                             <span>&mdash;</span>
                         <?php else: ?>
-                            <i class="material-icons <?= $member->exam_3_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->exam_3_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->exam_3_cat == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
-                            <i class="material-icons <?= $member->exam_2_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->exam_2_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->exam_2_cat == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
-                            <i class="material-icons <?= $member->exam_1_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->exam_1_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->exam_1_cat == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
                         <?php endif ?>
@@ -148,7 +148,7 @@ $this->title = 'Водители Volvo Trucks';
                         <?php if($member->user_id->admin) : ?>
                             <span>&mdash;</span>
                         <?php else: ?>
-                            <i class="material-icons <?= $member->exam_driving == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
+                            <i class="material-icons notranslate <?= $member->exam_driving == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
                                 <?= $member->exam_driving == '1' ? 'check_box' : 'check_box_outline_blank' ?>
                             </i>
                         <?php endif ?>
@@ -161,7 +161,7 @@ $this->title = 'Водители Volvo Trucks';
     <?php if(\app\models\User::isAdmin()) : ?>
         <div class="row center">
             <a class="btn indigo darken-3 waves-effect waves-light" href="<?= Url::to(['site/members', 'action' => 'zero']) ?>" onclick="return confirm('Точно обнулить баллы?')">
-                <i class="material-icons left">autorenew</i> Обнулить баллы за другое и месяц
+                <i class="material-icons notranslate left">autorenew</i> Обнулить баллы за другое и месяц
             </a>
         </div>
         <div id="modal1" class="modal modal-fixed-footer">
@@ -170,7 +170,7 @@ $this->title = 'Водители Volvo Trucks';
                     <h5 class="col l6 s12">Баллы <b><a href="<?= Url::to(['site/profile']) ?>" id="nickname" target="_blank">[Volvo Trucks] nickname</a></b></h5>
                     <h5 class="col l6 s12">
                         <a id="edit-link" target="_blank" class="btn indigo waves-effect waves-light" href="#">
-                            <i class="material-icons left">edit</i>Редактировать данные водителя
+                            <i class="material-icons notranslate left">edit</i>Редактировать данные водителя
                         </a>
                     </h5>
                 </div>
@@ -196,17 +196,17 @@ $this->title = 'Водители Volvo Trucks';
                         <h6 class="center"><b>В другое:</b></h6>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="20" data-target="other">
-                                <i class="material-icons left">add</i>20 баллов
+                                <i class="material-icons notranslate left">add</i>20 баллов
                             </button>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="10" data-target="other">
-                                <i class="material-icons left">add</i>10 баллов
+                                <i class="material-icons notranslate left">add</i>10 баллов
                             </button>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="5" data-target="other">
-                                <i class="material-icons left">add</i>5 баллов
+                                <i class="material-icons notranslate left">add</i>5 баллов
                             </button>
                         </div>
                     </div>
@@ -214,17 +214,17 @@ $this->title = 'Водители Volvo Trucks';
                         <h6 class="center"><b>В месяц:</b></h6>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="20" data-target="month">
-                                <i class="material-icons left">add</i>20 баллов
+                                <i class="material-icons notranslate left">add</i>20 баллов
                             </button>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="10" data-target="month">
-                                <i class="material-icons left">add</i>10 баллов
+                                <i class="material-icons notranslate left">add</i>10 баллов
                             </button>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="5" data-target="month">
-                                <i class="material-icons left">add</i>5 баллов
+                                <i class="material-icons notranslate left">add</i>5 баллов
                             </button>
                         </div>
                     </div>

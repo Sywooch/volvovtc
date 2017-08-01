@@ -54,7 +54,7 @@ $this->title = $action . ' трейлер - Volvo Trucks';
     </div>
     <div class="fixed-action-btn vertical">
         <?=Html::submitButton(Html::tag('i', 'save', [
-            'class' => 'large material-icons'
+            'class' => 'large material-icons notranslate'
         ]), ['class' => 'btn-floating btn-large red']) ?>
         <ul>
             <li>
@@ -63,7 +63,7 @@ $this->title = $action . ' трейлер - Volvo Trucks';
                     'id' => $model->id,
                     'action' => 'delete'
                 ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
-                    <i class="material-icons">delete</i>
+                    <i class="material-icons notranslate">delete</i>
                 </a>
             </li>
         </ul>

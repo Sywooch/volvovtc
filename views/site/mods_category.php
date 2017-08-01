@@ -54,7 +54,7 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
                         <div class="card-action mod-links">
                             <a href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name
                             ?>" class="waves-effect">Скачать
-                                <i class="material-icons left">get_app</i>
+                                <i class="material-icons notranslate left">get_app</i>
                             </a>
                             <?php if($mod->yandex_link) : ?>
                                 <a href="<?= $mod->yandex_link ?>" class="waves-effect">Яндекс.Диск</a>
@@ -70,31 +70,31 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
                                     <a href="<?=Url::to(['site/modifications',
                                         'id' => $mod->id,
                                         'action' => 'edit'])?>" class="indigo-text tooltipped" data-position="bottom" data-tooltip="Редактировать">
-                                        <i class="material-icons">edit</i>
+                                        <i class="material-icons notranslate">edit</i>
                                     </a>
                                     <a href="<?=Url::to(['site/modifications',
                                         'id' => $mod->id,
                                         'action' => $mod->visible == 1 ? 'hide' : 'show'])
                                     ?>" class="indigo-text tooltipped" data-position="bottom" data-tooltip="Спрятать/Показать">
-                                        <i class="material-icons"><?= $mod->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
+                                        <i class="material-icons notranslate"><?= $mod->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
                                     </a>
                                     <a onclick='return confirm("Удалить?")' href="<?=Url::to(['site/modifications',
                                         'id' => $mod->id,
                                         'action' => 'delete'])
                                     ?>" class="indigo-text tooltipped" data-position="bottom" data-tooltip="Удалить">
-                                        <i class="material-icons">delete</i>
+                                        <i class="material-icons notranslate">delete</i>
                                     </a>
                                     <a href="<?=Url::to(['site/modifications',
                                         'id' => $mod->id,
                                         'action' => 'sortdown'
                                     ]) ?>" class="indigo-text tooltipped" data-position="bottom" data-tooltip="Переместить ниже">
-                                        <i class="material-icons">keyboard_arrow_down</i>
+                                        <i class="material-icons notranslate">keyboard_arrow_down</i>
                                     </a>
                                     <a href="<?=Url::to(['site/modifications',
                                         'id' => $mod->id,
                                         'action' => 'sortup'
                                     ]) ?>" class="indigo-text tooltipped" data-position="bottom" data-tooltip="Переместить выше">
-                                        <i class="material-icons">keyboard_arrow_up</i>
+                                        <i class="material-icons notranslate">keyboard_arrow_up</i>
                                     </a>
                                 </div>
                             <?php endif ?>
@@ -111,7 +111,7 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
         <?php endif ?>
         <?php if(\app\models\User::isAdmin()): ?>
             <div class="fixed-action-btn">
-                <a href="<?=Url::to(['site/modifications', 'action' => 'add', 'cat' => $_GET['game'].'/'.$_GET['category'].'/'.Yii::$app->request->get('subcategory')])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+                <a href="<?=Url::to(['site/modifications', 'action' => 'add', 'cat' => $_GET['game'].'/'.$_GET['category'].'/'.Yii::$app->request->get('subcategory')])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
             </div>
         <?php endif ?>
 </div>

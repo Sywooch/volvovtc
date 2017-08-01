@@ -20,7 +20,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                         <?php foreach($pics as $pic) : ?>
                             <div class="col l3 s6">
                                 <label class="card-panel delete-item upload-item" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/news/<?= $pic ?>?t=<?= time() ?>">
-                                    <i class="material-icons medium red-text">clear</i>
+                                    <i class="material-icons notranslate medium red-text">clear</i>
                                     <input type="hidden" name="picture[]" value="<?= $pic ?>">
                                 </label>
                             </div>
@@ -29,7 +29,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                     <?php if(count($pics) < 10): ?>
                         <div class="col l3 s6">
                             <label class="card-panel upload-item">
-                                <i class="material-icons medium black-text">add</i>
+                                <i class="material-icons notranslate medium black-text">add</i>
                                 <input type="file" style="display:none;">
                             </label>
                         </div>
@@ -55,7 +55,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         </div>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons'
+                    'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?php ActiveForm::end(); ?>

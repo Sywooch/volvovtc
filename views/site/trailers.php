@@ -13,12 +13,12 @@ $this->title = 'Трейлеры - Volvo Trucks';
             <form method="get">
                 <div class="input-field">
                     <button type="submit" class="prefix user-search waves-effect circle">
-                        <i class="material-icons">search</i>
+                        <i class="material-icons notranslate">search</i>
                     </button>
                     <input placeholder="Искать трейлер" type="text" name="q" <?php if(Yii::$app->request->get('q')): ?>value="<?= Yii::$app->request->get('q') ?>"<?php endif ?>>
                     <?php if(Yii::$app->request->get('q')) : ?>
                         <a href="<?= Url::to(['site/trailers']) ?>" class="search-reset waves-effect circle">
-                            <i class="material-icons">clear</i>
+                            <i class="material-icons notranslate">clear</i>
                         </a>
                     <?php endif; ?>
                 </div>
@@ -51,7 +51,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
     <div class="clearfix"></div>
     <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn">
-            <a href="<?=Url::to(['site/trailers', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <a href="<?=Url::to(['site/trailers', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
         </div>
     <?php endif; ?>
     <?= LinkPager::widget([

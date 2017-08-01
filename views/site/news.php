@@ -34,34 +34,34 @@ $this->title = 'Новости - Volvo Trucks';
                         'id' => $item->id,
                         'action' => 'sortdown'
                 ]) ?>" class="right tooltipped" data-position="bottom" data-tooltip="Переместить ниже">
-                        <i class="material-icons">keyboard_arrow_down</i>
+                        <i class="material-icons notranslate">keyboard_arrow_down</i>
                 </a>
                 <a href="<?=Url::to([
                         'site/news',
                         'id' => $item->id,
                         'action' => 'sortup'
                 ]) ?>" class="right tooltipped" data-position="bottom" data-tooltip="Переместить выше">
-                        <i class="material-icons">keyboard_arrow_up</i>
+                        <i class="material-icons notranslate">keyboard_arrow_up</i>
                 </a>
                 <a href="<?=Url::to([
                         'site/news',
                         'id' => $item->id,
                         'action' => $item->visible == 1 ? 'hide' : 'show'
                 ]) ?>" class="right tooltipped" data-position="bottom" data-tooltip="Спрятать/Показать">
-                        <i class="material-icons"><?= $item->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
+                        <i class="material-icons notranslate"><?= $item->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
                 </a>
                 <a onclick='return confirm("Удалить?")' href="<?=Url::to([
                         'site/news',
                         'id' => $item->id,
                         'action' => 'delete'])
                     ?>" class="right tooltipped" data-position="bottom" data-tooltip="Удалить">
-                        <i class="material-icons">delete</i>
+                        <i class="material-icons notranslate">delete</i>
                 </a>
                 <a href="<?=Url::to([
                     'site/news',
                     'id' => $item->id,
                     'action' => 'edit'
-                ])?>" class="right tooltipped" data-position="bottom" data-tooltip="Редактировать" ><i class="material-icons">edit</i>
+                ])?>" class="right tooltipped" data-position="bottom" data-tooltip="Редактировать" ><i class="material-icons notranslate">edit</i>
                 </a>
             <?php endif; ?>
             <div class="clearfix"></div>
@@ -85,7 +85,7 @@ $this->title = 'Новости - Volvo Trucks';
     ]) ?>
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1) : ?>
         <div class="fixed-action-btn">
-            <a href="<?=Url::to(['site/news', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <a href="<?=Url::to(['site/news', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
         </div>
     <?php endif; ?>
 </div>

@@ -22,7 +22,7 @@ $this->title = 'Сброс пароля - Volvo Trucks'; ?>
         </div>
         <div class="card-action">
             <?=Html::submitButton('Сохранить новый пароль' . Html::tag('i', 'send', [
-                'class' => 'material-icons right'
+                'class' => 'material-icons notranslate right'
             ]), ['class' => 'btn indigo darken-3 waves-effect waves-light']) ?>
         </div>
         <?php $form = ActiveForm::end(); ?>

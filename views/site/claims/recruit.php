@@ -10,7 +10,7 @@ use app\models\User; ?>
         <h5>Заявления на вступление</h5>
         <?php if(!User::isVtcMember()) : ?>
             <a href="<?= Url::to(['site/recruit']) ?>" class="btn indigo waves-effect waves-light">
-                Вступить в ВТК<i class="material-icons right">add_circle</i>
+                Вступить в ВТК<i class="material-icons notranslate right">add_circle</i>
             </a>
         <?php endif ?>
     </div>
@@ -60,7 +60,7 @@ use app\models\User; ?>
                                 'claim' => 'recruit',
                                 'id' => $recruit->id,
                                 'action' => 'apply'])
-                            ?>"><i class="material-icons to-text">done</i>Одобрить
+                            ?>"><i class="material-icons notranslate to-text">done</i>Одобрить
                             </a>
                         <?php endif; ?>
                         <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->id == $recruit->user_id ||
@@ -69,7 +69,7 @@ use app\models\User; ?>
                                 'claim' => 'recruit',
                                 'id' => $recruit->id,
                                 'action' => 'edit'])
-                            ?>"><i class="material-icons to-text">edit</i>Редактировать
+                            ?>"><i class="material-icons notranslate to-text">edit</i>Редактировать
                             </a>
                         <?php endif; ?>
                         <?php if(User::isAdmin()) : ?>
@@ -77,7 +77,7 @@ use app\models\User; ?>
                                 'claim' => 'recruit',
                                 'id' => $recruit->id,
                                 'action' => 'delete'])
-                            ?>"><i class="material-icons to-text">delete</i>Удалить
+                            ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
                             </a>
                         <?php endif; ?>
                     </div>

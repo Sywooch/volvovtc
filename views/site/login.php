@@ -25,11 +25,11 @@ $this->title = 'Войти на сайт - Volvo Trucks';
         </div>
         <div class="card-action">
             <?=Html::submitButton('Войти '.
-                Html::tag('i', 'send', ['class' => 'material-icons right']), [
+                Html::tag('i', 'send', ['class' => 'material-icons notranslate right']), [
                 'class' => 'btn indigo darken-3 waves-effect waves-light'
             ])?>
             <a href="<?=Url::to(['site/signup'])?>" class="btn-flat waves-effect">
-                <i class="material-icons right">add</i>Регистрация
+                <i class="material-icons notranslate right">add</i>Регистрация
             </a>
             <a href="#modal1" class="btn-flat waves-effect right modal-trigger">Забыли пароль?</a>
             <div class="clearfix"></div>

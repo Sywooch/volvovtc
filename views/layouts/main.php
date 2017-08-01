@@ -59,20 +59,20 @@ AppAsset::register($this);
                 </div>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">
-                    <i class="material-icons">home</i>О НАС</a>
+                    <i class="material-icons notranslate">home</i>О НАС</a>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">
-                    <i class="material-icons">error</i>ПРАВИЛА</a>
+                    <i class="material-icons notranslate">error</i>ПРАВИЛА</a>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'news'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/news'])?>">
-                    <i class="material-icons">view_quilt</i>НОВОСТИ</a>
+                    <i class="material-icons notranslate">view_quilt</i>НОВОСТИ</a>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/convoys'])?>">
-                    <i class="material-icons">local_shipping</i>КОНВОИ</a>
+                    <i class="material-icons notranslate">local_shipping</i>КОНВОИ</a>
             </li>
             <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                 <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">
-                        <i class="material-icons">contacts</i>ВСТУПИТЬ</a>
+                        <i class="material-icons notranslate">contacts</i>ВСТУПИТЬ</a>
                 </li>
             <?php endif ?>
             <?php if(\app\models\User::isAdmin()) : ?>
@@ -80,7 +80,7 @@ AppAsset::register($this);
                     <ul class="collapsible collapsible-accordion">
                         <?php $controller_id = ['trailers', 'users', 'members'] ?>
                         <li>
-                            <a class="collapsible-header waves-effect"><i class="material-icons">view_module</i>УПРАВЛЕНИЕ</a>
+                            <a class="collapsible-header waves-effect"><i class="material-icons notranslate">view_module</i>УПРАВЛЕНИЕ</a>
                             <div class="collapsible-body">
                                 <ul>
                                     <li><a href="<?=Url::to(['site/members'])?>">СОТРУДНИКИ</a></li>
@@ -94,24 +94,24 @@ AppAsset::register($this);
                 </li>
             <?php else: ?>
                 <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
-                        <i class="material-icons">view_module</i>ВОДИТЕЛИ</a>
+                        <i class="material-icons notranslate">view_module</i>ВОДИТЕЛИ</a>
                 </li>
             <?php endif ?>
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
-                    <i class="material-icons">receipt</i>ЗАЯВЛЕНИЯ</a>
+                    <i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">
-                    <i class="material-icons">settings</i>МОДЫ</a>
+                    <i class="material-icons notranslate">settings</i>МОДЫ</a>
             </li>
             <?php if(Yii::$app->user->isGuest) : ?>
                 <li<?php if(Yii::$app->controller->action->id === 'login'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/login'])?>">
-                        <i class="material-icons">exit_to_app</i>ВОЙТИ</a>
+                        <i class="material-icons notranslate">exit_to_app</i>ВОЙТИ</a>
                 </li>
             <?php else : ?>
                 <li<?php if(Yii::$app->controller->action->id === 'profile'){?> class="active"<?php } ?>>
                     <ul class="collapsible collapsible-accordion">
                         <li>
-                            <a class="collapsible-header waves-effect"><i class="material-icons">person</i>ПРОФИЛЬ</a>
+                            <a class="collapsible-header waves-effect"><i class="material-icons notranslate">person</i>ПРОФИЛЬ</a>
                             <div class="collapsible-body">
                                 <ul>
                                     <li><a href="<?=Url::to(['site/profile'])?>">СМОТРЕТЬ ПРОФИЛЬ</a></li>
@@ -128,7 +128,7 @@ AppAsset::register($this);
     <div class="navbar-fixed">
         <nav class="white">
             <div class="nav-wrapper">
-                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+                <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons notranslate">menu</i></a>
                 <a href="<?=Yii::$app->request->baseUrl?>/" class="brand-logo"><img src="<?=Yii::$app->request->baseUrl?>/assets/img/volvo-sign.png" alt="VOLVO TRUCKS"></a>
                 <ul id="nav-mobile" class="hide-on-med-and-down right">
                     <li<?php if(Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a></li>
@@ -143,10 +143,10 @@ AppAsset::register($this);
                         <li id="manage-btn">
                             <a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">УПРАВЛЕНИЕ</a>
                             <ul id="manage-dropdown" class="z-depth-2">
-                                <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons left">supervisor_account</i>СОТРУДНИКИ</a></li>
-                                <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons left">insert_chart</i>СТАТИСТИКА</a></li>
-                                <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
-                                <li><a href="<?=Url::to(['site/trailers'])?>"><i class="material-icons left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons notranslate left">supervisor_account</i>СОТРУДНИКИ</a></li>
+                                <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
+                                <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
+                                <li><a href="<?=Url::to(['site/trailers'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                             </ul>
                         </li>
                     <?php else: ?>
@@ -159,13 +159,13 @@ AppAsset::register($this);
                     <li<?php if(Yii::$app->controller->action->id === 'profile'){?> class="active"<?php } ?> id="profile-btn">
                         <a href="<?=Url::to(['site/profile'])?>">ПРОФИЛЬ</a>
                         <ul id="profile-dropdown" class="z-depth-2">
-                            <li><a href="<?=Url::to(['site/profile', 'action' => 'edit'])?>"><i class="material-icons left">settings</i>РЕДАКТИРОВАТЬ</a></li>
-                            <li><a href="<?=Url::to(['site/logout'])?>"><i class="material-icons left">exit_to_app</i>ВЫЙТИ</a></li>
+                            <li><a href="<?=Url::to(['site/profile', 'action' => 'edit'])?>"><i class="material-icons notranslate left">settings</i>РЕДАКТИРОВАТЬ</a></li>
+                            <li><a href="<?=Url::to(['site/logout'])?>"><i class="material-icons notranslate left">exit_to_app</i>ВЫЙТИ</a></li>
                         </ul>
                     </li>
                     <li id="notification-item" class="notification-btn-item">
                         <a class="notification-btn">
-                            <i class="material-icons">notifications</i>
+                            <i class="material-icons notranslate">notifications</i>
                             <?php if($this->params['hasUnreadNotifications']) : ?>
                                 <div class="new-notifications z-depth-2 green"></div>
                             <?php endif ?>
@@ -175,7 +175,7 @@ AppAsset::register($this);
                                 foreach($this->params['notifications'] as $notification): ?>
                                     <li class="flex<?php if($notification->status == '0'): ?> unread-notification<?php endif ?>" data-id="<?= $notification->id ?>" style="justify-content: space-between">
                                         <span class="truncate"><?= $notification->text ?></span>
-                                        <a class="clear-notification right tooltipped " data-position="left" data-tooltip="Скрыть"><i class="material-icons">clear</i></a>
+                                        <a class="clear-notification right tooltipped " data-position="left" data-tooltip="Скрыть"><i class="material-icons notranslate">clear</i></a>
                                     </li>
                                 <?php endforeach;
                             else: ?>

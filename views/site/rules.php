@@ -24,7 +24,7 @@ $this->title = 'Правила ВТК Volvo Trucks';
     </div>
     <?php if(\app\models\User::isAdmin()): ?>
         <div class="fixed-action-btn">
-            <a href="<?= Url::to(['site/rules', 'action' => 'edit']) ?>" class="btn-floating btn-large red"><i class="large material-icons">edit</i></a>
+            <a href="<?= Url::to(['site/rules', 'action' => 'edit']) ?>" class="btn-floating btn-large red"><i class="large material-icons notranslate">edit</i></a>
         </div>
     <?php endif ?>
     <?php else:
@@ -36,7 +36,7 @@ $this->title = 'Правила ВТК Volvo Trucks';
         <?= Html::checkbox('notify', false, ['id' => 'notify']) ?><label for="notify" style="margin-top: 10px">Уведомить всех сотрудников об изменении правил</label>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                'class' => 'large material-icons'
+                'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?= Html::endForm(); ?>

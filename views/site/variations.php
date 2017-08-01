@@ -38,7 +38,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body">
                             <ul class="force-list-style">
                                 <li>Пользовательский цвет - металлик (Черный)</li>
@@ -67,7 +67,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                 <span class="grey-text">Данный грузовик предназначен для крупногабаритных и насыпных грузов.</span>
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body list-style-default">
                             <ul>
                                 <li>Кабина: Globetrotter (средняя)</li>
@@ -133,7 +133,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body">
                             <ul class="force-list-style">
                                 <li>Пользовательский цвет - металлик (Черный)</li>
@@ -161,7 +161,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body">
                             <ul class="force-list-style">
                                 <li>Пользовательский цвет - металлик (Черный)</li>
@@ -199,7 +199,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body">
                             <ul class="force-list-style">
                                 <li>Пользовательский цвет - металлик (Черный)</li>
@@ -226,7 +226,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body">
                             <ul class="force-list-style">
                                 <li>Пользовательский цвет - металлик (Черный)</li>
@@ -250,7 +250,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body list-style-default">
                             <ul>
                                 <ul class="force-list-style">
@@ -279,7 +279,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
-                        <div class="collapsible-header"><i class="material-icons">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body">
                             <ul class="force-list-style">
                                 <li>Пользовательский цвет - металлик (Черный)</li>

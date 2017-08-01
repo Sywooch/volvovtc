@@ -9,7 +9,7 @@ use app\models\User; ?>
         <h5>Заявления на отпуск</h5>
         <?php if(User::isVtcMember()) : ?>
             <a href="<?= Url::to(['site/claims', 'claim' => 'vacation', 'action' => 'add']) ?>" class="btn indigo waves-effect waves-light">
-                Подать заявление на отпуск<i class="material-icons right">add_circle</i>
+                Подать заявление на отпуск<i class="material-icons notranslate right">add_circle</i>
             </a>
         <?php endif ?>
     </div>
@@ -53,7 +53,7 @@ use app\models\User; ?>
                                 'claim' => 'vacation',
                                 'id' => $claim->id,
                                 'action' => 'apply'])
-                            ?>"><i class="material-icons to-text">done</i>Одобрить
+                            ?>"><i class="material-icons notranslate to-text">done</i>Одобрить
                             </a>
                         <?php endif; ?>
                         <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->id == $claim->user_id ||
@@ -62,7 +62,7 @@ use app\models\User; ?>
                                 'claim' => 'vacation',
                                 'id' => $claim->id,
                                 'action' => 'edit'])
-                            ?>"><i class="material-icons to-text">edit</i>Редактировать
+                            ?>"><i class="material-icons notranslate to-text">edit</i>Редактировать
                             </a>
                         <?php endif; ?>
                         <?php if(User::isAdmin()) : ?>
@@ -70,7 +70,7 @@ use app\models\User; ?>
                                 'claim' => 'vacation',
                                 'id' => $claim->id,
                                 'action' => 'delete'])
-                            ?>"><i class="material-icons to-text">delete</i>Удалить
+                            ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
                             </a>
                         <?php endif; ?>
                     </div>

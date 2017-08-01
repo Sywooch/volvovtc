@@ -155,7 +155,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                     </div>
                     <div class="col l1 s2 center" style="line-height: 66px;">
                         <a target="_blank" href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
-                            <i class="material-icons small">add</i>
+                            <i class="material-icons notranslate small">add</i>
                         </a>
                     </div>
                 </div>
@@ -180,12 +180,12 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                 <?php if($model->extra_picture) : ?>
                     <img src="<?= Yii::$app->request->baseUrl . '/images/convoys/' . $model->extra_picture ?>" class="responsive-img z-depth-2">
                     <a href="<?= Url::to(['site/convoys', 'action' => 'delete_extra_picture', 'id' => $_GET['id']]) ?>" class="btn indigo darken-3 waves-effect waves-light" onclick="return confirm('Удалить дополнительное изображение?')">
-                        <i class="material-icons left">clear</i>Удалить
+                        <i class="material-icons notranslate left">clear</i>Удалить
                     </a>
                 <?php endif ?>
                 <div class="input-field file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
-                        <i class="material-icons left">add</i>
+                        <i class="material-icons notranslate left">add</i>
                         <span>Дополнительное изображение</span>
                         <?= $form->field($model, 'extra_picture')->fileInput()->label(false)->error(false) ?>
                     </div>
@@ -200,7 +200,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         </div>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons'
+                    'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?php ActiveForm::end(); ?>

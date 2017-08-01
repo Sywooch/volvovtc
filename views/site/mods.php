@@ -96,7 +96,7 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
             </div>
 <!--            <div class="mod-order valign-wrapper">-->
 <!--                <a target="_blank" href="https://vk.com/im?sel=34358094" class="btn-floating btn-large green darken-3 waves-effect waves-light tooltipped"  data-position="bottom" data-delay="50" data-tooltip="Заказать мод">-->
-<!--                    <i class="material-icons">note_add</i>-->
+<!--                    <i class="material-icons notranslate">note_add</i>-->
 <!--                </a>-->
 <!--                <p><i>В мультиплеере будут работать только те моды, которые используюют оригинальные файлы игры</i></p>-->
 <!--            </div>-->
@@ -138,7 +138,7 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
     </div>
     <?php if(\app\models\User::isAdmin()): ?>
         <div class="fixed-action-btn">
-            <a href="<?=Url::to(['site/modifications', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <a href="<?=Url::to(['site/modifications', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
         </div>
     <?php endif ?>
 </div>

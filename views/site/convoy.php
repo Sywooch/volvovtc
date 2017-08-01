@@ -62,7 +62,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header grey lighten-4">
-                            <i class="material-icons">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
+                            <i class="material-icons notranslate">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
                         </div>
                         <div class="collapsible-body grey lighten-4">
                             <ul class="force-list-style" style="margin: 0 0 20px 0">
@@ -129,7 +129,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     'id' => $convoy->id,
                     'action' => 'edit'
                 ])?>" class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Редактировать">
-                    <i class="large material-icons">mode_edit</i>
+                    <i class="large material-icons notranslate">mode_edit</i>
                 </a>
                 <ul>
                     <li>
@@ -138,7 +138,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                             'id' => $convoy->id,
                             'action' => 'delete'
                         ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
-                            <i class="material-icons">delete</i>
+                            <i class="material-icons notranslate">delete</i>
                         </a>
                     </li>
                     <li>
@@ -148,7 +148,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                             'action' => $convoy->visible == '1' ? 'hide' : 'show'
                         ])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="<?= $convoy->visible == '1' ?
                             'Скрыть конвой' : 'Сделать видимым' ?>">
-                            <i class="material-icons"><?= $convoy->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
+                            <i class="material-icons notranslate"><?= $convoy->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
                         </a>
                     </li>
                 </ul>

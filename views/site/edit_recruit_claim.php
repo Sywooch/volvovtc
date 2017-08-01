@@ -115,7 +115,7 @@ $this->title = 'Редактировать заявление на вступл�
         <?php endif ?>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons'
+                    'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?php ActiveForm::end(); ?>

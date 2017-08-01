@@ -62,7 +62,7 @@ $(document).on('ready', function(){
     $('.profile-img [type=file]').change(function(){
         if(this.files.length > 0){
             $('.profile-img').after('<div class="white-text save-img-profile text-shadow">' +
-                '<i class="material-icons medium-small">refresh</i>' +
+                '<i class="material-icons notranslate medium-small">refresh</i>' +
                 '</div>');
         }else{
             $('.profile-img').find('.save-img-profile').remove();
@@ -72,7 +72,7 @@ $(document).on('ready', function(){
     $('.bg-img [type=file]').change(function(){
         if(this.files.length > 0){
             $('.bg-img').after('<div class="white-text save-img-bg text-shadow">' +
-                '<i class="material-icons medium">refresh</i>' +
+                '<i class="material-icons notranslate medium">refresh</i>' +
                 '</div>');
             $('.bg-img').find('i').hide();
         }else{

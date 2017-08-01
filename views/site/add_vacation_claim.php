@@ -37,7 +37,7 @@ $this->title = 'Подать заявление на отпуск - Volvo Trucks
         </div>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons'
+                    'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?php ActiveForm::end(); ?>

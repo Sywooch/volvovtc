@@ -22,7 +22,7 @@ use yii\widgets\ActiveForm;
         <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/bg/<?= $user->bg_image ?>)">
             <div class="profile-img z-depth-3" id="preview" style="background-image: url(<?=Yii::$app->request->baseUrl.'/images/users/'.$user->picture.'?t='.time()?>)">
                 <label class="overlay valign-wrapper">
-                    <i class="material-icons medium">file_upload</i>
+                    <i class="material-icons notranslate medium">file_upload</i>
                     <?= $form->field($model, 'picture', [
                         'template' => '<div>{input}{label}</div>',
                         'options' => ['class' => 'false',]
@@ -35,7 +35,7 @@ use yii\widgets\ActiveForm;
             </div>
             <div class="bg-img">
                 <label class="overlay valign-wrapper">
-                    <i class="material-icons medium">file_upload</i>
+                    <i class="material-icons notranslate medium">file_upload</i>
                     <?= $form->field($model, 'bg_image', [
                         'template' => '<div>{input}{label}</div>',
                         'options' => ['class' => 'false']
@@ -158,7 +158,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="card-action">
             <?=Html::submitButton('Сохранить '.
-                Html::tag('i', 'save', ['class' => 'material-icons right']), [
+                Html::tag('i', 'save', ['class' => 'material-icons notranslate right']), [
                 'class' => 'btn indigo darken-3 waves-effect waves-light',
                 'name' => 'save_profile'
             ]);
@@ -189,7 +189,7 @@ use yii\widgets\ActiveForm;
         </div>
         <div class="card-action">
             <?=Html::submitButton('Изменить пароль '.
-                Html::tag('i', 'save', ['class' => 'material-icons right']), [
+                Html::tag('i', 'save', ['class' => 'material-icons notranslate right']), [
                 'class' => 'btn indigo darken-3 waves-effect waves-light',
                 'name' => 'save_profile_password'
             ])?>

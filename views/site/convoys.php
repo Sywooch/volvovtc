@@ -72,13 +72,13 @@ $this->title = 'Конвои Volvo Trucks';
                             <a href="<?= Url::to(['site/convoys', 'id' => $convoy->id]) ?>" class="indigo-text">Смотреть конвой</a>
                             <?php if(\app\models\User::isAdmin()): ?>
                                 <a href="<?= Url::to(['site/convoys', 'id' => $convoy->id, 'action' => 'edit']) ?>" class="right indigo-text tooltipped" data-position="bottom" data-tooltip="Редактировать">
-                                    <i class="material-icons">edit</i>
+                                    <i class="material-icons notranslate">edit</i>
                                 </a>
                                 <a href="<?=Url::to(['site/convoys', 'id' => $convoy->id, 'action' => $convoy->visible == 1 ? 'hide' : 'show']) ?>" class="right indigo-text tooltipped" data-position="bottom" data-tooltip="Спрятать/Показать">
-                                    <i class="material-icons"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
+                                    <i class="material-icons notranslate"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
                                 </a>
                                 <a onclick='return confirm("Удалить?")' href="<?=Url::to(['site/convoys', 'id' => $convoy->id, 'action' => 'delete']) ?>" class="right indigo-text tooltipped" data-position="bottom" data-tooltip="Удалить">
-                                    <i class="material-icons">delete</i>
+                                    <i class="material-icons notranslate">delete</i>
                                 </a>
                             <?php endif ?>
                         </div>
@@ -90,7 +90,7 @@ $this->title = 'Конвои Volvo Trucks';
     <?php if(\app\models\User::isVtcMember() && count($hidden_convoys) > 0) : ?>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header grey lighten-4"><i class="material-icons">archive</i>Архив конвоев</div>
+                <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">archive</i>Архив конвоев</div>
                 <div class="collapsible-body grey lighten-4">
                     <ul class="force-list-style">
                         <?php foreach($hidden_convoys as $convoy) :
@@ -101,7 +101,7 @@ $this->title = 'Конвои Volvo Trucks';
                                     <?= $convoy->title ?> - <?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?>
                                 </a>
                                 <?php if(\app\models\User::isAdmin()) : ?>
-                                    <i class="material-icons tiny grey-text" style="vertical-align: text-top;"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
+                                    <i class="material-icons notranslate tiny grey-text" style="vertical-align: text-top;"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
                                 <?php endif ?>
                             </li>
                         <?php endforeach ?>
@@ -112,7 +112,7 @@ $this->title = 'Конвои Volvo Trucks';
     <?php endif ?>
     <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn">
-            <a href="<?=Url::to(['site/convoys', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons">add</i></a>
+            <a href="<?=Url::to(['site/convoys', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
         </div>
     <?php endif; ?>
 </div>

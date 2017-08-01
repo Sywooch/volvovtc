@@ -67,7 +67,7 @@ $(document).ready(function(){
                 }
             },
             complete : function(){
-                button.find('.preloader').replaceWith('<i class="material-icons left">add</i>');
+                button.find('.preloader').replaceWith('<i class="material-icons notranslate left">add</i>');
             }
         });
     });
@@ -110,7 +110,7 @@ $(document).ready(function(){
                 }
             },
             complete : function(){
-                uploader.parent().find('.preloader-wrapper').replaceWith('<i class="material-icons medium red-text text-shadow">clear</i>');
+                uploader.parent().find('.preloader-wrapper').replaceWith('<i class="material-icons notranslate medium red-text text-shadow">clear</i>');
                 uploader.parent().addClass('delete-item');
                 if($(document).find('[name^=picture]').length < 10){
                     uploader.parent().parent().after(newBlock);

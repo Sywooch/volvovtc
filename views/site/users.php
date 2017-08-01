@@ -10,12 +10,12 @@ $this->title = 'Зарегистрированые пользователи са
         <form method="get">
             <div class="input-field">
                 <button type="submit" class="prefix user-search waves-effect circle">
-                    <i class="material-icons">search</i>
+                    <i class="material-icons notranslate">search</i>
                 </button>
                 <input placeholder="Искать пользователя" type="text" name="q" <?php if(Yii::$app->request->get('q')): ?>value="<?= Yii::$app->request->get('q') ?>"<?php endif ?>>
                 <?php if(Yii::$app->request->get('q')) : ?>
                     <a href="<?= Url::to(['site/users']) ?>" class="search-reset waves-effect circle">
-                        <i class="material-icons">clear</i>
+                        <i class="material-icons notranslate">clear</i>
                     </a>
                 <?php endif; ?>
             </div>

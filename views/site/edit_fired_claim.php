@@ -66,9 +66,9 @@ $this->title = 'Редактировать заявление на увольн�
         </div>
         <div class="col l12 s12">
             <div class="card-panel grey lighten-4">
-                <?php if($model->status == '1') : ?>
+                <?php if($model->status != '0') : ?>
                     <div class="card-panel yellow lighten-2">
-                        <i class="left material-icons">report_problem</i>Одобреные заявки на увольнение, редактированию не подлежат!
+                        <i class="left material-icons notranslate">report_problem</i>Рассмотренные заявки на увольнение, редактированию не подлежат!
                     </div>
                 <?php endif ?>
                 <div class="input-field">
@@ -97,7 +97,7 @@ $this->title = 'Редактировать заявление на увольн�
         <?php endif ?>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons'
+                    'class' => 'large material-icons notranslate'
             ]), ['class' => 'btn-floating btn-large red']) ?>
         </div>
         <?php ActiveForm::end(); ?>
