@@ -70,49 +70,16 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                         <div class="collapsible-header"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
                         <div class="collapsible-body list-style-default">
                             <ul>
-                                <li>Кабина: Globetrotter (средняя)</li>
+                                <li>Кабина: Sleeper (малая)</li>
                                 <li>Шасси: 6х2 / 6х2 подъемная ось / 6х4 (на выбор)</li>
                                 <li>Цвет: Белый (просто белый, не металлик)</li>
-                                <li>Лайтбар: Mirage (первый)</li>
+                                <li>Лайтбар: Sting</li>
                                 <li>Два маячка по бокам</li>
                                 <li>Козырек: заводской</li>
                                 <li>Зеркала / ручки в цвет кузова</li>
-                                <li>Колеса
-                                    <ul>
-                                        <li>Передние - Dark Silver</li>
-                                        <li>Задние - Eastern Eagle</li>
-                                    </ul>
-                                </li>
-                                <li>Тюнинг колес с DLC Wheel Tuning Pack
-                                    <ul>
-                                        <li>Диск
-                                            <ul>
-                                                <li>Передний - Elite Rider</li>
-                                                <li>Задний - Standard Gloss</li>
-                                            </ul>
-                                        </li>
-                                        <li>Коллпак
-                                            <ul>
-                                                <li>Передний - Pacific</li>
-                                                <li>Задний - Pacific</li>
-                                            </ul>
-                                        </li>
-                                        <li>Ступица
-                                            <ul>
-                                                <li>Передняя - Absolute Fury</li>
-                                                <li>Задняя - Standard</li>
-                                            </ul>
-                                        </li>
-                                        <li>Гайки
-                                            <ul>
-                                                <li>Передние - Standard</li>
-                                                <li>Задние - Standard</li>
-                                            </ul>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li>Покрышки: Elemental</li>
-                                <li>Остальное все запрещено, кроме табличек и салона</li>
+                                <li>Колеса из 1 вариации</li>
+                                <li>Остальное все запрещено, кроме табличек, DLC Cabin Accessories и National Window Flags</li>
+                                <li>Разрешается установить три желтых лампочки по середине на лайтбаре</li>
                             </ul>
                         </div>
                     </li>
