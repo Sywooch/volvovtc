@@ -14,10 +14,47 @@ $this->title = 'Заявления Volvo Trucks';
     <div class="row">
         <div class="col s12">
             <ul class="tabs tabs-fixed-width">
-                <li class="tab col s3"><a href="#recruit">На вступление</a></li>
-                <li class="tab col s3"><a href="#dismissal">На увольнение</a></li>
-                <li class="tab col s3"><a href="#nickname">На смену ника</a></li>
-                <li class="tab col s3"><a href="#vacation">На отпуск</a></li>
+                <li class="tab col s3">
+                    <a href="#recruit">
+                        На вступление
+                        <?php if(\app\models\User::isAdmin()){
+                            $count_recruits = \app\models\ClaimsFired::countClaims($recruits, true);
+                            if($count_recruits > 0) : ?>
+                                <span class="claims-count circle indigo darken-3 white-text"><?= $count_recruits ?></span>
+                            <?php endif;
+                        } ?>
+                    </a>
+                </li>
+                <li class="tab col s3"><a href="#dismissal">
+                        На увольнение
+                        <?php if(\app\models\User::isAdmin()){
+                            $count_recruits = \app\models\ClaimsFired::countClaims($fired, true);
+                            if($count_recruits > 0) : ?>
+                                <span class="claims-count circle indigo darken-3 white-text"><?= $count_recruits ?></span>
+                            <?php endif;
+                        } ?>
+                    </a>
+                </li>
+                <li class="tab col s3"><a href="#nickname">
+                        На смену ника
+                        <?php if(\app\models\User::isAdmin()){
+                            $count_recruits = \app\models\ClaimsFired::countClaims($nickname, true);
+                            if($count_recruits > 0) : ?>
+                                <span class="claims-count circle indigo darken-3 white-text"><?= $count_recruits ?></span>
+                            <?php endif;
+                        } ?>
+                    </a>
+                </li>
+                <li class="tab col s3"><a href="#vacation">
+                        На отпуск
+                        <?php if(\app\models\User::isAdmin()){
+                            $count_recruits = \app\models\ClaimsFired::countClaims($vacation, true);
+                            if($count_recruits > 0) : ?>
+                                <span class="claims-count circle indigo darken-3 white-text"><?= $count_recruits ?></span>
+                            <?php endif;
+                        } ?>
+                    </a>
+                </li>
             </ul>
         </div>
     </div>
