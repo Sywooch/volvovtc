@@ -190,6 +190,7 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 .nowrap{white-space: nowrap;}
 .center button, .center a.btn{ margin: 5px 0;}
 .modal-member-scores span{ font-size: 30px;}
+.modal span.scores-description{display: block; margin-bottom: 10px; color: #9e9e9e;}
 #modal1 #nickname{ text-decoration: underline; color: #000;}
 th.first{padding: 0;}
 th.first .preloader-wrapper{vertical-align: middle;}

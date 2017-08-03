@@ -50,10 +50,13 @@ $this->title = 'Водители Volvo Trucks';
                     <td><?= $i++ ?></td>
                     <td style="text-align: left; padding-left: 20px;white-space: nowrap;">
                         <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member->user_id)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->user_id->picture ?>)"></a>
-                        <a href="<?= \app\models\User::isAdmin() ? Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) : Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="black-text">[Volvo Trucks] <?= $member->user_id->nickname ?></a>
-                        <?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>
-                            <span class="member-vacation" style="display: block;margin-left: 80px">В отпуске <?= $member->vacation_undefined == '1' ? 'на н. срок' : 'до ' . \app\controllers\SiteController::getRuDate($member->vacation) ?></span>
-                        <?php endif ?>
+                        <div style="display: inline-block; vertical-align: middle;">
+                            <a href="<?= \app\models\User::isAdmin() ? Url::to(['site/members', 'action' => 'edit', 'id' => $member->id]) : Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="black-text">[Volvo Trucks] <?= $member->user_id->nickname ?></a>
+                            <?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>
+                                <span class="member-vacation grey-text" style="display: block;">В отпуске <?= $member->vacation_undefined == '1' ? 'на н. срок' : 'до ' . \app\controllers\SiteController::getRuDate($member->vacation) ?></span>
+                            <?php endif ?>
+                        </div>
+
                     </td>
                     <td><?= $member->user_id->first_name . ' ' . $member->user_id->last_name ?></td>
                     <td>
@@ -198,11 +201,13 @@ $this->title = 'Водители Volvo Trucks';
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="20" data-target="other">
                                 <i class="material-icons notranslate left">add</i>20 баллов
                             </button>
+                            <span class="scores-description">За сторонний конвой</span>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="10" data-target="other">
                                 <i class="material-icons notranslate left">add</i>10 баллов
                             </button>
+                            <span class="scores-description">За сторонний конвой, за сданный экзамен</span>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="5" data-target="other">
@@ -216,16 +221,19 @@ $this->title = 'Водители Volvo Trucks';
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="20" data-target="month">
                                 <i class="material-icons notranslate left">add</i>20 баллов
                             </button>
+                            <span class="scores-description">За открытый/совместный конвой</span>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="10" data-target="month">
                                 <i class="material-icons notranslate left">add</i>10 баллов
                             </button>
+                            <span class="scores-description">За половину открытого/совместного конвоя, внутренний конвой</span>
                         </div>
                         <div class="center">
                             <button class="btn indigo waves-effect waves-light add-scores" data-scores="5" data-target="month">
                                 <i class="material-icons notranslate left">add</i>5 баллов
                             </button>
+                            <span class="scores-description">За половину внутреннего конвоя</span>
                         </div>
                     </div>
                 </div>

@@ -24,11 +24,9 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                                 <span class="nowrap"><b><?= \app\controllers\SiteController::getRuDate($member->user_id->birth_date) ?></b></span>
                                 <span class="nowrap">(<?= \app\models\User::getUserAge($member->user_id->birth_date) ?>)</span>
                             </p>
-                            <?php $datetime1 = new DateTime($member->start_date);
-                            $datetime2 = new DateTime(); ?>
                             <p>В компании с
                                 <span class="nowrap"><b><?= \app\controllers\SiteController::getRuDate($member->start_date) ?></b></span>
-                                <span class="nowrap">(<?= $datetime1->diff($datetime2)->format('%a дней') ?>)</span>
+                                <span class="nowrap">(<?= \app\models\VtcMembers::getMemberDays($member->start_date); ?>)</span>
                             </p>
                             <div class="secondary-content">
                                 <ul class="user-links right" style="width: 84px;">

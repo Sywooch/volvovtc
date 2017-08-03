@@ -77,7 +77,6 @@ class User extends ActiveRecord implements IdentityInterface{
                 ->where(['user_id' => Yii::$app->user->identity->id])
                 ->one() ? true : false;
         }
-
         return $is_member;
     }
 
