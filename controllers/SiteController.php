@@ -437,22 +437,22 @@ class SiteController extends Controller{
             switch(Yii::$app->request->get('claim')){
                 case 'recruit' :
                     if(RecruitForm::deleteRecruitClaim($id)){
-                        return $this->redirect(['site/claims']);
+                        return $this->redirect(['site/claims', '#' => 'recruit']);
                     }
                     break;
                 case 'dismissal' :
                     if(FiredForm::deleteFiredClaim($id)){
-                        return $this->redirect(['site/claims']);
+                        return $this->redirect(['site/claims', '#' => 'dismissal']);
                     }
                     break;
                 case 'nickname' :
                     if(NicknameForm::deleteNicknameClaim($id)){
-                        return $this->redirect(['site/claims']);
+                        return $this->redirect(['site/claims', '#' => 'nickname']);
                     }
                     break;
                 case 'vacation' :
                     if(VacationForm::deleteVacationClaim($id)){
-                        return $this->redirect(['site/claims']);
+                        return $this->redirect(['site/claims', '#' => 'vacation']);
                     }
                     break;
             }
@@ -465,7 +465,7 @@ class SiteController extends Controller{
                     $recruitForm = new RecruitForm($id);
                     if($recruitForm->load(Yii::$app->request->post()) && $recruitForm->validate()) {
                         if($recruitForm->editRecruitClaim($id)){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'recruit']);
                         }
                     }else{
                         $recruitClaim = ClaimsRecruit::findOne($id);
@@ -479,7 +479,7 @@ class SiteController extends Controller{
                                 'viewed' => User::find()->select('first_name, last_name')->where(['id' => $recruitForm->viewed])->one()
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'recruit']);
                         }
                     }
                     break;
@@ -488,7 +488,7 @@ class SiteController extends Controller{
                     $firedForm = new FiredForm($id);
                     if($firedForm->load(Yii::$app->request->post()) && $firedForm->validate()) {
                         if($firedForm->editFiredClaim($id)){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'dismissal']);
                         }
                     }else{
                         $firedClaim = ClaimsFired::findOne($id);
@@ -504,7 +504,7 @@ class SiteController extends Controller{
                                 'viewed' => User::find()->select('first_name, last_name')->where(['id' => $firedClaim->viewed])->one()
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'dismissal']);
                         }
                     }
                     break;
@@ -513,7 +513,7 @@ class SiteController extends Controller{
                     $nicknameForm = new NicknameForm($id);
                     if($nicknameForm->load(Yii::$app->request->post()) && $nicknameForm->validate()) {
                         if($nicknameForm->editRecruitClaim($id)){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'nickname']);
                         }
                     }else{
                         $nicknameClaim = ClaimsNickname::findOne($id);
@@ -529,7 +529,7 @@ class SiteController extends Controller{
                                 'viewed' => User::find()->select('first_name, last_name')->where(['id' => $nicknameForm->viewed])->one()
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'nickname']);
                         }
                     }
                     break;
@@ -538,7 +538,7 @@ class SiteController extends Controller{
                     $vacationForm = new VacationForm($id);
                     if($vacationForm->load(Yii::$app->request->post()) && $vacationForm->validate()) {
                         if($result = $vacationForm->editVacationClaim($id)){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'vacation']);
                         }
                     }else{
                         $vacationClaim = ClaimsVacation::findOne($id);
@@ -554,7 +554,7 @@ class SiteController extends Controller{
                                 'viewed' => User::find()->select('first_name, last_name')->where(['id' => $vacationForm->viewed])->one()
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'vacation']);
                         }
                     }
                     break;
@@ -567,22 +567,22 @@ class SiteController extends Controller{
             switch(Yii::$app->request->get('claim')){
                 case 'recruit' : {
                     RecruitForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['site/claims']);
+                    return $this->redirect(['site/claims', '#' => 'recruit']);
                     break;
                 }
                 case 'dismissal' : {
                     FiredForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['site/claims']);
+                    return $this->redirect(['site/claims', '#' => 'dismissal']);
                     break;
                 }
                 case 'nickname' : {
                     NicknameForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['site/claims']);
+                    return $this->redirect(['site/claims', '#' => 'nickname']);
                     break;
                 }
                 case 'vacation' : {
                     VacationForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['site/claims']);
+                    return $this->redirect(['site/claims', '#' => 'vacation']);
                     break;
                 }
             }
@@ -599,7 +599,7 @@ class SiteController extends Controller{
                     $firedForm = new FiredForm();
                     if($firedForm->load(Yii::$app->request->post()) && $firedForm->validate()) {
                         if($firedForm->addClaim()){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'dismissal']);
                         }
                     }else{
                         if(VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->user->id])->one() != false){
@@ -607,7 +607,7 @@ class SiteController extends Controller{
                                 'model' => $firedForm
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'dismissal']);
                         }
                     }
                     break;
@@ -616,7 +616,7 @@ class SiteController extends Controller{
                     $nicknameForm = new NicknameForm();
                     if($nicknameForm->load(Yii::$app->request->post()) && $nicknameForm->validate()) {
                         if($nicknameForm->addClaim()){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'nickname']);
                         }
                     }else{
                         if(VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() != false){
@@ -624,7 +624,7 @@ class SiteController extends Controller{
                                 'model' => $nicknameForm
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'nickname']);
                         }
                     }
                     break;
@@ -633,7 +633,7 @@ class SiteController extends Controller{
                     $vacationForm = new VacationForm();
                     if($vacationForm->load(Yii::$app->request->post()) && $vacationForm->validate()) {
                         if($vacationForm->addClaim()){
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'vacation']);
                         }
                     }else{
                         if(VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() != false){
@@ -641,7 +641,7 @@ class SiteController extends Controller{
                                 'model' => $vacationForm
                             ]);
                         }else{
-                            return $this->redirect(['site/claims']);
+                            return $this->redirect(['site/claims', '#' => 'vacation']);
                         }
                     }
                     break;
