@@ -31,7 +31,8 @@ use app\models\User; ?>
                     <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>">[Volvo Trucks] <?= htmlentities($user->nickname) ?></a>
                     <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p class="nowrap"><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
+                            <p class="nowrap">С <?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
+                            <p class="nowrap"><b><?= $claim->vacation_undefined == '1' ? 'На Н. срок' : 'По ' . \app\controllers\SiteController::getRuDate($claim->to_date) ?></b></p>
                             <?php if($claim->reason) : ?>
                                 <p><b>Причина:</b> <?= strip_tags($claim->reason, '<br>') ?></p>
                             <?php endif ?>
