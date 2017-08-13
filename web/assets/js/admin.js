@@ -185,7 +185,7 @@ $(document).ready(function(){
         }
     }
 
-    $('#addmodform-picture').change(function(){
+    $('#addmodform-picture, #trailersform-picture').change(function(){
         $('#trailer-description').html('');
         $('#trailer-name').html('');
         $('#trailer-select').val('0').trigger("change");
@@ -196,7 +196,7 @@ $(document).ready(function(){
 
 function loadMembersBans(steamid64){
 
-    $.ajax({
+    var ajax = $.ajax({
         cache: false,
         dataType : 'json',
         type : 'POST',
@@ -219,6 +219,13 @@ function loadMembersBans(steamid64){
                 '</div>'+
                 '</div>'+
                 '</div>');
+            $('button.add-scores, a:not(.notification-btn):not(.modal-trigger):not(.modal-close):not([target="_blank"])').click(function(){
+                console.log(this);
+                ajax.abort();
+            });
+        },
+        dataFilter : function(data) {
+            return data.substring(data.indexOf('{'));
         },
         success : function(response){
             if(response.status == 'OK'){
@@ -239,6 +246,9 @@ function loadMembersBans(steamid64){
                     Materialize.toast('Найдено '+countBans+' банов!!!', 6000);
                 }
             }
+        },
+        error : function(jqXHR, error){
+            console.log(error);
         },
         complete : function(){
             $('th.first').find('.preloader-wrapper').remove();

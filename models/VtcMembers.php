@@ -104,6 +104,12 @@ class VtcMembers extends ActiveRecord{
     public static function getBans($steamid64){
         $bans = array();
         foreach ($steamid64 as $uid => $steamid){
+            echo 0;
+            ob_flush();
+            flush();
+            if(connection_aborted()){
+                return false;
+            }
             $user = User::findOne($uid);
             $bans[$uid] = TruckersMP::isMemberBanned($user->truckersmp);
         }

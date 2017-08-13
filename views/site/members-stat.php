@@ -170,9 +170,9 @@ $this->title = 'Водители Volvo Trucks';
         <div id="modal1" class="modal modal-fixed-footer">
             <div class="modal-content">
                 <div class="row">
-                    <h5 class="col l6 s12">Баллы <b><a href="<?= Url::to(['site/profile']) ?>" id="nickname" target="_blank">[Volvo Trucks] nickname</a></b></h5>
+                    <h5 class="col l6 s12">Баллы <b><a href="<?= Url::to(['site/profile']) ?>" id="nickname">[Volvo Trucks] nickname</a></b></h5>
                     <h5 class="col l6 s12">
-                        <a id="edit-link" target="_blank" class="btn indigo waves-effect waves-light" href="#">
+                        <a id="edit-link" class="btn indigo waves-effect waves-light" href="#">
                             <i class="material-icons notranslate left">edit</i>Редактировать данные водителя
                         </a>
                     </h5>
