@@ -199,7 +199,7 @@ AppAsset::register($this);
                         <p><i class="material-icons notranslate left">featured_play_list</i>ВАКАНСИИ</p>
                         <ul>
                             <li><a href="<?= Url::to(['site/recruit']) ?>">Вступить в ВТК</a></li>
-                            <li><a href="<?= Url::to(['site/members', 'action' => 'stat']) ?>">Список сотрудников</a></li>
+                            <li><a href="<?= Url::to(['site/members']) ?>">Список сотрудников</a></li>
                         </ul>
                         <p><i class="material-icons notranslate left">note_add</i>ЗАЯВЛЕНИЯ</p>
                         <ul>
