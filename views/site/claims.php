@@ -14,7 +14,7 @@ $this->title = 'Заявления Volvo Trucks';
     <div class="row">
         <div class="col s12">
             <ul class="tabs tabs-fixed-width">
-                <li class="tab col s3">
+                <li class="tab">
                     <a href="#recruit">
                         На вступление
                         <?php if(\app\models\User::isAdmin()){
@@ -25,7 +25,7 @@ $this->title = 'Заявления Volvo Trucks';
                         } ?>
                     </a>
                 </li>
-                <li class="tab col s3"><a href="#dismissal">
+                <li class="tab"><a href="#dismissal">
                         На увольнение
                         <?php if(\app\models\User::isAdmin()){
                             $count_recruits = \app\models\ClaimsFired::countClaims($fired, true);
@@ -35,7 +35,7 @@ $this->title = 'Заявления Volvo Trucks';
                         } ?>
                     </a>
                 </li>
-                <li class="tab col s3"><a href="#nickname">
+                <li class="tab"><a href="#nickname">
                         На смену ника
                         <?php if(\app\models\User::isAdmin()){
                             $count_recruits = \app\models\ClaimsFired::countClaims($nickname, true);
@@ -45,7 +45,7 @@ $this->title = 'Заявления Volvo Trucks';
                         } ?>
                     </a>
                 </li>
-                <li class="tab col s3"><a href="#vacation">
+                <li class="tab"><a href="#vacation">
                         На отпуск
                         <?php if(\app\models\User::isAdmin()){
                             $count_recruits = \app\models\ClaimsFired::countClaims($vacation, true);
