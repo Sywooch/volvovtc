@@ -219,9 +219,6 @@ function loadMembersBans(steamid64){
                 '</div>'+
                 '</div>'+
                 '</div>');
-            $('button.add-scores, a:not(.notification-btn):not(.modal-trigger):not(.modal-close):not([target="_blank"])').click(function(){
-                ajax.abort();
-            });
         },
         dataFilter : function(data) {
             return data.substring(data.indexOf('{'));
