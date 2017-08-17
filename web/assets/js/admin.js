@@ -196,7 +196,7 @@ $(document).ready(function(){
 
 function loadMembersBans(steamid64){
 
-    var ajax = $.ajax({
+    $.ajax({
         cache: false,
         dataType : 'json',
         type : 'POST',
@@ -220,9 +220,6 @@ function loadMembersBans(steamid64){
                 '</div>'+
                 '</div>');
         },
-        dataFilter : function(data) {
-            return data.substring(data.indexOf('{'));
-        },
         success : function(response){
             if(response.status == 'OK'){
                 var countBans = 0;
@@ -244,6 +241,7 @@ function loadMembersBans(steamid64){
             }
         },
         error : function(jqXHR, error){
+            $('th.first').find('.preloader-wrapper').remove();
             console.log(error);
         },
         complete : function(){
