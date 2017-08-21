@@ -755,7 +755,9 @@ class SiteController extends Controller{
             $game = Yii::$app->request->get('game');
             $category = Yii::$app->request->get('category');
             $subcategory = Yii::$app->request->get('subcategory') ? Yii::$app->request->get('subcategory') : Yii::$app->request->get('category');
-            $mods = Mods::find()->where(['game' => $game, 'category' => $category, 'subcategory' => $subcategory])->orderBy(['sort' => SORT_DESC])->all();
+            $mods_query = Mods::find();
+            if(!User::isAdmin()) $mods_query = $mods_query->where(['visible' => '1']);
+            $mods = $mods_query->andWhere(['game' => $game, 'category' => $category, 'subcategory' => $subcategory])->orderBy(['sort' => SORT_DESC])->all();
             $category = ModsCategories::findOne(['name' => $category, 'game' => $game]);
             $subcategory = ModsSubcategories::findOne(['name' => $subcategory, 'category_id' => $category->id]);
             $all_subcategories = ModsSubcategories::findAll(['category_id' => $category->id]);
