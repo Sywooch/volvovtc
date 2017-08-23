@@ -73,7 +73,7 @@ class Mods extends ActiveRecord{
 
     public static function getModByTrailer($trailer){
         if($trailer != '0' && $trailer != '-1'){
-            $mod = Mods::findOne(['trailer' => $trailer]);
+            $mod = Mods::findOne(['trailer' => $trailer, 'visible' => '1']);
             return $mod ? $mod : false;
         }else{
             return false;
