@@ -223,7 +223,7 @@ AppAsset::register($this);
                         <p><i class="material-icons notranslate left">mic</i>СВЯЗЬ</p>
                         <ul>
                             <li><a href="https://www.teamspeak.com/en/downloads" target="_blank">Скачать TeamSpeak3</a></li>
-                            <li><a href="http://teamspeak-ru.ru/rusifikator-dlya-teamspeak-3.html" target="_blank">Скачать русификатор</a></li>
+                            <li>Наш адрес: <b><a href="ts3server://volvotrucks.ts-3.top">volvotrucks.ts-3.top</a></b></li>
                         </ul>
                         <p><i class="material-icons notranslate left">lightbulb_outline</i>ФИРМЕННЫЙ СТИЛЬ</p>
                         <ul>
