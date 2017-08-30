@@ -85,7 +85,8 @@ class Convoys extends ActiveRecord{
     public static function getSeverName($short){
         switch ($short){
             case 'eu1' : $server = 'Европа 1'; break;
-            case 'eu3' : $server = 'Европа 3'; break;
+            case 'eu3' : $server = 'Europe [Trial Test Rules]'; break;
+            //case 'eu3' : $server = 'Европа 3'; break;
             case 'eu5' : $server = 'Европа 5'; break;
             case 'us_ets' : $server = 'United States - ETS2'; break;
             case 'us_ats' : $server = 'United States - ATS'; break;
