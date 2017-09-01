@@ -179,20 +179,26 @@ $(document).ready(function(){
         if (input.files && input.files[0]) {
             var reader = new FileReader();
             reader.onload = function (e) {
-                $('#trailer-image').attr('src', e.target.result);
+                $('#trailer-image, #preview').attr('src', e.target.result);
             };
             reader.readAsDataURL(input.files[0]);
         }
     }
 
-    $('#addmodform-picture, #trailersform-picture').change(function(){
+    $('#addmodform-picture, #trailersform-picture, #achievementsform-image').change(function(){
         $('#trailer-description').html('');
         $('#trailer-name').html('');
         $('#trailer-select').val('0').trigger("change");
         readURL(this);
     });
 
-});
+    $('.achievement-action-dropdown-button').click(function(){
+        $('.achievement-dropdown').not('#achievement-dropdown-'+$(this).data('id')).removeClass('active');
+        var list = $('#achievement-dropdown-'+$(this).data('id'));
+        $(list).hasClass('active') ? $(list).removeClass('active') : $(list).addClass('active');
+    });
+
+}); // end of document ready
 
 function loadMembersBans(steamid64){
 
@@ -249,4 +255,4 @@ function loadMembersBans(steamid64){
         }
     });
 
-}
+} // end of loadMembersBans

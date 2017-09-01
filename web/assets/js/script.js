@@ -95,19 +95,7 @@ $(document).on('ready', function(){
             processData: false, // Не обрабатываем файлы (Don't process the files)
             contentType: false, // Так jQuery скажет серверу что это строковой запрос
             beforeSend: function(){
-                $('.profile-img').parent().find('.save-img-profile i').replaceWith('<div class="preloader-wrapper active preloader-profile">'+
-                    '<div class="spinner-layer spinner-red-only">'+
-                    '<div class="circle-clipper left">'+
-                    '<div class="circle"></div>'+
-                    '</div>' +
-                    '<div class="gap-patch">'+
-                    '<div class="circle"></div>'+
-                    '</div>' +
-                    '<div class="circle-clipper right">'+
-                    '<div class="circle"></div>'+
-                    '</div>'+
-                    '</div>'+
-                    '</div>');
+                $('.profile-img').parent().find('.save-img-profile i').replaceWith(getPreloaderHtml('preloader-profile'));
 
             },
             success: function(response){
@@ -137,19 +125,7 @@ $(document).on('ready', function(){
             processData: false, // Не обрабатываем файлы (Don't process the files)
             contentType: false, // Так jQuery скажет серверу что это строковой запрос
             beforeSend: function(){
-                $('.profile-img').parent().find('.save-img-bg i').replaceWith('<div class="preloader-wrapper active">'+
-                    '<div class="spinner-layer spinner-red-only">'+
-                    '<div class="circle-clipper left">'+
-                    '<div class="circle"></div>'+
-                    '</div>' +
-                    '<div class="gap-patch">'+
-                    '<div class="circle"></div>'+
-                    '</div>' +
-                    '<div class="circle-clipper right">'+
-                    '<div class="circle"></div>'+
-                    '</div>'+
-                    '</div>'+
-                    '</div>');
+                $('.profile-img').parent().find('.save-img-bg i').replaceWith(getPreloaderHtml());
 
             },
             success: function(response){
@@ -194,6 +170,7 @@ $(document).on('ready', function(){
     $(document).on('click', '*',function(e){
         e.stopPropagation();
         if(!$(this).parents().hasClass('notification-btn-item')) $('.notification-list').removeClass('active');
+        if(!$(this).parents().hasClass('achievement-action-dropdown-button')) $('.achievement-dropdown').removeClass('active');
     });
 
     $('.clear-notification').click(function(){
@@ -255,19 +232,7 @@ $(document).on('ready', function(){
                 cache: false,
                 dataType: 'json',
                 beforeSend: function(){
-                    $('.modal .preloader').append('<div class="preloader-wrapper active small">'+
-                        '<div class="spinner-layer spinner-red-only">'+
-                        '<div class="circle-clipper left">'+
-                        '<div class="circle"></div>'+
-                        '</div>' +
-                        '<div class="gap-patch">'+
-                        '<div class="circle"></div>'+
-                        '</div>' +
-                        '<div class="circle-clipper right">'+
-                        '<div class="circle"></div>'+
-                        '</div>'+
-                        '</div>'+
-                        '</div>');
+                    $('.modal .preloader').append(getPreloaderHtml('small'))
                 },
                 success : function(response){
                     if(response.status == 'OK'){
@@ -294,4 +259,67 @@ $(document).on('ready', function(){
        // $('#modal1').modal('close');
     });
 
+    $('.get-achievement').click(function(){
+        $('#get-ach').attr('data-achid', $(this).data('id'));
+        $('.modal').find('.ach-modal-title').html($(this).data('title'));
+    });
+
+    $('#get-ach').click(function(){
+        var button = $(this);
+        var files = $(this).parents('.modal').find('[type=file]')[0].files;
+        if(files.length == 1){
+            var uid = $(this).data('uid');
+            var achid = $(this).data('achid');
+            var data = new FormData();
+            $.each(files, function(key, value){
+                data.append(key, value);
+            });
+            $.ajax({
+                url : window.location.href + '/get?uid='+uid+'&achid='+achid,
+                type: 'POST',
+                data: data,
+                cache: false,
+                dataType: 'json',
+                processData: false, // Не обрабатываем файлы (Don't process the files)
+                contentType: false, // Так jQuery скажет серверу что это строковой запрос
+                beforeSend : function(){
+                    button.replaceWith(getPreloaderHtml('tiny'));
+                },
+                success : function(response){
+                    if(response.status == 'OK'){
+                        Materialize.toast('Скриншот успешно оправлен на модерацию!', 6000);
+                    }else{
+                        Materialize.toast('Что-то пошло не так =(', 6000);
+                    }
+                },
+                complete : function(){
+                    $('.modal').modal('close');
+                    $('.modal-footer').find('.preloader-wrapper').remove();
+                    $('.modal').find('[type=file]').val('');
+                    $('.modal').find('[type=text]').val('');
+                }
+            });
+        }else{
+            console.log('error');
+        }
+    });
+
 });
+
+function getPreloaderHtml(preloaderClass, color){
+    if(preloaderClass === undefined) preloaderClass = '';
+    if(color === undefined) color = 'spinner-red-only';
+    return '<div class="preloader-wrapper active '+preloaderClass+'">'+
+        '<div class="spinner-layer '+color+'">'+
+        '<div class="circle-clipper left">'+
+        '<div class="circle"></div>'+
+        '</div>' +
+        '<div class="gap-patch">'+
+        '<div class="circle"></div>'+
+        '</div>' +
+        '<div class="circle-clipper right">'+
+        '<div class="circle"></div>'+
+        '</div>'+
+        '</div>'+
+        '</div>';
+}

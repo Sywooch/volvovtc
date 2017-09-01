@@ -88,6 +88,12 @@ $config = [
                 'trailers/<id:\d+>/<action:\w+>/' => 'site/trailers',
                 'trailers/<action:\w+>/' => 'site/trailers',
 
+                // achievements
+                'achievements' => 'achievements/index',
+                'achievements/<action:\w+>/<id:\d+>/<operation:\w+>' => 'achievements/<action>',
+                'achievements/<action:\w+>/<id:\d+>' => 'achievements/<action>',
+                'achievements/<action:\w+>' => 'achievements/<action>',
+
                 // general
                 '<action:\w+>/<id:\d+>/' => 'site/<action>',
                 '<action>/page/<page:\d+>/' => 'site/<action>',
