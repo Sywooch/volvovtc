@@ -15,7 +15,25 @@ $this->title = $action . ' трейлер - Volvo Trucks';
             'template' => "<div class=\"input-field col s12\">{label}{input}</div>",
             'options' => ['class' => 'row'],
         ]]) ?>
-    <h5 class="light col s12"><?= $action ?> трейлер</h5>
+    <div class="col l6 m6 s12">
+        <div class="card-panel grey lighten-4">
+            <h5 class="light"><?= $action ?> трейлер</h5>
+            <?= $form->field($model, 'name')->textInput() ?>
+            <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
+            <?= $form->field($model, 'game', ['template' => '{input}{label}'])
+                ->radioList([
+                    'ets' => 'Euro Truck Simulator 2',
+                    'ats' => 'American Truck Simulator'
+                ], [
+                    'item' => function($index, $label, $name, $checked, $value) {
+                        $return = '<p><input type="radio" name="' . $name . '" value="' . $value.'" id="'.$value.'"';
+                        if($checked) $return .= ' checked';
+                        $return .= '><label for="'.$value.'">'.$label.'</label></p>';
+                        return $return;
+                    }
+                ])->label(false) ?>
+        </div>
+    </div>
     <div class="col l6 m6 s12">
         <div class="card-panel grey lighten-4">
             <?php if($model->picture == null) : ?>
@@ -32,24 +50,6 @@ $this->title = $action . ' трейлер - Volvo Trucks';
                     <input class="file-path validate" type="text">
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="col l6 m6 s12">
-        <div class="card-panel grey lighten-4">
-            <?= $form->field($model, 'name')->textInput() ?>
-            <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
-            <?= $form->field($model, 'game', ['template' => '{input}{label}'])
-                ->radioList([
-                    'ets' => 'Euro Truck Simulator 2',
-                    'ats' => 'American Truck Simulator'
-                ], [
-                    'item' => function($index, $label, $name, $checked, $value) {
-                        $return = '<p><input type="radio" name="' . $name . '" value="' . $value.'" id="'.$value.'"';
-                        if($checked) $return .= ' checked';
-                        $return .= '><label for="'.$value.'">'.$label.'</label></p>';
-                        return $return;
-                    }
-                ])->label(false) ?>
         </div>
     </div>
     <div class="fixed-action-btn vertical">
