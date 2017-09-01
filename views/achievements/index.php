@@ -68,17 +68,19 @@ $this->title = 'Достижения - Volvo Trucks';
                                             <i class="material-icons notranslate left">delete</i>Удалить
                                         </a>
                                     </li>
-                                    <li class="divider"></li>
-                                    <li class="clearfix">
-                                        <a href="<?= Url::to(['achievements/sort', 'id' => $achievement->id, 'operation' => 'up']) ?>" class="indigo-text">
-                                            <i class="material-icons notranslate left">keyboard_arrow_up</i>Переместить выше
-                                        </a>
-                                    </li>
-                                    <li class="clearfix">
-                                        <a href="<?= Url::to(['achievements/sort', 'id' => $achievement->id, 'operation' => 'down']) ?>" class="indigo-text">
-                                            <i class="material-icons notranslate left">keyboard_arrow_down</i>Переместить ниже
-                                        </a>
-                                    </li>
+                                    <?php if(count($achievements) > 1) { ?>
+                                        <li class="divider"></li>
+                                        <li class="clearfix">
+                                            <a href="<?= Url::to(['achievements/sort', 'id' => $achievement->id, 'operation' => 'up']) ?>" class="indigo-text">
+                                                <i class="material-icons notranslate left">keyboard_arrow_up</i>Переместить выше
+                                            </a>
+                                        </li>
+                                        <li class="clearfix">
+                                            <a href="<?= Url::to(['achievements/sort', 'id' => $achievement->id, 'operation' => 'down']) ?>" class="indigo-text">
+                                                <i class="material-icons notranslate left">keyboard_arrow_down</i>Переместить ниже
+                                            </a>
+                                        </li>
+                                    <?php } ?>
                                 </ul>
                             <?php endif ?>
                         </div>
