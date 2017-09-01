@@ -87,6 +87,7 @@ AppAsset::register($this);
                                     <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['site/trailers'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                    <li><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -131,7 +132,7 @@ AppAsset::register($this);
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons notranslate">menu</i></a>
                 <a href="<?=Yii::$app->request->baseUrl?>/" class="brand-logo"><img src="<?=Yii::$app->request->baseUrl?>/assets/img/volvo-sign.png" alt="VOLVO TRUCKS"></a>
                 <ul id="nav-mobile" class="hide-on-med-and-down right">
-                    <li<?php if(Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a></li>
+                    <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a></li>
                     <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА</a></li>
                     <li<?php if(Yii::$app->controller->action->id === 'news'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/news'])?>">НОВОСТИ</a></li>
                     <li<?php if(Yii::$app->controller->action->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/convoys'])?>">КОНВОИ</a></li>
@@ -147,6 +148,7 @@ AppAsset::register($this);
                                 <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
                                 <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                 <li><a href="<?=Url::to(['site/trailers'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                <li><a href="<?=Url::to(['achievements/index'])?>"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>
                             </ul>
                         </li>
                     <?php else: ?>
@@ -223,7 +225,7 @@ AppAsset::register($this);
                         <p><i class="material-icons notranslate left">mic</i>СВЯЗЬ</p>
                         <ul>
                             <li><a href="https://www.teamspeak.com/en/downloads" target="_blank">Скачать TeamSpeak3</a></li>
-                            <li>Наш адрес: <b><a href="ts3server://volvotrucks.ts-3.top">volvotrucks.ts-3.top</a></b></li>
+                            <li class="fs17">Наш адрес: <b><a href="ts3server://volvotrucks.ts-3.top">volvotrucks.ts-3.top</a></b></li>
                         </ul>
                         <p><i class="material-icons notranslate left">lightbulb_outline</i>ФИРМЕННЫЙ СТИЛЬ</p>
                         <ul>
