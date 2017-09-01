@@ -4,7 +4,7 @@ use yii\helpers\Url;
 
 $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks'; ?>
 
-<div class="parallax-container" style="height: 400px;">
+<div class="parallax-container parallax-shadow" style="height: 400px;">
     <div class="container">
         <h4 class="parallax-title light white-text text-shadow"><?= $category->title ?></h4>
     </div>
