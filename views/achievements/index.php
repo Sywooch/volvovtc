@@ -97,6 +97,14 @@ $this->title = 'Достижения - Volvo Trucks';
                             <input class="file-path validate" type="text">
                         </div>
                     </div>
+                    <h6 class="light fs17 grey-text">Как выполнять достижения с грузами?</h6>
+                    <ol class="grey-text">
+                        <li>Достижения должны выполняться ТОЛЬКО в мультиплеере.</li>
+                        <li>Когда припарковали прицеп с грузом, перед его отциплением нажмите TAB. Убедитесь, что окно "таба" открылось и в нём видно ваш игровой ник.</li>
+                        <li>Отцепляйте прицеп, дождитесть пока на экране появиться результат доставки груза.</li>
+                        <li>Сделайте скриншот (кнопка F10 по-умолчанию). Он сохранится по пути: <i>C:\Users\*Ваш пользователь*\Documents\Euro Truck Simulator 2\screenshot</i></li>
+                        <li>Выберите сделанный скриншот в форме выше и нажмите кнопку "Выполнить".</li>
+                    </ol>
                 </div>
                 <div class="modal-footer">
                     <a class="modal-action waves-effect btn-flat" id="get-ach" data-uid="<?= Yii::$app->user->id ?>" data-achid="0">Выполнить</a>
