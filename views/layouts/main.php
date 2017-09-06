@@ -64,9 +64,6 @@ AppAsset::register($this);
             <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">
                     <i class="material-icons notranslate">error</i>ПРАВИЛА</a>
             </li>
-            <li<?php if(Yii::$app->controller->action->id === 'news'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/news'])?>">
-                    <i class="material-icons notranslate">view_quilt</i>НОВОСТИ</a>
-            </li>
             <li<?php if(Yii::$app->controller->action->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/convoys'])?>">
                     <i class="material-icons notranslate">local_shipping</i>КОНВОИ</a>
             </li>
@@ -134,7 +131,6 @@ AppAsset::register($this);
                 <ul id="nav-mobile" class="hide-on-med-and-down right">
                     <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a></li>
                     <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА</a></li>
-                    <li<?php if(Yii::$app->controller->action->id === 'news'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/news'])?>">НОВОСТИ</a></li>
                     <li<?php if(Yii::$app->controller->action->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/convoys'])?>">КОНВОИ</a></li>
                     <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
