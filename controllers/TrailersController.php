@@ -53,7 +53,7 @@ class TrailersController extends Controller{
             }
             if(Yii::$app->request->get('category')){
                 $category = Yii::$app->request->get('category');
-                $query->where(['like', 'category', $category]);
+                $query->where(['category' => $category]);
             }
             $total = $query->count();
             $pagination = new Pagination([
@@ -79,7 +79,7 @@ class TrailersController extends Controller{
         if(User::isAdmin()){
             $model = new TrailersForm();
             $categories = TrailersCategories::find()->select(['name', 'title'])->indexBy('name')->asArray()->all();
-            $new_cats = array();
+            $new_cats[0] = 'Без категории';
             foreach ($categories as $category){
                 $new_cats[$category['name']] = $category['title'];
             }
@@ -101,7 +101,7 @@ class TrailersController extends Controller{
         if(User::isAdmin()){
             $model = new TrailersForm(Yii::$app->request->get('id'));
             $categories = TrailersCategories::find()->select(['name', 'title'])->asArray()->all();
-            $new_cats = array();
+            $new_cats[0] = 'Без категории';
             foreach ($categories as $category){
                 $new_cats[$category['name']] = $category['title'];
             }
