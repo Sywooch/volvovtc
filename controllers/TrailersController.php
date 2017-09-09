@@ -79,6 +79,10 @@ class TrailersController extends Controller{
         if(User::isAdmin()){
             $model = new TrailersForm();
             $categories = TrailersCategories::find()->select(['name', 'title'])->indexBy('name')->asArray()->all();
+            $new_cats = array();
+            foreach ($categories as $category){
+                $new_cats[$category['name']] = $category['title'];
+            }
             if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->addTrailer()){
                     return $this->redirect(['trailers/index']);
@@ -86,7 +90,7 @@ class TrailersController extends Controller{
             }
             return $this->render('edit_trailer', [
                 'model' => $model,
-                'categories' => $categories
+                'categories' => $new_cats
             ]);
         }else{
             return $this->render('//site/error');
