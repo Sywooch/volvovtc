@@ -9,6 +9,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/cities.js?t='.time
 $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/select2.min.js?t='.time(),  ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2.min.css?t='.time());
 $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.css?t='.time());
+$this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t='.time(),  ['position' => yii\web\View::POS_HEAD]);
 ?>
 
 <div class="container">
@@ -18,7 +19,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         ]); ?>
         <div class="col l12 s12">
             <div class="card-panel grey lighten-4">
-                <h5>Основная информация</h5>
+                <h5 class="light">Основная информация</h5>
                 <label>Карта маршрута</label>
                 <div class="file-field">
                     <div class="btn indigo darken-3">
@@ -68,7 +69,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         </div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
-                <h5>Сборы</h5>
+                <h5 class="light">Сборы</h5>
                 <?= $form->field($model, 'date')->input('date', ['class' => 'datepicker-convoy'])->error(false) ?>
                 <?= $form->field($model, 'meeting_time')->input('time')->error(false) ?>
                 <?= $form->field($model, 'departure_time')->input('time')->error(false) ?>
@@ -94,7 +95,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         </div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
-                <h5>Маршрут</h5>
+                <h5 class="light">Маршрут</h5>
                 <div class="input-field">
                     <?= $form->field($model, 'start_city')->textInput(['class' => 'autocomplete-city', 'autocomplete' => 'off'])->error(false) ?>
                 </div>
@@ -165,7 +166,8 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                     </div>
                 </div>
                 <div class="input-field file-field">
-                    <?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea']) ?>
+                    <h6 class="light">Дополнительная информация</h6>
+                    <?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea', 'id' => 'add_info'])->label(false) ?>
                 </div>
             </div>
         </div>
@@ -177,6 +179,9 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+<script type="text/javascript">
+    CKEDITOR.replace('add_info');
+</script>
 <script>
     $('#trailer-select').select2();
 </script>

@@ -10,6 +10,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/cities.js?t='.time
 $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/select2.min.js?t='.time(),  ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2.min.css?t='.time());
 $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.css?t='.time());
+$this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t='.time(),  ['position' => yii\web\View::POS_HEAD]);
 ?>
 
 <div class="container">
@@ -194,7 +195,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                     </div>
                 </div>
                 <div class="input-field file-field">
-                    <?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea']) ?>
+                    <?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea', 'id' => 'add_info'])->label(false) ?>
                 </div>
             </div>
         </div>
@@ -206,6 +207,9 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         <?php ActiveForm::end(); ?>
     </div>
 </div>
+<script type="text/javascript">
+    CKEDITOR.replace('add_info');
+</script>
 <script>
     $('#trailer-select').select2();
 </script>
