@@ -52,6 +52,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
         'disabledPageCssClass' => 'disabled',
         'maxButtonCount' => 5
     ]) ?>
+    <div class="clearfix"></div>
     <?php foreach ($trailers as $key => $trailer): ?>
         <div class="col l6 m6 s12">
             <div class="card grey lighten-4">
