@@ -83,7 +83,7 @@ AppAsset::register($this);
                                     <li><a href="<?=Url::to(['site/members'])?>">СОТРУДНИКИ</a></li>
                                     <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
-                                    <li><a href="<?=Url::to(['site/trailers'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                    <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                     <li><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                                 </ul>
                             </div>
@@ -143,7 +143,7 @@ AppAsset::register($this);
                                 <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons notranslate left">supervisor_account</i>СОТРУДНИКИ</a></li>
                                 <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
                                 <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
-                                <li><a href="<?=Url::to(['site/trailers'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                <li><a href="<?=Url::to(['trailers/index'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                 <li><a href="<?=Url::to(['achievements/index'])?>"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>
                             </ul>
                         </li>

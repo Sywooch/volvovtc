@@ -85,8 +85,13 @@ $config = [
                 'rules/<action:\w+>/' => 'site/rules',
 
                 // trailers
-                'trailers/<id:\d+>/<action:\w+>/' => 'site/trailers',
-                'trailers/<action:\w+>/' => 'site/trailers',
+                'trailers/add' => 'trailers/add',
+                'trailers/<category:\w+>/page/<page:\d+>/' => 'trailers/index',
+                'trailers/page/<page:\d+>/' => 'trailers/index',
+                'trailers/<category:\w+>/' => 'trailers/index',
+                'trailers/<action:\w+>/<id:\d+>/' => 'trailers/<action>',
+                'trailers' => 'trailers/index',
+                'trailers/<action:\w+>/' => 'trailers/<action>',
 
                 // achievements
                 'achievements' => 'achievements/index',

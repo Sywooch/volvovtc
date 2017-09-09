@@ -4,7 +4,7 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$action = $_GET['action'] == 'edit' ? 'Редактировать' : 'Добавить';
+$action = Yii::$app->controller->action->id == 'edit' ? 'Редактировать' : 'Добавить';
 $this->title = $action . ' трейлер - Volvo Trucks';
 
 ?>
@@ -20,6 +20,7 @@ $this->title = $action . ' трейлер - Volvo Trucks';
             <h5 class="light"><?= $action ?> трейлер</h5>
             <?= $form->field($model, 'name')->textInput() ?>
             <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
+            <?= $form->field($model, 'category')->dropDownList($categories)->label(false) ?>
             <?= $form->field($model, 'game', ['template' => '{input}{label}'])
                 ->radioList([
                     'ets' => 'Euro Truck Simulator 2',
@@ -59,10 +60,9 @@ $this->title = $action . ' трейлер - Volvo Trucks';
         <ul>
             <li>
                 <a onclick='return confirm("Удалить?")' href="<?=Url::to([
-                    'site/trailers',
-                    'id' => $model->id,
-                    'action' => 'delete'
-                ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
+                    'trailers/remove',
+                    'id' => $model->id
+                ]) ?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
                     <i class="material-icons notranslate">delete</i>
                 </a>
             </li>
