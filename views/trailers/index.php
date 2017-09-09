@@ -34,7 +34,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
                 <?php endforeach ?>
 
             </select>
-            <label>Фильтрация по категория</label>
+            <label>Фильтрация по категориям</label>
         </div>
     </div>
     <h5 class="light col s12 m6">Всего <?= $total ?></h5>
