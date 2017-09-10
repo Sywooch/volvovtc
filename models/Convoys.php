@@ -84,17 +84,17 @@ class Convoys extends ActiveRecord{
 
     public static function getSeverName($short){
         switch ($short){
-            case 'eu1' : $server = 'Европа 1'; break;
+            case 'eu1' : $server = 'Europe 1'; break;
             case 'eu3' : $server = 'Europe [Trial Test Rules]'; break;
-            //case 'eu3' : $server = 'Европа 3'; break;
-            case 'eu5' : $server = 'Европа 5'; break;
+            //case 'eu3' : $server = 'Europe 3'; break;
+            case 'eu5' : $server = 'Europe 5'; break;
             case 'us_ets' : $server = 'United States - ETS2'; break;
             case 'us_ats' : $server = 'United States - ATS'; break;
             case 'hk' : $server = 'Honk Kong'; break;
             case 'sa' : $server = 'South America'; break;
             case 'eu2_ats' :
             case 'eu2_ets' :
-            default: $server = 'Европа 2'; break;
+            default: $server = 'Europe 2'; break;
         }
         return $server;
     }
@@ -102,7 +102,7 @@ class Convoys extends ActiveRecord{
     public static function getVariationName($short){
         switch ($short){
             case '0' : $variation = 'Любая вариация'; break;
-            case '5' : $variation = 'Кастомный тягач'; break;
+            case '5' : $variation = 'Тягач, как в описании'; break;
             case '4' : $variation = 'Вариация №1 или №3'; break;
             case '3' : $variation = 'Вариация №3'; break;
             case '2' : $variation = 'Вариация №2'; break;

@@ -3,7 +3,6 @@
 use yii\helpers\Url;
 
 $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
-//$this->registerJsFile('https://vk.com/js/api/share.js?94', ['position' => yii\web\View::POS_HEAD]);
 ?>
 
 <div class="container">
@@ -23,87 +22,59 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <?= \app\models\Convoys::getDLCString(unserialize($convoy->dlc)) ?>
                 </p>
             <?php endif ?>
-            <div class="row">
-                <div class="col l6 s12">
-                    <ul class="browser-default">
-                        <li>Дата: <b><?=  $convoy->date ?></b></li>
-                        <li>Сборы в <b><?php  $time = new DateTime($convoy->meeting_time); echo $time->format('H:i') ?></b> (по Москве)</li>
-                        <li>Выезжаем в <b><?php  $time = new DateTime($convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)</li>
-                        <li>Связь: <b><?=  $convoy->communications ?></b></li>
-                        <li>Игровая рация:
-                            <?php if($convoy->open): ?><b>15 канал</b>
-                            <?php else: ?><b>17 канал</b>
-                            <?php endif ?>
-                        </li>
-                    </ul>
+            <div class="row flex-justify-center" style="margin-bottom: 25px;">
+                <div style="flex: 1; margin-right: 20px">
+                    <div class="left-wrapper right center">
+                        <h6>Старт:</h6>
+                        <h4 class="convoy-city nowrap"><?=  $convoy->start_city ?></h4>
+                        <h6 class="convoy-company nowrap"><?=  $convoy->start_company ?></h6>
+                    </div>
                 </div>
-                <div class="col l6 s12">
-                    <ul class="browser-default">
-                        <li>Начальная точка: <b><?=  $convoy->start_city ?> (<?=  $convoy->start_company ?>)</b></li>
-                        <li>Отдых: <b><?=  $convoy->rest ?></b></li>
-                        <li>Конечная точка: <b><?=  $convoy->finish_city ?> (<?=  $convoy->finish_company ?>)</b></li>
-                        <li>Сервер <b><?=  $convoy->server ?></b></li>
-                        <li>Протяженность: <b><?=  $convoy->length ?></b></li>
-                    </ul>
+                <div class="center-align">
+                    <i class="material-icons large notranslate">arrow_forward</i>
+                </div>
+                <div style="flex: 1; margin-left: 20px">
+                    <div class="right-wrapper left center">
+                        <h6>Финиш:</h6>
+                        <h4 class="convoy-city nowrap"><?=  $convoy->finish_city ?></h4>
+                        <h6 class="convoy-company nowrap"><?=  $convoy->finish_company ?></h6>
+                    </div>
                 </div>
             </div>
+            <div class="row">
+                <div class="col l6 s12 flex-justify-center">
+                    <div class="list-wrapper">
+                        <ul>
+                            <li class="clearfix"><i class="material-icons left notranslate">event</i>Дата: <b><?=  $convoy->date ?></b></li>
+                            <li class="clearfix">
+                                <i class="material-icons left notranslate">access_time</i>
+                                Сборы в <b><?php  $time = new DateTime($convoy->meeting_time); echo $time->format('H:i') ?></b> (по Москве)
+                            </li>
+                            <li class="clearfix">
+                                <i class="material-icons left notranslate">alarm_on</i>
+                                Выезжаем в <b><?php  $time = new DateTime($convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)
+                            </li>
+                            <li class="clearfix"><i class="material-icons left notranslate">headset_mic</i>Связь: <b><?=  $convoy->communications ?></b></li>
+                        </ul>
+                    </div>
 
-            <?php $trailer_name = 'Любой прицеп';
-            if($convoy->trailer):
-                if($convoy->trailer == '-1') {
-                    $trailer_name = 'Без прицепа';
-                }else{
-                    $trailer = \app\models\Trailers::findOne($convoy->trailer);
-                    $trailer_image = $trailer->picture;
-                    $trailer_name = $trailer->name;
-                } ?>
-            <?php endif ?>
-            <?php if($convoy->open) : ?>
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4">
-                            <i class="material-icons notranslate">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
-                        </div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style" style="margin: 0 0 20px 0">
-                                <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
-                                <li>Прицеп: <b><?= $trailer_name ?></b>
-                                    <?php if($mod) : ?> -
-                                        <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
-                                            Загрузить модификацию
-                                        </a>
-                                    <?php endif ?></li>
-                            </ul>
-                            <?php if(isset($trailer_image)) : ?>
-                                <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
-                            <?php endif; ?>
-                            <?php if($convoy->extra_picture) : ?>
-                                <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
-                            <?php endif ?>
-                        </div>
-                    </li>
-                </ul>
-            <?php else : ?>
-                <h5 class="light">Дополнительная информация</h5>
-                <ul class="force-list-style" style="margin: 0 0 20px 30px">
-                    <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
-                    <li>Прицеп: <b><?= $trailer_name ?></b>
-                        <?php if($mod) : ?> -
-                            <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
-                                Загрузить модификацию
-                            </a>
-                        <?php endif ?></li>
-                </ul>
-                <?php if($convoy->add_info) : ?>
-                    <p><?= $convoy->add_info ?></p>
-                <?php endif ?>
-                <?php if(isset($trailer_image)) : ?>
-                    <img class="materialboxed" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
-                <?php endif; ?>
-                <?php if($convoy->extra_picture) : ?>
-                    <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
-                <?php endif ?>
-            <?php endif ?>
+                </div>
+                <div class="col l6 s12 flex-justify-center">
+                    <div class="list-wrapper">
+                        <ul>
+                            <li class="clearfix"><i class="material-icons left notranslate">hotel</i>Отдых: <b><?=  $convoy->rest ?></b></li>
+                            <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?=  $convoy->server ?></b></li>
+                            <li class="clearfix"><i class="material-icons left notranslate">directions</i>Протяженность: <b><?=  $convoy->length ?></b></li>
+                            <li class="clearfix"><i class="material-icons left notranslate">volume_up</i>
+                                Игровая рация:
+                                <?php if($convoy->open): ?><b>15 канал</b>
+                                <?php else: ?><b>17 канал</b>
+                                <?php endif ?>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
             <?php if($convoy->author) : ?>
                 <h6 class="grey-text">Конвой сделал: <?= $convoy->author ?></h6>
             <?php endif ?>
@@ -122,37 +93,98 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
         <div class="card-action">
             <a href="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->picture_full ?>" target="_blank" class="indigo-text text-darken-3">Оригинал маршрута</a>
         </div>
-        <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1) : ?>
-            <div class="fixed-action-btn vertical">
-                <a href="<?=Url::to([
-                    'site/convoys',
-                    'id' => $convoy->id,
-                    'action' => 'edit'
-                ])?>" class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Редактировать">
-                    <i class="large material-icons notranslate">mode_edit</i>
-                </a>
-                <ul>
-                    <li>
-                        <a onclick='return confirm("Удалить?")' href="<?=Url::to([
-                            'site/convoys',
-                            'id' => $convoy->id,
-                            'action' => 'delete'
-                        ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
-                            <i class="material-icons notranslate">delete</i>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="<?=Url::to([
-                            'site/convoys',
-                            'id' => $convoy->id,
-                            'action' => $convoy->visible == '1' ? 'hide' : 'show'
-                        ])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="<?= $convoy->visible == '1' ?
-                            'Скрыть конвой' : 'Сделать видимым' ?>">
-                            <i class="material-icons notranslate"><?= $convoy->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
-                        </a>
-                    </li>
-                </ul>
-            </div>
-        <?php endif; ?>
     </div>
+    <?php $trailer_name = 'Любой прицеп';
+    if($convoy->trailer):
+        if($convoy->trailer == '-1') {
+            $trailer_name = 'Без прицепа';
+        }else{
+            $trailer = \app\models\Trailers::findOne($convoy->trailer);
+            $trailer_image = $trailer->picture;
+            $trailer_name = $trailer->name;
+        } ?>
+    <?php endif ?>
+    <?php if($convoy->open) : ?>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header grey lighten-4">
+                    <i class="material-icons notranslate">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
+                </div>
+                <div class="collapsible-body grey lighten-4">
+                    <ul class="force-list-style" style="margin: 0 0 20px 0">
+                        <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
+                        <li>Прицеп: <b><?= $trailer_name ?></b>
+                            <?php if($mod) : ?> -
+                                <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
+                                    Загрузить модификацию
+                                </a>
+                            <?php endif ?></li>
+                    </ul>
+                    <?php if(isset($trailer_image)) : ?>
+                        <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
+                    <?php endif; ?>
+                    <?php if($convoy->extra_picture) : ?>
+                        <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
+                    <?php endif ?>
+                </div>
+            </li>
+        </ul>
+    <?php else : ?>
+        <div class="card grey lighten-4">
+            <div class="card-content">
+                <span class="card-title">Дополнительная информация</span>
+                <ul class="force-list-style" style="margin: 0 0 20px 30px">
+                    <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
+                    <li>Прицеп: <b><?= $trailer_name ?></b>
+                        <?php if($mod) : ?> -
+                            <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
+                                Загрузить модификацию
+                            </a>
+                        <?php endif ?></li>
+                </ul>
+                <?php if($convoy->add_info) : ?>
+                    <p><?= $convoy->add_info ?></p>
+                <?php endif ?>
+                <?php if(isset($trailer_image)) : ?>
+                    <img class="materialboxed" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
+                <?php endif; ?>
+                <?php if($convoy->extra_picture) : ?>
+                    <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
+                <?php endif ?>
+            </div>
+        </div>
+    <?php endif ?>
+
+    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1) : ?>
+        <div class="fixed-action-btn vertical">
+            <a href="<?=Url::to([
+                'site/convoys',
+                'id' => $convoy->id,
+                'action' => 'edit'
+            ])?>" class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Редактировать">
+                <i class="large material-icons notranslate">mode_edit</i>
+            </a>
+            <ul>
+                <li>
+                    <a onclick='return confirm("Удалить?")' href="<?=Url::to([
+                        'site/convoys',
+                        'id' => $convoy->id,
+                        'action' => 'delete'
+                    ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
+                        <i class="material-icons notranslate">delete</i>
+                    </a>
+                </li>
+                <li>
+                    <a href="<?=Url::to([
+                        'site/convoys',
+                        'id' => $convoy->id,
+                        'action' => $convoy->visible == '1' ? 'hide' : 'show'
+                    ])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="<?= $convoy->visible == '1' ?
+                        'Скрыть конвой' : 'Сделать видимым' ?>">
+                        <i class="material-icons notranslate"><?= $convoy->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
+                    </a>
+                </li>
+            </ul>
+        </div>
+    <?php endif; ?>
 </div>

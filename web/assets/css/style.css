@@ -36,6 +36,7 @@ select option, .dropdown-content li>span{ color: #0d3896;}
 .flex{display: flex;}
 .flex-wrap{flex-wrap: wrap;}
 .flex-nowrap{flex-wrap: nowrap;}
+.flex-justify-center{display: flex; justify-content: center;}
 .card-image{ overflow: hidden; border-top-right-radius: 2px;; border-top-left-radius: 2px;}
 .card-image.no-img{width: 100%; height: 350px; background-position: center; background-size: cover;}
 .card-image.no-img_horizontal{width: 150px; background-position: center center; background-size: cover;}
@@ -162,6 +163,8 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 .convoy .no-padding a{line-height: 36px; margin: 0 10px;}
 .convoy .no-padding i{vertical-align: bottom;}
 .convoy .no-padding a.btn{margin: 5px;}
+.convoys .convoy-city{ margin: 0; font-weight: bold;}
+.convoys .convoy-company{font-weight: bold;}
 .convoy .convoys-actions{justify-content: center;}
 .convoy-title{font-size: 18px; flex: 1; padding-right: 10px; text-align: center;}
 #vkshare0 tbody{box-sizing: content-box;}

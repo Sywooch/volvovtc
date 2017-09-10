@@ -22,15 +22,48 @@ $this->title = 'Конвои Volvo Trucks';
         </div>
         <div class="card-content">
             <span><?= $nearest_convoy->description ?></span>
-            <ul class="browser-default">
-                <li>Дата: <b><?=  \app\controllers\SiteController::getRuDate($nearest_convoy->date) ?></b></li>
-                <li>Выезжаем в <b><?php  $time = new DateTime($nearest_convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)</li>
-                <li>Связь: <b><?=  $nearest_convoy->communications ?></b></li>
-                <li>Начальная точка: <b><?=  $nearest_convoy->start_city ?> (<?=  $nearest_convoy->start_company ?>)</b></li>
-                <li>Отдых: <b><?=  $nearest_convoy->rest ?></b></li>
-                <li>Конечная точка: <b><?=  $nearest_convoy->finish_city ?> (<?=  $nearest_convoy->finish_company ?>)</b></li>
-                <li>Сервер <b><?= \app\models\Convoys::getSeverName($nearest_convoy->server) ?></b></li>
-            </ul>
+            <div class="row flex-justify-center" style="margin-bottom: 25px;">
+                <div style="flex: 1; margin-right: 20px">
+                    <div class="left-wrapper right center">
+                        <h6>Старт:</h6>
+                        <h4 class="convoy-city nowrap"><?=  $nearest_convoy->start_city ?></h4>
+                        <h6 class="convoy-company nowrap"><?=  $nearest_convoy->start_company ?></h6>
+                    </div>
+                </div>
+                <div class="center-align">
+                    <i class="material-icons large notranslate">arrow_forward</i>
+                </div>
+                <div style="flex: 1; margin-left: 20px">
+                    <div class="right-wrapper left center">
+                        <h6>Финиш:</h6>
+                        <h4 class="convoy-city nowrap"><?=  $nearest_convoy->finish_city ?></h4>
+                        <h6 class="convoy-company nowrap"><?=  $nearest_convoy->finish_company ?></h6>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col l6 s12 flex-justify-center">
+                    <div class="list-wrapper">
+                        <ul>
+                            <li class="clearfix"><i class="material-icons left notranslate">event</i>
+                                Дата: <b><?=  \app\controllers\SiteController::getRuDate($nearest_convoy->date) ?></b>
+                            </li>
+                            <li class="clearfix">
+                                <i class="material-icons left notranslate">alarm_on</i>
+                                Выезжаем в <b><?php  $time = new DateTime($nearest_convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col l6 s12 flex-justify-center">
+                    <div class="list-wrapper">
+                        <ul>
+                            <li class="clearfix"><i class="material-icons left notranslate">headset_mic</i>Связь: <b><?=  $nearest_convoy->communications ?></b></li>
+                            <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?= \app\models\Convoys::getSeverName($nearest_convoy->server) ?></b></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
         </div>
         <div class="card-action">
             <a href="<?=Url::to(['site/convoys', 'id' => $nearest_convoy->id])?>" class="indigo-text text-darken-3">Подробнее</a>
