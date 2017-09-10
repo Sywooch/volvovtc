@@ -30,11 +30,7 @@ class VacationForm extends Model{
 
     public function rules(){
         return [
-            [['to_date'], 'required', 'when' => function($model){
-                return !$model->vacation_undefined == '1';
-            }, 'whenClient' => "function (attribute, value) {
-                return !$('#vacationform-vacation_undefined')[0].checked;
-            }"],
+            [['to_date'], 'required'],
             [['vacation_undefined'], 'boolean'],
             [['reason', 'to_date'], 'string'],
             [['member_id', 'user_id', 'status', 'viewed'], 'integer'],

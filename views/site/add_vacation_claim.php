@@ -31,8 +31,6 @@ $this->title = 'Подать заявление на отпуск - Volvo Trucks
                         hiddenName: true
                     });
                 </script>
-                <?= $form->field($model, 'vacation_undefined', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->label('Неопределенный срок') ?>
             </div>
         </div>
         <div class="fixed-action-btn">
