@@ -97,8 +97,6 @@ $this->title = 'Редактировать заявление на отпуск 
                             picker.set('select', '<?= $model->to_date ?>', { format: 'yyyy-mm-dd' });
                         <?php endif ?>
                     </script>
-                    <?= $form->field($model, 'vacation_undefined', ['template' => '<div>{input}{label}</div>'])
-                        ->checkbox(['label' => null])->label('Неопределенный срок') ?>
                 <?php }else{ ?>
                     <div class="input-field">
                         <label for="date-ro" class="control-label">Выберете число, до какого бы Вы хотели сделать себе отпуск</label>
