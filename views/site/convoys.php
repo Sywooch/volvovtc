@@ -31,7 +31,7 @@ $this->title = 'Конвои Volvo Trucks';
                     </div>
                 </div>
                 <div class="center-align arrow">
-                    <i class="material-icons large notranslate">arrow_forward</i>
+                    <i class="material-icons medium notranslate">arrow_forward</i>
                 </div>
                 <div class="finish-place">
                     <div class="right-wrapper left center">
