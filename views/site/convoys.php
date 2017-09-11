@@ -44,7 +44,7 @@ $this->title = 'Конвои Volvo Trucks';
             <div class="row">
                 <div class="col l6 s12 flex-justify-center">
                     <div class="list-wrapper">
-                        <ul>
+                        <ul class="fs17">
                             <li class="clearfix"><i class="material-icons left notranslate">event</i>
                                 Дата: <b><?=  \app\controllers\SiteController::getRuDate($nearest_convoy->date) ?></b>
                             </li>
@@ -57,7 +57,7 @@ $this->title = 'Конвои Volvo Trucks';
                 </div>
                 <div class="col l6 s12 flex-justify-center">
                     <div class="list-wrapper">
-                        <ul>
+                        <ul class="fs17">
                             <li class="clearfix"><i class="material-icons left notranslate">headset_mic</i>Связь: <b><?=  $nearest_convoy->communications ?></b></li>
                             <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?= \app\models\Convoys::getSeverName($nearest_convoy->server) ?></b></li>
                         </ul>

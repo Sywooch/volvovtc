@@ -44,7 +44,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             <div class="row">
                 <div class="col l6 s12 flex-justify-center">
                     <div class="list-wrapper">
-                        <ul>
+                        <ul class="fs17">
                             <li class="clearfix"><i class="material-icons left notranslate">event</i>Дата: <b><?=  $convoy->date ?></b></li>
                             <li class="clearfix">
                                 <i class="material-icons left notranslate">access_time</i>
@@ -61,7 +61,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 </div>
                 <div class="col l6 s12 flex-justify-center">
                     <div class="list-wrapper">
-                        <ul>
+                        <ul class="fs17">
                             <li class="clearfix"><i class="material-icons left notranslate">hotel</i>Отдых: <b><?=  $convoy->rest ?></b></li>
                             <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?=  $convoy->server ?></b></li>
                             <li class="clearfix"><i class="material-icons left notranslate">directions</i>Протяженность: <b><?=  $convoy->length ?></b></li>
