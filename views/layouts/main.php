@@ -136,8 +136,10 @@ AppAsset::register($this);
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
                     <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">МОДЫ</a></li>
-                    <?php if(\app\models\User::isAdmin()) : ?>
-                        <li id="manage-btn">
+                    <?php if(\app\models\User::isAdmin()) :
+                        $c_id = ['trailers', 'achievements'];
+                        $a_id = ['members', 'users']; ?>
+                        <li id="manage-btn"<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                             <a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">УПРАВЛЕНИЕ</a>
                             <ul id="manage-dropdown" class="z-depth-2">
                                 <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons notranslate left">supervisor_account</i>СОТРУДНИКИ</a></li>

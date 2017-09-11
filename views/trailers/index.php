@@ -62,7 +62,9 @@ $this->title = 'Трейлеры - Volvo Trucks';
                 <div class="card-content">
                     <h5 class="light"><?=  $trailer->name ?></h5>
                     <span><?= $trailer->description ?></span>
-                    <span class="grey-text"><?= $categories[$trailer->category]['title'] ?></span>
+                    <?php if($trailer->category) : ?>
+                        <span class="grey-text"><?= $categories[$trailer->category]['title'] ?></span>
+                    <?php endif ?>
                 </div>
                 <?php if(User::isAdmin()): ?>
                     <div class="card-action">
