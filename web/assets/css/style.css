@@ -163,6 +163,8 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 .convoy-cities{ margin-bottom: 25px;}
 .convoys .start-place{ flex:1; margin-right: 20px;}
 .convoys .finish-place{ flex:1; margin-left: 20px;}
+.convoys .left-wrapper{ text-align: right;}
+.convoys .right-wrapper{ text-align: left;}
 .convoys .arrow{align-self: center;}
 #trailer-info{ position: relative;}
 #trailer-info .preloader-wrapper{ position: absolute; top: -10px; right: 0;}

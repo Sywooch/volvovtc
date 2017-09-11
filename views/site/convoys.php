@@ -24,7 +24,7 @@ $this->title = 'Конвои Volvo Trucks';
             <span><?= $nearest_convoy->description ?></span>
             <div class="row flex-justify-center convoy-cities">
                 <div class="start-place">
-                    <div class="left-wrapper right center">
+                    <div class="left-wrapper right">
                         <h6>Старт:</h6>
                         <h4 class="convoy-city nowrap"><?=  $nearest_convoy->start_city ?></h4>
                         <h6 class="convoy-company nowrap"><?=  $nearest_convoy->start_company ?></h6>
@@ -34,7 +34,7 @@ $this->title = 'Конвои Volvo Trucks';
                     <i class="material-icons medium notranslate">arrow_forward</i>
                 </div>
                 <div class="finish-place">
-                    <div class="right-wrapper left center">
+                    <div class="right-wrapper left">
                         <h6>Финиш:</h6>
                         <h4 class="convoy-city nowrap"><?=  $nearest_convoy->finish_city ?></h4>
                         <h6 class="convoy-company nowrap"><?=  $nearest_convoy->finish_company ?></h6>
