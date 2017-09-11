@@ -176,17 +176,17 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
     .convoys .arrow{transform: rotate(90deg);}
 }
 
-
-
 /* members */
 .member .row{flex: 1;}
 .user-links{ margin: 0 auto;}
-.user-links li{background: url(../img/user-links.jpg); display: inline-block;}
+.user-links li{background: url(../img/socials.png); display: inline-block; background-size: cover;}
 .user-links li a, .user-links li{width: 25px; height: 25px;}
-.user-links .vk{background-position: -25px 0;}
+.user-links .vk{background-position: -50px 0;}
+.user-links .steam{background-position: -25px 0;}
 .user-links .truckers-mp{background-position: 25px 0;}
 .collection .collection-item.avatar{ padding-right: 45px;}
 .collection .collection-item.active{background-color: #757575; color: #000;}
+.collection .collection-item .user-links a{border-radius: 50%;}
 .member-info{ margin-bottom: 10px;}
 .member-info span:first-child{ text-align: left;}
 .member-info h6{font-weight: bold;}
@@ -311,7 +311,7 @@ footer{box-shadow: inset 0 7px 15px -8px rgba(0,0,0,0.8);}
 .footer-left li a{ color: #000; font-size: 17px; font-family: "Roboto Condensed"}
 .footer-right{ min-width: 345px;}
 .links li{height: 50px; display: inline-block;}
-.socials li{background-image: url("../img/socials.jpg"); width: 50px;}
+.socials li{background-image: url("../img/socials.png"); width: 50px; background-size: cover;}
 .socials .vk{background-position: -100px 0;}
 .socials .steam{background-position: -50px 0;}
 .socials .instagram{background-position: 0 0;}

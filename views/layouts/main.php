@@ -234,10 +234,10 @@ AppAsset::register($this);
                     <div class="footer-top">
                         <h6 class="black-text">МЫ В СОЦИАЛЬНЫХ СЕТЯХ</h6>
                         <ul class="socials links">
-                            <li class="vk z-depth-3"><a class="waves-effect waves-light" target="_blank" href="https://vk.com/volvo_trucks_russia"></a></li>
-                            <li class="steam z-depth-3"><a class="waves-effect waves-light" target="_blank" href="http://steamcommunity.com/groups/volvo_trucks"></a></li>
-                            <li class="instagram z-depth-3"><a class="waves-effect waves-light" target="_blank" href="https://instagram.com/volvo_trucks_russia"></a></li>
-                            <li class="youtube z-depth-3"><a class="waves-effect waves-light" target="_blank" href="https://www.youtube.com/channel/UCCUkLXBObH0IA54XhCaDTzg"></a></li>
+                            <li class="vk"><a class="waves-effect circle" target="_blank" href="https://vk.com/volvo_trucks_russia"></a></li>
+                            <li class="steam"><a class="waves-effect circle" target="_blank" href="http://steamcommunity.com/groups/volvo_trucks"></a></li>
+                            <li class="instagram"><a class="waves-effect circle" target="_blank" href="https://instagram.com/volvo_trucks_russia"></a></li>
+                            <li class="youtube"><a class="waves-effect circle" target="_blank" href="https://www.youtube.com/channel/UCCUkLXBObH0IA54XhCaDTzg"></a></li>
                         </ul>
                     </div>
                     <div class="footer-bottom">

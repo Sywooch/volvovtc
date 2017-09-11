@@ -61,13 +61,13 @@ $this->title = 'Зарегистрированые пользователи са
             <div class="user-links">
                 <ul class="socials links">
                     <?php if($user->vk){ ?>
-                        <li class="vk z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?=$user->vk?>"></a></li>
+                        <li class="vk"><a class="waves-effect circle" target="_blank" href="<?=$user->vk?>"></a></li>
                     <?php }
                     if($user->steam){ ?>
-                        <li class="steam z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?=$user->steam?>"></a></li>
+                        <li class="steam"><a class="waves-effect circle" target="_blank" href="<?=$user->steam?>"></a></li>
                     <?php }
                     if($user->truckersmp){ ?>
-                        <li class="truckers-mp z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?=$user->truckersmp?>"></a></li>
+                        <li class="truckers-mp"><a class="waves-effect circle" target="_blank" href="<?=$user->truckersmp?>"></a></li>
                     <?php } ?>
                 </ul>
             </div>

@@ -62,13 +62,13 @@ $this->title = 'Водители Volvo Trucks';
                     <td>
                         <ul class="user-links" style="width: 84px;">
                             <?php if($member->user_id->vk) : ?>
-                                <li class="vk z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?= $member->user_id->vk ?>"></a></li>
+                                <li class="vk"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->vk ?>"></a></li>
                             <?php endif; ?>
                             <?php if($member->user_id->steam) : ?>
-                                <li class="steam z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?= $member->user_id->steam ?>"></a></li>
+                                <li class="steam"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->steam ?>"></a></li>
                             <?php endif; ?>
                             <?php if($member->user_id->truckersmp) : ?>
-                                <li class="truckers-mp z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?= $member->user_id->truckersmp ?>"></a></li>
+                                <li class="truckers-mp"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->truckersmp ?>"></a></li>
                             <?php endif; ?>
                         </ul>
                     </td>

@@ -216,7 +216,7 @@ use yii\widgets\ActiveForm;
                         <?=htmlentities($user->nickname) ?>
                     </span>
                 <?php else: ?>
-                    <span class="card-title text-shadow"><?=$user->username ?></span>
+                    <span class="card-title text-shadow"><?= $user->username ?></span>
                 <?php endif; ?>
             </div>
             <div class="card-content row profile-content">
@@ -272,15 +272,15 @@ use yii\widgets\ActiveForm;
                         <div class="col l5 s5 right-align"><p>Профили:</p></div>
                         <div class="col l7 s7 profile-info">
                             <div class="profile-links">
-                                <ul class="socials links">
+                                <ul class="socials links" style="margin: 0;">
                                     <?php if($user->vk){ ?>
-                                        <li class="vk z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?=$user->vk?>"></a></li>
+                                        <li class="vk"><a class="waves-effect circle" target="_blank" href="<?=$user->vk?>"></a></li>
                                     <?php }
                                     if($user->steam){ ?>
-                                        <li class="steam z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?=$user->steam?>"></a></li>
+                                        <li class="steam"><a class="waves-effect circle" target="_blank" href="<?=$user->steam?>"></a></li>
                                     <?php }
                                     if($user->truckersmp && ($user->visible_truckersmp == '1' || \app\models\User::isAdmin())){ ?>
-                                        <li class="truckers-mp z-depth-3"><a class="waves-effect waves-light" target="_blank" href="<?=$user->truckersmp?>"></a></li>
+                                        <li class="truckers-mp"><a class="waves-effect circle" target="_blank" href="<?=$user->truckersmp?>"></a></li>
                                     <?php }
                                     if(!$user->truckersmp && !$user->steam && !$user->vk){?>
                                         <li class="no-bg"><p>Нет указаных профилей</p></li>
