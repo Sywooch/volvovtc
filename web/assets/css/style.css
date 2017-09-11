@@ -174,8 +174,8 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 @media (max-width: 700px){
 	.convoy-cities{flex-direction: column;}
 	.convoys .start-place, .convoys .finish-place{ margin: 0;}
-	.convoys .start-place div{ float: none !important;}
-	.convoys .finish-place div{ float: none !important;}
+	.convoys .start-place div{ float: none !important; text-align: center;}
+	.convoys .finish-place div{ float: none !important; text-align: center;}
     .convoys .arrow{transform: rotate(90deg);}
 }
 
