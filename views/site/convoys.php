@@ -22,18 +22,18 @@ $this->title = 'Конвои Volvo Trucks';
         </div>
         <div class="card-content">
             <span><?= $nearest_convoy->description ?></span>
-            <div class="row flex-justify-center" style="margin-bottom: 25px;">
-                <div style="flex: 1; margin-right: 20px">
+            <div class="row flex-justify-center convoy-cities">
+                <div class="start-place">
                     <div class="left-wrapper right center">
                         <h6>Старт:</h6>
                         <h4 class="convoy-city nowrap"><?=  $nearest_convoy->start_city ?></h4>
                         <h6 class="convoy-company nowrap"><?=  $nearest_convoy->start_company ?></h6>
                     </div>
                 </div>
-                <div class="center-align">
+                <div class="center-align arrow">
                     <i class="material-icons large notranslate">arrow_forward</i>
                 </div>
-                <div style="flex: 1; margin-left: 20px">
+                <div class="finish-place">
                     <div class="right-wrapper left center">
                         <h6>Финиш:</h6>
                         <h4 class="convoy-city nowrap"><?=  $nearest_convoy->finish_city ?></h4>

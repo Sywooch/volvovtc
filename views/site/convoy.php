@@ -22,18 +22,18 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <?= \app\models\Convoys::getDLCString(unserialize($convoy->dlc)) ?>
                 </p>
             <?php endif ?>
-            <div class="row flex-justify-center" style="margin-bottom: 25px;">
-                <div style="flex: 1; margin-right: 20px">
+            <div class="row flex-justify-center convoy-cities">
+                <div class="start-place">
                     <div class="left-wrapper right center">
                         <h6>Старт:</h6>
                         <h4 class="convoy-city nowrap"><?=  $convoy->start_city ?></h4>
                         <h6 class="convoy-company nowrap"><?=  $convoy->start_company ?></h6>
                     </div>
                 </div>
-                <div class="center-align">
+                <div class="center-align arrow">
                     <i class="material-icons large notranslate">arrow_forward</i>
                 </div>
-                <div style="flex: 1; margin-left: 20px">
+                <div class="finish-place">
                     <div class="right-wrapper left center">
                         <h6>Финиш:</h6>
                         <h4 class="convoy-city nowrap"><?=  $convoy->finish_city ?></h4>

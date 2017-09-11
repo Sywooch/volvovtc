@@ -158,27 +158,25 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 
 /* convoys */
 .convoy-map{overflow: hidden; max-height: 500px;}
-.convoy{display: flex; align-items: center; border-bottom: 1px solid gray; padding: 10px 0;}
-.convoy .no-padding{display: flex; justify-content: flex-end;}
-.convoy .no-padding a{line-height: 36px; margin: 0 10px;}
-.convoy .no-padding i{vertical-align: bottom;}
-.convoy .no-padding a.btn{margin: 5px;}
 .convoys .convoy-city{ margin: 0; font-weight: bold;}
 .convoys .convoy-company{font-weight: bold;}
-.convoy .convoys-actions{justify-content: center;}
-.convoy-title{font-size: 18px; flex: 1; padding-right: 10px; text-align: center;}
-#vkshare0 tbody{box-sizing: content-box;}
-#vkshare0 td, #vkshare0 th{padding: 0;}
-
-@media (max-width: 710px){
-	.convoy .no-padding{flex-direction: column;}
-	.convoy .convoy-title{display: flex; flex-direction: column;}
-}
-@media (max-width: 525px){
-	.convoy{flex-direction: column;}
-}
+.convoy-cities{ margin-bottom: 25px;}
+.convoys .start-place{ flex:1; margin-right: 20px;}
+.convoys .finish-place{ flex:1; margin-left: 20px;}
 #trailer-info{ position: relative;}
 #trailer-info .preloader-wrapper{ position: absolute; top: -10px; right: 0;}
+@media (max-width: 993px){
+	.convoys .list-wrapper{min-width:250px;}
+}
+@media (max-width: 700px){
+	.convoy-cities{flex-direction: column;}
+	.convoys .start-place, .convoys .finish-place{ margin: 0;}
+	.convoys .start-place div{ float: none !important;}
+	.convoys .finish-place div{ float: none !important;}
+    .convoys .arrow{transform: rotate(90deg);}
+}
+
+
 
 /* members */
 .member .row{flex: 1;}
@@ -193,7 +191,6 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 .member-info span:first-child{ text-align: left;}
 .member-info h6{font-weight: bold;}
 .preloader{ width: 19.5px; height: 19.5px; vertical-align: middle; margin-right: 15px;}
-/*.member .member-img{background-size: cover; background-position: center top; }*/
 .member-img{display: inline-block;overflow: hidden;width: 40px;vertical-align: middle;height: 40px;
 	background-position: center;background-size: cover;margin-right: 40px;}
 .member-vacation{font-style: italic;font-size: 12px;}
