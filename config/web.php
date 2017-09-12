@@ -68,9 +68,10 @@ $config = [
                 'profile/<action:\w+>/' => 'site/profile',
 
                 // convoys
-                'convoys/<id:\d+>/<action:\w+>/' => 'site/convoys',
-                'convoys/<id:\d+>/' => 'site/convoys',
-                'convoys/<action:\w+>/' => 'site/convoys',
+                'convoys/<id:\d+>/' => 'convoys/index',
+                'convoys' => 'convoys/index',
+                'convoys/<action:\w+>/<id:\d+>/' => 'convoys/<action>',
+                'convoys/<action:\w+>/' => 'convoys/<action>',
 
                 // news
                 'news/<id:\d+>/<action:\w+>/' => 'site/news',

@@ -135,11 +135,11 @@ $(document).ready(function(){
             var info = $('#trailer-info');
             $.ajax({
                 cache: false,
+                url : '/convoys/trailer',
                 dataType : 'json',
                 type : 'POST',
                 data : {
-                    id : id,
-                    action : 'get_trailer'
+                    id : id
                 },
                 beforeSend : function(){
                     info.append('<div class="preloader-wrapper tiny active">'+

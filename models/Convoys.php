@@ -70,9 +70,9 @@ class Convoys extends ActiveRecord{
         return $convoy->delete();
     }
 
-    public static function visibleConvoy($id){
+    public static function visibleConvoy($id, $action){
         $convoy = Convoys::findOne($id);
-        $convoy->visible = Yii::$app->request->get('action') == 'show' ? '1' : '0';
+        $convoy->visible = $action == 'show' ? '1' : '0';
         return $convoy->update() == 1 ? true : false;
     }
 

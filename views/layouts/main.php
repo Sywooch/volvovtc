@@ -58,13 +58,13 @@ AppAsset::register($this);
                     <?php endif ?>
                 </div>
             </li>
-            <li<?php if(Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">
-                    <i class="material-icons notranslate">home</i>О НАС</a>
+            <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>>
+                <a href="<?=Yii::$app->request->baseUrl?>/"><i class="material-icons notranslate">home</i>О НАС</a>
             </li>
             <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">
                     <i class="material-icons notranslate">error</i>ПРАВИЛА</a>
             </li>
-            <li<?php if(Yii::$app->controller->action->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/convoys'])?>">
+            <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">
                     <i class="material-icons notranslate">local_shipping</i>КОНВОИ</a>
             </li>
             <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
@@ -72,10 +72,11 @@ AppAsset::register($this);
                         <i class="material-icons notranslate">contacts</i>ВСТУПИТЬ</a>
                 </li>
             <?php endif ?>
-            <?php if(\app\models\User::isAdmin()) : ?>
-                <li>
+            <?php if(\app\models\User::isAdmin()) :
+                $c_id = ['trailers', 'achievements'];
+                $a_id = ['members', 'users']; ?>
+                <li<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                     <ul class="collapsible collapsible-accordion">
-                        <?php $controller_id = ['trailers', 'users', 'members'] ?>
                         <li>
                             <a class="collapsible-header waves-effect"><i class="material-icons notranslate">view_module</i>УПРАВЛЕНИЕ</a>
                             <div class="collapsible-body">
@@ -84,7 +85,7 @@ AppAsset::register($this);
                                     <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
-                                    <li><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
+<!--                                    <li><a href="--><?//=Url::to(['achievements/index'])?><!--">ДОСТИЖЕНИЯ</a></li>-->
                                 </ul>
                             </div>
                         </li>
@@ -129,9 +130,11 @@ AppAsset::register($this);
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons notranslate">menu</i></a>
                 <a href="<?=Yii::$app->request->baseUrl?>/" class="brand-logo"><img src="<?=Yii::$app->request->baseUrl?>/assets/img/volvo-sign.png" alt="VOLVO TRUCKS"></a>
                 <ul id="nav-mobile" class="hide-on-med-and-down right">
-                    <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>><a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a></li>
+                    <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>>
+                        <a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a>
+                    </li>
                     <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА</a></li>
-                    <li<?php if(Yii::$app->controller->action->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/convoys'])?>">КОНВОИ</a></li>
+                    <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
                     <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
@@ -146,7 +149,7 @@ AppAsset::register($this);
                                 <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
                                 <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                 <li><a href="<?=Url::to(['trailers/index'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
-                                <li><a href="<?=Url::to(['achievements/index'])?>"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>
+<!--                                <li><a href="--><?//=Url::to(['achievements/index'])?><!--"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>-->
                             </ul>
                         </li>
                     <?php else: ?>
@@ -188,7 +191,7 @@ AppAsset::register($this);
             </div>
         </nav>
     </div>
-    <main class="<?= Yii::$app->controller->action->id ?>">
+    <main class="<?= Yii::$app->controller->id ?> <?= Yii::$app->controller->action->id ?>">
         <?= $content ?>
     </main>
     <footer class="page-footer grey lighten-3 ">

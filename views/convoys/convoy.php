@@ -158,27 +158,24 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
     <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1) : ?>
         <div class="fixed-action-btn vertical">
             <a href="<?=Url::to([
-                'site/convoys',
-                'id' => $convoy->id,
-                'action' => 'edit'
+                'convoys/edit',
+                'id' => $convoy->id
             ])?>" class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Редактировать">
                 <i class="large material-icons notranslate">mode_edit</i>
             </a>
             <ul>
                 <li>
                     <a onclick='return confirm("Удалить?")' href="<?=Url::to([
-                        'site/convoys',
-                        'id' => $convoy->id,
-                        'action' => 'delete'
+                        'convoys/remove',
+                        'id' => $convoy->id
                     ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
                         <i class="material-icons notranslate">delete</i>
                     </a>
                 </li>
                 <li>
                     <a href="<?=Url::to([
-                        'site/convoys',
-                        'id' => $convoy->id,
-                        'action' => $convoy->visible == '1' ? 'hide' : 'show'
+                        $convoy->visible == '1' ? 'convoys/hide' : 'convoys/show',
+                        'id' => $convoy->id
                     ])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="<?= $convoy->visible == '1' ?
                         'Скрыть конвой' : 'Сделать видимым' ?>">
                         <i class="material-icons notranslate"><?= $convoy->visible == '1' ? 'visibility_off' : 'visibility' ?></i>

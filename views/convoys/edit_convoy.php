@@ -180,7 +180,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                 </div>
                 <?php if($model->extra_picture) : ?>
                     <img src="<?= Yii::$app->request->baseUrl . '/images/convoys/' . $model->extra_picture ?>" class="responsive-img z-depth-2">
-                    <a href="<?= Url::to(['site/convoys', 'action' => 'delete_extra_picture', 'id' => $_GET['id']]) ?>" class="btn indigo darken-3 waves-effect waves-light" onclick="return confirm('Удалить дополнительное изображение?')">
+                    <a href="<?= Url::to(['convoys/deleteextrapicture', 'id' => $_GET['id']]) ?>" class="btn indigo darken-3 waves-effect waves-light" onclick="return confirm('Удалить дополнительное изображение?')">
                         <i class="material-icons notranslate left">clear</i>Удалить
                     </a>
                 <?php endif ?>
