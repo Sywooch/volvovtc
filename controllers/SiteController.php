@@ -956,7 +956,6 @@ class SiteController extends Controller{
                 $model->addError('attribute', 'Возникла ошибка');
             }
         }
-
         $id = Yii::$app->user->id;
         if(Yii::$app->request->get('id')) $id = Yii::$app->request->get('id');
         if(!$user = User::findIdentity($id)){
@@ -964,11 +963,10 @@ class SiteController extends Controller{
         }
         $user->age = User::getUserAge($user->birth_date);
         //$user->birth_date = self::getRuDate($user->birth_date);
-        return $this->render('profile', [
+        return $this->render($edit ? 'edit_profile' : 'profile', [
             'user' => $user,
             'member' => $member,
-            'model' => $model,
-            'edit' => $edit
+            'model' => $model
         ]);
     }
 
