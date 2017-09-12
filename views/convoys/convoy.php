@@ -114,7 +114,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <ul class="force-list-style" style="margin: 0 0 20px 0">
                         <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
                         <li>Прицеп: <b><?= $trailer_name ?></b>
-                            <?php if($mod) : ?> -
+                            <?php if($mod && false) : ?> -
                                 <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                     Загрузить модификацию
                                 </a>
@@ -129,14 +129,14 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 </div>
             </li>
         </ul>
-    <?php else : ?>
+    <?php else: ?>
         <div class="card grey lighten-4">
             <div class="card-content">
                 <span class="card-title">Дополнительная информация</span>
                 <ul class="force-list-style" style="margin: 0 0 20px 30px">
                     <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
                     <li>Прицеп: <b><?= $trailer_name ?></b>
-                        <?php if($mod) : ?> -
+                        <?php if($mod && false) : ?> -
                             <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                 Загрузить модификацию
                             </a>
