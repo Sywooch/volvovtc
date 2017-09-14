@@ -64,7 +64,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                         <ul class="fs17">
                             <li class="clearfix"><i class="material-icons left notranslate">hotel</i>Отдых: <b><?=  $convoy->rest ?></b></li>
                             <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?=  $convoy->server ?></b></li>
-                            <li class="clearfix"><i class="material-icons left notranslate">directions</i>Протяженность: <b><?=  $convoy->length ?></b></li>
+                            <li class="clearfix"><i class="material-icons left notranslate">swap_calls</i>Протяженность: <b><?=  $convoy->length ?></b></li>
                             <li class="clearfix"><i class="material-icons left notranslate">volume_up</i>
                                 Игровая рация:
                                 <?php if($convoy->open): ?><b>15 канал</b>
