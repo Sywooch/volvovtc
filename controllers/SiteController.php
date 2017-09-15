@@ -158,7 +158,7 @@ class SiteController extends Controller{
     }
 
     public function actionVariations(){
-        return $this->render('variations');
+        return $this->render(Yii::$app->request->get('game') == 'ats' ? 'variations_ats' : 'variations_ets');
     }
     
     public function actionNews(){

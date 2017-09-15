@@ -25,6 +25,19 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             </li>
         </ul>
     </div>
+    <div class="row" style="margin-top: 20px;">
+        <?php $game = Yii::$app->request->get('game'); ?>
+        <div class="col m6 s12">
+            <a href="<?= Url::to(['site/variations', 'game' => 'ets2']) ?>" class="btn-flat waves-effect right<?php if($game == 'ets2'): ?> disabled<?php endif ?>">
+                Отделение ETS2
+            </a>
+        </div>
+        <div class="col m6 s12">
+            <a href="<?= Url::to(['site/variations', 'game' => 'ats']) ?>" class="btn-flat waves-effect left<?php if($game == 'ats'): ?> disabled<?php endif ?>">
+                Отделение ATS
+            </a>
+        </div>
+    </div>
     <div id="1" class="scrollspy">
         <h5>Вариация №1</h5>
         <ul class="collapsible" data-collapsible="accordion">

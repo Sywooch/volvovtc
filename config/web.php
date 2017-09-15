@@ -100,6 +100,9 @@ $config = [
                 'achievements/<action:\w+>/<id:\d+>' => 'achievements/<action>',
                 'achievements/<action:\w+>' => 'achievements/<action>',
 
+                // variations
+                'variations/<game:\w+>/' => 'site/variations',
+
                 // general
                 '<action:\w+>/<id:\d+>/' => 'site/<action>',
                 '<action>/page/<page:\d+>/' => 'site/<action>',
