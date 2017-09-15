@@ -38,7 +38,7 @@ AppAsset::register($this);
 
 <div class="wrapper">
     <div class="mobile-navbar">
-        <ul id="slide-out" class="hide-on-large-only side-nav">
+        <ul id="slide-out" class="hide-on-large-only side-nav z-depth-5">
             <li>
                 <?php $bg = Yii::$app->user->isGuest ? 'default.jpg' : Yii::$app->user->identity->bg_image ?>
                 <div class="userView" style="background-image: url(<?= Yii::$app->request->baseUrl.'/images/users/bg/'. $bg . '?t='.time()?>); height: 160px;">
