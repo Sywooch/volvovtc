@@ -11,7 +11,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
     <div class="row" style="margin-top: 20px;">
         <?php $game = Yii::$app->request->get('game'); ?>
         <div class="col m6 s12">
-            <a href="<?= Url::to(['site/variations', 'game' => 'ets2']) ?>" class="btn-flat waves-effect right<?php if($game == 'ets2'): ?> disabled<?php endif ?>">
+            <a href="<?= Url::to(['site/variations', 'game' => 'ets2']) ?>" class="btn-flat waves-effect right<?php if($game != 'ats'): ?> disabled<?php endif ?>">
                 Отделение ETS2
             </a>
         </div>
