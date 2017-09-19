@@ -36,7 +36,7 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                 <div class="card-action">
                     <a href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="fs17">Профиль</a>
                     <?php if(\app\models\User::isAdmin()) : ?>
-                        <a href="<?= Url::to(['members/edit', 'id' => $member->user_id->id]) ?>" class="fs17">Редактировать</a>
+                        <a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="fs17">Редактировать</a>
                     <?php endif ?>
                     <ul class="user-links right" style="width: 84px;">
                         <?php if($member->user_id->vk) : ?>
