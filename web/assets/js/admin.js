@@ -25,7 +25,6 @@ $(document).ready(function(){
         if(!confirm('Добавить '+$(this).data('scores')+' баллов?')){
             return false;
         }
-        var clicked = $(this);
         var button = $(this);
         var data = {
             id : $(this).attr('data-id'),
@@ -36,9 +35,9 @@ $(document).ready(function(){
             cache: false,
             dataType : 'json',
             type : 'POST',
+            url : '/members/scores',
             data : data,
             beforeSend : function(){
-                //console.log($(this));
                 button.find('i').replaceWith('<div class="preloader-wrapper active preloader">'+
                                                     '<div class="spinner-layer spinner-red-only">'+
                                                         '<div class="circle-clipper left">'+
@@ -64,6 +63,13 @@ $(document).ready(function(){
                     $('[data-id="'+data.id+'"]').attr('data-scores-total', response.scores.total);
                     $('[data-id="'+data.id+'"]').attr('data-scores-month', response.scores.month);
                     $('[data-id="'+data.id+'"]').attr('data-scores-other', response.scores.other);
+                    if(!$('[data-id="'+data.id+'"]').parent().hasClass('tooltipped')){
+                        $('[data-id="'+data.id+'"]').parent().addClass('tooltipped');
+                    }
+                    $('[data-id="'+data.id+'"]').parent().attr('data-tooltip', 'Обновлено: '+response.scores.updated);
+                    $('.tooltipped').tooltip({delay: 0});
+                }else{
+                    console.log(response.status);
                 }
             },
             complete : function(){
@@ -206,9 +212,9 @@ function loadMembersBans(steamid64){
         cache: false,
         dataType : 'json',
         type : 'POST',
+        url : '/members/getbans',
         data : {
-            steamid64 : steamid64,
-            method : 'get_bans'
+            steamid64 : steamid64
         },
         beforeSend : function(){
             Materialize.toast('Загружаем баны...', 3000);

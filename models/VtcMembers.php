@@ -21,6 +21,7 @@ class VtcMembers extends ActiveRecord{
                 'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id', 'vacation_undefined'], 'integer'],
             [['vacation', 'start_date'], 'safe'],
             [['additional'], 'string', 'max' => 1024],
+            [['scores_updated'], 'safe'],
             [['user_id'], 'unique'],
         ];
     }
@@ -36,13 +37,12 @@ class VtcMembers extends ActiveRecord{
         foreach($all_members as $member){
             if(in_array($member->post_id, $posts)){
                 $member->user_id = User::findOne($member->user_id);
-                $position = VtcPositions::find()->select(['name'])->where(['id' => $member->post_id])->one();
-                $member->post_id = $position->name;
+                $member->post_id = VtcPositions::find()->select(['name', 'admin'])->where(['id' => $member->post_id])->one();
                 if($member->user_id->truckersmp != '' && $get_bans){
                     $member->banned = TruckersMP::isMemberBanned($member->user_id->truckersmp);
                 }
-                if($member->user_id->admin == '1') $members['Администрация'][] = $member;
-                else $members[$member->post_id][] = $member;
+                if($member->post_id->admin == '1') $members['Администрация'][] = $member;
+                else $members[$member->post_id->name][] = $member;
             }
         }
         return $members;
@@ -73,9 +73,10 @@ class VtcMembers extends ActiveRecord{
             $member->scores_other = intval($member->scores_other) + intval($scores);
             $member->scores_total = intval($member->scores_total) + intval($scores);
         }
+        $member->scores_updated = date('Y-m-d H:i');
         if($member->update() !== false){
             Notifications::addNotification('Вам было начислено '. $scores . ' баллов!', $member->user_id);
-            return ['other' => $member->scores_other, 'month' => $member->scores_month, 'total' => $member->scores_total];
+            return ['other' => $member->scores_other, 'month' => $member->scores_month, 'total' => $member->scores_total, 'updated' => date('d.m.y H:i')];
         }
         return false;
     }

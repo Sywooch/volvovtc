@@ -73,16 +73,16 @@ AppAsset::register($this);
                 </li>
             <?php endif ?>
             <?php if(\app\models\User::isAdmin()) :
-                $c_id = ['trailers', 'achievements'];
-                $a_id = ['members', 'users']; ?>
+                $c_id = ['trailers', 'achievements', 'members'];
+                $a_id = ['users']; ?>
                 <li<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                     <ul class="collapsible collapsible-accordion">
                         <li>
                             <a class="collapsible-header waves-effect"><i class="material-icons notranslate">view_module</i>УПРАВЛЕНИЕ</a>
                             <div class="collapsible-body">
                                 <ul>
-                                    <li><a href="<?=Url::to(['site/members'])?>">СОТРУДНИКИ</a></li>
-                                    <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">СТАТИСТИКА</a></li>
+                                    <li><a href="<?=Url::to(['members/index'])?>">СОТРУДНИКИ</a></li>
+                                    <li><a href="<?=Url::to(['members/stats'])?>">СТАТИСТИКА</a></li>
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
 <!--                                    <li><a href="--><?//=Url::to(['achievements/index'])?><!--">ДОСТИЖЕНИЯ</a></li>-->
@@ -140,13 +140,13 @@ AppAsset::register($this);
                     <?php endif ?>
                     <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">МОДЫ</a></li>
                     <?php if(\app\models\User::isAdmin()) :
-                        $c_id = ['trailers', 'achievements'];
-                        $a_id = ['members', 'users']; ?>
+                        $c_id = ['trailers', 'achievements', 'members'];
+                        $a_id = ['users']; ?>
                         <li id="manage-btn"<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
-                            <a href="<?=Url::to(['site/members', 'action' => 'stats'])?>">УПРАВЛЕНИЕ</a>
+                            <a href="<?=Url::to(['members/stats'])?>">УПРАВЛЕНИЕ</a>
                             <ul id="manage-dropdown" class="z-depth-2">
-                                <li><a href="<?=Url::to(['site/members'])?>"><i class="material-icons notranslate left">supervisor_account</i>СОТРУДНИКИ</a></li>
-                                <li><a href="<?=Url::to(['site/members', 'action' => 'stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
+                                <li><a href="<?=Url::to(['members/index'])?>"><i class="material-icons notranslate left">supervisor_account</i>СОТРУДНИКИ</a></li>
+                                <li><a href="<?=Url::to(['members/stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
                                 <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                 <li><a href="<?=Url::to(['trailers/index'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
 <!--                                <li><a href="--><?//=Url::to(['achievements/index'])?><!--"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>-->

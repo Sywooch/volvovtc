@@ -39,7 +39,7 @@ select option, .dropdown-content li>span{ color: #0d3896;}
 .flex-justify-center{display: flex; justify-content: center;}
 .card-image{ overflow: hidden; border-top-right-radius: 2px;; border-top-left-radius: 2px;}
 .card-image.no-img{width: 100%; height: 350px; background-position: center; background-size: cover;}
-.card-image.no-img_horizontal{width: 150px; background-position: center center; background-size: cover;}
+.card-image.no-img_horizontal{width: 150px; background-position: center center; background-size: cover; border-radius: 2px 0 0 2px;}
 .card-image.no-img_horizontal a{display: block; width: 100%; height: 100%;}
 .card-image.no-img_contain{ background-size: contain;}
 .card ol{margin-left: -20px;}
@@ -67,6 +67,7 @@ table.highlight>tbody>tr.yellow:hover{ background-color: #f1eab4 !important;}
 .bold{font-weight: bold}
 .parallax-title{ position: absolute; bottom:0;}
 .parallax-container.parallax-shadow{box-shadow: inset 1px -9px 14px -8px rgba(0,0,0,0.3);}
+.preloader{ width: 19.5px; height: 19.5px; vertical-align: middle; margin-right: 15px;}
 
 /* navbar */
 nav .nav-wrapper a{color: black;}
@@ -180,20 +181,14 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 }
 
 /* members */
-.member .row{flex: 1;}
 .user-links{ margin: 0 auto;}
 .user-links li{background: url(../img/socials.png); display: inline-block; background-size: cover;}
 .user-links li a, .user-links li{width: 25px; height: 25px;}
 .user-links .vk{background-position: -50px 0;}
 .user-links .steam{background-position: -25px 0;}
 .user-links .truckers-mp{background-position: 25px 0;}
-.collection .collection-item.avatar{ padding-right: 45px;}
-.collection .collection-item.active{background-color: #757575; color: #000;}
-.collection .collection-item .user-links a{border-radius: 50%;}
-.member-info{ margin-bottom: 10px;}
-.member-info span:first-child{ text-align: left;}
-.member-info h6{font-weight: bold;}
-.preloader{ width: 19.5px; height: 19.5px; vertical-align: middle; margin-right: 15px;}
+.link-disabled{opacity: 0.3;}
+.link-disabled a{ cursor: default;}
 .member-img{display: inline-block;overflow: hidden;width: 40px;vertical-align: middle;height: 40px;
 	background-position: center;background-size: cover;margin-right: 40px;}
 .member-vacation{font-style: italic;font-size: 12px;}
@@ -223,8 +218,6 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .tabs .claims-count{width: 17px;display: inline-block;height: 17px;vertical-align: text-bottom;line-height: 17px;font-size: 11px;margin-left: 10PX;}
 .tabs .indicator{background-color: #0d3896;}
 .claims h5{margin-left: 15px;}
-.claims .claim-img{background-size: cover; background-position: center center; width: 150px; border-right: 1px solid #e4e4e4;}
-.claims .claim-img a{display: block; width: 100%; height: 100%;}
 .claims .claim-status{ text-align: right;}
 .claims .old-nickname, .claims .new-nickname{white-space: nowrap;}
 .viewed-by{line-height: 37px; text-align: right;}

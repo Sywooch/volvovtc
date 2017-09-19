@@ -218,9 +218,8 @@ $this->title = 'Редактирование информации о водит�
             <ul>
                 <li>
                     <a href="<?=Url::to([
-                        'site/members',
-                        'id' => $model->id,
-                        'action' => 'fired'
+                        'members/dismiss',
+                        'id' => $model->id
                     ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Уволить" onclick='return confirm("Уволить водителя?")'>
                         <i class="material-icons notranslate">clear</i>
                     </a>

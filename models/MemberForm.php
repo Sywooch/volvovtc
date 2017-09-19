@@ -114,6 +114,9 @@ class MemberForm extends Model{
         $member->can_lead = $this->can_lead ? '1' : '0';
         $member->can_center = $this->can_center ? '1' : '0';
         $member->can_close = $this->can_close ? '1' : '0';
+        if($member->scores_total != $this->scores_total){
+            $member->scores_updated = date('Y-m-d H:i');
+        }
         $member->scores_total = $this->scores_total;
         $member->scores_month = $this->scores_month;
         $member->scores_other = $this->scores_other;

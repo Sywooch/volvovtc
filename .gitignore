@@ -49,6 +49,9 @@ tests/_support/_generated
 /web/images/convoys/*
 /web/images/convoys/trailers/*
 
+/web/images/achievements/*
+/web/images/achievements/progress/*
+
 #mods directory
 /web/mods/*
 

@@ -60,8 +60,9 @@ $config = [
                 'modifications/<action:\w+>/' => 'site/modifications',
 
                 // members
-                'members/<id:\d+>/<action:\w+>/' => 'site/members',
-                'members/<action:\w+>/' => 'site/members',
+                'members' => 'members/index',
+                'members/<action:\w+>/<id:\d+>/' => 'members/<action>',
+                'members/<action:\w+>/' => 'members/<action>',
 
                 // profile
                 'profile/<id:\d+>/' => 'site/profile',
