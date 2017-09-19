@@ -24,7 +24,7 @@ use app\models\User; ?>
         }
         $user = User::find()->select(['picture', 'first_name', 'last_name'])->where(['id' => $recruit->user_id])->one(); ?>
         <div class="card horizontal hoverable <?= $color_class ?>">
-            <div class="card-image grey lighten-4 claim-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $user->picture ?>)">
+            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $user->picture ?>)">
                 <a href="<?= Url::to(['site/profile', 'id' => $recruit->user_id]) ?>" class="waves-effect waves-light"></a>
             </div>
             <div class="card-stacked">

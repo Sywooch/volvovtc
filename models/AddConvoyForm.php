@@ -176,7 +176,7 @@ class AddConvoyForm extends Model{
         $convoy->communications = $this->communications;
         $convoy->add_info = $this->add_info;
         $convoy->author = $this->author;
-        $convoy->updated = date('Y-m-d H:i', strtotime('+1 hour'));
+        $convoy->updated = date('Y-m-d H:i');
         $convoy->updated_by = Yii::$app->user->id;
         if($map_full = UploadedFile::getInstance($this, 'picture_full')){
             $convoy->picture_full = $convoy->id.'-f.'.$map_full->extension;

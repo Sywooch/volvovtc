@@ -4,7 +4,7 @@
 $this->title = 'Заявления Volvo Trucks';
 ?>
 
-<div class="parallax-container parallax-shadow" style="height: 300px;">
+<div class="parallax-container parallax-shadow" style="height: 400px;">
     <div class="container">
         <h4 class="parallax-title light white-text text-shadow">Заявления Volvo Trucks</h4>
     </div>
