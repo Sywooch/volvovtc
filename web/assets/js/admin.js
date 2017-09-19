@@ -63,10 +63,10 @@ $(document).ready(function(){
                     $('[data-id="'+data.id+'"]').attr('data-scores-total', response.scores.total);
                     $('[data-id="'+data.id+'"]').attr('data-scores-month', response.scores.month);
                     $('[data-id="'+data.id+'"]').attr('data-scores-other', response.scores.other);
-                    if(!$('[data-id="'+data.id+'"]').parent().hasClass('tooltipped')){
-                        $('[data-id="'+data.id+'"]').parent().addClass('tooltipped');
+                    if(!$('a[data-id="'+data.id+'"]').parent().hasClass('tooltipped')){
+                        $('a[data-id="'+data.id+'"]').parent().addClass('tooltipped');
                     }
-                    $('[data-id="'+data.id+'"]').parent().attr('data-tooltip', 'Обновлено: '+response.scores.updated);
+                    $('a[data-id="'+data.id+'"]').parent().attr('data-tooltip', 'Обновлено: '+response.scores.updated);
                     $('.tooltipped').tooltip({delay: 0});
                 }else{
                     console.log(response.status);
