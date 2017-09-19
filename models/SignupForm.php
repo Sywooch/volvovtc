@@ -22,6 +22,7 @@ class SignupForm extends Model{
     public $steamid64;
     public $truckersmp;
     public $visible_truckersmp = false;
+    public $visible_steam = true;
     public $nickname;
     public $has_ats;
     public $has_ets;
@@ -33,7 +34,7 @@ class SignupForm extends Model{
             [['password', 'password_2'], 'string', 'min' => 6],
             [['email'], 'email', 'message' => 'Невалидный E-Mail'],
             [['username', 'email', 'password', 'password_2', 'steam', 'vk'], 'trim'],
-            [['has_ets', 'has_ats', 'visible_email', 'visible_truckersmp'], 'boolean'],
+            [['has_ets', 'has_ats', 'visible_email', 'visible_truckersmp', 'visible_steam'], 'boolean'],
             [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'company', 'steamid64'], 'string'],
             [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'https', 'message' => 'Неправильная ссылка'],
             [['email'], 'checkEmail'],
@@ -91,6 +92,7 @@ class SignupForm extends Model{
         $user->steamid = $this->steamid64;
         $user->truckersmp = $this->truckersmp;
         $user->visible_truckersmp = $this->visible_truckersmp;
+        $user->visible_steam = $this->visible_steam;
         $user->nickname = $this->nickname;
         $user->birth_date = $this->birth_date;
         $user->company = $this->company;
@@ -98,7 +100,6 @@ class SignupForm extends Model{
         $user->has_ats = $this->has_ats ? '1' : '0';
         $user->auth_key = Yii::$app->security->generateRandomString();
         $user->registered = date('Y-m-d');
-//        \Kint::dump($user);
         if($user->save()){
             Mail::newUserToAdmin($user);
             return $user->id;

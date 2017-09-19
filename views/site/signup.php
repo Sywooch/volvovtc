@@ -39,6 +39,8 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                 <?= $form->field($model, 'vk')->textInput()->label('Профиль VK') ?>
                 <?= $form->field($model, 'steam')->textInput()->label('Профиль Steam') ?>
                 <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>
+                <?= $form->field($model, 'visible_steam', ['template' => '<div>{input}{label}</div>'])
+                    ->checkbox(['label' => null])->error(false)->label('Сделать профиль Steam видимым для всех') ?>
                 <?= $form->field($model, 'visible_truckersmp', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox([
                         'label' => null,

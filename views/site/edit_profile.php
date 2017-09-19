@@ -125,10 +125,12 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
                     'readonly' => $member ? 'true' : false
                 ])->label('Профиль Steam') ?>
                 <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>
+                <?= $form->field($model, 'visible_steam', ['template' => '<div>{input}{label}</div>'])
+                    ->checkbox(['label' => null])->error(false)->label('Сделать профиль Steam видимым для всех') ?>
                 <?= $form->field($model, 'visible_truckersmp', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox([
                         'label' => null,
-                        'disabled' => $user->steam == '' || $member ? 'true' : false
+                        'disabled' => $user->steam == '' ? 'true' : false
                     ])->error(false)->label('Показать профиль TruckersMP') ?>
                 <?php $display = $user->visible_truckersmp == '1' ? 'block' : 'none' ?>
                 <?= $form->field($model, 'truckersmp')->textInput([

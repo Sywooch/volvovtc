@@ -65,10 +65,14 @@ $this->title = 'Водители Volvo Trucks';
                                     <li class="vk"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->vk ?>"></a></li>
                                 <?php endif; ?>
                                 <?php if($member->user_id->steam) : ?>
-                                    <li class="steam"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->steam ?>"></a></li>
+                                    <li class="steam<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_steam != 1):?> link-disabled<?php endif ?>">
+                                        <a class="waves-effect circle" <?php if(\app\models\User::isAdmin() || $member->user_id->visible_steam == 1):?> href="<?= $member->user_id->steam ?>"<?php endif ?> target="_blank"></a>
+                                    </li>
                                 <?php endif; ?>
                                 <?php if($member->user_id->truckersmp) : ?>
-                                    <li class="truckers-mp"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->truckersmp ?>"></a></li>
+                                    <li class="truckers-mp<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_truckersmp != 1):?> link-disabled<?php endif ?>">
+                                        <a class="waves-effect circle" <?php if(\app\models\User::isAdmin() || $member->user_id->visible_truckersmp == 1):?> href="<?= $member->user_id->truckersmp ?>"<?php endif ?> target="_blank"></a>
+                                    </li>
                                 <?php endif; ?>
                             </ul>
                         </td>

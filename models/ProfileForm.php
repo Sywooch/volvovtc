@@ -24,6 +24,7 @@ class ProfileForm extends Model{
     public $steam;
     public $steamid64;
     public $visible_truckersmp;
+    public $visible_steam = true;
     public $truckersmp;
     public $has_ats;
     public $has_ets;
@@ -96,6 +97,7 @@ class ProfileForm extends Model{
                 $user->truckersmp = 'https://truckersmp.com/user/' . TruckersMP::getUserID($user->steamid);
                 $user->visible_truckersmp = $form['visible_truckersmp'];
             }
+            $user->visible_steam = $form['visible_steam'];
             $user->truckersmp = $form['truckersmp'];
             $user->first_name = $form['first_name'];
             $user->last_name = $form['last_name'];
@@ -150,6 +152,7 @@ class ProfileForm extends Model{
         Yii::$app->user->identity->steamid = $data['steamid64'];
         Yii::$app->user->identity->truckersmp = $data['truckersmp'];
         Yii::$app->user->identity->visible_truckersmp = $data['visible_truckersmp'];
+        Yii::$app->user->identity->visible_steam = $data['visible_steam'];
         Yii::$app->user->identity->first_name = $data['first_name'];
         Yii::$app->user->identity->last_name = $data['last_name'];
         Yii::$app->user->identity->country = $data['country'];

@@ -79,10 +79,10 @@ $this->title = 'Профиль - Volvo Trucks';
                                 <?php if($user->vk){ ?>
                                     <li class="vk"><a class="waves-effect circle" target="_blank" href="<?=$user->vk?>"></a></li>
                                 <?php }
-                                if($user->steam){ ?>
-                                    <li class="steam"><a class="waves-effect circle" target="_blank" href="<?=$user->steam?>"></a></li>
+                                if($user->steam && ($user->visible_steam == 1 || \app\models\User::isAdmin())){ ?>
+                                        <li class="steam"><a class="waves-effect circle" target="_blank" href="<?=$user->steam?>"></a></li>
                                 <?php }
-                                if($user->truckersmp && ($user->visible_truckersmp == '1' || \app\models\User::isAdmin())){ ?>
+                                if($user->truckersmp && ($user->visible_truckersmp == 1 || \app\models\User::isAdmin())){ ?>
                                     <li class="truckers-mp"><a class="waves-effect circle" target="_blank" href="<?=$user->truckersmp?>"></a></li>
                                 <?php }
                                 if(!$user->truckersmp && !$user->steam && !$user->vk){?>
