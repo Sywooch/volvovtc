@@ -47,7 +47,7 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                         <?php endif; ?>
                         <?php if($member->user_id->truckersmp) : ?>
                             <li class="truckers-mp<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_truckersmp != 1):?> link-disabled<?php endif ?>">
-                                <a class="waves-effect"<?php if(\app\models\User::isAdmin() && $member->user_id->visible_truckersmp == 1):?> href="<?= $member->user_id->truckersmp ?>"<?php endif ?> target="_blank"></a>
+                                <a class="waves-effect"<?php if(\app\models\User::isAdmin() || $member->user_id->visible_truckersmp == 1):?> href="<?= $member->user_id->truckersmp ?>"<?php endif ?> target="_blank"></a>
                             </li>
                         <?php endif; ?>
                     </ul>
