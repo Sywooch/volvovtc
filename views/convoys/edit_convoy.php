@@ -95,16 +95,16 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                 <?= $form->field($model, 'departure_time')->input('time', ['class' => 'timepicker'])->error(false) ?>
                 <?= $form->field($model, 'server')->dropdownList([
                     'ETS2' => [
-                        'eu1' => 'Европа 1',
-                        'eu2_ets' => 'Европа 2',
-                        'eu3' => 'Европа 3',
-                        'eu5' => 'Европа 5',
+                        'eu1' => 'Europe 1',
+                        'eu2_ets' => 'Europe 2',
+                        'eu3' => 'Europe [Trial Test Rules]',
+                        'eu5' => 'Europe 5',
                         'us_ets' => 'United States',
                         'sa' => 'South America',
                         'hk' => 'Honk Kong',
                     ],
                     'ATS' => [
-                        'eu2_ats' => 'Европа 2',
+                        'eu2_ats' => 'Europe 2',
                         'us_ats' => 'United States',
                     ]
                 ])->error(false) ?>
