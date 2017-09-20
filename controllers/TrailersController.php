@@ -61,7 +61,7 @@ class TrailersController extends Controller{
                 'totalCount' => $total
             ]);
             $trailers = $query->orderBy(['name' => SORT_ASC])->offset($pagination->offset)->limit($pagination->limit)->all();
-            $categories = TrailersCategories::find()->select(['name', 'title'])->indexBy('name')->asArray()->all();
+            $categories = TrailersCategories::find()->select(['name', 'title'])->orderBy(['title' => SORT_ASC])->indexBy('name')->asArray()->all();
             return $this->render('index',[
                 'trailers' => $trailers,
                 'currentPage' => Yii::$app->request->get('page', 1),
@@ -100,15 +100,15 @@ class TrailersController extends Controller{
     public function actionEdit(){
         if(User::isAdmin()){
             $model = new TrailersForm(Yii::$app->request->get('id'));
-            $categories = TrailersCategories::find()->select(['name', 'title'])->asArray()->all();
-            $new_cats[0] = 'Без категории';
-            foreach ($categories as $category){
-                $new_cats[$category['name']] = $category['title'];
-            }
             if($model->load(Yii::$app->request->post()) && $model->validate()) {
                 if($model->editTrailer(Yii::$app->request->get('id'))) {
                     return $this->redirect(['trailers/index']);
                 }
+            }
+            $categories = TrailersCategories::find()->select(['name', 'title'])->orderBy(['title' => SORT_ASC])->asArray()->all();
+            $new_cats[0] = 'Без категории';
+            foreach ($categories as $category){
+                $new_cats[$category['name']] = $category['title'];
             }
             return $this->render('edit_trailer', [
                 'model' => $model,

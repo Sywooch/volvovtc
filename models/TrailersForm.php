@@ -63,7 +63,7 @@ class TrailersForm extends Model{
             $trailer->picture = $trailer->id.'.'.$picture->extension;
             $picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
         }
-        return $trailer->update() != false;
+        return $trailer->update() !== false;
     }
 
     public function attributeLabels(){
