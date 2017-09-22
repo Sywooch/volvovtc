@@ -11,7 +11,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
     <div class="col hide-on-med-and-down m3 l2 fixed-right">
         <ul class="section table-of-contents">
             <li><a href="#1">Вариация №1</a></li>
-            <li><a href="#2">Вариация №2</a></li>
+            <li><a href="#21">Вариация №2.1</a></li>
+            <li><a href="#22">Вариация №2.2</a></li>
             <li>
                 <a href="#3">Вариация №3</a>
                 <ul class="browser-default">
@@ -89,8 +90,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
             </div>
         </div>
     </div>
-    <div id="2" class="scrollspy">
-        <h5>Вариация №2</h5>
+    <div id="21" class="scrollspy">
+        <h5>Вариация №2.1</h5>
         <div class="card grey lighten-4">
             <div class="card-image">
                 <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var2.jpg">
@@ -116,6 +117,40 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                                         <li>Разрешается установить три желтых лампочки по середине на лайтбаре</li>
                                     </ul>
                                 </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div id="22" class="scrollspy">
+        <h5>Вариация №2.2</h5>
+        <div class="card grey lighten-4">
+            <div class="card-image">
+                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var22.jpg">
+                <span class="card-title text-shadow">Volvo FH</span>
+            </div>
+            <div class="card-content">
+                <span class="grey-text">Данный грузовик предназначен для крупногабаритных и крупнотоннажных грузов.</span>
+                <ul class="collapsible" data-collapsible="accordion">
+                    <li>
+                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
+                        <div class="collapsible-body grey lighten-4 list-style-default">
+                            <ul>
+                                <li>Кузов: Globetrotter 8х4</li>
+                                <li>Шасси 8х4</li>
+                                <li>Двигатель, трансмиссия - на выбор</li>
+                                <li>Пользовательский цвет - оранжевый металлик. <a class="modal-trigger" href="#var22modal">Как установить?</a></li>
+                                <li>Диски, ступицы, гайки, колпаки разрешается устанавливать: стандартные, хромированные и крашенные (от белых к черным оттенкам и в цвет кузова)</li>
+                                <li>Шины разрешается красить только от черных до белых оттенков</li>
+                                <li>Решетка радиатора: черная</li>
+                                <li>Козырек - заводской</li>
+                                <li>Переднее зеркало, таблички - по желанию</li>
+                                <li>Основные зеркала, дверные ручки в цвет кузова</li>
+                                <li>Ступеньки дверей - на ваш выбор</li>
+                                <li>Разрешается устанавливать элементы тюнинга добавляемые в DLC National Window Flags и любые аксессуары в кабину</li>
+                                <li>Остальное все запрещено</li>
                             </ul>
                         </div>
                     </li>
@@ -345,5 +380,23 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                 </ul>
             </div>
         </div>
+    </div>
+</div>
+<div id="var22modal" class="modal">
+    <div class="modal-content">
+        <h5 class="light">Как сделать оранжевый металлик?</h5>
+        <ol class="browser-default">
+            <li>Заезжаем на СТО и ставим любую шасси кроме 8х4.</li>
+            <li>Ищем покраску <b>Sunrise</b> и сохраняем оранжевый цвет как шаблон.</li>
+            <li>Ставим шасси 8х4 и выбираем цвет <b>"пользовательский цвет металлик"</b>.</li>
+            <li>Красим все три ячейки в оранжевый цвет использовав шаблон.</li>
+        </ol>
+        <p class="grey-text">Для удобства посмотрите видео создания фирменного цвета.</p>
+        <div class="center">
+            <iframe width="560" height="315" src="https://www.youtube.com/embed/2tV9_egM01o" frameborder="0" allowfullscreen></iframe>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <a class="modal-action modal-close waves-effect waves-green btn-flat">Закрыть</a>
     </div>
 </div>
