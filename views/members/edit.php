@@ -89,6 +89,7 @@ $this->title = 'Редактирование информации о водит�
                     ->checkbox(['label' => null])->error(false)->label('Неопределенный срок') ?>
             </div>
         </div>
+        <div class="clearfix"></div>
         <div class="col l6 s12" style="padding: 0">
             <div class="col s12">
                 <div class="card-panel grey lighten-4">
