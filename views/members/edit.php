@@ -16,8 +16,8 @@ $this->title = 'Редактирование информации о водит�
             'inputOptions' => ['autocomplete' => 'Off']
         ]]);?>
         <div class="col l6 s12">
-            <h5 class="light">[Volvo Trucks] <?= $model->nickname ?></h5>
             <div class="card-panel grey lighten-4">
+                <h5 class="light">[Volvo Trucks] <?= $model->nickname ?></h5>
                 <label>Должность</label>
                 <?= $form->field($model, 'post_id')->dropdownList([
                     '1' => 'Испытательный срок',
