@@ -18,6 +18,7 @@ class MemberForm extends Model{
     public $scores_total;
     public $scores_month;
     public $scores_other;
+    public $scores_history;
     public $exam_driving = false;
     public $exam_3_cat = false;
     public $exam_2_cat = false;
@@ -48,6 +49,7 @@ class MemberForm extends Model{
             $this->scores_total = $member->scores_total;
             $this->scores_month = $member->scores_month;
             $this->scores_other = $member->scores_other;
+            $this->scores_history = $member->scores_history;
             $this->exam_driving = $member->exam_driving == '1';
             $this->exam_3_cat = $member->exam_3_cat == '1';
             $this->exam_2_cat = $member->exam_2_cat == '1';
@@ -116,6 +118,7 @@ class MemberForm extends Model{
         $member->can_close = $this->can_close ? '1' : '0';
         if($member->scores_total != $this->scores_total){
             $member->scores_updated = date('Y-m-d H:i');
+            $member->scores_history = VtcMembers::setScoresHistory($member->scores_history, ['total' => $this->scores_total, 'month' => $this->scores_month, 'other' => $this->scores_other]);
         }
         $member->scores_total = $this->scores_total;
         $member->scores_month = $this->scores_month;

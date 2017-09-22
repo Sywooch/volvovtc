@@ -21,6 +21,7 @@ class VtcMembers extends ActiveRecord{
                 'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id', 'vacation_undefined'], 'integer'],
             [['vacation', 'start_date'], 'safe'],
             [['additional'], 'string', 'max' => 1024],
+            [['scores_history'], 'string', 'max' => 2048],
             [['scores_updated'], 'safe'],
             [['user_id'], 'unique'],
         ];
@@ -74,6 +75,7 @@ class VtcMembers extends ActiveRecord{
             $member->scores_total = intval($member->scores_total) + intval($scores);
         }
         $member->scores_updated = date('Y-m-d H:i');
+        $member->scores_history = self::setScoresHistory($member->scores_history, ['total' => $member->scores_total, 'month' => $member->scores_month, 'other' => $member->scores_other]);
         if($member->update() !== false){
             Notifications::addNotification('Вам было начислено '. $scores . ' баллов!', $member->user_id);
             return ['other' => $member->scores_other, 'month' => $member->scores_month, 'total' => $member->scores_total, 'updated' => date('d.m.y H:i')];
@@ -145,6 +147,24 @@ class VtcMembers extends ActiveRecord{
             }
         }
         return $days;
+    }
+
+    public static function setScoresHistory($scores_history, $scores){
+        $new_score['date'] = date('Y-m-d H:i');
+        $new_score['total'] = $scores['total'];
+        $new_score['month'] = $scores['month'];
+        $new_score['other'] = $scores['other'];
+        if($scores_history){
+            $member_scores = unserialize($scores_history);
+            if(count($member_scores) >= 20){
+                $member_scores = array_slice($member_scores, 0, 19);
+            }
+            array_unshift($member_scores, $new_score);
+            $scores_history = serialize($member_scores);
+        }else{
+            $scores_history = serialize([$new_score]);
+        }
+        return $scores_history;
     }
 
 }

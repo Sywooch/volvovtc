@@ -207,6 +207,35 @@ $this->title = 'Редактирование информации о водит�
                 <?= $form->field($model, 'notify[custom]')->textInput(['maxlength' => '255'])->label('Кастомный текст') ?>
             </div>
         </div>
+        <?php if($model->scores_history) :
+        $scores = unserialize($model->scores_history); ?>
+            <div class="col s12">
+                <div class="card-panel grey lighten-4">
+                    <h5 class="light">История баллов</h5>
+                    <table class="highlight">
+                        <thead>
+                            <tr>
+                                <th>Дата</th>
+                                <th class="center">Другое</th>
+                                <th class="center">Месяц</th>
+                                <th class="center">Всего</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php foreach($scores as $item) :
+                                $date = new DateTime($item['date']); ?>
+                                <tr>
+                                    <td><?= $date->format('d.m.y H:i') ?></td>
+                                    <td class="center"><?= $item['other'] ?></td>
+                                    <td class="center"><?= $item['month'] ?></td>
+                                    <td class="center"><?= $item['total'] ?></td>
+                                </tr>
+                            <?php endforeach ?>
+                        </tbody>
+                    </table>
+            </div>
+            </div>
+        <?php endif ?>
         <div class="fixed-action-btn vertical">
             <?=Html::submitButton(''.
                 Html::tag('i', 'save', ['class' => 'material-icons notranslate right']), [
