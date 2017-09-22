@@ -106,6 +106,8 @@ class Convoys extends ActiveRecord{
             case '4' : $variation = 'Вариация №1 или №3'; break;
             case '3' : $variation = 'Вариация №3'; break;
             case '2' : $variation = 'Вариация №2'; break;
+            case '21' : $variation = 'Вариация №2.1'; break;
+            case '22' : $variation = 'Вариация №2.2'; break;
             case '1' :
             default: $variation = 'Вариация №1'; break;
         }
