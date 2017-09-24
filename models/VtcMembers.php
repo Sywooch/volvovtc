@@ -49,10 +49,21 @@ class VtcMembers extends ActiveRecord{
         return $members;
     }
 
-    public static function getAllMembers() {
-        $members =  VtcMembers::find()->orderBy('start_date')->all();
+    public static function getAllMembers($order_by_start_date = true){
+        $members =  VtcMembers::find();
+        if($order_by_start_date) $members = $members->orderBy('start_date');
+        $members = $members->all();
         foreach($members as $member){
             $member->user_id = User::findOne($member->user_id);
+        }
+        return $members;
+    }
+
+    public static function getMembersArray(){
+        $all_members = self::getAllMembers(false);
+        $members = array();
+        foreach ($all_members as $member){
+            $members[$member->id] = '[Volvo Trucks] '.$member->user_id->nickname;
         }
         return $members;
     }
@@ -154,6 +165,7 @@ class VtcMembers extends ActiveRecord{
         $new_score['total'] = $scores['total'];
         $new_score['month'] = $scores['month'];
         $new_score['other'] = $scores['other'];
+        $new_score['admin'] = Yii::$app->user->id;
         if($scores_history){
             $member_scores = unserialize($scores_history);
             if(count($member_scores) >= 20){

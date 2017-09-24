@@ -220,6 +220,7 @@ $this->title = 'Редактирование информации о водит�
                                 <th class="center">Другое</th>
                                 <th class="center">Месяц</th>
                                 <th class="center">Всего</th>
+                                <th class="center">Выставил</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -230,6 +231,10 @@ $this->title = 'Редактирование информации о водит�
                                     <td class="center"><?= $item['other'] ?></td>
                                     <td class="center"><?= $item['month'] ?></td>
                                     <td class="center"><?= $item['total'] ?></td>
+                                    <?php if(isset($item['admin'])):
+                                        $admin = \app\models\User::findOne($item['admin']); ?>
+                                        <td class="grey-text center">[Volvo Trucks] <?= $admin->nickname ?></td>
+                                    <?php endif ?>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
