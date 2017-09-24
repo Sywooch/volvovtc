@@ -104,6 +104,12 @@ $config = [
                 // variations
                 'variations/<game:\w+>/' => 'site/variations',
 
+                // appeals
+                'appeals/page/<page:\d+>/' => 'appeals/index',
+                'appeals' => 'appeals/index',
+                'appeals/<action:\w+>/<id:\d+>/' => 'appeals/<action>',
+                'appeals/<action:\w+>' => 'appeals/<action>',
+
                 // general
                 '<action:\w+>/<id:\d+>/' => 'site/<action>',
                 '<action>/page/<page:\d+>/' => 'site/<action>',

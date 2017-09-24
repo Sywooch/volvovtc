@@ -73,7 +73,7 @@ AppAsset::register($this);
                 </li>
             <?php endif ?>
             <?php if(\app\models\User::isAdmin()) :
-                $c_id = ['trailers', 'achievements', 'members'];
+                $c_id = ['trailers', 'achievements', 'members', 'appeals'];
                 $a_id = ['users']; ?>
                 <li<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                     <ul class="collapsible collapsible-accordion">
@@ -85,6 +85,7 @@ AppAsset::register($this);
                                     <li><a href="<?=Url::to(['members/stats'])?>">СТАТИСТИКА</a></li>
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                    <li><a href="<?=Url::to(['appeals/index'])?>">ЖАЛОБЫ</a></li>
 <!--                                    <li><a href="--><?//=Url::to(['achievements/index'])?><!--">ДОСТИЖЕНИЯ</a></li>-->
                                 </ul>
                             </div>
@@ -140,7 +141,7 @@ AppAsset::register($this);
                     <?php endif ?>
                     <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">МОДЫ</a></li>
                     <?php if(\app\models\User::isAdmin()) :
-                        $c_id = ['trailers', 'achievements', 'members'];
+                        $c_id = ['trailers', 'achievements', 'members', 'appeals'];
                         $a_id = ['users']; ?>
                         <li id="manage-btn"<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                             <a href="<?=Url::to(['members/stats'])?>">УПРАВЛЕНИЕ</a>
@@ -149,6 +150,7 @@ AppAsset::register($this);
                                 <li><a href="<?=Url::to(['members/stats'])?>"><i class="material-icons notranslate left">insert_chart</i>СТАТИСТИКА</a></li>
                                 <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                 <li><a href="<?=Url::to(['trailers/index'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
+                                <li><a href="<?=Url::to(['appeals/index'])?>"><i class="material-icons notranslate left">info</i>ЖАЛОБЫ</a></li>
 <!--                                <li><a href="--><?//=Url::to(['achievements/index'])?><!--"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>-->
                             </ul>
                         </li>
@@ -207,7 +209,7 @@ AppAsset::register($this);
                         <p><i class="material-icons notranslate left">note_add</i>ЗАЯВЛЕНИЯ</p>
                         <ul>
                             <li><a href="<?= Url::to(['site/claims']) ?>">Написать заявление</a></li>
-                            <li><a href="#">Жалоба на водителя</a></li>
+                            <li><a href="<?= Url::to(['appeals/add']) ?>">Жалоба на водителя</a></li>
                         </ul>
                     </div>
                     <div class="col m4 s12">

@@ -69,13 +69,18 @@ class User extends ActiveRecord implements IdentityInterface{
         return !Yii::$app->user->isGuest && Yii::$app->user->identity->admin == '1';
     }
 
-    public static function isVtcMember(){
-        if(Yii::$app->user->isGuest){
-            $is_member = false;
-        }else{
-            $is_member = VtcMembers::find()
-                ->where(['user_id' => Yii::$app->user->identity->id])
-                ->one() ? true : false;
+    public static function isVtcMember($id = null){
+        if(isset($id)){
+            $user = User::findOne($id);
+            $is_member = VtcMembers::find()->where(['user_id' => $user->id])->count() !== '0';
+        }else {
+            if(Yii::$app->user->isGuest) {
+                $is_member = false;
+            } else {
+                $is_member = VtcMembers::find()
+                    ->where(['user_id' => Yii::$app->user->identity->id])
+                    ->one() ? true : false;
+            }
         }
         return $is_member;
     }

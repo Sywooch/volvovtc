@@ -70,4 +70,24 @@ class Mail{
 
     }
 
+    public static function newAppeal($appeal, $uid){
+        $to = [
+            "viiper94@gmail.com", // Mayday
+            "a.borisov97@mail.ru", // Canyon
+        ];
+
+        $subject = "Новая жалоюа на сайте VolvoVTC.com";
+
+        Yii::$app->mailer->compose('admin/newappeal', [
+            'appeal' => $appeal,
+            'user' => User::findOne($uid),
+            'subject' => $subject
+        ])->setFrom('info@volvovtc.com')
+            ->setTo($to)
+            ->setSubject($subject)
+            ->send();
+
+        return true;
+    }
+
 }
