@@ -231,10 +231,14 @@ $this->title = 'Редактирование информации о водит�
                                     <td class="center"><?= $item['other'] ?></td>
                                     <td class="center"><?= $item['month'] ?></td>
                                     <td class="center"><?= $item['total'] ?></td>
-                                    <?php if(isset($item['admin'])):
-                                        $admin = \app\models\User::findOne($item['admin']); ?>
-                                        <td class="grey-text center">[Volvo Trucks] <?= $admin->nickname ?></td>
-                                    <?php endif ?>
+                                    <td class="grey-text center">
+                                        <?php if(isset($item['admin'])){
+                                            $admin = \app\models\User::findOne($item['admin']); ?>
+                                            [Volvo Trucks] <?= $admin->nickname ?>
+                                        <?php } else { ?>
+                                            &mdash;
+                                        <?php } ?>
+                                    </td>
                                 </tr>
                             <?php endforeach ?>
                         </tbody>
