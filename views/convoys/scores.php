@@ -37,10 +37,18 @@ $this->title = 'Выставить баллы за конвой';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach($all_members as $post => $members) :
+                    <?php $i = 0;
+                    foreach($all_members as $post => $members) :
                         if($post != 'Администрация'): ?>
                             <tr>
-                                <td class="center"><b><?= $post ?></b></td>
+                                <th class="center"><?= $post ?></th>
+                                <?php if($i > 1) : ?>
+                                    <th class="center">0 баллов</th>
+                                    <th class="center">5 баллов</th>
+                                    <th class="center">10 баллов</th>
+                                    <th class="center">20 баллов</th>
+                                    <th class="center">Ведущий</th>
+                                <?php endif ?>
                             </tr>
                             <?php foreach($members as $member) : ?>
                                 <tr>
@@ -71,7 +79,8 @@ $this->title = 'Выставить баллы за конвой';
                                     </td>
                                 </tr>
                             <?php endforeach;
-                        endif; ?>
+                        endif;
+                        $i++; ?>
                     <?php endforeach ?>
                 </tbody>
             </table>
