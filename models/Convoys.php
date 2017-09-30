@@ -49,7 +49,7 @@ class Convoys extends ActiveRecord{
             $hidden_convoys = Convoys::find()
                 ->select(['id', 'picture_small', 'title', 'departure_time', 'visible'])
                 ->andWhere(['<', 'departure_time', gmdate('Y-m-d ') . (intval(gmdate('H')) + 2) . ':' . gmdate('i:s')]);
-            if(!User::isAdmin()) $hidden_convoys->andWhere(['visible' => '1']); // ony visible convoys for non-admins
+            if(!User::isAdmin()) $hidden_convoys->andWhere(['visible' => '1']); // only visible convoys for non-admins
             $hidden_convoys = $hidden_convoys->orderBy(['date' => SORT_ASC])->all();
             return $hidden_convoys;
         }
