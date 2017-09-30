@@ -7,26 +7,29 @@ $this->title = 'Выставить баллы за конвой';
 ?>
 
 <div class="container">
-    <h5 class="light">
-        Выставление баллов за
-        <a href="<?= Url::to(['convoys/index', 'id' => $convoy->id]) ?>"> "<?= $convoy->title ?>" от <?= \app\controllers\SiteController::getRuDate($convoy->date) ?></a>
-    </h5>
-    <form action="<?= Url::to(['convoys/scores', 'id' => $convoy->id]) ?>" method="post">
-        <?= Html :: hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken(), []) ?>
-        <div class="card-panel grey lighten-4">
-            <div class="row">
-                <h6 class="light fs17 col m6 s12">Отметьте учасников конвоя</h6>
-                <div class="switch col m6 s12 right-align">
-                    <label class="fs17 light">
-                        В другое
-                        <input type="checkbox" name="month" checked>
-                        <span class="lever"></span>
-                        В месяц
-                    </label>
+    <?php if($convoy->scores_set == '1') : ?>
+        <h5 class="light">Выставление балов за этот конвой уже не требуется.</h5>
+    <?php else: ?>
+        <h5 class="light">
+            Выставление баллов за
+            <a href="<?= Url::to(['convoys/index', 'id' => $convoy->id]) ?>"> "<?= $convoy->title ?>" от <?= \app\controllers\SiteController::getRuDate($convoy->date) ?></a>
+        </h5>
+        <form action="<?= Url::to(['convoys/scores', 'id' => $convoy->id]) ?>" method="post">
+            <?= Html :: hiddenInput(\Yii::$app->getRequest()->csrfParam, \Yii::$app->getRequest()->getCsrfToken(), []) ?>
+            <div class="card-panel grey lighten-4">
+                <div class="row">
+                    <h6 class="light fs17 col m6 s12">Отметьте учасников конвоя</h6>
+                    <div class="switch col m6 s12 right-align">
+                        <label class="fs17 light">
+                            В другое
+                            <input type="checkbox" name="month" checked>
+                            <span class="lever"></span>
+                            В месяц
+                        </label>
+                    </div>
                 </div>
-            </div>
-            <table class="highlight">
-                <thead>
+                <table class="highlight">
+                    <thead>
                     <tr>
                         <th>Никнейм</th>
                         <th class="center">0 баллов</th>
@@ -35,8 +38,8 @@ $this->title = 'Выставить баллы за конвой';
                         <th class="center">20 баллов</th>
                         <th class="center">Ведущий</th>
                     </tr>
-                </thead>
-                <tbody>
+                    </thead>
+                    <tbody>
                     <?php $i = 0;
                     foreach($all_members as $post => $members) :
                         if($post != 'Администрация'): ?>
@@ -82,13 +85,14 @@ $this->title = 'Выставить баллы за конвой';
                         endif;
                         $i++; ?>
                     <?php endforeach ?>
-                </tbody>
-            </table>
-            <div class="fixed-action-btn">
-                <?=Html::submitButton(Html::tag('i', 'save', [
-                    'class' => 'large material-icons notranslate'
-                ]), ['class' => 'btn-floating btn-large red']) ?>
+                    </tbody>
+                </table>
+                <div class="fixed-action-btn">
+                    <?=Html::submitButton(Html::tag('i', 'save', [
+                        'class' => 'large material-icons notranslate'
+                    ]), ['class' => 'btn-floating btn-large red']) ?>
+                </div>
             </div>
-        </div>
-    </form>
+        </form>
+    <?php endif ?>
 </div>

@@ -57,10 +57,18 @@ class ConvoysController extends Controller{
                 'mod' => Mods::getModByTrailer($convoy->trailer)
             ]);
         }else{
+            $hidden_convoys = Convoys::getPastConvoys();
+            $convoy_need_scores = array();
+            foreach($hidden_convoys as $convoy){
+                if($convoy->scores_set == '0'){
+                    $convoy_need_scores[] = $convoy;
+                }
+            }
             return $this->render('index', [
-                'convoys' => Convoys::getFutureConvoys(),
                 'nearest_convoy' => Convoys::getNearestConvoy(),
-                'hidden_convoys' => Convoys::getPastConvoys()
+                'convoys' => Convoys::getFutureConvoys(),
+                'hidden_convoys' => $hidden_convoys,
+                'convoy_need_scores' => $convoy_need_scores
             ]);
         }
     }

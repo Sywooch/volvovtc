@@ -47,7 +47,7 @@ class Convoys extends ActiveRecord{
     public static function getPastConvoys(){
         if(User::isVtcMember()){
             $hidden_convoys = Convoys::find()
-                ->select(['id', 'picture_small', 'title', 'departure_time', 'visible'])
+                ->select(['id', 'picture_small', 'title', 'departure_time', 'visible', 'scores_set'])
                 ->andWhere(['<', 'departure_time', gmdate('Y-m-d ') . (intval(gmdate('H')) + 2) . ':' . gmdate('i:s')]);
             if(!User::isAdmin()) $hidden_convoys->andWhere(['visible' => '1']); // only visible convoys for non-admins
             $hidden_convoys = $hidden_convoys->orderBy(['date' => SORT_ASC])->all();

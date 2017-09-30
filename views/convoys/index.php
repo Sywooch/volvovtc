@@ -6,6 +6,28 @@ $this->title = 'Конвои Volvo Trucks';
 ?>
 
 <div class="container">
+    <?php if(\app\models\User::isAdmin() && count($convoy_need_scores) > 0) : ?>
+        <ul class="collapsible" data-collapsible="accordion">
+            <li>
+                <div class="collapsible-header yellow lighten-4">
+                    <i class="material-icons notranslate">arrow_downward</i>Необходимо выставить баллы
+                </div>
+                <div class="collapsible-body grey lighten-4">
+                    <ul class="force-list-style">
+                        <?php foreach($convoy_need_scores as $convoy) :
+                            $dt = new DateTime($convoy->departure_time);
+                            $time = $dt->format('H:i'); ?>
+                            <li>
+                                <a class="black-text light" href="<?= Url::to(['convoys/scores', 'id' => $convoy->id]) ?>">
+                                    <?= $convoy->title ?> - <?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?>
+                                </a>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                </div>
+            </li>
+        </ul>
+    <?php endif ?>
     <?php if($nearest_convoy) : ?>
         <h5 class="light">
             Ближайший конвой
