@@ -16,11 +16,11 @@ $this->title = 'Водители Volvo Trucks';
                 <th>Должность</th>
                 <th colspan="3">Возможности</th>
                 <th colspan="3">Баллы</th>
+                <th colspan="2">Экзамены</th>
+                <th>Возраст</th>
                 <?php if(\app\models\User::isAdmin()) : ?>
                     <th></th>
                 <?php endif ?>
-                <th colspan="2">Экзамены</th>
-                <th>Возраст</th>
             </tr>
             </thead>
 
@@ -37,12 +37,12 @@ $this->title = 'Водители Volvo Trucks';
                     <th>Другое</th>
                     <th>Месяц</th>
                     <th>Всего</th>
-                    <?php if(\app\models\User::isAdmin()) : ?>
-                        <th></th>
-                    <?php endif ?>
                     <th>Парковка</th>
                     <th>Вождение</th>
                     <th></th>
+                    <?php if(\app\models\User::isAdmin()) : ?>
+                        <th></th>
+                    <?php endif ?>
                 </tr>
                 </thead>
                 <?php foreach($members as $member) : ?>
@@ -131,16 +131,6 @@ $this->title = 'Водители Volvo Trucks';
                             </span>
                             <?php endif ?>
                         </td>
-                        <?php if(\app\models\User::isAdmin()) : ?>
-                            <?php $scores_updated = null;
-                            if($member->scores_updated){
-                                $scores_date = new DateTime($member->scores_updated);
-                                $scores_updated = $scores_date->format('d.m.y H:i');
-                            } ?>
-                            <td<?php if(\app\models\User::isAdmin() && $scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= $scores_updated ?>"<?php endif ?>>
-                                <a href="<?= $member->post_id->admin == 1 ? Url::to(['members/edit', 'id' => $member->id]) : '#modal1' ?>" data-id="<?= $member->id ?>" data-scores-other="<?= $member->scores_other ?>" data-scores-month="<?= $member->scores_month ?>" data-scores-total="<?= $member->scores_total ?>" data-nickname="<?= $member->user_id->nickname ?>" data-profile-link="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" data-edit-profile-link="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed modal-trigger notranslate">edit</a>
-                            </td>
-                        <?php endif ?>
                         <td style="min-width: 90px">
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
@@ -166,6 +156,16 @@ $this->title = 'Водители Volvo Trucks';
                             <?php endif ?>
                         </td>
                         <td><?= \app\models\User::getUserAge($member->user_id->birth_date) ?></td>
+                        <?php if(\app\models\User::isAdmin()) : ?>
+                            <?php $scores_updated = null;
+                            if($member->scores_updated){
+                                $scores_date = new DateTime($member->scores_updated);
+                                $scores_updated = $scores_date->format('d.m.y H:i');
+                            } ?>
+                            <td<?php if(\app\models\User::isAdmin() && $scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= $scores_updated ?>"<?php endif ?>>
+                                <a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed modal-trigger notranslate">edit</a>
+                            </td>
+                        <?php endif ?>
                     </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
@@ -175,81 +175,6 @@ $this->title = 'Водители Volvo Trucks';
                 <a class="btn indigo darken-3 waves-effect waves-light" href="<?= Url::to(['members/reset']) ?>" onclick="return confirm('Точно обнулить баллы?')">
                     <i class="material-icons notranslate left">autorenew</i> Обнулить баллы за другое и месяц
                 </a>
-            </div>
-            <div id="modal1" class="modal modal-fixed-footer">
-                <div class="modal-content">
-                    <div class="row">
-                        <h5 class="col l6 s12">Баллы <b><a href="<?= Url::to(['site/profile']) ?>" id="nickname" target="_blank">[Volvo Trucks] nickname</a></b></h5>
-                        <h5 class="col l6 s12">
-                            <a id="edit-link" target="_blank" class="btn indigo waves-effect waves-light" href="#">
-                                <i class="material-icons notranslate left">edit</i>Редактировать данные водителя
-                            </a>
-                        </h5>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row modal-member-scores">
-                        <div class="col l4 s4 center">
-                            <h5>Другое:</h5>
-                            <b><span id="other-scores">66</span></b>
-                        </div>
-                        <div class="col l4 s4 center">
-                            <h5>Месяц:</h5>
-                            <b><span id="month-scores">0</span></b>
-                        </div>
-                        <div class="col l4 s4 center">
-                            <h5>Всего:</h5>
-                            <b><span id="total-scores">666</span></b>
-                        </div>
-                    </div>
-                    <div class="divider"></div>
-                    <div class="row">
-                        <h5 class="col s12">Начислить баллы:</h5>
-                        <div class="col l6 s12 text-center">
-                            <h6 class="center"><b>В другое:</b></h6>
-                            <div class="center">
-                                <button class="btn indigo waves-effect waves-light add-scores" data-scores="20" data-target="other">
-                                    <i class="material-icons notranslate left">add</i>20 баллов
-                                </button>
-                                <span class="scores-description">За сторонний конвой</span>
-                            </div>
-                            <div class="center">
-                                <button class="btn indigo waves-effect waves-light add-scores" data-scores="10" data-target="other">
-                                    <i class="material-icons notranslate left">add</i>10 баллов
-                                </button>
-                                <span class="scores-description">За сторонний конвой, за сданный экзамен</span>
-                            </div>
-                            <div class="center">
-                                <button class="btn indigo waves-effect waves-light add-scores" data-scores="5" data-target="other">
-                                    <i class="material-icons notranslate left">add</i>5 баллов
-                                </button>
-                            </div>
-                        </div>
-                        <div class="col l6 s12">
-                            <h6 class="center"><b>В месяц:</b></h6>
-                            <div class="center">
-                                <button class="btn indigo waves-effect waves-light add-scores" data-scores="20" data-target="month">
-                                    <i class="material-icons notranslate left">add</i>20 баллов
-                                </button>
-                                <span class="scores-description">За открытый/совместный конвой</span>
-                            </div>
-                            <div class="center">
-                                <button class="btn indigo waves-effect waves-light add-scores" data-scores="10" data-target="month">
-                                    <i class="material-icons notranslate left">add</i>10 баллов
-                                </button>
-                                <span class="scores-description">За половину открытого/совместного конвоя, внутренний конвой</span>
-                            </div>
-                            <div class="center">
-                                <button class="btn indigo waves-effect waves-light add-scores" data-scores="5" data-target="month">
-                                    <i class="material-icons notranslate left">add</i>5 баллов
-                                </button>
-                                <span class="scores-description">За половину внутреннего конвоя</span>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <a style="cursor: pointer;" class="modal-action modal-close waves-effect btn-flat">Закрыть</a>
-                </div>
             </div>
         <?php endif ?>
     </div>
@@ -265,8 +190,8 @@ $this->title = 'Водители Volvo Trucks';
         }
             var timer = setTimeout(function(){
                 loadMembersBans(steamid64);
-            }, 15000);
-            $('button.add-scores, a:not(.notification-btn)').click(function(){
+            }, 20000);
+            $('a:not(.notification-btn)').click(function(){
                 clearTimeout(timer);
             });
         });

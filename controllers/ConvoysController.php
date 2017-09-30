@@ -8,6 +8,7 @@ use app\models\Mods;
 use app\models\Notifications;
 use app\models\Trailers;
 use app\models\User;
+use app\models\VtcMembers;
 use Yii;
 use yii\web\Controller;
 use yii\web\Response;
@@ -159,6 +160,28 @@ class ConvoysController extends Controller{
         if(User::isAdmin() && Yii::$app->request->get('id')){
             Convoys::deleteExtraPicture(Yii::$app->request->get('id'));
             return $this->redirect(['convoys/edit', 'id' => Yii::$app->request->get('id')]);
+        }else{
+            return $this->render('//site/error');
+        }
+    }
+
+    public function actionScores(){
+        if(User::isAdmin() && Yii::$app->request->get('id')){
+            if(Yii::$app->request->post()){
+                $scores = Yii::$app->request->post('scores');
+                $target = Yii::$app->request->post('month', false);
+                $lead = Yii::$app->request->post('lead', null);
+                if(Convoys::setConvoyScores($scores, $target ? 'month' : 'other', $lead)){
+                    $convoy = Convoys::findOne(Yii::$app->request->get('id'));
+                    $convoy->scores_set = '1';
+                    $convoy->update();
+                }
+                return $this->redirect(['convoys/index']);
+            }
+            return $this->render('scores', [
+                'convoy' => Convoys::findOne(Yii::$app->request->get('id')),
+                'all_members' => VtcMembers::getMembers()
+            ]);
         }else{
             return $this->render('//site/error');
         }

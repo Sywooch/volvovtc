@@ -92,6 +92,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
         </div>
         <div class="card-action">
             <a href="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->picture_full ?>" target="_blank" class="indigo-text text-darken-3">Оригинал маршрута</a>
+            <?php if(\app\models\User::isAdmin() && $convoy->scores_set == '0') : ?>
+                <a href="<?= Url::to(['convoys/scores', 'id' => $convoy->id]) ?>">Выставить баллы за конвой</a>
+            <?php endif ?>
         </div>
     </div>
     <?php $trailer_name = 'Любой прицеп';
@@ -155,7 +158,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
         </div>
     <?php endif ?>
 
-    <?php if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1) : ?>
+    <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn vertical">
             <a href="<?=Url::to([
                 'convoys/edit',
