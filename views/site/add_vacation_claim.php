@@ -15,8 +15,10 @@ $this->title = 'Подать заявление на отпуск - Volvo Trucks
             <div class="card-panel grey lighten-4">
                 <?= $form->field($model, 'to_date')->input('date', ['class' => 'datepicker-add-claim'])->error(false) ?>
                 <script>
+                    var date = new Date();
                     $datepicker = $('.datepicker-add-claim').pickadate({
                         min: true,
+                        max: new Date(date.getFullYear(), date.getMonth() + 2, date.getDate()),
                         today: 'Сегодня',
                         clear: 'Очистить',
                         close: 'Закрыть',
@@ -32,6 +34,7 @@ $this->title = 'Подать заявление на отпуск - Volvo Trucks
                     });
                 </script>
             </div>
+            <div class="card-action"></div>
         </div>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
@@ -41,8 +44,7 @@ $this->title = 'Подать заявление на отпуск - Volvo Trucks
         <?php ActiveForm::end(); ?>
     </div>
 </div>
-<?php if($model->hasErrors()) :
-    //Kint::dump($model->errors)?>
+<?php if($model->hasErrors()) : ?>
     <script>
         <?php foreach ($model->errors as $error): ?>
         Materialize.toast('<?= $error[0] ?>', 6000);
