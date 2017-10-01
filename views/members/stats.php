@@ -2,7 +2,7 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Водители Volvo Trucks';
+$this->title = 'Статистика Volvo Trucks';
 
 ?>
     <div class="members-stat" style="overflow-x: scroll">
@@ -23,7 +23,6 @@ $this->title = 'Водители Volvo Trucks';
                 <?php endif ?>
             </tr>
             </thead>
-
             <?php $i = 1;
             foreach($all_members as $post => $members): ?>
                 <thead>
@@ -108,27 +107,23 @@ $this->title = 'Водители Volvo Trucks';
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
-                                <span<?php if(\app\models\User::isAdmin()) : ?> data-scores-other-id="<?= $member->id ?>"<?php endif ?>>
-                                <?= $member->scores_other == '0' ? '' : $member->scores_other ?>
-                            </span>
+                                <span><?= $member->scores_other == '0' ? '' : $member->scores_other ?></span>
                             <?php endif ?>
                         </td>
                         <td>
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
-                                <span<?php if(\app\models\User::isAdmin()) : ?> data-scores-month-id="<?= $member->id ?>"<?php endif ?>>
-                                <?= $member->scores_month == '0' ? '' : $member->scores_month ?>
-                            </span>
+                                <span><?= $member->scores_month == '0' ? '' : $member->scores_month ?></span>
                             <?php endif ?>
                         </td>
                         <td>
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
-                                <span<?php if(\app\models\User::isAdmin()) : ?> data-scores-total-id="<?= $member->id ?>"<?php endif ?>>
-                                <b><?= $member->scores_total == '0' ? '' : $member->scores_total ?></b>
-                            </span>
+                                <span<?php if($scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= $scores_updated ?>" data-delay="0"<?php endif ?>>
+                                    <b><?= $member->scores_total == '0' ? '' : $member->scores_total ?></b>
+                                </span>
                             <?php endif ?>
                         </td>
                         <td style="min-width: 90px">
@@ -162,9 +157,7 @@ $this->title = 'Водители Volvo Trucks';
                                 $scores_date = new DateTime($member->scores_updated);
                                 $scores_updated = $scores_date->format('d.m.y H:i');
                             } ?>
-                            <td<?php if(\app\models\User::isAdmin() && $scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= $scores_updated ?>"<?php endif ?>>
-                                <a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed modal-trigger notranslate">edit</a>
-                            </td>
+                            <td><a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed notranslate">edit</a></td>
                         <?php endif ?>
                     </tr>
                 <?php endforeach; ?>

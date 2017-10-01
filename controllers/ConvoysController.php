@@ -179,7 +179,7 @@ class ConvoysController extends Controller{
                 $scores = Yii::$app->request->post('scores');
                 $target = Yii::$app->request->post('month', false);
                 $lead = Yii::$app->request->post('lead', null);
-                if(Convoys::setConvoyScores($scores, $target ? 'month' : 'other', $lead)){
+                if($scores && Convoys::setConvoyScores($scores, $target ? 'month' : 'other', $lead)){
                     $convoy = Convoys::findOne(Yii::$app->request->get('id'));
                     $convoy->scores_set = '1';
                     $convoy->update();
