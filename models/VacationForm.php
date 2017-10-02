@@ -51,7 +51,7 @@ class VacationForm extends Model{
         return $claim->save();
     }
 
-    public function editVacationClaim($id){
+    public function editClaim($id){
         $claim = ClaimsVacation::findOne($id);
         $claim->status = $this->status;
         $claim->reason = $this->reason;
@@ -88,7 +88,7 @@ class VacationForm extends Model{
         }
     }
 
-    public static function deleteVacationClaim($id){
+    public static function deleteClaim($id){
         $claim = ClaimsVacation::findOne($id);
         return $claim->delete() == 1;
     }

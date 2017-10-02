@@ -17,20 +17,4 @@ class ClaimsFired extends ActiveRecord{
         ];
     }
 
-    public static function countClaims($claims, $status = true){
-        if(!$status){
-            return count($claims);
-        }else{
-            $count = 0;
-            foreach ($claims as $claim){
-//                var_dump($claim->status);
-                if($claim->status == '0'){
-                    $count++;
-                }
-            }
-            return $count;
-        }
-    }
-
-
 }

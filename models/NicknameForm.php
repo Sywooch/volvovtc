@@ -48,7 +48,7 @@ class NicknameForm extends Model{
         return $claim->save();
     }
 
-    public function editRecruitClaim($id){
+    public function editClaim($id){
         $claim = ClaimsNickname::findOne($id);
         $claim->status = $this->status;
         $claim->reason = $this->reason;
@@ -84,7 +84,7 @@ class NicknameForm extends Model{
         }
     }
 
-    public static function deleteNicknameClaim($id){
+    public static function deleteClaim($id){
         $claim = ClaimsNickname::findOne($id);
         return $claim->delete() == 1;
     }

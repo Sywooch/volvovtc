@@ -6,9 +6,9 @@ use app\models\User; ?>
 <div id="dismissal">
 
     <div class="valign-wrapper" style="justify-content: space-between">
-        <h5>Заявления на увольнение</h5>
+        <h5 class="light">Заявления на увольнение</h5>
         <?php if(User::isVtcMember()) : ?>
-            <a href="<?= Url::to(['site/claims', 'claim' => 'dismissal', 'action' => 'add']) ?>" class="btn indigo waves-effect waves-light">
+            <a href="<?= Url::to(['claims/add', 'claim' => 'dismissal']) ?>" class="btn indigo waves-effect waves-light">
                 Подать заявление на увольнение<i class="material-icons notranslate right">add_circle</i>
             </a>
         <?php endif ?>
@@ -49,28 +49,25 @@ use app\models\User; ?>
                         Yii::$app->user->identity->admin == 1) && $claim->status == 0 || User::isAdmin()) : ?>
                     <div class="card-action">
                         <?php if(User::isAdmin() && $claim->status == 0) : ?>
-                            <a onclick='return confirm("Одобрить заявку?")' href="<?= Url::to(['site/claims',
+                            <a onclick='return confirm("Одобрить заявку?")' href="<?= Url::to(['claims/apply',
                                 'claim' => 'dismissal',
-                                'id' => $claim->id,
-                                'action' => 'apply'])
-                            ?>"><i class="material-icons notranslate to-text">done</i>Одобрить
+                                'id' => $claim->id
+                            ]) ?>"><i class="material-icons notranslate to-text">done</i>Одобрить
                             </a>
                         <?php endif; ?>
                         <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->id == $claim->user_id ||
                                 Yii::$app->user->identity->admin == 1) && $claim->status == 0) : ?>
-                            <a href="<?= Url::to(['site/claims',
+                            <a href="<?= Url::to(['claims/edit',
                                 'claim' => 'dismissal',
-                                'id' => $claim->id,
-                                'action' => 'edit'])
-                            ?>"><i class="material-icons notranslate to-text">edit</i>Редактировать
+                                'id' => $claim->id
+                            ]) ?>"><i class="material-icons notranslate to-text">edit</i>Редактировать
                             </a>
                         <?php endif; ?>
                         <?php if(User::isAdmin()) : ?>
-                            <a onclick='return confirm("Удалить?")' href="<?=Url::to(['site/claims',
+                            <a onclick='return confirm("Удалить?")' href="<?=Url::to(['claims/remove',
                                 'claim' => 'dismissal',
-                                'id' => $claim->id,
-                                'action' => 'delete'])
-                            ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
+                                'id' => $claim->id
+                                ]) ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
                             </a>
                         <?php endif; ?>
                     </div>

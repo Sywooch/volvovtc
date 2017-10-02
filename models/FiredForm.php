@@ -7,6 +7,7 @@ use yii\base\Model;
 
 class FiredForm extends Model{
 
+    public $id;
     public $reason;
     public $status;
     public $member_id;
@@ -42,7 +43,7 @@ class FiredForm extends Model{
         return $claim->save();
     }
 
-    public function editFiredClaim($id) {
+    public function editClaim($id) {
         $claim = ClaimsFired::findOne($id);
         $claim->status = $this->status;
         $claim->reason = $this->reason;
@@ -79,7 +80,7 @@ class FiredForm extends Model{
         }
     }
 
-    public static function deleteFiredClaim($id){
+    public static function deleteClaim($id){
         $claim = ClaimsFired::findOne($id);
         return $claim->delete() == 1;
     }

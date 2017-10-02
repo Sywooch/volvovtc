@@ -53,20 +53,22 @@ $config = [
             'rules' => [
                 '' => 'site/index',
 
-                // mods
-                'modifications/<game:\w+>/<category:\w+>/<subcategory:\w+>/' => 'site/modifications',
-                'modifications/<id:\d+>/<action:\w+>/' => 'site/modifications',
-                'modifications/<game:\w+>/<category:\w+>/' => 'site/modifications',
-                'modifications/<action:\w+>/' => 'site/modifications',
+                // achievements
+                'achievements' => 'achievements/index',
+                'achievements/<action:\w+>/<id:\d+>/<operation:\w+>' => 'achievements/<action>',
+                'achievements/<action:\w+>/<id:\d+>' => 'achievements/<action>',
+                'achievements/<action:\w+>' => 'achievements/<action>',
 
-                // members
-                'members' => 'members/index',
-                'members/<action:\w+>/<id:\d+>/' => 'members/<action>',
-                'members/<action:\w+>/' => 'members/<action>',
+                // appeals
+                'appeals/page/<page:\d+>/' => 'appeals/index',
+                'appeals' => 'appeals/index',
+                'appeals/<action:\w+>/<id:\d+>/' => 'appeals/<action>',
+                'appeals/<action:\w+>' => 'appeals/<action>',
 
-                // profile
-                'profile/<id:\d+>/' => 'site/profile',
-                'profile/<action:\w+>/' => 'site/profile',
+                // claims
+                'claims/<action:\w+>/<claim:\w+>/<id:\d+>/' => 'claims/<action>',
+                'claims/<action:\w+>/<claim:\w+>/' => 'claims/<action>',
+                'claims' => 'claims/index',
 
                 // convoys
                 'convoys/<id:\d+>/' => 'convoys/index',
@@ -74,14 +76,25 @@ $config = [
                 'convoys/<action:\w+>/<id:\d+>/' => 'convoys/<action>',
                 'convoys/<action:\w+>/' => 'convoys/<action>',
 
+                // members
+                'members' => 'members/index',
+                'members/<action:\w+>/<id:\d+>/' => 'members/<action>',
+                'members/<action:\w+>/' => 'members/<action>',
+
+                // mods
+                'modifications/<game:\w+>/<category:\w+>/<subcategory:\w+>/' => 'site/modifications',
+                'modifications/<id:\d+>/<action:\w+>/' => 'site/modifications',
+                'modifications/<game:\w+>/<category:\w+>/' => 'site/modifications',
+                'modifications/<action:\w+>/' => 'site/modifications',
+
                 // news
                 'news/<id:\d+>/<action:\w+>/' => 'site/news',
                 'news/<id:\d+>/' => 'site/news',
                 'news/<action:\w+>/' => 'site/news',
 
-                // claims
-                'claims/<id:\d+>/<claim:\w+>/<action:\w+>/' => 'site/claims',
-                'claims/<claim:\w+>/<action:\w+>/' => 'site/claims',
+                // profile
+                'profile/<id:\d+>/' => 'site/profile',
+                'profile/<action:\w+>/' => 'site/profile',
 
                 // rules
                 'rules/<action:\w+>/' => 'site/rules',
@@ -95,20 +108,8 @@ $config = [
                 'trailers' => 'trailers/index',
                 'trailers/<action:\w+>/' => 'trailers/<action>',
 
-                // achievements
-                'achievements' => 'achievements/index',
-                'achievements/<action:\w+>/<id:\d+>/<operation:\w+>' => 'achievements/<action>',
-                'achievements/<action:\w+>/<id:\d+>' => 'achievements/<action>',
-                'achievements/<action:\w+>' => 'achievements/<action>',
-
                 // variations
                 'variations/<game:\w+>/' => 'site/variations',
-
-                // appeals
-                'appeals/page/<page:\d+>/' => 'appeals/index',
-                'appeals' => 'appeals/index',
-                'appeals/<action:\w+>/<id:\d+>/' => 'appeals/<action>',
-                'appeals/<action:\w+>' => 'appeals/<action>',
 
                 // general
                 '<action:\w+>/<id:\d+>/' => 'site/<action>',

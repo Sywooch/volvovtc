@@ -3,11 +3,10 @@
 use yii\helpers\Url;
 use app\models\User; ?>
 
-<!-- recruit tab -->
 <div id="recruit">
 
     <div class="valign-wrapper" style="justify-content: space-between">
-        <h5>Заявления на вступление</h5>
+        <h5 class="light">Заявления на вступление</h5>
         <?php if(!User::isVtcMember()) : ?>
             <a href="<?= Url::to(['site/recruit']) ?>" class="btn indigo waves-effect waves-light">
                 Вступить в ВТК<i class="material-icons notranslate right">add_circle</i>
@@ -56,16 +55,15 @@ use app\models\User; ?>
                         Yii::$app->user->identity->admin == 1) && $recruit->status == 0 || User::isAdmin()) : ?>
                     <div class="card-action">
                         <?php if(User::isAdmin() && $recruit->status == 0) : ?>
-                            <a onclick='return confirm("Одобрить заявку?")' href="<?= Url::to(['site/claims',
+                            <a onclick='return confirm("Одобрить заявку?")' href="<?= Url::to(['claims/apply',
                                 'claim' => 'recruit',
-                                'id' => $recruit->id,
-                                'action' => 'apply'])
-                            ?>"><i class="material-icons notranslate to-text">done</i>Одобрить
+                                'id' => $recruit->id
+                            ]) ?>"><i class="material-icons notranslate to-text">done</i>Одобрить
                             </a>
                         <?php endif; ?>
                         <?php if(!Yii::$app->user->isGuest && (Yii::$app->user->id == $recruit->user_id ||
                                 Yii::$app->user->identity->admin == 1) && $recruit->status == 0) : ?>
-                            <a href="<?= Url::to(['site/claims',
+                            <a href="<?= Url::to(['claims/edit',
                                 'claim' => 'recruit',
                                 'id' => $recruit->id,
                                 'action' => 'edit'])
@@ -73,11 +71,10 @@ use app\models\User; ?>
                             </a>
                         <?php endif; ?>
                         <?php if(User::isAdmin()) : ?>
-                            <a onclick='return confirm("Удалить?")' href="<?=Url::to(['site/claims',
+                            <a onclick='return confirm("Удалить?")' href="<?=Url::to(['claims/remove',
                                 'claim' => 'recruit',
-                                'id' => $recruit->id,
-                                'action' => 'delete'])
-                            ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
+                                'id' => $recruit->id
+                            ]) ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
                             </a>
                         <?php endif; ?>
                     </div>

@@ -113,7 +113,7 @@ class RecruitForm extends Model{
         return $claim->save();
     }
 
-    public function editRecruitClaim($id){
+    public function editClaim($id){
         $claim = ClaimsRecruit::findOne($id);
         $claim->status = $this->status;
         $claim->reason = $this->reason;
@@ -157,7 +157,7 @@ class RecruitForm extends Model{
         }
     }
 
-    public static function deleteRecruitClaim($id){
+    public static function deleteClaim($id){
         $claim = ClaimsRecruit::findOne($id);
         return $claim->delete() == 1;
     }
