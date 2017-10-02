@@ -65,9 +65,8 @@ use app\models\User; ?>
                                 Yii::$app->user->identity->admin == 1) && $recruit->status == 0) : ?>
                             <a href="<?= Url::to(['claims/edit',
                                 'claim' => 'recruit',
-                                'id' => $recruit->id,
-                                'action' => 'edit'])
-                            ?>"><i class="material-icons notranslate to-text">edit</i>Редактировать
+                                'id' => $recruit->id
+                            ]) ?>"><i class="material-icons notranslate to-text">edit</i>Редактировать
                             </a>
                         <?php endif; ?>
                         <?php if(User::isAdmin()) : ?>
