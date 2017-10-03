@@ -191,7 +191,7 @@ $(document).ready(function(){
         }
     }
 
-    $('#addmodform-picture, #trailersform-picture, #achievementsform-image').change(function(){
+    $('#addmodform-picture, #trailersform-picture, #achievementsform-image, #addconvoyform-picture_full').change(function(){
         $('#trailer-description').html('');
         $('#trailer-name').html('');
         $('#trailer-select').val('0').trigger("change");

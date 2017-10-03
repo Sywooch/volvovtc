@@ -18,7 +18,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         <?php $form = ActiveForm::begin([
             'options' => ['enctype' => 'multipart/form-data']
         ]); ?>
-        <div class="col l12 s12">
+        <div class="col m6 s12">
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Основная информация</h5>
                 <label>Карта маршрута</label>
@@ -68,6 +68,20 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                 </div>
             </div>
         </div>
+        <div class="col m6 s12">
+            <div class="card-panel grey lighten-4">
+                <h5 class="light">Карта маршрута</h5>
+                <?php if($model->picture_small): ?>
+                    <img src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $model->picture_small ?>?t=<?= time() ?>" class="responsive-img z-depth-2" id="preview">
+                    <?= $form->field($model, 'map_remove', [
+                        'template' => '{input}{label}',
+                        'options' => ['tag' => false]])->checkbox(['label' => null])->error(false)->label('Удалить карту маршрута') ?>
+                <?php else: ?>
+                    <img src="<?=Yii::$app->request->baseUrl?>/assets/img/no_route.jpg" class="responsive-img z-depth-2" id="preview">
+                <?php endif ?>
+            </div>
+        </div>
+        <div class="clearfix"></div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Сборы</h5>

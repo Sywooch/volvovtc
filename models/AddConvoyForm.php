@@ -37,11 +37,13 @@ class AddConvoyForm extends Model{
     public $dlc_s = false;
     public $dlc_vlv = false;
     public $dlc = array();
+    public $map_remove = false;
 
     public function __construct($id = null){
         if(isset($id)){
             $convoy = Convoys::findOne($id);
             $this->start_city = $convoy->start_city;
+            $this->picture_small = $convoy->picture_small;
             $this->start_company = $convoy->start_company;
             $this->finish_city = $convoy->finish_city;
             $this->finish_company = $convoy->finish_company;
@@ -72,7 +74,7 @@ class AddConvoyForm extends Model{
         return [
             [['start_city', 'start_company', 'finish_city', 'finish_company', 'server', 'departure_time', 'date'], 'required'],
             [['rest', 'description', 'length', 'trailer_name', 'truck_var', 'title', 'communications', 'meeting_time'], 'string'],
-            [['open', 'visible'], 'boolean'],
+            [['open', 'visible', 'map_remove'], 'boolean'],
             [['add_info', 'author'], 'string'],
             [['dlc', 'trailer', 'extra_picture'], 'safe']
         ];
@@ -181,14 +183,19 @@ class AddConvoyForm extends Model{
         $convoy->author = $this->author;
         $convoy->updated = date('Y-m-d H:i');
         $convoy->updated_by = Yii::$app->user->id;
-        if($map_full = UploadedFile::getInstance($this, 'picture_full')){
-            $convoy->picture_full = $convoy->id.'-f.'.$map_full->extension;
-            $convoy->picture_small = $convoy->id.'-f.'.$map_full->extension;
-            $map_full->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full);
-        }
-        if($map_small = UploadedFile::getInstance($this, 'picture_small')){
-            $convoy->picture_small = $convoy->id.'-s.'.$map_small->extension;
-            $map_small->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
+        if($this->map_remove){
+            $convoy->picture_full = null;
+            $convoy->picture_small = null;
+        }else{
+            if($map_full = UploadedFile::getInstance($this, 'picture_full')){
+                $convoy->picture_full = $convoy->id.'-f.'.$map_full->extension;
+                $convoy->picture_small = $convoy->id.'-f.'.$map_full->extension;
+                $map_full->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full);
+            }
+            if($map_small = UploadedFile::getInstance($this, 'picture_small')){
+                $convoy->picture_small = $convoy->id.'-s.'.$map_small->extension;
+                $map_small->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
+            }
         }
         if($trailer = UploadedFile::getInstance($this, 'extra_picture')){
             $convoy->extra_picture = $convoy->id.'-1.'.$trailer->extension;
