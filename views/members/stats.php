@@ -176,9 +176,11 @@ $this->title = 'Статистика Volvo Trucks';
         $(document).ready(function(){
             var steamid64 = {
             <?php foreach ($all_members as $members):
-            foreach ($members as $member): ?>
-            <?= $member->user_id->id ?> : <?= $member->user_id->steamid ?>,
-            <?php endforeach;
+                foreach ($members as $member):
+                    if($member->user_id->steamid) : ?>
+                        <?= $member->user_id->id ?> : <?= $member->user_id->steamid ?>,
+                    <?php endif;
+                endforeach;
             endforeach; ?>
         }
             var timer = setTimeout(function(){
