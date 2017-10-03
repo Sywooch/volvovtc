@@ -121,6 +121,13 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
+                            <?php if(\app\models\User::isAdmin()) : ?>
+                                <?php $scores_updated = null;
+                                    if($member->scores_updated){
+                                        $scores_date = new DateTime($member->scores_updated);
+                                        $scores_updated = $scores_date->format('d.m.y H:i');
+                                    } ?>
+                                <?php endif ?>
                                 <span<?php if($scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= $scores_updated ?>" data-delay="0"<?php endif ?>>
                                     <b><?= $member->scores_total == '0' ? '' : $member->scores_total ?></b>
                                 </span>
@@ -152,11 +159,6 @@ $this->title = 'Статистика Volvo Trucks';
                         </td>
                         <td><?= \app\models\User::getUserAge($member->user_id->birth_date) ?></td>
                         <?php if(\app\models\User::isAdmin()) : ?>
-                            <?php $scores_updated = null;
-                            if($member->scores_updated){
-                                $scores_date = new DateTime($member->scores_updated);
-                                $scores_updated = $scores_date->format('d.m.y H:i');
-                            } ?>
                             <td><a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed notranslate">edit</a></td>
                         <?php endif ?>
                     </tr>
