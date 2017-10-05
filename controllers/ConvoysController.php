@@ -50,7 +50,6 @@ class ConvoysController extends Controller{
             if(!$convoy = Convoys::findOne(Yii::$app->request->get('id'))) return $this->render('error');
             if($convoy->open == '0' && !User::isVtcMember()) return $this->redirect(['site/login']);
             $convoy->server = Convoys::getSeverName($convoy->server);
-            $convoy->truck_var = Convoys::getVariationName($convoy->truck_var);
             $convoy->date = SiteController::getRuDate($convoy->date);
             return $this->render('convoy', [
                 'convoy' => $convoy,

@@ -1,5 +1,6 @@
 <?php
 
+use app\models\Convoys;
 use yii\helpers\Url;
 
 $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
@@ -98,16 +99,17 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
         </div>
     </div>
     <?php $trailer_name = 'Любой прицеп';
-    if($convoy->trailer):
+    if($convoy->trailer){
         if($convoy->trailer == '-1') {
             $trailer_name = 'Без прицепа';
         }else{
             $trailer = \app\models\Trailers::findOne($convoy->trailer);
             $trailer_image = $trailer->picture;
             $trailer_name = $trailer->name;
-        } ?>
-    <?php endif ?>
-    <?php if($convoy->open) : ?>
+        }
+    }
+    $truck_var = Convoys::getVariationName($convoy->truck_var);
+    if($convoy->open) : ?>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header grey lighten-4">
@@ -115,7 +117,13 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 </div>
                 <div class="collapsible-body grey lighten-4">
                     <ul class="force-list-style" style="margin: 0 0 20px 0">
-                        <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
+                        <li>
+                            <?php if($convoy->truck_var == '6' || $convoy->truck_var == '5'): ?>
+                                <b><?= $truck_var ?></b>
+                            <?php else : ?>
+                                <a href="<?= Url::to(['site/variations']) ?>"><b><?= $truck_var ?></b></a>
+                            <?php endif ?>
+                        </li>
                         <li>Прицеп: <b><?= $trailer_name ?></b>
                             <?php if($mod && false) : ?> -
                                 <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
@@ -137,13 +145,20 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             <div class="card-content">
                 <span class="card-title">Дополнительная информация</span>
                 <ul class="force-list-style" style="margin: 0 0 20px 30px">
-                    <li><a href="<?= Url::to(['site/variations']) ?>"><b><?=  $convoy->truck_var ?></b></a></li>
+                    <li>
+                        <?php if($convoy->truck_var == '6' || $convoy->truck_var == '5'): ?>
+                            <b><?= $truck_var ?></b>
+                        <?php else : ?>
+                            <a href="<?= Url::to(['site/variations']) ?>"><b><?= $truck_var ?></b></a>
+                        <?php endif ?>
+                    </li>
                     <li>Прицеп: <b><?= $trailer_name ?></b>
                         <?php if($mod && false) : ?> -
                             <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                 Загрузить модификацию
                             </a>
-                        <?php endif ?></li>
+                        <?php endif ?>
+                    </li>
                 </ul>
                 <?php if($convoy->add_info) : ?>
                     <p><?= $convoy->add_info ?></p>

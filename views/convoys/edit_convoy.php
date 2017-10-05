@@ -163,7 +163,8 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                         '22' => 'Вариация №2.2',
                         '3' => 'Вариация №3',
                         '4' => 'Вариация №1 или №3',
-                        '5' => 'Кастомный тягач'
+                        '5' => 'Тягач, как в описании',
+                        '6' => 'Легковой автомобиль Scout',
                     ])->label(false)->error(false) ?>
                 </div>
                 <div class="row">

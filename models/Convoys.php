@@ -102,6 +102,7 @@ class Convoys extends ActiveRecord{
     public static function getVariationName($short){
         switch ($short){
             case '0' : $variation = 'Любая вариация'; break;
+            case '6' : $variation = 'Легковой автомобиль Scout'; break;
             case '5' : $variation = 'Тягач, как в описании'; break;
             case '4' : $variation = 'Вариация №1 или №3'; break;
             case '3' : $variation = 'Вариация №3'; break;
