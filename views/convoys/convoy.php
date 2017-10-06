@@ -116,15 +116,15 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <i class="material-icons notranslate">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
                 </div>
                 <div class="collapsible-body grey lighten-4">
-                    <ul class="force-list-style" style="margin: 0 0 20px 0">
-                        <li>
+                    <ul style="margin-bottom: 20px">
+                        <li><i class="material-icons notranslate left">local_shipping</i>
                             <?php if($convoy->truck_var == '6' || $convoy->truck_var == '5'): ?>
                                 <b><?= $truck_var ?></b>
                             <?php else : ?>
                                 <a href="<?= Url::to(['site/variations']) ?>"><b><?= $truck_var ?></b></a>
                             <?php endif ?>
                         </li>
-                        <li>Прицеп: <b><?= $trailer_name ?></b>
+                        <li class="clearfix"><i class="material-icons notranslate left">texture</i>Прицеп: <b><?= $trailer_name ?></b>
                             <?php if($mod && false) : ?> -
                                 <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                     Загрузить модификацию
@@ -144,15 +144,15 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
         <div class="card grey lighten-4">
             <div class="card-content">
                 <span class="card-title">Дополнительная информация</span>
-                <ul class="force-list-style" style="margin: 0 0 20px 30px">
-                    <li>
+                <ul style="margin-bottom: 20px">
+                    <li><i class="material-icons notranslate left">local_shipping</i>
                         <?php if($convoy->truck_var == '6' || $convoy->truck_var == '5'): ?>
                             <b><?= $truck_var ?></b>
                         <?php else : ?>
                             <a href="<?= Url::to(['site/variations']) ?>"><b><?= $truck_var ?></b></a>
                         <?php endif ?>
                     </li>
-                    <li>Прицеп: <b><?= $trailer_name ?></b>
+                    <li class="clearfix"><i class="material-icons notranslate left">texture</i>Прицеп: <b><?= $trailer_name ?></b>
                         <?php if($mod && false) : ?> -
                             <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                 Загрузить модификацию
