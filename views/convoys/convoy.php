@@ -125,12 +125,15 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                             <?php endif ?>
                         </li>
                         <li class="clearfix"><i class="material-icons notranslate left">texture</i>Прицеп: <b><?= $trailer_name ?></b>
-                            <?php if($mod && false) : ?> -
+                            <?php if($mod) : ?> -
                                 <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                     Загрузить модификацию
                                 </a>
                             <?php endif ?></li>
                     </ul>
+					<?php if($convoy->add_info) : ?>
+						<p><?= $convoy->add_info ?></p>
+					<?php endif ?>
                     <?php if(isset($trailer_image)) : ?>
                         <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/trailers/<?=  $trailer_image ?>?t=<?= time() ?>" width="100%" alt="<?=  $trailer_name ?>">
                     <?php endif; ?>
@@ -153,7 +156,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                         <?php endif ?>
                     </li>
                     <li class="clearfix"><i class="material-icons notranslate left">texture</i>Прицеп: <b><?= $trailer_name ?></b>
-                        <?php if($mod && false) : ?> -
+                        <?php if($mod) : ?> -
                             <a target="_blank" href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>" class="indigo-text">
                                 Загрузить модификацию
                             </a>

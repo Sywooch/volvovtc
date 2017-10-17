@@ -147,10 +147,12 @@ class Convoys extends ActiveRecord{
     public static function setConvoyScores($scores, $target, $lead = null){
         foreach($scores as $id => $score){
             $score = intval($score);
-            if($lead && $lead == $id && $score != 5){
-                $score += ($score/2);
+            if($score != 0){
+                if($lead && $lead == $id && $score != 5){
+                    $score += ($score/2);
+                }
+                VtcMembers::addScores($id, $score, $target);
             }
-            VtcMembers::addScores($id, $score, $target);
         }
         return true;
     }
