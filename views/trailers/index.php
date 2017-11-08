@@ -63,7 +63,10 @@ $this->title = 'Трейлеры - Volvo Trucks';
                     <h5 class="light"><?=  $trailer->name ?></h5>
                     <p><?= $trailer->description ?></p>
                     <?php if($trailer->category) : ?>
-                        <p class="grey-text">Категория: <?= $categories[$trailer->category]['title'] ?></p>
+                        <span class="grey-text">Категория: <?= $categories[$trailer->category]['title'] ?></span>
+                    <?php endif ?>
+                    <?php if($trailer->weight) : ?>
+                        <span class="grey-text right">Вес груза (в тоннах): <?= $trailer->weight ?></span>
                     <?php endif ?>
                 </div>
                 <?php if(User::isAdmin()): ?>

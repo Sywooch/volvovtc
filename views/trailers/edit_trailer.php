@@ -21,6 +21,7 @@ $this->title = $action . ' трейлер - Volvo Trucks';
             <?= $form->field($model, 'name')->textInput() ?>
             <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
             <?= $form->field($model, 'category')->dropDownList($categories)->label(false) ?>
+            <?= $form->field($model, 'weight')->input('number') ?>
             <?= $form->field($model, 'game', ['template' => '{input}{label}'])
                 ->radioList([
                     'ets' => 'Euro Truck Simulator 2',

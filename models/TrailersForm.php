@@ -13,13 +13,15 @@ class TrailersForm extends Model{
     public $picture;
     public $description;
     public $category;
+    public $weight;
     public $game = 'ets';
 
     public function rules(){
         return [
             [['name'], 'required', 'message' => 'Введите название трейлера'],
             [['description', 'game', 'category'], 'string'],
-            [['picture'], 'file']
+            [['picture'], 'file'],
+            [['weight'], 'integer']
         ];
     }
 
@@ -32,6 +34,7 @@ class TrailersForm extends Model{
             $this->game = $trailer->game;
             $this->category = $trailer->category;
             $this->picture = $trailer->picture;
+            $this->weight = $trailer->weight;
         }
     }
 
@@ -41,6 +44,7 @@ class TrailersForm extends Model{
         $trailer->description = $this->description;
         $trailer->game = $this->game;
         $trailer->category = $this->category;
+        $trailer->weight = $this->weight;
         if($trailer->save()){
             if($picture = UploadedFile::getInstance($this, 'picture')){
                 $trailer->picture = $trailer->id.'.'.$picture->extension;
@@ -59,6 +63,7 @@ class TrailersForm extends Model{
         $trailer->description = $this->description;
         $trailer->game = $this->game;
         $trailer->category = $this->category;
+        $trailer->weight = $this->weight;
         if($picture = UploadedFile::getInstance($this, 'picture')){
             $trailer->picture = $trailer->id.'.'.$picture->extension;
             $picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
@@ -73,6 +78,7 @@ class TrailersForm extends Model{
             'picture' => 'Изображение',
             'game' => 'Игра',
             'category' => 'Категория',
+            'weight' => 'Вес груза (тонн)',
         ];
     }
 
