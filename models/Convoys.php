@@ -82,7 +82,7 @@ class Convoys extends ActiveRecord{
         $convoy->save();
     }
 
-    public static function getSeverName($short){
+    public static function getServerName($short){
         switch ($short){
             case 'eu1' : $server = 'Europe 1'; break;
             case 'eu3' : $server = 'EU3 [No Cars]'; break;

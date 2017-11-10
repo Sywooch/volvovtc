@@ -85,42 +85,15 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Сборы</h5>
-                <?= $form->field($model, 'date')->input('date', ['class' => 'datepicker-edit-convoy'])->error(false) ?>
-                <script>
-                    $datepicker = $('.datepicker-edit-convoy').pickadate({
-                        min: new Date(2000,1,1),
-                        today: 'Сегодня',
-                        clear: 'Очистить',
-                        close: 'Закрыть',
-                        monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                        monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                        weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                        weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                        selectMonths: true, // Creates a dropdown to control month
-                        selectYears: 60, // Creates a dropdown of 15 years to control year
-                        firstDay: 'Понедельник',
-                        formatSubmit: 'yyyy-mm-dd',
-                        hiddenName: true
-                    });
-                    var picker = $datepicker.pickadate('picker');
-                    picker.set('select', '<?= $model->date ?>', { format: 'yyyy-mm-dd' });
-                </script>
+                <?= $form->field($model, 'date')
+                    ->input('date', [
+                        'class' => 'datepicker-convoy',
+                        'data-value' => $model->date
+                    ])
+                    ->error(false) ?>
                 <?= $form->field($model, 'meeting_time')->input('time', ['class' => 'timepicker'])->error(false) ?>
                 <?= $form->field($model, 'departure_time')->input('time', ['class' => 'timepicker'])->error(false) ?>
-                <?= $form->field($model, 'server')->dropdownList([
-                    'ETS2' => [
-                        'eu1' => 'Europe 1',
-                        'eu2_ets' => 'Europe 2',
-                        'eu3' => 'EU3 [No Cars]',
-                        'us_ets' => 'United States',
-                        'sa' => 'South America',
-                        'hk' => 'Honk Kong',
-                    ],
-                    'ATS' => [
-                        'eu2_ats' => 'Europe 2',
-                        'us_ats' => 'United States',
-                    ]
-                ])->error(false) ?>
+                <?= $form->field($model, 'server')->dropdownList($servers)->error(false) ?>
                 <div class="input-field">
                     <?= $form->field($model, 'communications')->textInput()->error(false) ?>
                 </div>

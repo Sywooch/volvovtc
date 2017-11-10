@@ -73,20 +73,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                 <?= $form->field($model, 'date')->input('date', ['class' => 'datepicker-convoy'])->error(false) ?>
                 <?= $form->field($model, 'meeting_time')->input('time')->error(false) ?>
                 <?= $form->field($model, 'departure_time')->input('time')->error(false) ?>
-                <?= $form->field($model, 'server')->dropdownList([
-                    'ETS2' => [
-                        'eu1' => 'Europe 1',
-                        'eu2_ets' => 'Europe 2',
-                        'eu3' => 'EU3 [No Cars]',
-                        'us_ets' => 'United States',
-                        'sa' => 'South America',
-                        'hk' => 'Honk Kong',
-                    ],
-                    'ATS' => [
-                        'eu2_ats' => 'Europe 2',
-                        'us_ats' => 'United States',
-                    ]
-                ])->error(false) ?>
+                <?= $form->field($model, 'server')->dropdownList($servers)->error(false) ?>
                 <div class="input-field">
                     <?= $form->field($model, 'communications')->textInput()->error(false) ?>
                 </div>

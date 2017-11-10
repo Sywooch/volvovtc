@@ -7,6 +7,7 @@ use app\models\Convoys;
 use app\models\Mods;
 use app\models\Notifications;
 use app\models\Trailers;
+use app\models\TruckersMP;
 use app\models\User;
 use app\models\VtcMembers;
 use Yii;
@@ -49,7 +50,7 @@ class ConvoysController extends Controller{
         if(Yii::$app->request->get('id')){
             if(!$convoy = Convoys::findOne(Yii::$app->request->get('id'))) return $this->render('error');
             if($convoy->open == '0' && !User::isVtcMember()) return $this->redirect(['site/login']);
-            $convoy->server = Convoys::getSeverName($convoy->server);
+            $convoy->server = TruckersMP::getServerName($convoy->server);
             $convoy->date = SiteController::getRuDate($convoy->date);
             return $this->render('convoy', [
                 'convoy' => $convoy,
@@ -84,7 +85,8 @@ class ConvoysController extends Controller{
             }
             return $this->render('add_convoy', [
                 'model' => $model,
-                'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'])
+                'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа']),
+                'servers' => TruckersMP::getServersList()
             ]);
         }else{
             return $this->render('//site/error');
@@ -103,7 +105,8 @@ class ConvoysController extends Controller{
                 return $this->render('edit_convoy', [
                     'model' => $model,
                     'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа']),
-                    'trailer_data' => Convoys::getTrailerData($model)
+                    'trailer_data' => Convoys::getTrailerData($model),
+                    'servers' => TruckersMP::getServersList()
                 ]);
             }
         }else{

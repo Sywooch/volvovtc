@@ -81,7 +81,7 @@ $this->title = 'Конвои Volvo Trucks';
                         <div class="list-wrapper">
                             <ul class="fs17">
                                 <li class="clearfix"><i class="material-icons left notranslate">headset_mic</i>Связь: <b><?=  $nearest_convoy->communications ?></b></li>
-                                <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?= \app\models\Convoys::getSeverName($nearest_convoy->server) ?></b></li>
+                                <li class="clearfix"><i class="material-icons left notranslate">dns</i>Сервер: <b><?= \app\models\TruckersMP::getServerName($nearest_convoy->server) ?></b></li>
                             </ul>
                         </div>
                     </div>

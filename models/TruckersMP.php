@@ -14,7 +14,6 @@ class TruckersMP{
         $banned = false;
 
         $id = explode('/', $truckersmp)[4]; // convert url to numeric id
-        //$id = '861317'; // for test purposes
 
         $bans = self::requestBans($id);
         foreach ($bans->response as $ban){
@@ -38,12 +37,36 @@ class TruckersMP{
         }
     }
 
+    public static function getServersList(){
+        $servers = self::getServersInfo();
+        $servers_list = array();
+        foreach($servers->response as $server){
+            $servers_list[$server->game][$server->shortname . '_' . $server->game] = $server->name;
+        }
+        return $servers_list;
+    }
+
+    public static function getServerName($short){
+        $servers = self::getServersInfo();
+        $name = null;
+        foreach($servers->response as $server){
+            if($server->shortname.'_'.$server->game == $short){
+                $name = $server->name;
+            }
+        }
+        return $name;
+    }
+
     private function requestPlayer($id){
         return json_decode(file_get_contents('https://api.truckersmp.com/v2/player/'.$id));
     }
 
     private function requestBans($id){
         return json_decode(file_get_contents('https://api.ets2mp.com/bans/'.$id));
+    }
+
+    private static function getServersInfo(){
+        return json_decode(file_get_contents('https://api.truckersmp.com/v2/servers'));
     }
 
 }
