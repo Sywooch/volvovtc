@@ -117,6 +117,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 </div>
                 <div class="collapsible-body grey lighten-4">
                     <ul style="margin-bottom: 20px">
+                        <li><i class="material-icons notranslate left">volume_up</i>
+                            Игровая рация: <b>17 канал</b>
+                        </li>
                         <li><i class="material-icons notranslate left">local_shipping</i>
                             <?php if($convoy->truck_var == '6' || $convoy->truck_var == '5'): ?>
                                 <b><?= $truck_var ?></b>
