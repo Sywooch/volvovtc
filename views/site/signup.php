@@ -34,7 +34,7 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                 <?= $form->field($model, 'country')->textInput()->label('Страна') ?>
                 <?= $form->field($model, 'city')->textInput()->label('Город') ?>
                 <div class="col s11">
-                    <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', ['class' => 'datepicker'])->label('Дата рождения') ?>
+                    <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', ['class' => 'datepicker-profile'])->label('Дата рождения') ?>
                 </div>
                 <?= $form->field($model, 'vk')->textInput()->label('Профиль VK') ?>
                 <?= $form->field($model, 'steam')->textInput()->label('Профиль Steam') ?>
@@ -48,7 +48,6 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                     ])->error(false)->label('Показать профиль TruckersMP') ?>
                 <?php $display = $model->visible_truckersmp ? 'block' : 'none' ?>
                 <?= $form->field($model, 'truckersmp')->textInput(['style' => 'display: '.$display, 'readonly' => true])->label(false) ?>
-<!--                --><?//= $form->field($model, 'company')->textInput()->label('В какой ВТК вы состоите') ?>
                 <?= $form->field($model, 'has_ets', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox(['label' => null])->error(false)->label('Есть <b>Euro Truck Simulator 2</b>') ?>
                 <?= $form->field($model, 'has_ats', ['template' => '<div>{input}{label}</div>'])
@@ -65,8 +64,7 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
     </div>
     <?php ActiveForm::end(); ?>
 </div>
-<?php if($model->hasErrors()) :
-    //Kint::dump($model->errors)?>
+<?php if($model->hasErrors()) : ?>
     <script>
         <?php foreach ($model->errors as $error): ?>
         Materialize.toast('<?= $error[0] ?>', 6000);

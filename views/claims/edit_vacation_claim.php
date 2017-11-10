@@ -70,28 +70,12 @@ $this->title = 'Редактировать заявление на отпуск 
     <div class="card grey lighten-4">
         <div class="card-content">
             <?php if(Yii::$app->user->id == $model->user_id && $model->status == 0){ ?>
-                <?= $form->field($model, 'to_date')->input('date', ['class' => 'datepicker-edit-claim'])->error(false) ?>
-                <script>
-                    $datepicker = $('.datepicker-edit-claim').pickadate({
-                        min: true,
-                        today: 'Сегодня',
-                        clear: 'Очистить',
-                        close: 'Закрыть',
-                        monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                        monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                        weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                        weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                        selectMonths: true, // Creates a dropdown to control month
-                        selectYears: 60, // Creates a dropdown of 15 years to control year
-                        firstDay: 'Понедельник',
-                        formatSubmit: 'yyyy-mm-dd',
-                        hiddenName: true
-                    });
-                    <?php if($model->to_date): ?>
-                    var picker = $datepicker.pickadate('picker');
-                    picker.set('select', '<?= $model->to_date ?>', { format: 'yyyy-mm-dd' });
-                    <?php endif ?>
-                </script>
+                <?= $form->field($model, 'to_date')
+                    ->input('date', [
+                        'class' => 'datepicker-vacation',
+                        'data-value' => $model->to_date
+                    ])
+                    ->error(false) ?>
             <?php }else{ ?>
                 <div class="input-field">
                     <label for="date-ro" class="control-label">До какой даты отпуск</label>

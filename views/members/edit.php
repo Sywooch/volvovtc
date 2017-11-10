@@ -33,28 +33,12 @@ $this->title = 'Редактирование информации о водит�
                     '11' => 'Директор',
                 ])->error(false)->label(false) ?>
                 <div class="col s11">
-                    <?= $form->field($model, 'start_date', ['template' => '{label}{input}'])->input('date', ['class' => 'datepicker-member-start'])->label('Дата вступления') ?>
-                    <script>
-                        $datepicker = $('.datepicker-member-start').pickadate({
-                            max: true,
-                            today: 'Сегодня',
-                            clear: 'Очистить',
-                            close: 'Закрыть',
-                            monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                            monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                            weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                            weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                            selectMonths: true, // Creates a dropdown to control month
-                            selectYears: 60, // Creates a dropdown of 15 years to control year
-                            firstDay: 'Понедельник',
-                            formatSubmit: 'yyyy-mm-dd',
-                            hiddenName: true
-                        });
-                        <?php if($model->start_date) : ?>
-                        var picker = $datepicker.pickadate('picker');
-                        picker.set('select', '<?= $model->start_date ?>', { format: 'yyyy-mm-dd' });
-                        <?php endif; ?>
-                    </script>
+                    <?= $form->field($model, 'start_date', ['template' => '{label}{input}'])
+                        ->input('date', [
+                            'class' => 'datepicker-member-start',
+                            'data-value' => $model->start_date
+                        ])
+                        ->label('Дата вступления') ?>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -63,27 +47,12 @@ $this->title = 'Редактирование информации о водит�
             <div class="card-panel grey lighten-4">
                 <?= $form->field($model, 'additional')->textarea(['class' => 'materialize-textarea']) ?>
                 <div class="col s11">
-                    <?= $form->field($model, 'vacation', ['template' => '{label}{input}'])->input('date', ['class' => 'datepicker-member'])->label('Отпуск до') ?>
-                    <script>
-                        $datepicker = $('.datepicker-member').pickadate({
-                            today: 'Сегодня',
-                            clear: 'Очистить',
-                            close: 'Закрыть',
-                            monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                            monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                            weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                            weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                            selectMonths: true, // Creates a dropdown to control month
-                            selectYears: 60, // Creates a dropdown of 15 years to control year
-                            firstDay: 'Понедельник',
-                            formatSubmit: 'yyyy-mm-dd',
-                            hiddenName: true
-                        });
-                        <?php if($model->vacation) : ?>
-                        var picker = $datepicker.pickadate('picker');
-                        picker.set('select', '<?= $model->vacation ?>', { format: 'yyyy-mm-dd' });
-                        <?php endif; ?>
-                    </script>
+                    <?= $form->field($model, 'vacation', ['template' => '{label}{input}'])
+                        ->input('date', [
+                            'class' => 'datepicker-vacation',
+                            'data-value' => $model->vacation
+                        ])
+                        ->label('Отпуск до') ?>
                 </div>
                 <?= $form->field($model, 'vacation_undefined', ['template' => '<div>{input}{label}</div>'])
                     ->checkbox(['label' => null])->error(false)->label('Неопределенный срок') ?>
@@ -131,29 +100,11 @@ $this->title = 'Редактирование информации о водит�
                 <?= $form->field($model, 'first_name')->textInput() ?>
                 <?= $form->field($model, 'last_name')->textInput() ?>
                 <div class="col s11">
-                    <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', ['class' => 'datepicker-member-birth-date'])->label('Дата рождения') ?>
-                    <script>
-                        $datepicker = $('.datepicker-member-birth-date').pickadate({
-                            min: new Date(1950,1,1),
-                            max: true,
-                            today: 'Сегодня',
-                            clear: 'Очистить',
-                            close: 'Закрыть',
-                            monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-                            monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-                            weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-                            weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-                            selectMonths: true, // Creates a dropdown to control month
-                            selectYears: 60, // Creates a dropdown of 15 years to control year
-                            firstDay: 'Понедельник',
-                            formatSubmit: 'yyyy-mm-dd',
-                            hiddenName: true
-                        });
-                        <?php if($model->birth_date != '0000-00-00'): ?>
-                        var picker = $datepicker.pickadate('picker');
-                        picker.set('select', '<?= $model->birth_date ?>', { format: 'yyyy-mm-dd' });
-                        <?php endif ?>
-                    </script>
+                    <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])
+                        ->input('date', [
+                            'class' => 'datepicker-profile',
+                            'data-value' => $model->birth_date != '0000-00-00' ? $model->birth_date : null
+                        ])->label('Дата рождения') ?>
                 </div>
                 <div class="clearfix"></div>
             </div>

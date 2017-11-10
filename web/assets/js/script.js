@@ -9,38 +9,37 @@ $(document).on('ready', function(){
     $('select').material_select();
     $('.parallax').parallax();
     $('.modal').modal();
-    $('.datepicker').pickadate({
-        min: new Date(1950,1,1),
-        max: new Date(2010,12,31),
-       // today: 'Сегодня',
-        today: false,
+    $.extend($.fn.pickadate.defaults, {
         clear: 'Очистить',
         close: 'Закрыть',
-        monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
-        monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
-        weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
-        weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 60, // Creates a dropdown of 15 years to control year
-        firstDay: 'Понедельник',
-        formatSubmit: 'yyyy-mm-dd',
-        hiddenName: true
-    });
-    $('.datepicker-convoy').pickadate({
-        min: new Date(2015,1,1),
         today: 'Сегодня',
-        clear: 'Очистить',
-        close: 'Закрыть',
         monthsFull: ['Январь', 'Февраль', 'Март', 'Апрель', 'Май', 'Июнь', 'Июль', 'Август', 'Сентябрь', 'Октябрь', 'Ноябрь', 'Декабрь'],
         monthsShort: ['Янв', 'Фев', 'Март', 'Апр', 'Май', 'Июнь', 'Июль', 'Авг', 'Сен', 'Окт', 'Ноя', 'Дек'],
         weekdaysFull: ['Воскресенье', 'Понедельник', 'Вторник', 'Среда', 'Четверг', 'Пятница', 'Суббота'],
         weekdaysShort: ['Вс', 'Пн', 'Вт', 'Ср', 'Чт', 'Пт', 'Сб'],
-        selectMonths: true, // Creates a dropdown to control month
-        selectYears: 2, // Creates a dropdown of 15 years to control year
+        selectMonths: true,
+        selectYears: 70,
         firstDay: 'Понедельник',
         formatSubmit: 'yyyy-mm-dd',
         format: 'dd mmmm yyyy',
         hiddenName: true
+    });
+    $('.datepicker-profile').pickadate({
+        min: new Date(1950,1,1),
+        max: new Date(2010,12,31),
+        today: false
+    });
+    $('.datepicker-convoy').pickadate({
+        min: -14,
+        max: 365
+    });
+    $('.datepicker-member-start').pickadate({
+        max: true,
+        min: new Date(2015,1,6)
+    });
+    $('.datepicker-vacation').pickadate({
+        min: true,
+        max: 90
     });
 
     $(document).on('change', '#fulfill, #read-rules', function(){

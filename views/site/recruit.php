@@ -21,7 +21,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                     <li>Ваш профиль Steam открыт для всех <a href="http://steamcommunity.com/profiles/76561198283160497/edit/settings" target="_blank">Открыть</a></li>
                     <li>Ваши личные сообщения ВК открыты для всех <a href="https://vk.com/settings?act=privacy" target="_blank">Открыть</a></li>
                     <li>Ваши профиль на сайте полностью заполнен <a href="<?=Url::to(['site/profile', 'action' => 'edit'])?>" target="_blank">Заполнить</a></li>
-                    <li>Вам есть 18 лет. Если Вам нет 18, <a href="https://vk.com/im?sel=105513579" target="_blank">писать сюда</a></li>
+<!--                    <li>Вам есть 18 лет. Если Вам нет 18, <a href="https://vk.com/im?sel=105513579" target="_blank">писать сюда</a></li>-->
                     <li>Вы ознакомились с <a href="<?= Url::to(['site/rules']) ?>" target="_blank">правилами</a></li>
                     <li>Вы не состоите в другой ВТК</li>
                 </ol>
@@ -82,7 +82,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                 <?php endif ?>
                 <?php if(!$model->birth_date) : ?>
                     <?= $form->field($model, 'birth_date', ['template' => '<div class="col l9 s11">{label}{input}</div>'])
-                        ->input('date', ['class' => 'datepicker'])->label('Дата рождения (обязательно)')->error(false) ?>
+                        ->input('date', ['class' => 'datepicker-profile'])->label('Дата рождения (обязательно)')->error(false) ?>
                 <?php endif ?>
                 <?php if(!$model->country) : ?>
                     <?= $form->field($model, 'country')->textInput()->label('Страна (обязательно)')->error(false) ?>
@@ -115,8 +115,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
     <?php endif ?>
 
 </div>
-<?php if($model->hasErrors()) :
-    //Kint::dump($model->errors)?>
+<?php if($model->hasErrors()) : ?>
     <script>
         <?php foreach ($model->errors as $error): ?>
         Materialize.toast('<?= $error[0] ?>', 6000);
