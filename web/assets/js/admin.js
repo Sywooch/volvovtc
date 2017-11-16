@@ -130,7 +130,7 @@ $(document).ready(function(){
         if(confirm('Удалить изображение?')) $(this).parent().remove();
     });
 
-    $('#trailer-select').change(function(){
+    $(document).on('change', '[id*=trailer-select-]', function(){
         var id = $(this).val();
         var target = $(this).data('target');
         if(target == 'mods'){
@@ -138,43 +138,9 @@ $(document).ready(function(){
             $('#addmodform-picture').parent().parent().parent().find('input[type=text]').val('');
         }
         if(id != '0' && id != '-1'){
-            var info = $('#trailer-info');
-            $.ajax({
-                cache: false,
-                url : '/convoys/trailer',
-                dataType : 'json',
-                type : 'POST',
-                data : {
-                    id : id
-                },
-                beforeSend : function(){
-                    info.append('<div class="preloader-wrapper tiny active">'+
-                        '<div class="spinner-layer spinner-blue-only">'+
-                        '<div class="circle-clipper left">'+
-                        '<div class="circle"></div>'+
-                        '</div>' +
-                        '<div class="gap-patch">'+
-                        '<div class="circle"></div>'+
-                        '</div>' +
-                        '<div class="circle-clipper right">'+
-                        '<div class="circle"></div>'+
-                        '</div>'+
-                        '</div>'+
-                        '</div>');
-                },
-                success : function(response){
-                    if(response.status == 'OK'){
-                        info.find('#trailer-name').html(response.name);
-                        info.find('#trailer-description').html(response.description);
-                        info.find('#trailer-image').attr('src', '/images/trailers/'+response.image);
-                    }
-                },
-                complete : function(){
-                    info.find('.preloader-wrapper').remove();
-                }
-            });
+            renderTrailersPreview(target);
         }else{
-            $('#trailer-image').attr('src', '/images/'+target+'/default.jpg');
+            $('.trailer-preview img').attr('src', '/images/'+target+'/default.jpg');
             $('#trailer-description').html('');
             if(target == 'mods') $('#trailer-name').html('');
             else $('#trailer-name').html(id == '0' ? 'Любой прицеп' : 'Без прицепа');
@@ -194,6 +160,32 @@ $(document).ready(function(){
         $(list).hasClass('active') ? $(list).removeClass('active') : $(list).addClass('active');
     });
 
+    $('button.add-trailer').click(function(e){
+        e.preventDefault();
+        if($('.row.inner').length < 4){
+            var row = $('.row.inner').last();
+            var select = $(row).find('select').clone().removeClass('select2-hidden-accessible');
+            select.find('option[value=0], option[value=-1]').remove();
+            var id = parseInt(select.attr('id').substring(15)) + 1;
+            var selectHtml = select.attr('id', 'trailer-select-' + id).attr('name', 'AddConvoyForm[trailer][' + id + ']').wrap('<p/>').parent().html();
+            row.after('<div class="row inner">' +
+                '<div class="col l11 s10" style="padding-bottom: 20px;">' + selectHtml + '</div>' +
+                '<div class="col l1 s2 center" style="line-height: 44px;">' +
+                '<button class="red-text remove-trailer">' +
+                '<i class="material-icons notranslate small">clear</i></button></div></div>');
+            $('#trailer-select-' + id).select2();
+            if($('.row.inner').length >= 4) $(this).hide();
+            renderTrailersPreview('trailers');
+        }
+    });
+
+    $(document).on('click', '.remove-trailer, .remove-trailer i', function(){
+        $(this).parents('.row.inner').first().remove();
+        $(this).parents('.tooltipped').tooltip('remove');
+        if($('.row.inner').length < 4) $('button.add-trailer').show();
+        renderTrailersPreview('trailers');
+    });
+
 }); // end of document ready
 
 function readURL(input) {
@@ -206,8 +198,72 @@ function readURL(input) {
     }
 }
 
-function loadMembersBans(steamid64){
+function renderTrailersPreview(target){
+    var trailers = [];
+    $.each($('.trailers-select'), function(i, select){
+        trailers.push(select.value);
+    });
+    var info = $('#trailer-info');
+    $.ajax({
+        cache: false,
+        dataType : 'json',
+        type : 'POST',
+        url : '/trailers/getinfo',
+        data : {
+            trailers : trailers
+        },
+        beforeSend : function(){
+            info.animate({opacity : 0.5}, 300, function(){
+                info.append('<div class="preloader-wrapper active">'+
+                    '<div class="spinner-layer spinner-red-only">'+
+                    '<div class="circle-clipper left">'+
+                    '<div class="circle"></div>'+
+                    '</div>' +
+                    '<div class="gap-patch">'+
+                    '<div class="circle"></div>'+
+                    '</div>' +
+                    '<div class="circle-clipper right">'+
+                    '<div class="circle"></div>'+
+                    '</div>'+
+                    '</div>'+
+                    '</div>');
+            });
+        },
+        success : function(response){
+            if(response.status == 'OK'){
+                if(target == 'mods'){
+                    $('#trailer-name').html(response.trailers[0].name);
+                    $('#trailer-description').html(response.trailers[0].description);
+                    $('#trailer-image').attr('src', '/images/trailers/'+response.trailers[0].picture);
+                }else{
+                    var cols = '1';
+                    switch(response.trailers.length){
+                        case 4 : cols = '6'; break;
+                        case 3 : cols = '4'; break;
+                        case 2 : cols = '6'; break;
+                        case 1 :
+                        default : cols = '12'; break;
+                    }
+                    info.find('.trailer-preview, .clearfix').remove();
+                    $.each(response.trailers, function(i, trailer){
+                        info.append('<div class="trailer-preview col s'+cols+'">'+
+                            '<img src="/images/trailers/'+trailer.picture+'" class="responsive-img z-depth-2 materialboxed" id="trailer-image-'+i+'">'+
+                            '</div>');
+                    });
+                    $('.materialboxed').materialbox();
+                    info.append('<div class="clearfix">');
+                }
+            }
+        },
+        complete : function(){
+            info.animate({opacity : 1}, 300, function(){
+                info.find('.preloader-wrapper').remove();
+            });
+        }
+    });
+}
 
+function loadMembersBans(steamid64){
     $.ajax({
         cache: false,
         dataType : 'json',
@@ -260,5 +316,4 @@ function loadMembersBans(steamid64){
             $('th.first').find('.preloader-wrapper').remove();
         }
     });
-
 } // end of loadMembersBans

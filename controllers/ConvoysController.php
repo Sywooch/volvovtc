@@ -52,9 +52,10 @@ class ConvoysController extends Controller{
             if($convoy->open == '0' && !User::isVtcMember()) return $this->redirect(['site/login']);
             $convoy->server = TruckersMP::getServerName($convoy->server);
             $convoy->date = SiteController::getRuDate($convoy->date);
+            $convoy->trailer = Trailers::getTrailersInfo(unserialize($convoy->trailer));
+//            $convoy->truck_var = [$convoy->truck_var => Convoys::getVariationName($convoy->truck_var)];
             return $this->render('convoy', [
-                'convoy' => $convoy,
-                'mod' => Mods::getModByTrailer($convoy->trailer)
+                'convoy' => $convoy
             ]);
         }else{
             $hidden_convoys = Convoys::getPastConvoys();
@@ -104,8 +105,8 @@ class ConvoysController extends Controller{
             }else{
                 return $this->render('edit_convoy', [
                     'model' => $model,
-                    'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа']),
-                    'trailer_data' => Convoys::getTrailerData($model),
+                    'trailers' => Trailers::find()->select(['id', 'name'])->orderBy(['name' => SORT_ASC])->all(),
+                    'trailers_data' => Convoys::getTrailerData($model->trailer),
                     'servers' => TruckersMP::getServersList()
                 ]);
             }
@@ -122,27 +123,6 @@ class ConvoysController extends Controller{
                 $errors[] = 'Возникла ошибка';
             }
             return $this->redirect(['convoys/index', 'id' => Yii::$app->request->get('id')]);
-        }else{
-            return $this->render('//site/error');
-        }
-    }
-
-    public function actionTrailer(){
-        if(Yii::$app->request->isAjax){
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if(Yii::$app->request->post('id')) {
-                if($trailer = Trailers::findOne(Yii::$app->request->post('id'))){
-                    return [
-                        'name' => $trailer->name,
-                        'description' => $trailer->description,
-                        'image' => $trailer->picture,
-                        'status' => 'OK'
-                    ];
-                }
-            }
-            return [
-                'status' => 'Error'
-            ];
         }else{
             return $this->render('//site/error');
         }

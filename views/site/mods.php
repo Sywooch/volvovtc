@@ -128,9 +128,4 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
             </div>
         </div>
     </div>
-    <?php if(\app\models\User::isAdmin()): ?>
-        <div class="fixed-action-btn">
-            <a href="<?=Url::to(['site/modifications', 'action' => 'add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
-        </div>
-    <?php endif ?>
 </div>

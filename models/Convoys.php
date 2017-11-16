@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\Url;
 
 class Convoys extends ActiveRecord{
 
@@ -13,15 +14,15 @@ class Convoys extends ActiveRecord{
 
     public function rules(){
         return [
-            [['time', 'date', 'updated'], 'safe'],
-            [['truck_var', 'visible', 'open', 'trailer', 'updated_by'], 'integer'],
+            [['truck_var', 'time', 'date', 'updated'], 'safe'],
+            [['visible', 'open', 'updated_by'], 'integer'],
             [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'trailer_name', 'extra_picture'], 'string', 'max' => 255],
             [['rest'], 'string', 'max' => 1024],
             [['description'], 'string', 'max' => 2048],
             [['add_info'], 'string', 'max' => 512],
             [['server', 'trailer_picture'], 'string', 'max' => 45],
             [['length'], 'string', 'max' => 10],
-            [['dlc', 'author'], 'string']
+            [['dlc', 'trailer', 'author'], 'string']
         ];
     }
 
@@ -45,7 +46,7 @@ class Convoys extends ActiveRecord{
     }
 
     public static function getPastConvoys(){
-        if(User::isVtcMember()){
+        if(User::isVtcMember() || User::isAdmin()){
             $hidden_convoys = Convoys::find()
                 ->select(['id', 'picture_small', 'title', 'departure_time', 'visible', 'scores_set'])
                 ->andWhere(['<', 'departure_time', gmdate('Y-m-d ') . (intval(gmdate('H')) + 2) . ':' . gmdate('i:s')]);
@@ -98,7 +99,7 @@ class Convoys extends ActiveRecord{
         return $server;
     }
 
-    public static function getVariationName($short){
+    public static function getVariationName($short, $link = false){
         switch ($short){
             case '0' : $variation = 'Любая вариация'; break;
             case '6' : $variation = 'Легковой автомобиль Scout'; break;
@@ -110,6 +111,9 @@ class Convoys extends ActiveRecord{
             case '22' : $variation = 'Вариация №2.2'; break;
             case '1' :
             default: $variation = 'Вариация №1'; break;
+        }
+        if($link && ($short == '1' || $short == '21' || $short == '22' || $short == '3')){
+            $variation = '<a href="'.Url::to(['site/variations', '#' => $short]).'">'.$variation.'</a>';
         }
         return $variation;
     }
@@ -126,21 +130,47 @@ class Convoys extends ActiveRecord{
         return $need ? substr($string, 0, strlen($string) - 2) : false;
     }
 
-    public static function getTrailerData($convoy){
-        $description = '';
-        $name = '';
-        $image = 'trailers/default.jpg';
-        if($convoy->trailer != 0 && $convoy->trailer != -1) {
-            $trailer = \app\models\Trailers::findOne($convoy->trailer);
-            $image = 'trailers/'.$trailer->picture;
-            $name = $trailer->name;
-            $description = $trailer->description;
-        }
-        return [
-            'image' => $image,
-            'name' => $name,
-            'description' => $description,
+    public static function getVarList($string, $with_img){
+        $var_images = [
+            '1' => ['var1_1', 'var1_2'],
+            '21' => ['var2'],
+            '22' => ['var22']
         ];
+        $list = '<ul class="var-list browser-default">';
+        switch ($string){
+            case '1' : $vars = ['1']; break;
+            case '2' : $vars = ['21', '22']; break;
+            case '21' : $vars = ['21']; break;
+            case '22' : $vars = ['22']; break;
+            case '4' : $vars = ['1', '21', '22']; break;
+            case '5' : $vars = ['1', '3']; break;
+            case '6' : $vars = ['6']; break;
+            case '7' : $vars = ['7']; break;
+            case '0' :
+            default : $vars = ['0']; break;
+        }
+        foreach ($vars as $var){
+            $list .= '<li><p class="var-name">'.self::getVariationName($var, true).'</p>';
+            if($with_img && array_key_exists($var, $var_images)) {
+                $rand_key = array_rand($var_images[$var], 1);
+                $list .= '<img class="responsive-img materialboxed" src="/assets/img/'.$var_images[$var][$rand_key].'.jpg">';
+            }
+            $list .= '</li>';
+        }
+        return $list .= '</ul>';
+    }
+
+    public static function getTrailerData($trailers){
+        $trailers_image = array();
+        foreach ($trailers as $trailer){
+            if($trailer != 0 && $trailer != -1) {
+                $trailer_db = Trailers::findOne($trailer);
+                $trailers_image[] = 'trailers/'.$trailer_db->picture;
+            }else{
+                $trailers_image[] = 'trailers/default.jpg';
+            }
+        }
+        return $trailers_image;
     }
 
     public static function setConvoyScores($scores, $target, $lead = null){

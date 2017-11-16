@@ -10,6 +10,7 @@ use yii\web\Controller;
 use app\models\Notifications;
 use app\models\User;
 use Yii;
+use yii\web\Response;
 
 class TrailersController extends Controller{
 
@@ -126,6 +127,24 @@ class TrailersController extends Controller{
             }else{
                 return $this->redirect(Yii::$app->request->referrer);
             }
+        }else{
+            return $this->render('//site/error');
+        }
+    }
+
+    public function actionGetinfo(){
+        if(Yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if(Yii::$app->request->post('trailers')) {
+                $trailers = Trailers::getTrailersInfo(Yii::$app->request->post('trailers'));
+                return [
+                    'status' => 'OK',
+                    'trailers' => $trailers
+                ];
+            }
+            return [
+                'status' => 'Error'
+            ];
         }else{
             return $this->render('//site/error');
         }

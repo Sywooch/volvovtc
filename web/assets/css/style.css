@@ -171,8 +171,12 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 .convoys .left-wrapper{ text-align: right;}
 .convoys .right-wrapper{ text-align: left;}
 .convoys .arrow{align-self: center;}
+.var-list, .trailers-list{padding-left: 18px;}
+.trailers-list p, .var-list p{ margin: 0;}
+.trailers-list .trailer-name, .var-list .var-name{font-weight: bold; margin-top: 10px !important;}
 #trailer-info{ position: relative;}
-#trailer-info .preloader-wrapper{ position: absolute; top: -10px; right: 0;}
+#trailer-info .preloader-wrapper{ position: absolute; left: calc(50% - 25px); top: calc(50% - 25px);}
+button.add-trailer, button.remove-trailer{height: 30px; vertical-align: bottom; line-height: 30px; border: 0; background-color: transparent; cursor: pointer;}
 @media (max-width: 993px){
 	.convoys .list-wrapper{min-width:250px;}
 }

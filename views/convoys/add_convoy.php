@@ -119,14 +119,21 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                         '6' => 'Легковой автомобиль Scout',
                     ])->label(false)->error(false) ?>
                 </div>
-                <div class="row">
+                <div class="row inner" style="padding-bottom: 20px;">
                     <div class="col l11 s10">
-                        <?= $form->field($model, 'trailer')->dropdownList($trailers, ['id' => 'trailer-select', 'class' => 'browser-default', 'data-target' => 'trailers'])->error(false)->label(false) ?>
+                        <label class="control-label">Прицепы</label>
+                        <?= $form->field($model, 'trailer')
+                            ->dropdownList($trailers, [
+                                'id' => 'trailer-select-0',
+                                'class' => 'browser-default trailers-select',
+                                'data-target' => 'trailers'])
+                            ->error(false)
+                            ->label(false) ?>
                     </div>
-                    <div class="col l1 s2 center" style="line-height: 66px;">
-                        <a target="_blank" href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
+                    <div class="col l1 s2 center add-btn-container" style="line-height: 66px;">
+                        <button class="tooltipped indigo-text add-trailer" data-position="bottom" data-tooltip="Добавить прицеп">
                             <i class="material-icons notranslate small">add</i>
-                        </a>
+                        </button>
                     </div>
                 </div>
                 <div class="input-field">
@@ -140,10 +147,11 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         </div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
-                <div id="trailer-info">
-                    <h6 class="light" id="trailer-name" style="font-weight: bold;">Любой прицеп</h6>
-                    <span class="light" id="trailer-description"></span>
-                    <img src="<?= Yii::$app->request->baseUrl ?>/images/trailers/default.jpg" class="responsive-img z-depth-2" id="trailer-image">
+                <div id="trailer-info" class="row">
+                    <div class="trailer-preview col s12">
+                        <img src="<?= Yii::$app->request->baseUrl ?>/images/trailers/default.jpg" class="responsive-img z-depth-2" id="trailer-image-0">
+                    </div>
+                    <div class="clearfix"></div>
                 </div>
                 <div class="input-field file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
@@ -172,5 +180,5 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
     CKEDITOR.replace('add_info');
 </script>
 <script>
-    $('#trailer-select').select2();
+    $('#trailer-select-0').select2();
 </script>

@@ -26,9 +26,8 @@ class AddConvoyForm extends Model{
     public $date;
     public $trailer_picture;
     public $trailer_name;
-    public $trailer;
-    public $truck_picture;
-    public $truck_var = '1';
+    public $trailer = array();
+    public $truck_var;
     public $communications;
     public $author;
     public $visible = true;
@@ -38,6 +37,7 @@ class AddConvoyForm extends Model{
     public $dlc_vlv = false;
     public $dlc = array();
     public $map_remove = false;
+    public $attach_var_photo = false;
 
     public function __construct($id = null){
         if(isset($id)){
@@ -56,9 +56,9 @@ class AddConvoyForm extends Model{
             $this->departure_time = $d_time->format('H:i');
             $this->meeting_time = $m_time->format('H:i');
             $this->date = $d_time->format('Y-m-d');
-            $this->trailer_name = $convoy->trailer_name;
-            $this->trailer = $convoy->trailer;
-            $this->truck_var = $convoy->truck_var;
+            $this->trailer = unserialize($convoy->trailer);
+            $this->truck_var = explode(',', $convoy->truck_var)[0];
+            $this->attach_var_photo = explode(',', $convoy->truck_var)[1] == '1';
             $this->title = $convoy->title;
             $this->communications = $convoy->communications;
             $this->visible = $convoy->visible;
@@ -73,10 +73,11 @@ class AddConvoyForm extends Model{
     public function rules() {
         return [
             [['start_city', 'start_company', 'finish_city', 'finish_company', 'server', 'departure_time', 'date'], 'required'],
-            [['rest', 'description', 'length', 'trailer_name', 'truck_var', 'title', 'communications', 'meeting_time'], 'string'],
-            [['open', 'visible', 'map_remove'], 'boolean'],
+            [['rest', 'description', 'length', 'trailer_name', 'title', 'communications', 'meeting_time'], 'string'],
+            [['extra_picture', 'picture_full', 'picture_small'], 'file', 'extensions' => 'png, jpg'],
+            [['open', 'visible', 'map_remove', 'attach_var_photo'], 'boolean'],
             [['add_info', 'author'], 'string'],
-            [['dlc', 'trailer', 'extra_picture'], 'safe']
+            [['dlc', 'trailer', 'truck_var'], 'safe']
         ];
     }
 
@@ -102,7 +103,7 @@ class AddConvoyForm extends Model{
             'trailer_name' => 'Название груза/трейлера',
             'trailer' => 'Трейлер',
             'truck_picture' => 'Изображение тягача',
-            'truck_var' => 'Вариация тягача',
+            'truck_var' => 'Вариации тягача',
             'title' => 'Название конвоя',
             'communications' => 'Связь',
             'author' => 'Конвой сделал',
@@ -123,9 +124,13 @@ class AddConvoyForm extends Model{
         $convoy->departure_time = $date->format('Y-m-d ').$this->departure_time;
         $convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
         $convoy->date = $this->date;
-        $convoy->trailer_name = $this->trailer_name;
-        $convoy->trailer = $this->trailer;
-        $convoy->truck_var = $this->truck_var;
+        foreach ($this->trailer as $trailer){
+            if(!(($trailer == '0' || $trailer == '-1') && count($this->trailer) > 1)){
+                $trailers[] = $trailer;
+            }
+        }
+        $convoy->trailer = serialize(array_unique($trailers));
+        $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;
         $convoy->open = $this->open;
         $convoy->dlc = serialize($this->dlc);
@@ -171,9 +176,13 @@ class AddConvoyForm extends Model{
         if(new \DateTime($convoy->departure_time) > new \DateTime()){
             $convoy->scores_set = '0';
         }
-        $convoy->trailer_name = $this->trailer_name;
-        $convoy->trailer = $this->trailer;
-        $convoy->truck_var = $this->truck_var;
+        foreach ($this->trailer as $trailer){
+            if(!(($trailer == '0' || $trailer == '-1') && count($this->trailer) > 1)){
+                $trailers[] = $trailer;
+            }
+        }
+        $convoy->trailer = serialize(array_unique($trailers));
+        $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;
         $convoy->open = $this->open;
         $convoy->dlc = serialize($this->dlc);

@@ -101,6 +101,7 @@ $config = [
 
                 // trailers
                 'trailers/add' => 'trailers/add',
+                'trailers/getinfo' => 'trailers/getinfo',
                 'trailers/<category:\w+>/page/<page:\d+>/' => 'trailers/index',
                 'trailers/page/<page:\d+>/' => 'trailers/index',
                 'trailers/<category:\w+>/' => 'trailers/index',

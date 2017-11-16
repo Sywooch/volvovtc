@@ -1,6 +1,6 @@
 <?php
 
-use yii\web\View;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
@@ -125,30 +125,52 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         <div class="clearfix"></div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
-                <h5 class="light">Дополнительная информация</h5>
+                <h5 class="light" style="padding-bottom: 10px">Дополнительная информация</h5>
                 <div class="input-field">
-                    <?= $form->field($model, 'truck_var')->dropdownList([
+                    <?= $form->field($model, 'truck_var', ['template' => '{input}{label}'])->dropdownList([
                         '0' => 'Любая вариация',
                         '1' => 'Вариация №1',
-                        '2' => 'Вариация №2',
+                        '2' => 'Вариация №2.1 или 2.2',
                         '21' => 'Вариация №2.1',
                         '22' => 'Вариация №2.2',
                         '3' => 'Вариация №3',
-                        '4' => 'Вариация №1 или №3',
-                        '5' => 'Тягач, как в описании',
-                        '6' => 'Легковой автомобиль Scout',
-                    ])->label(false)->error(false) ?>
+                        '4' => 'Вариация №1 или №2',
+                        '5' => 'Вариация №1 или №3',
+                        '6' => 'Тягач, как в описании',
+                        '7' => 'Легковой автомобиль Scout',
+                    ])->error(false) ?>
                 </div>
-                <div class="row">
-                    <div class="col l11 s10">
-                        <?= $form->field($model, 'trailer')->dropdownList($trailers, ['id' => 'trailer-select', 'class' => 'browser-default', 'data-target' => 'trailers'])->error(false)->label(false) ?>
+                <?= $form->field($model, 'attach_var_photo', ['template' => '<div>{input}{label}</div>'])
+                    ->checkbox(['label' => null])->label('Прикрепить фото вариации') ?>
+                <?php foreach($model->trailer as $key => $trailer) : ?>
+                    <div class="row inner">
+                        <div class="col l11 s10" style="padding-bottom: 20px;">
+                            <?php if($key == 0) : ?><label class="control-label">Прицепы</label><?php endif ?>
+                            <?= $form->field($model, 'trailer['.$key.']')
+                                ->dropdownList(ArrayHelper::merge(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], ArrayHelper::map($trailers, 'id', 'name')), [
+                                    'id' => 'trailer-select-'.$key,
+                                    'class' => 'browser-default trailers-select',
+                                    'data-target' => 'trailers'])
+                                ->error(false)
+                                ->label(false) ?>
+                            <script>
+                                $('#trailer-select-'+<?=$key?>).select2();
+                            </script>
+                        </div>
+                        <?php if($key == 0) : ?>
+                            <div class="col l1 s2 center add-btn-container" style="line-height: 66px;">
+                                <button class="tooltipped indigo-text add-trailer" data-position="bottom" data-tooltip="Добавить прицеп">
+                                    <i class="material-icons notranslate small">add</i>
+                                </button>
+                        <?php else : ?>
+                            <div class="col l1 s2 center" style="line-height: 44px;">
+                                <button class="tooltipped red-text remove-trailer" data-position="bottom" data-tooltip="Убрать прицеп">
+                                    <i class="material-icons notranslate small">clear</i>
+                                </button>
+                        <?php endif ?>
+                        </div>
                     </div>
-                    <div class="col l1 s2 center" style="line-height: 66px;">
-                        <a target="_blank" href="<?= Url::to(['site/trailers', 'action' => 'add']) ?>" class="tooltipped indigo-text" data-position="bottom" data-tooltip="Добавить новый трейлер">
-                            <i class="material-icons notranslate small">add</i>
-                        </a>
-                    </div>
-                </div>
+                <?php endforeach ?>
                 <div class="input-field">
                     <?= $form->field($model, 'author')->textInput() ?>
                 </div>
@@ -160,12 +182,20 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         </div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
-                <div id="trailer-info">
-                    <h6 class="light" id="trailer-name" style="font-weight: bold;">
-                        <?= $trailer_data['name'] ?>
-                    </h6>
-                    <span class="light" id="trailer-description"><?= $trailer_data['description'] ?></span>
-                    <img src="<?= Yii::$app->request->baseUrl . '/images/' . $trailer_data['image'] ?>" class="responsive-img z-depth-2" id="trailer-image">
+                <div id="trailer-info" class="row">
+                    <?php switch(count($model->trailer)){
+                        case '4' : $cols = 6;break;
+                        case '3' : $cols = 4;break;
+                        case '2' : $cols = 6;break;
+                        case '1' :
+                        default: $cols = 12;break;
+                    } ?>
+                    <?php foreach($model->trailer as $key => $trailer) : ?>
+                        <div class="trailer-preview col s<?=$cols?>">
+                            <img src="<?= Yii::$app->request->baseUrl . '/images/' . $trailers_data[$key] ?>" class="responsive-img z-depth-2 materialboxed" id="trailer-image-<?= $key ?>">
+                        </div>
+                    <?php endforeach ?>
+                    <div class="clearfix"></div>
                 </div>
                 <?php if($model->extra_picture) : ?>
                     <img src="<?= Yii::$app->request->baseUrl . '/images/convoys/' . $model->extra_picture ?>" class="responsive-img z-depth-2">
@@ -198,7 +228,4 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
 </div>
 <script type="text/javascript">
     CKEDITOR.replace('add_info');
-</script>
-<script>
-    $('#trailer-select').select2();
 </script>

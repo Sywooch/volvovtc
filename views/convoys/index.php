@@ -90,6 +90,9 @@ $this->title = 'Конвои Volvo Trucks';
             <div class="card-action">
                 <a href="<?=Url::to(['convoys/index', 'id' => $nearest_convoy->id])?>" class="indigo-text text-darken-3">Подробнее</a>
                 <a href="<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $nearest_convoy->picture_full ?>" target="_blank" class="indigo-text text-darken-3">Оригинал маршрута</a>
+                <?php if(\app\models\User::isAdmin()): ?>
+                    <a href="<?= Url::to(['convoys/edit', 'id' => $nearest_convoy->id]) ?>" class="indigo-text">Редактировать</a>
+                <?php endif ?>
             </div>
         </div>
     <?php elseif(!$convoys) : ?>
