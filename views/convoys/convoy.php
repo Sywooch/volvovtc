@@ -154,7 +154,6 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             </div>
         </div>
     <?php endif ?>
-
     <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn vertical">
             <a href="<?=Url::to([

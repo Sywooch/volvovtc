@@ -52,8 +52,7 @@ class ConvoysController extends Controller{
             if($convoy->open == '0' && !User::isVtcMember()) return $this->redirect(['site/login']);
             $convoy->server = TruckersMP::getServerName($convoy->server);
             $convoy->date = SiteController::getRuDate($convoy->date);
-            $convoy->trailer = Trailers::getTrailersInfo(unserialize($convoy->trailer));
-//            $convoy->truck_var = [$convoy->truck_var => Convoys::getVariationName($convoy->truck_var)];
+            $convoy->trailer = unserialize($convoy->trailer);
             return $this->render('convoy', [
                 'convoy' => $convoy
             ]);

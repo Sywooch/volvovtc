@@ -37,15 +37,23 @@ class Trailers extends ActiveRecord{
 
     public static function getTrailersListHtml($trailers){
         $list = '<ul class="trailers-list browser-default">';
+        if($trailers[0] == '0' || $trailers[0] == '-1'){
+            $list .= '<li class="trailer-name">';
+            $list .= $trailers[0] == '0' ? 'Любой прицеп' : 'Без прицепа';
+            $list .= '</li>';
+        }
+        $trailers = Trailers::getTrailersInfo($trailers);
         foreach ($trailers as $trailer){
-            $list .= '<li><p class="trailer-name">'.$trailer->name;
+            $list .= '<li class="trailer-name">'.$trailer->name;
             if($mod = Mods::findOne(['trailer' => $trailer, 'visible' => '1'])){
                 $list .= ' - <a target="_blank" href="'.Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name.'" class="indigo-text light">'.
-                            'Загрузить модификацию</a>';
+                    'Загрузить модификацию</a>';
             }
             $list .= '<p><img src="/images/trailers/'.$trailer->picture.'" class="materialboxed responsive-img z-depth-2"></li>';
+
         }
-        return $list.'</ul>';
+        $list .= '</ul>';
+        return $list ;
     }
 
 }
