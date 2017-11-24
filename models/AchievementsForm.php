@@ -11,6 +11,7 @@ class AchievementsForm extends Model{
     public $title;
     public $description;
     public $image;
+    public $related;
     public $progress = 1;
     public $visible = true;
 
@@ -22,6 +23,7 @@ class AchievementsForm extends Model{
             $this->visible = $achievement->visible == '1';
             $this->image = $achievement->image;
             $this->progress = $achievement->progress;
+            $this->related = $achievement->related;
         }
     }
 
@@ -31,7 +33,8 @@ class AchievementsForm extends Model{
             [['description'], 'string'],
             [['image'], 'file', 'extensions' => ['png', 'jpg']],
             [['visible'], 'boolean'],
-            [['progress'], 'integer', 'min' => 1]
+            [['progress'], 'integer', 'min' => 1],
+            [['related'], 'integer']
         ];
     }
 
@@ -40,7 +43,8 @@ class AchievementsForm extends Model{
             'title' => 'Название*',
             'description' => 'Описание',
             'image' => 'Изображение',
-            'progress' => 'Количество этапов'
+            'progress' => 'Количество этапов',
+            'related' => 'От какого достижения зависит'
         ];
     }
 
@@ -52,6 +56,7 @@ class AchievementsForm extends Model{
         $achievement->visible = $this->visible ? '1' : '0';
         $achievement->progress = $this->progress;
         $achievement->date = date('Y-m-d');
+        $achievement->related = $this->related;
         $achievement->sort = ($last_achievement ? intval($last_achievement->sort) : 0)+1;
         if($achievement->save() == 1){
             if($file = UploadedFile::getInstance($this, 'image')){
@@ -70,6 +75,7 @@ class AchievementsForm extends Model{
         $achievement = Achievements::findOne($id);
         $achievement->title = $this->title;
         $achievement->description = $this->description;
+        $achievement->related = $this->related;
         $achievement->progress = $this->progress;
         $achievement->visible = $this->visible ? '1' : '0';
         if($file = UploadedFile::getInstance($this, 'image')){

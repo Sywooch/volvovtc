@@ -22,6 +22,11 @@ $this->title .= ' достижение - Volvo Trucks';
                 <div class="input-field">
                     <?= $form->field($model, 'progress')->input('number', ['min' => 1])->error(false) ?>
                 </div>
+                <div class="input-field">
+                    <?= $form->field($model, 'related', ['template' => '{input}{label}'])
+                        ->dropdownList(\yii\helpers\ArrayHelper::merge(['' => 'Без зависимости'], $related))
+                        ->error(false) ?>
+                </div>
                 <?= $form->field($model, 'visible', ['template' => '{input}{label}'])->checkbox(['label' => null])->label('Сделать достижение видимым') ?>
             </div>
         </div>

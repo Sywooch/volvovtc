@@ -5,6 +5,7 @@ namespace app\controllers;
 use app\models\AchievementsProgress;
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\ArrayHelper;
 use yii\web\Controller;
 use app\models\User;
 use app\models\Notifications;
@@ -48,12 +49,26 @@ class AchievementsController extends Controller{
         if(User::isVtcMember()){
             $query = Achievements::find();
             if(!User::isAdmin()) $query = $query->where(['visible' => '1']);
+            if(Yii::$app->request->get('q')){
+                $q = Yii::$app->request->get('q');
+                $query->where(['like', 'title', $q])
+                    ->orWhere(['like', 'description', $q]);
+            }
             $user_complete_ach = User::find()->select(['achievements'])->where(['id' => Yii::$app->user->id])->one();
             $user_ach_progress = AchievementsProgress::find()->select(['ach_id'])->where(['uid' => Yii::$app->user->id, 'complete' => 1])->asArray()->all();
+            $total = $query->count();
+            $pagination = new Pagination([
+                'defaultPageSize' => 15,
+                'totalCount' => $total
+            ]);
             return $this->render('index', [
-                'achievements' => $query->orderBy(['sort' => SORT_DESC])->all(),
+                'achievements' => $query->orderBy(['sort' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all(),
                 'user_complete_ach' => unserialize($user_complete_ach->achievements),
-                'user_ach_progress' => $user_ach_progress
+                'user_ach_progress' => $user_ach_progress,
+                'currentPage' => Yii::$app->request->get('page', 1),
+                'totalPages' => $pagination->getPageCount(),
+                'pagination' => $pagination,
+                'total' => $total,
             ]);
         }else{
             return $this->render('//site/error');
@@ -71,7 +86,8 @@ class AchievementsController extends Controller{
                 }
             }
             return $this->render('add_achievement', [
-                'model' => $model
+                'model' => $model,
+                'related' => ArrayHelper::map(Achievements::find()->asArray()->all(), 'id', 'title')
             ]);
         }else{
             return $this->render('//site/error');
@@ -89,7 +105,8 @@ class AchievementsController extends Controller{
                 }
             }
             return $this->render('add_achievement', [
-                'model' => $model
+                'model' => $model,
+                'related' => ArrayHelper::map(Achievements::find()->asArray()->all(), 'id', 'title')
             ]);
         }else{
             return $this->render('//site/error');
