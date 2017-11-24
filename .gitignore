@@ -29,6 +29,13 @@ phpunit.phar
 tests/_output/*
 tests/_support/_generated
 
+
+#CUSTOM RULES
+
+#db config file
+
+/config/db.php
+
 #image directories
 
 /web/images/users/*
