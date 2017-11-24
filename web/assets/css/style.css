@@ -286,7 +286,7 @@ th.first .preloader-wrapper{vertical-align: middle;}
 /* achievements */
 .achievement-action-dropdown-button{ cursor: pointer; margin-right: 0 !important;}
 .achievement-dropdown{display: none; position: absolute; right: 0; padding: 0;}
-.achievement-dropdown.active{display: block;}
+.achievement-dropdown.active{display: block; z-index: 2;}
 .achievement-dropdown li a{display: block; margin: 0 !important; padding: 10px;}
 .achievement-dropdown li a:hover{background-color: rgba(0,0,0,0.05);}
 .complete-achievement{position: absolute;left: 0;right: 0;height: 100%;line-height: 100%;z-index: 1;justify-content: center;
