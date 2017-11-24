@@ -24,17 +24,13 @@ class AddConvoyForm extends Model{
     public $departure_time;
     public $meeting_time;
     public $date;
-    public $trailer_picture;
-    public $trailer_name;
-    public $trailer = array();
+    public $trailer = array(['0']);
     public $truck_var;
     public $communications;
     public $author;
+    public $game;
     public $visible = true;
     public $open = false;
-    public $dlc_ge = false;
-    public $dlc_s = false;
-    public $dlc_vlv = false;
     public $dlc = array();
     public $map_remove = false;
     public $attach_var_photo = false;
@@ -66,6 +62,7 @@ class AddConvoyForm extends Model{
             $this->extra_picture = $convoy->extra_picture;
             $this->add_info = $convoy->add_info;
             $this->author = $convoy->author;
+            $this->game = $convoy->game;
             $this->dlc = unserialize($convoy->dlc);
         }
     }
@@ -73,10 +70,10 @@ class AddConvoyForm extends Model{
     public function rules() {
         return [
             [['start_city', 'start_company', 'finish_city', 'finish_company', 'server', 'departure_time', 'date'], 'required'],
-            [['rest', 'description', 'length', 'trailer_name', 'title', 'communications', 'meeting_time'], 'string'],
+            [['rest', 'description', 'length', 'title', 'communications', 'meeting_time'], 'string'],
             [['extra_picture', 'picture_full', 'picture_small'], 'file', 'extensions' => 'png, jpg'],
             [['open', 'visible', 'map_remove', 'attach_var_photo'], 'boolean'],
-            [['add_info', 'author'], 'string'],
+            [['add_info', 'author', 'game'], 'string'],
             [['dlc', 'trailer', 'truck_var'], 'safe']
         ];
     }
@@ -99,8 +96,6 @@ class AddConvoyForm extends Model{
             'departure_time' => 'Время выезда (по МСК)',
             'meeting_time' => 'Время сбора (по МСК)',
             'date' => 'Дата проведения конвоя',
-            'trailer_picture' => 'Изображение груза/трейлера',
-            'trailer_name' => 'Название груза/трейлера',
             'trailer' => 'Трейлер',
             'truck_picture' => 'Изображение тягача',
             'truck_var' => 'Вариации тягача',
@@ -138,6 +133,7 @@ class AddConvoyForm extends Model{
         $convoy->communications = $this->communications;
         $convoy->add_info = $this->add_info;
         $convoy->author = $this->author;
+        $convoy->game = Yii::$app->request->get('game');
         if($convoy->save() == 1){
             if($map_full = UploadedFile::getInstance($this, 'picture_full')){
                 $convoy->picture_full = $convoy->id.'-f.'.$map_full->extension;

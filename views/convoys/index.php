@@ -170,7 +170,11 @@ $this->title = 'Конвои Volvo Trucks';
     <?php endif ?>
     <?php if(\app\models\User::isAdmin()) : ?>
         <div class="fixed-action-btn">
-            <a href="<?=Url::to(['convoys/add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
+            <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
+            <ul>
+                <li><a href="<?=Url::to(['convoys/add', 'game' => 'ets'])?>" class="btn-floating red tooltipped" data-position="left" data-tooltip="Сделать конвой по ETS2">E</a></li>
+                <li><a href="<?=Url::to(['convoys/add', 'game' => 'ats'])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="Сделать конвой по ATS">A</a></li>
+            </ul>
         </div>
     <?php endif; ?>
 </div>

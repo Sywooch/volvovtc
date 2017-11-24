@@ -83,10 +83,10 @@ class ConvoysController extends Controller{
                     $errors[] = 'Ошибка при добавлении';
                 }
             }
-            return $this->render('add_convoy', [
+            return $this->render('edit_convoy', [
                 'model' => $model,
-                'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа']),
-                'servers' => TruckersMP::getServersList()
+                'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], Yii::$app->request->get('game', 'ets')),
+                'servers' => TruckersMP::getServersList(Yii::$app->request->get('game', 'ets'))
             ]);
         }else{
             return $this->render('//site/error');
@@ -104,9 +104,9 @@ class ConvoysController extends Controller{
             }else{
                 return $this->render('edit_convoy', [
                     'model' => $model,
-                    'trailers' => Trailers::find()->select(['id', 'name'])->orderBy(['name' => SORT_ASC])->all(),
+                    'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], $model->game),
                     'trailers_data' => Convoys::getTrailerData($model->trailer),
-                    'servers' => TruckersMP::getServersList()
+                    'servers' => TruckersMP::getServersList($model->game)
                 ]);
             }
         }else{

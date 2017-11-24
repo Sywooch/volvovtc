@@ -5,7 +5,10 @@ use yii\helpers\Url;
 use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
-$this->title = 'Редактировать конвой - Volvo Trucks';
+if(!$model->game) $model->game = Yii::$app->request->get('game');
+$this->title = Yii::$app->controller->action->id == 'add' ? 'Добавить конвой' : 'Редактировать конвой' ;
+$this->title .= $model->game == 'ets' ? ' по ETS2' : ' по ATS';
+$this->title .= ' - Volvo Trucks';
 $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/cities.js?t='.time(),  ['position' => yii\web\View::POS_END]);
 $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/select2.min.js?t='.time(),  ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
 $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2.min.css?t='.time());
@@ -14,6 +17,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
 ?>
 
 <div class="container">
+    <h5 class="light"><?= str_replace(' - Volvo Trucks', '', $this->title) ?></h5>
     <div class="row">
         <?php $form = ActiveForm::begin([
             'options' => ['enctype' => 'multipart/form-data']
@@ -47,24 +51,39 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                     <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
                 </div>
                 <div class="center">
-                    <?= $form->field($model, 'dlc[Going East!]', [
-                        'template' => '{input}{label}',
-                        'options' => [
-                            'tag' => false
-                        ]
-                    ])->checkbox(['label' => null])->error(false)->label('DLC Going East!') ?>
-                    <?= $form->field($model, 'dlc[Scandinavia]', [
-                        'template' => '{input}{label}',
-                        'options' => [
-                            'tag' => false
-                        ]
-                    ])->checkbox(['label' => null])->error(false)->label('DLC Scandinavia') ?>
-                    <?= $form->field($model, 'dlc[Viva La France!]', [
-                        'template' => '{input}{label}',
-                        'options' => [
-                            'tag' => false
-                        ]
-                    ])->checkbox(['label' => null])->error(false)->label('DLC Viva La France!') ?>
+                    <?php if($model->game == 'ets') : ?>
+                        <?= $form->field($model, 'dlc[Going East!]', [
+                            'template' => '{input}{label}',
+                            'options' => [
+                                'tag' => false
+                            ]
+                        ])->checkbox(['label' => null])->error(false)->label('DLC Going East!') ?>
+                        <?= $form->field($model, 'dlc[Scandinavia]', [
+                            'template' => '{input}{label}',
+                            'options' => [
+                                'tag' => false
+                            ]
+                        ])->checkbox(['label' => null])->error(false)->label('DLC Scandinavia') ?>
+                        <?= $form->field($model, 'dlc[Viva La France!]', [
+                            'template' => '{input}{label}',
+                            'options' => [
+                                'tag' => false
+                            ]
+                        ])->checkbox(['label' => null])->error(false)->label('DLC Viva La France!') ?>
+<!--                        --><?//= $form->field($model, 'dlc[Italia]', [
+//                            'template' => '{input}{label}',
+//                            'options' => [
+//                                'tag' => false
+//                            ]
+//                        ])->checkbox(['label' => null])->error(false)->label('DLC Italia') ?>
+                    <?php else : ?>
+                        <?= $form->field($model, 'dlc[New Mexico]', [
+                            'template' => '{input}{label}',
+                            'options' => [
+                                'tag' => false
+                            ]
+                        ])->checkbox(['label' => null])->error(false)->label('DLC New Mexico') ?>
+                    <?php endif ?>
                 </div>
             </div>
         </div>
@@ -102,17 +121,19 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Маршрут</h5>
+                <?php $class = 'autocomplete';
+                if($model->game == 'ats') $class .= '-ats'; ?>
                 <div class="input-field">
-                    <?= $form->field($model, 'start_city')->textInput(['class' => 'autocomplete-city', 'autocomplete' => 'off'])->error(false) ?>
+                    <?= $form->field($model, 'start_city')->textInput(['class' => $class.'-city', 'autocomplete' => 'off'])->error(false) ?>
                 </div>
                 <div class="input-field">
-                    <?= $form->field($model, 'start_company')->textInput(['class' => 'autocomplete-company', 'autocomplete' => 'off'])->error(false) ?>
+                    <?= $form->field($model, 'start_company')->textInput(['class' => $class.'-company', 'autocomplete' => 'off'])->error(false) ?>
                 </div>
                 <div class="input-field">
-                    <?= $form->field($model, 'finish_city')->textInput(['class' => 'autocomplete-city', 'autocomplete' => 'off'])->error(false) ?>
+                    <?= $form->field($model, 'finish_city')->textInput(['class' => $class.'-city', 'autocomplete' => 'off'])->error(false) ?>
                 </div>
                 <div class="input-field">
-                    <?= $form->field($model, 'finish_company')->textInput(['class' => 'autocomplete-company', 'autocomplete' => 'off'])->error(false) ?>
+                    <?= $form->field($model, 'finish_company')->textInput(['class' => $class.'-company', 'autocomplete' => 'off'])->error(false) ?>
                 </div>
                 <div class="input-field">
                     <?= $form->field($model, 'rest')->textInput()->error(false) ?>
@@ -127,27 +148,20 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
             <div class="card-panel grey lighten-4">
                 <h5 class="light" style="padding-bottom: 10px">Дополнительная информация</h5>
                 <div class="input-field">
-                    <?= $form->field($model, 'truck_var', ['template' => '{input}{label}'])->dropdownList([
-                        '0' => 'Любая вариация',
-                        '1' => 'Вариация №1',
-                        '2' => 'Вариация №2.1 или 2.2',
-                        '21' => 'Вариация №2.1',
-                        '22' => 'Вариация №2.2',
-                        '3' => 'Вариация №3',
-                        '4' => 'Вариация №1 или №2',
-                        '5' => 'Вариация №1 или №3',
-                        '6' => 'Тягач, как в описании',
-                        '7' => 'Легковой автомобиль Scout',
-                    ])->error(false) ?>
+                    <?= $form->field($model, 'truck_var', ['template' => '{input}{label}'])
+                        ->dropdownList(\app\models\Convoys::getVariationsByGame($model->game))
+                        ->error(false) ?>
                 </div>
-                <?= $form->field($model, 'attach_var_photo', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->label('Прикрепить фото вариации') ?>
+                <?php if($model->game == 'ets'): ?>
+                    <?= $form->field($model, 'attach_var_photo', ['template' => '<div>{input}{label}</div>'])
+                        ->checkbox(['label' => null])->label('Прикрепить фото вариации') ?>
+                <?php endif ?>
                 <?php foreach($model->trailer as $key => $trailer) : ?>
                     <div class="row inner">
                         <div class="col l11 s10" style="padding-bottom: 20px;">
                             <?php if($key == 0) : ?><label class="control-label">Прицепы</label><?php endif ?>
                             <?= $form->field($model, 'trailer['.$key.']')
-                                ->dropdownList(ArrayHelper::merge(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], ArrayHelper::map($trailers, 'id', 'name')), [
+                                ->dropdownList($trailers, [
                                     'id' => 'trailer-select-'.$key,
                                     'class' => 'browser-default trailers-select',
                                     'data-target' => 'trailers'])
@@ -190,11 +204,17 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                         case '1' :
                         default: $cols = 12;break;
                     } ?>
-                    <?php foreach($model->trailer as $key => $trailer) : ?>
+                    <?php if(Yii::$app->controller->action->id == 'edit'){
+                        foreach($model->trailer as $key => $trailer) : ?>
+                            <div class="trailer-preview col s<?=$cols?>">
+                                <img src="<?= Yii::$app->request->baseUrl . '/images/' . $trailers_data[$key] ?>" class="responsive-img z-depth-2 materialboxed" id="trailer-image-<?= $key ?>">
+                            </div>
+                        <?php endforeach;
+                    }else{ ?>
                         <div class="trailer-preview col s<?=$cols?>">
-                            <img src="<?= Yii::$app->request->baseUrl . '/images/' . $trailers_data[$key] ?>" class="responsive-img z-depth-2 materialboxed" id="trailer-image-<?= $key ?>">
+                            <img src="<?= Yii::$app->request->baseUrl . '/images/trailers/default.jpg' ?>" class="responsive-img z-depth-2 materialboxed" id="trailer-image-0">
                         </div>
-                    <?php endforeach ?>
+                    <?php } ?>
                     <div class="clearfix"></div>
                 </div>
                 <?php if($model->extra_picture) : ?>

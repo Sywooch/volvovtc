@@ -236,7 +236,7 @@ function renderTrailersPreview(target){
                     $('#trailer-description').html(response.trailers[0].description);
                     $('#trailer-image').attr('src', '/images/trailers/'+response.trailers[0].picture);
                 }else{
-                    var cols = '1';
+                    var cols = '12';
                     switch(response.trailers.length){
                         case 4 : cols = '6'; break;
                         case 3 : cols = '4'; break;

@@ -135,9 +135,82 @@ $(document).ready(function(){
             'Wien' : null,
             'Wroclaw' : null,
             'Zurich' : null
-        },
-        limit: 5, // The max amount of results that can be shown at once. Default: Infinity.
-        minLength: 2, // The minimum length of the input for the autocomplete to start. Default: 1.
+        }
+    });
+
+    $('input.autocomplete-ats-city').autocomplete({
+        data: {
+            'Alamogordo' : null,
+            'Albuquerque' : null,
+            'Artesia' : null,
+            'Bakersfield' : null,
+            'Barstow' : null,
+            'Camp Verde' : null,
+            'Carlsbad (California)' : null,
+            'Carlsbad (New Mexico)' : null,
+            'Carrizozo*' : null,
+            'Carson City' : null,
+            'Clovis' : null,
+            'Corona*' : null,
+            'Eagle Nest*' : null,
+            'Ehrenberg' : null,
+            'El Centro' : null,
+            'Elko' : null,
+            'Ely' : null,
+            'Eureka' : null,
+            'Farmington' : null,
+            'Flagstaff' : null,
+            'Fresno' : null,
+            'Gallup' : null,
+            'Globe*' : null,
+            'Grand Canyon Village' : null,
+            'Hobbs' : null,
+            'Holbrook' : null,
+            'Hornbrook' : null,
+            'Huron' : null,
+            'Jackpot' : null,
+            'Kayenta' : null,
+            'Kingman' : null,
+            'Las Cruces' : null,
+            'Las Vegas' : null,
+            'Los Angeles' : null,
+            'Nogales' : null,
+            'Oakdale' : null,
+            'Oakland' : null,
+            'Omega*' : null,
+            'Oxnard' : null,
+            'Page' : null,
+            'Phoenix' : null,
+            'Pioche' : null,
+            'Primm' : null,
+            'Quemado*' : null,
+            'Raton' : null,
+            'Redding' : null,
+            'Reno' : null,
+            'Roswell' : null,
+            'Sacramento' : null,
+            'San Diego' : null,
+            'San Francisco' : null,
+            'San Rafael' : null,
+            'San Simon' : null,
+            'Santa Cruz' : null,
+            'Santa Fe' : null,
+            'Santa Maria' : null,
+            'Santa Rosa*' : null,
+            'Shiprock*' : null,
+            'Show Low' : null,
+            'Sierra Vista' : null,
+            'Socorro' : null,
+            'Stockton' : null,
+            'Tonopah' : null,
+            'Truckee' : null,
+            'Tucson' : null,
+            'Tucumcari' : null,
+            'Ukiah' : null,
+            'Vaughn*' : null,
+            'Winnemucca' : null,
+            'Yuma' : null
+        }
     });
 
     $('input.autocomplete-company').autocomplete({
@@ -212,13 +285,37 @@ $(document).ready(function(){
             'VPC' : null,
             'WGCC': null,
             'Wilnet Transport' : null
-        },
-        limit: 20, // The max amount of results that can be shown at once. Default: Infinity.
-        onAutocomplete: function(val) {
-            // Callback function when value is autcompleted.
-        },
-        minLength: 1, // The minimum length of the input for the autocomplete to start. Default: 1.
+        }
     });
 
+$('input.autocomplete-ats-company').autocomplete({
+        data: {
+            '42 Print' : null,
+            'ABQ Cargo Center' : null,
+            'Bitumen' : null,
+            'Bushnell Farms' : null,
+            'Charged' : null,
+            'Chemso' : null,
+            'Coastline Mining' : null,
+            'Darchelle Uzau' : null,
+            'Eddy\'s' : null,
+            'Gallon' : null,
+            'Glasson' : null,
+            'Global Mills' : null,
+            'HMS' : null,
+            'Lumber Jill' : null,
+            'Oakland Shippers' : null,
+            'Phoenix Freight' : null,
+            'Plaster & Sons' : null,
+            'Port of San Francisco' : null,
+            'Rail Export' : null,
+            'Sell Goods' : null,
+            'Sunshine Crops' : null,
+            'Tidbit' : null,
+            'Voltison Motors' : null,
+            'Wallbert' : null,
+            'Zereva Clinical' : null
+        }
+    });
 
 });

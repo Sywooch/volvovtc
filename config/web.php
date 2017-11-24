@@ -74,6 +74,7 @@ $config = [
                 'convoys/<id:\d+>/' => 'convoys/index',
                 'convoys' => 'convoys/index',
                 'convoys/<action:\w+>/<id:\d+>/' => 'convoys/<action>',
+                'convoys/<action:\w+>/<game:\w+>/' => 'convoys/<action>',
                 'convoys/<action:\w+>/' => 'convoys/<action>',
 
                 // members

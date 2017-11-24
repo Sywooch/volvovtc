@@ -16,12 +16,13 @@ class Convoys extends ActiveRecord{
         return [
             [['truck_var', 'time', 'date', 'updated'], 'safe'],
             [['visible', 'open', 'updated_by'], 'integer'],
-            [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'trailer_name', 'extra_picture'], 'string', 'max' => 255],
-            [['rest'], 'string', 'max' => 1024],
             [['description'], 'string', 'max' => 2048],
+            [['rest'], 'string', 'max' => 1024],
             [['add_info'], 'string', 'max' => 512],
-            [['server', 'trailer_picture'], 'string', 'max' => 45],
+            [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'extra_picture'], 'string', 'max' => 255],
+            [['server'], 'string', 'max' => 45],
             [['length'], 'string', 'max' => 10],
+            [['game'], 'string', 'max' => 3],
             [['dlc', 'trailer', 'author'], 'string']
         ];
     }
@@ -97,6 +98,30 @@ class Convoys extends ActiveRecord{
             default: $server = 'Europe 2'; break;
         }
         return $server;
+    }
+
+    public static function getVariationsByGame($game = 'ets'){
+        if($game == 'ets'){
+            $vars = [
+                '0' => 'Любая вариация',
+                '1' => 'Вариация №1',
+                '2' => 'Вариация №2.1 или 2.2',
+                '21' => 'Вариация №2.1',
+                '22' => 'Вариация №2.2',
+                '3' => 'Вариация №3',
+                '4' => 'Вариация №1 или №2',
+                '5' => 'Вариация №1 или №3',
+                '6' => 'Тягач, как в описании',
+                '7' => 'Легковой автомобиль Scout',
+            ];
+        }else if($game == 'ats'){
+            $vars = [
+                '0' => 'Любой тягач',
+                '6' => 'Тягач, как в описании',
+                '7' => 'Легковой автомобиль Scout',
+            ];
+        }
+        return $vars;
     }
 
     public static function getVariationName($short, $link = false){

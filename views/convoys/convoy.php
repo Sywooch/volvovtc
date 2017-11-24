@@ -136,7 +136,11 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                         <h5 class="card-title light">
                             Вариаци<?= $convoy->truck_var == 2 || $convoy->truck_var == 4 || $convoy->truck_var == 5 ? 'и' : 'я' ?> на конвой:
                         </h5>
-                        <?= Convoys::getVarList(explode(',', $convoy->truck_var)[0], explode(',', $convoy->truck_var)[1] == '1') ?>
+                        <?php if($convoy->game == 'ats') : ?>
+                            <?= str_replace('Любая вариация', 'Любой тягач', Convoys::getVarList(explode(',', $convoy->truck_var)[0], explode(',', $convoy->truck_var)[1] == '1')) ?>
+                        <?php else : ?>
+                            <?= Convoys::getVarList(explode(',', $convoy->truck_var)[0], explode(',', $convoy->truck_var)[1] == '1') ?>
+                        <?php endif ?>
                         <?php if($convoy->add_info) : ?>
                             <p><?= $convoy->add_info ?></p>
                         <?php endif ?>

@@ -8,7 +8,7 @@ $this->title = 'Выставить баллы за конвой';
 
 <div class="container">
     <?php if($convoy->scores_set == '1') : ?>
-        <h5 class="light">Выставление балов за этот конвой уже не требуется.</h5>
+        <h5 class="light">Выставление баллов за этот конвой уже не требуется.</h5>
     <?php else: ?>
         <h5 class="light">
             Выставление баллов за

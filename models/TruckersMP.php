@@ -37,11 +37,19 @@ class TruckersMP{
         }
     }
 
-    public static function getServersList(){
+    public static function getServersList($game = null){
         $servers = self::getServersInfo();
         $servers_list = array();
-        foreach($servers->response as $server){
-            $servers_list[$server->game][$server->shortname . '_' . $server->game] = $server->name;
+        if($game != null){
+            foreach($servers->response as $server){
+                if($game == 'ets' && $server->game == 'ETS2' || $game == 'ats' && $server->game == 'ATS'){
+                    $servers_list[$server->shortname . '_' . $server->game] = $server->name;
+                }
+            }
+        }else{
+            foreach($servers->response as $server){
+                $servers_list[$server->game][$server->shortname . '_' . $server->game] = $server->name;
+            }
         }
         return $servers_list;
     }
