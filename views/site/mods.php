@@ -107,7 +107,7 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                         <div class="collapsible-body">
                             <p>Для корректной работы программы нужно открыть <b>config.cfg</b> через текстовый редактор и
                                 в параметре <b>g_save_format</b> изменить значение <b>0</b> на <b>2</b>.</p>
-                            <h6><a href="http://sharemods.com/5ndssisr2gn1/TEDIT_v4.11.rar.html" target="_blank">Скачать TEDIT v4.11</a></h6>
+                            <h6><a href="<?= Yii::$app->request->baseUrl ?>/TEDIT_4_18_5_1.zip" target="_blank">Скачать TEDIT v4.18.5.1</a></h6>
                             <div class="video-container">
                                 <iframe width="560" height="315" src="https://www.youtube.com/embed/XOYwF48E_PU?rel=0" frameborder="0" allowfullscreen></iframe>
                             </div>
