@@ -57,32 +57,32 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                             'options' => [
                                 'tag' => false
                             ]
-                        ])->checkbox(['label' => null])->error(false)->label('DLC Going East!') ?>
+                        ])->checkbox(['label' => null])->error(false)->label('Going East!') ?>
                         <?= $form->field($model, 'dlc[Scandinavia]', [
                             'template' => '{input}{label}',
                             'options' => [
                                 'tag' => false
                             ]
-                        ])->checkbox(['label' => null])->error(false)->label('DLC Scandinavia') ?>
+                        ])->checkbox(['label' => null])->error(false)->label('Scandinavia') ?>
                         <?= $form->field($model, 'dlc[Viva La France!]', [
                             'template' => '{input}{label}',
                             'options' => [
                                 'tag' => false
                             ]
-                        ])->checkbox(['label' => null])->error(false)->label('DLC Viva La France!') ?>
-<!--                        --><?//= $form->field($model, 'dlc[Italia]', [
-//                            'template' => '{input}{label}',
-//                            'options' => [
-//                                'tag' => false
-//                            ]
-//                        ])->checkbox(['label' => null])->error(false)->label('DLC Italia') ?>
+                        ])->checkbox(['label' => null])->error(false)->label('Viva La France!') ?>
+                        <?= $form->field($model, 'dlc[Italia]', [
+                            'template' => '{input}{label}',
+                            'options' => [
+                                'tag' => false
+                            ]
+                        ])->checkbox(['label' => null])->error(false)->label('Italia') ?>
                     <?php else : ?>
                         <?= $form->field($model, 'dlc[New Mexico]', [
                             'template' => '{input}{label}',
                             'options' => [
                                 'tag' => false
                             ]
-                        ])->checkbox(['label' => null])->error(false)->label('DLC New Mexico') ?>
+                        ])->checkbox(['label' => null])->error(false)->label('New Mexico') ?>
                     <?php endif ?>
                 </div>
             </div>
