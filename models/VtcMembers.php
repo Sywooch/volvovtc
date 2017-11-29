@@ -38,7 +38,7 @@ class VtcMembers extends ActiveRecord{
         foreach($all_members as $member){
             if(in_array($member->post_id, $posts)){
                 $member->user_id = User::findOne($member->user_id);
-                $member->post_id = VtcPositions::find()->select(['name', 'admin'])->where(['id' => $member->post_id])->one();
+                $member->post_id = VtcPositions::find()->where(['id' => $member->post_id])->one();
                 if($member->user_id->truckersmp != '' && $get_bans){
                     $member->banned = TruckersMP::isMemberBanned($member->user_id->truckersmp);
                 }
@@ -85,6 +85,7 @@ class VtcMembers extends ActiveRecord{
             $member->scores_other = intval($member->scores_other) + intval($scores);
             $member->scores_total = intval($member->scores_total) + intval($scores);
         }
+        $member->additional = self::updateAdditionalByScores($member);
         $member->scores_updated = date('Y-m-d H:i');
         $member->scores_history = self::setScoresHistory($member->scores_history, ['total' => $member->scores_total, 'month' => $member->scores_month, 'other' => $member->scores_other]);
         if($member->update() !== false){
@@ -92,6 +93,14 @@ class VtcMembers extends ActiveRecord{
             return ['other' => $member->scores_other, 'month' => $member->scores_month, 'total' => $member->scores_total, 'updated' => date('d.m.y H:i')];
         }
         return false;
+    }
+
+    public static function updateAdditionalByScores($member){
+        $additional = '';
+        if($member->post_id == '2' && $member->scores_total >= 100) $additional = 'На 3 категорию';
+        if(($member->post_id == '3' || $member->post_id == '2') && $member->scores_total >= 200) $additional = 'На 2 категорию';
+        if(($member->post_id == '4' || $member->post_id == '3' || $member->post_id == '2') && $member->scores_total >= 400) $additional = 'На 1 категорию';
+        return $additional;
     }
 
     public static function cleanVacations(){

@@ -123,11 +123,12 @@ class MemberForm extends Model{
         $member->scores_total = $this->scores_total;
         $member->scores_month = $this->scores_month;
         $member->scores_other = $this->scores_other;
+        $member->additional = $this->additional;
+        $member->additional = VtcMembers::updateAdditionalByScores($member);
         $member->exam_driving = $this->exam_driving ? '1' : '0';
         $member->exam_3_cat = $this->exam_3_cat ? '1' : '0';
         $member->exam_2_cat = $this->exam_2_cat ? '1' : '0';
         $member->exam_1_cat = $this->exam_1_cat ? '1' : '0';
-        $member->additional = $this->additional;
         $member->post_id = $this->post_id;
         $member->start_date = $this->start_date;
         $user->vk = $this->vk;

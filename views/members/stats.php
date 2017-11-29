@@ -18,12 +18,14 @@ $this->title = 'Статистика Volvo Trucks';
                 <th colspan="3">Баллы</th>
                 <th colspan="2">Экзамены</th>
                 <th>Возраст</th>
+                <th>Дополнительно</th>
                 <?php if(\app\models\User::isAdmin()) : ?>
                     <th></th>
                 <?php endif ?>
             </tr>
             </thead>
             <?php $i = 1;
+            $last_position = end($all_members);
             foreach($all_members as $post => $members): ?>
                 <thead>
                 <tr class="grey lighten-1">
@@ -39,6 +41,9 @@ $this->title = 'Статистика Volvo Trucks';
                     <th>Парковка</th>
                     <th>Вождение</th>
                     <th></th>
+                    <th><?php if($members == $last_position) : ?>
+                        В компании с:
+                    <?php endif ?></th>
                     <?php if(\app\models\User::isAdmin()) : ?>
                         <th></th>
                     <?php endif ?>
@@ -158,6 +163,11 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php endif ?>
                         </td>
                         <td><?= \app\models\User::getUserAge($member->user_id->birth_date) ?></td>
+                        <td><?php if($member->post_id->id == '1') : ?>
+                            <?= \app\controllers\SiteController::getRuDate($member->start_date) ?>
+                        <?php else: ?>
+                            <?= $member->additional ?>
+                        <?php endif ?></td>
                         <?php if(\app\models\User::isAdmin()) : ?>
                             <td><a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed notranslate">edit</a></td>
                         <?php endif ?>
