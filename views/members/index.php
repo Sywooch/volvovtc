@@ -37,6 +37,12 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                     <a href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="fs17">Профиль</a>
                     <?php if(\app\models\User::isAdmin()) : ?>
                         <a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="fs17">Редактировать</a>
+                        <a href="<?= Url::to(['members/resort', 'id' => $member->id, 'dir' => 'down']) ?>">
+                            <i class="material-icons notranslate to-text">keyboard_arrow_down</i>
+                        </a>
+                        <a href="<?= Url::to(['members/resort', 'id' => $member->id, 'dir' => 'up']) ?>">
+                            <i class="material-icons notranslate to-text">keyboard_arrow_up</i>
+                        </a>
                     <?php endif ?>
                     <ul class="user-links right" style="width: 84px;">
                         <?php if($member->user_id->vk) : ?>

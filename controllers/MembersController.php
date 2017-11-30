@@ -126,4 +126,14 @@ class MembersController extends Controller{
         }
     }
 
+    public function actionResort(){
+        if(Yii::$app->request->get('id') && User::isAdmin()
+            && (Yii::$app->request->get('dir') == 'down' || Yii::$app->request->get('dir') == 'up')){
+            VtcMembers::resortMembers(Yii::$app->request->get('id'));
+            return $this->redirect(['members/index']);
+        }else{
+            return $this->render('//site/error');
+        }
+    }
+
 }

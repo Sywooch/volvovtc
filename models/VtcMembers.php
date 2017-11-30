@@ -18,7 +18,7 @@ class VtcMembers extends ActiveRecord{
         return [
             [['user_id'], 'required'],
             [['user_id', 'can_lead', 'can_center', 'can_close', 'scores_total', 'scores_month', 'scores_other',
-                'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id', 'vacation_undefined'], 'integer'],
+                'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id', 'vacation_undefined', 'sort'], 'integer'],
             [['vacation', 'start_date'], 'safe'],
             [['additional'], 'string', 'max' => 1024],
             [['scores_history'], 'string', 'max' => 2048],
@@ -49,9 +49,9 @@ class VtcMembers extends ActiveRecord{
         return $members;
     }
 
-    public static function getAllMembers($order_by_start_date = true){
+    public static function getAllMembers($order_by_sort = true){
         $members =  VtcMembers::find();
-        if($order_by_start_date) $members = $members->orderBy('start_date');
+        if($order_by_sort) $members = $members->orderBy(['sort' => SORT_ASC, 'start_date' => SORT_DESC]);
         $members = $members->all();
         foreach($members as $member){
             $member->user_id = User::findOne($member->user_id);
@@ -186,6 +186,24 @@ class VtcMembers extends ActiveRecord{
             $scores_history = serialize([$new_score]);
         }
         return $scores_history;
+    }
+
+    public static function resortMembers($id){
+        $member = VtcMembers::findOne($id);
+        $member_2 = VtcMembers::find();
+        if(Yii::$app->request->get('dir') === 'down'){
+            $member_2 = $member_2->where(['>', 'sort', $member->sort])->orderBy(['sort' => SORT_ASC]);
+        }elseif(Yii::$app->request->get('dir') === 'up'){
+            $member_2 = $member_2->where(['<', 'sort', $member->sort])->orderBy(['sort' => SORT_DESC]);
+        }
+        $member_2 = $member_2->one();
+        if($member_2 == null) return true;
+        $memberSort_2 = $member_2->sort;
+        $sortTmp = $memberSort_2;
+        $memberSort_2 = $member->sort;
+        $member->sort = $sortTmp;
+        $member_2->sort = $memberSort_2;
+        return $member_2->update() == 1 && $member->update() == 1 ? true : false;
     }
 
 }

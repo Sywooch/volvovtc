@@ -79,6 +79,7 @@ $config = [
 
                 // members
                 'members' => 'members/index',
+                'members/<action:\w+>/<id:\d+>/<dir:\w+>/' => 'members/<action>',
                 'members/<action:\w+>/<id:\d+>/' => 'members/<action>',
                 'members/<action:\w+>/' => 'members/<action>',
 
