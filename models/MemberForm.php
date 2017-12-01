@@ -10,6 +10,7 @@ use yii\web\UploadedFile;
 class MemberForm extends Model{
 
     public $id;
+    public $user_id;
     public $vacation;
     public $vacation_undefined = false;
     public $can_lead = false;
@@ -27,6 +28,7 @@ class MemberForm extends Model{
     public $post_id;
     public $start_date;
     public $notify = array();
+    public $achievements = array();
 
     public $vk;
     public $steam;
@@ -41,7 +43,11 @@ class MemberForm extends Model{
             $member = VtcMembers::findOne($id);
             $user = User::findOne($member->user_id);
             $this->id = $id;
+            $this->user_id = $user->id;
             $this->vacation = $member->vacation;
+            foreach (unserialize($user->achievements) as $achievement){
+                $this->achievements[$achievement] = true;
+            }
             $this->vacation_undefined = $member->vacation_undefined == '1';
             $this->can_lead = $member->can_lead == '1';
             $this->can_center = $member->can_center == '1';
@@ -71,7 +77,7 @@ class MemberForm extends Model{
         return [
             [['can_lead', 'can_center', 'can_close', 'scores_total', 'scores_month', 'scores_other',
                 'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id'], 'integer'],
-            [['vacation', 'start_date'], 'safe'],
+            [['vacation', 'start_date', 'achievements'], 'safe'],
             [['vacation_undefined'], 'boolean'],
             [['additional', 'vk', 'steam', 'first_name', 'last_name', 'nickname', 'birth_date'], 'string', 'max' => 1024],
             [['notify'], function($attribute, $params){
@@ -118,7 +124,10 @@ class MemberForm extends Model{
         $member->can_close = $this->can_close ? '1' : '0';
         if($member->scores_total != $this->scores_total){
             $member->scores_updated = date('Y-m-d H:i');
-            $member->scores_history = VtcMembers::setScoresHistory($member->scores_history, ['total' => $this->scores_total, 'month' => $this->scores_month, 'other' => $this->scores_other]);
+            $member->scores_history = VtcMembers::setScoresHistory($member->scores_history, [
+                'total' => $this->scores_total,
+                'month' => $this->scores_month,
+                'other' => $this->scores_other]);
         }
         $member->scores_total = $this->scores_total;
         $member->scores_month = $this->scores_month;
@@ -139,6 +148,10 @@ class MemberForm extends Model{
         $user->last_name = $this->last_name;
         $user->birth_date = $this->birth_date;
         $user->nickname = $this->nickname;
+        foreach($this->achievements as $id => $achievement){
+            if($achievement) $achievements[] = $id;
+        }
+        $user->achievements = serialize($achievements);
         if($member->update() !== false && $user->update() !== false){
             foreach ($this->notify as $key => $value){
                 if($value != '0' && $value != ''){

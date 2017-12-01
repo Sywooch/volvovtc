@@ -86,7 +86,7 @@ AppAsset::register($this);
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                     <li><a href="<?=Url::to(['appeals/index'])?>">ЖАЛОБЫ</a></li>
-<!--                                    <li><a href="--><?//=Url::to(['achievements/index'])?><!--">ДОСТИЖЕНИЯ</a></li>-->
+                                    <li><a href="--><?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -151,7 +151,7 @@ AppAsset::register($this);
                                 <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                 <li><a href="<?=Url::to(['trailers/index'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                 <li><a href="<?=Url::to(['appeals/index'])?>"><i class="material-icons notranslate left">info</i>ЖАЛОБЫ</a></li>
-<!--                                <li><a href="--><?//=Url::to(['achievements/index'])?><!--"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>-->
+                                <li><a href="<?=Url::to(['achievements/index'])?>"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>
                             </ul>
                         </li>
                     <?php else: ?>

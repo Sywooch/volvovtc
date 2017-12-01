@@ -159,6 +159,54 @@ $this->title = 'Редактирование информации о водит�
                 <?= $form->field($model, 'notify[custom]')->textInput(['maxlength' => '255'])->label('Кастомный текст') ?>
             </div>
         </div>
+        <div class="col s12">
+            <ul class="collapsible grey lighten-4">
+                <li>
+                    <div class="collapsible-header grey lighten-4"><i class="material-icons">stars</i>Достижения сотрудника</div>
+                    <div class="collapsible-body">
+                        <table class="member-achievements highlight">
+                            <thead>
+                                <tr>
+                                    <th>Название</th>
+                                    <th class="center">Описание</th>
+                                    <th class="center">Этапов выполнено</th>
+                                    <th class="center">Всего этапов</th>
+                                    <th class="center">Выполнено</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <?php foreach($all_achievements as $achievement):
+                                    $complete = in_array($achievement->id, $model->achievements) ?>
+                                    <tr class="achievement">
+                                        <td>
+                                            <a href="<?= Url::to(['achievements/edit', 'id' => $achievement->id]) ?>" class="truncate">
+                                                <?= $achievement->title ?></a>
+                                        </td>
+                                        <td class="truncate center"><?= $achievement->description ?></td>
+                                        <td class="center">
+                                            <?php $count = 0;
+                                            foreach ($achievements_progress as $ach){
+                                                if($ach['ach_id'] == $achievement->id) $count++;
+                                            }?>
+                                            <?= $count ?>
+                                        </td>
+                                        <td class="center"><?= $achievement->progress ?></td>
+                                        <td class="center">
+                                            <?= $form->field($model, 'achievements['.$achievement->id.']', [
+                                                'template' => '{input}{label}',
+                                                'options' => [
+                                                    'tag' => false
+                                                ]
+                                            ])->checkbox(['label' => null])->error(false)->label('') ?>
+                                        </td>
+                                    </tr>
+                                <?php endforeach ?>
+                            </tbody>
+                        </table>
+                    </div>
+                </li>
+            </ul>
+        </div>
         <?php if($model->scores_history) :
         $scores = unserialize($model->scores_history); ?>
             <div class="col s12">

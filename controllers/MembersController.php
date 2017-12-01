@@ -2,6 +2,8 @@
 
 namespace app\controllers;
 
+use app\models\Achievements;
+use app\models\AchievementsProgress;
 use app\models\MemberForm;
 use app\models\Notifications;
 use app\models\User;
@@ -64,7 +66,13 @@ class MembersController extends Controller{
                 }
             }
             return $this->render('edit', [
-                'model' => $model
+                'model' => $model,
+                'all_achievements' => Achievements::find()->all(),
+                'achievements_progress' => AchievementsProgress::find()
+                    ->select(['ach_id'])
+                    ->where(['uid' => $model->user_id, 'complete' => 1])
+                    ->asArray()
+                    ->all()
             ]);
         }else{
             return $this->render('//site/error');
