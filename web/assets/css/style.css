@@ -72,6 +72,7 @@ table.highlight>tbody>tr.yellow:hover{ background-color: #f1eab4 !important;}
 .parallax-title{ position: absolute; bottom:0;}
 .parallax-container.parallax-shadow{box-shadow: inset 1px -9px 14px -8px rgba(0,0,0,0.3);}
 .preloader{ width: 19.5px; height: 19.5px; vertical-align: middle; margin-right: 15px;}
+.relative{ position: relative;}
 
 /* navbar */
 nav .nav-wrapper a{color: black;}
@@ -294,6 +295,7 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .achievement-related{position: absolute;top: 0;right: 0;height: 30px;width: 30px;z-index: 2;}
 .progress{margin: 0; background-color: rgba(13, 56, 150, 0.35);}
 .progress .determinate{background-color: #0d3896;}
+.moderate-count{position: absolute;bottom: 0px;height: 17px;line-height: 18px;left: 0;width: 100%;}
 
  /* datepicker */
 .picker__weekday-display{background-color: #072b7b;}

@@ -61,6 +61,10 @@ class AchievementsController extends Controller{
                 'defaultPageSize' => 15,
                 'totalCount' => $total
             ]);
+            $moderate_count = 0;
+            if(User::isAdmin()){
+                $moderate_count = AchievementsProgress::find()->where(['complete' => 0])->count();
+            }
             return $this->render('index', [
                 'achievements' => $query->orderBy(['sort' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all(),
                 'user_complete_ach' => unserialize($user_complete_ach->achievements),
@@ -69,6 +73,7 @@ class AchievementsController extends Controller{
                 'totalPages' => $pagination->getPageCount(),
                 'pagination' => $pagination,
                 'total' => $total,
+                'moderate_count' => $moderate_count
             ]);
         }else{
             return $this->render('//site/error');

@@ -168,10 +168,17 @@ $this->title = 'Достижения - Volvo Trucks';
     <?php } ?>
     <?php if(\app\models\User::isAdmin()): ?>
         <div class="fixed-action-btn tooltipped" data-position="left" data-tooltip="Новое достижение">
-            <a href="<?=Url::to(['achievements/add'])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
+            <a href="<?=Url::to(['achievements/add'])?>" class="btn-floating btn-large waves-effect waves-light red">
+                <i class="material-icons notranslate">add</i>
+            </a>
         </div>
         <div class="fixed-action-btn tooltipped" style="margin-bottom: 71px" data-position="left" data-tooltip="Модерация достижений">
-            <a href="<?=Url::to(['achievements/moderate'])?>" class="btn-floating btn-large waves-effect waves-light green"><i class="material-icons notranslate">check_circle</i></a>
+            <a href="<?=Url::to(['achievements/moderate'])?>" class="btn-floating btn-large waves-effect waves-light green">
+                <i class="material-icons notranslate">check_circle</i>
+                <?php if($moderate_count > 0) : ?>
+                    <span class="moderate-count white-text"><?= $moderate_count ?></span>
+                <?php endif ?>
+            </a>
         </div>
     <?php endif ?>
 </div>
