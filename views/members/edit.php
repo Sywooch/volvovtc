@@ -168,7 +168,6 @@ $this->title = 'Редактирование информации о водит�
                             <thead>
                                 <tr>
                                     <th>Название</th>
-                                    <th class="center">Описание</th>
                                     <th class="center">Этапов выполнено</th>
                                     <th class="center">Всего этапов</th>
                                     <th class="center">Выполнено</th>
@@ -178,11 +177,10 @@ $this->title = 'Редактирование информации о водит�
                                 <?php foreach($all_achievements as $achievement):
                                     $complete = in_array($achievement->id, $model->achievements) ?>
                                     <tr class="achievement">
-                                        <td>
+                                        <td style="max-width: 25%">
                                             <a href="<?= Url::to(['achievements/edit', 'id' => $achievement->id]) ?>" class="truncate">
                                                 <?= $achievement->title ?></a>
                                         </td>
-                                        <td class="truncate center"><?= $achievement->description ?></td>
                                         <td class="center">
                                             <?php $count = 0;
                                             foreach ($achievements_progress as $ach){
