@@ -86,7 +86,7 @@ AppAsset::register($this);
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                     <li><a href="<?=Url::to(['appeals/index'])?>">ЖАЛОБЫ</a></li>
-                                    <li><a href="--><?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
+                                    <li><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                                 </ul>
                             </div>
                         </li>
@@ -100,6 +100,11 @@ AppAsset::register($this);
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
                     <i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
             </li>
+            <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
+                <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>><a href="<?=Url::to(['achievements/index'])?>">
+                        <i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a>
+                </li>
+            <?php endif ?>
             <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">
                     <i class="material-icons notranslate">settings</i>МОДЫ</a>
             </li>
@@ -158,6 +163,9 @@ AppAsset::register($this);
                         <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">ВОДИТЕЛИ</a></li>
                     <?php endif ?>
                     <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">ЗАЯВЛЕНИЯ</a></li>
+                    <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
+                        <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
+                    <?php endif ?>
                     <?php if(Yii::$app->user->isGuest) : ?>
                     <li<?php if(Yii::$app->controller->action->id === 'login'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/login'])?>">ВОЙТИ</a></li>
                     <?php else : ?>
