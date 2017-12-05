@@ -40,14 +40,6 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                 <a href="<?=Url::to([
                                     'site/modifications',
                                     'game' => 'ets',
-                                    'category' => 'schwarzmullers',
-                                    'subcategory' => 'machinery'
-                                ])?>" class="btn indigo darken-3 waves-effect waves-light">Schwarzmüller</a>
-                            </li>
-                            <li>
-                                <a href="<?=Url::to([
-                                    'site/modifications',
-                                    'game' => 'ets',
                                     'category' => 'coloredtrailers',
                                     'subcategory' => 'containerscurtainsliders'
                                 ])?>" class="btn indigo darken-3 waves-effect waves-light">Цветные прицепы</a>
