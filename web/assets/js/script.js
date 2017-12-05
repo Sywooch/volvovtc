@@ -216,7 +216,6 @@ $(document).on('ready', function(){
     });
 
     $('#signupform-visible_truckersmp, #profileform-visible_truckersmp').change(function(){
-        //console.log($(this)[0].checked);
         $(this)[0].checked ? $('#signupform-truckersmp, #profileform-truckersmp').show() : $('#signupform-truckersmp, #profileform-truckersmp').hide();
     });
 
@@ -250,9 +249,9 @@ $(document).on('ready', function(){
         }
     });
 
-    $(document).on('click', '.modal .modal-close, .modal-overlay', function(){
-        $('.modal h4').html('Сброс пароля');
-        $('.modal p').html('Укажите свой E-Mail, и мы отправим Вам ссылку для сброса пароля.');
+    $(document).on('click', '.modal.reset-pwd .modal-close, .modal-overlay', function(){
+        $('.modal .reset-pwd-title').html('Сброс пароля');
+        $('.modal .reset-pwd-text').html('Укажите свой E-Mail, и мы отправим Вам ссылку для сброса пароля.');
         $('.send-reset').show();
         $('.modal .input-field').show();
        // $('#modal1').modal('close');
@@ -301,6 +300,40 @@ $(document).on('ready', function(){
         }else{
             console.log('error');
         }
+    });
+
+    $('.convoy-participants button').click(function(){
+        var button = $(this);
+        var participate = button.data('participate');
+        var userId = button.parents('.participate-btns').data('uid');
+        var convoyId = button.parents('.participate-btns').data('cid');
+        $.ajax({
+            url : '/convoys/participants',
+            type: 'POST',
+            data: {
+                participate : participate,
+                user_id : userId,
+                convoy_id : convoyId
+            },
+            cache: false,
+            dataType: 'json',
+            beforeSend : function(){
+                button.animate({opacity: 0.5}, 300, function(){
+                    button.append(getPreloaderHtml('tiny', 'spinner-blue-only'));
+                });
+            },
+            success : function(response){
+                if(response.status == 'OK'){
+                    $('.participants-count').html(response.participants[100].length);
+                    $('.participate-btns button').removeClass('disabled');
+                    button.addClass('disabled');
+                }
+            },
+            complete : function(){
+                button.css('opacity', '1');
+                $('.participate-btns button').find('.preloader-wrapper').remove();
+            }
+        });
     });
 
 });

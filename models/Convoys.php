@@ -4,6 +4,7 @@ namespace app\models;
 
 use Yii;
 use yii\db\ActiveRecord;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 
 class Convoys extends ActiveRecord{
@@ -17,7 +18,7 @@ class Convoys extends ActiveRecord{
             [['truck_var', 'time', 'date', 'updated'], 'safe'],
             [['visible', 'open', 'updated_by'], 'integer'],
             [['description'], 'string', 'max' => 2048],
-            [['rest'], 'string', 'max' => 1024],
+            [['rest', 'participants'], 'string', 'max' => 1024],
             [['add_info'], 'string', 'max' => 512],
             [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'extra_picture'], 'string', 'max' => 255],
             [['server'], 'string', 'max' => 45],
@@ -41,7 +42,7 @@ class Convoys extends ActiveRecord{
         $convoys_query = Convoys::find()->select(['id', 'picture_small', 'title', 'departure_time', 'visible'])
             ->andWhere(['>=', 'departure_time', gmdate('Y-m-d ').(intval(gmdate('H'))+2).':'.gmdate('i:s')]);
         if(!User::isVtcMember()) $convoys_query = $convoys_query->andWhere(['open' => '1']); // only open convoys for guests
-        if(!User::isAdmin()) $convoys_query = $convoys_query->andWhere(['visible' => '1']); // ony visible convoys for non-admins
+        if(!User::isAdmin()) $convoys_query = $convoys_query->andWhere(['visible' => '1']); // only visible convoys for non-admins
         $convoys = $convoys_query->orderBy(['date' => SORT_ASC])->all();
         return $convoys;
     }
@@ -209,6 +210,28 @@ class Convoys extends ActiveRecord{
             }
         }
         return true;
+    }
+
+    public static function changeConvoyParticipants($id, $user_id, $participate){
+        $convoy = Convoys::findOne($id);
+        $participants = unserialize($convoy->participants);
+        $new_participants = [
+            '100' => [],
+            '50' => [],
+            '0' => [],
+        ];
+        if($participants){
+            foreach ($participants as $key => $participant) {
+                foreach ($participant as $index => $val) {
+                    if ($val != $user_id) {
+                        $new_participants[$key][] = $val;
+                    }
+                }
+            }
+        }
+        $new_participants[$participate][] = intval($user_id);
+        $convoy->participants = serialize($new_participants);
+        return $convoy->update() !== false ? $new_participants : $participants;
     }
 
 }

@@ -75,6 +75,35 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                         </ul>
                     </div>
                 </div>
+                <?php $datetime1 = new DateTime($convoy->departure_time);
+                $datetime2 = new DateTime('now');
+                $interval = $datetime1->diff($datetime2); ?>
+                <?php if(!($interval->format('%h') >= '2' || $interval->format('%a') > '0') || $interval->format('%R') == '-') : ?>
+                    <div class="clearfix convoy-participants">
+                        <h5 class="light center">Подтвердили участие:
+                            <?php  ?>
+                            <?php if(is_array($participants) && key_exists('100',$participants) && count($participants['100']) > 0) : ?>
+                                <a href="#modal" class="modal-trigger participants-count"><?= count($participants['100']) ?></a>
+                            <?php else: ?>
+                                <span class="participants-count">0</span>
+                            <?php endif ?>
+                        </h5>
+                        <?php if(!is_array($participants)) $convoy->participants = ['100' => [], '50' => [], '0' => []];
+                        if(!Yii::$app->user->isGuest) : ?>
+                            <div class="flex-justify-center participate-btns" data-uid="<?= Yii::$app->user->id ?>" data-cid="<?= Yii::$app->request->get('id') ?>">
+                                <button class="btn green darken-3<?php if(in_array(Yii::$app->user->id, $convoy->participants['100'])) echo ' disabled' ?>" data-participate="100">
+                                    Точно поеду
+                                </button>
+                                <button class="btn yellow darken-4<?php if(in_array(Yii::$app->user->id, $convoy->participants['50'])) echo ' disabled' ?>" data-participate="50">
+                                    Возможно поеду
+                                </button>
+                                <button class="btn red darken-3<?php if(in_array(Yii::$app->user->id, $convoy->participants['0'])) echo ' disabled' ?>" data-participate="0">
+                                    Не поеду
+                                </button>
+                            </div>
+                        <?php endif ?>
+                    </div>
+                <?php endif ?>
             </div>
             <?php if($convoy->author) : ?>
                 <h6 class="grey-text">Конвой сделал: <?= $convoy->author ?></h6>
@@ -115,7 +144,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                                 <p><?= $convoy->add_info ?></p>
                             <?php endif ?>
                             <?php if($convoy->extra_picture) : ?>
-                                <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
+                                <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%">
                             <?php endif ?>
                         </div>
                         <div class="col m6 s12">
@@ -155,6 +184,67 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                         <?= \app\models\Trailers::getTrailersListHtml($convoy->trailer) ?>
                     </div>
                 </div>
+            </div>
+        </div>
+    <?php endif ?>
+    <?php if(is_array($participants) && key_exists('100',$participants) && count($participants['100']) > 0) : ?>
+        <div id="modal" class="modal modal-fixed-footer">
+            <div class="modal-content">
+                <h4>Подтвердили участие в конвое:</h4>
+                <ul class="participants-list collection">
+                    <?php foreach($participants['100'] as $participant) : ?>
+                        <li class="participant-item collection-item avatar">
+                            <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
+                                <img src="<?= Yii::$app->request->baseUrl ?>/images/users/<?= $participant->picture ?>" class="circle">
+                            </a>
+                            <span style="font-size: 1.64rem" class="light">
+                                <?php if($participant->company) : ?>
+                                    [<?= $participant->company ?>]
+                                <?php endif ?>
+                                <?= $participant->nickname ?>
+                            </span>
+                        </li>
+                    <?php endforeach ?>
+                </ul>
+                <?php if(key_exists('50', $participants)): ?>
+                <h4>Возможно поедут:</h4>
+                <ul class="participants-list collection">
+                        <?php foreach($participants['50'] as $participant) : ?>
+                            <li class="participant-item collection-item avatar">
+                                <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
+                                    <img src="<?= Yii::$app->request->baseUrl ?>/images/users/<?= $participant->picture ?>" class="circle">
+                                </a>
+                                <span style="font-size: 1.64rem" class="light">
+                                    <?php if($participant->company) : ?>
+                                        [<?= $participant->company ?>]
+                                    <?php endif ?>
+                                    <?= $participant->nickname ?>
+                                </span>
+                            </li>
+                        <?php endforeach ;
+                    endif ?>
+                </ul>
+                <?php if(key_exists('0', $participants)): ?>
+                <h4>Отказались от участия:</h4>
+                <ul class="participants-list collection">
+                        <?php foreach($participants['0'] as $participant) : ?>
+                            <li class="participant-item collection-item avatar grey lighten-4">
+                                <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
+                                    <img src="<?= Yii::$app->request->baseUrl ?>/images/users/<?= $participant->picture ?>" class="circle">
+                                </a>
+                                <span style="font-size: 1.64rem" class="light">
+                                    <?php if($participant->company) : ?>
+                                        [<?= $participant->company ?>]
+                                    <?php endif ?>
+                                    <?= $participant->nickname ?>
+                                </span>
+                            </li>
+                        <?php endforeach;
+                    endif ?>
+                </ul>
+            </div>
+            <div class="modal-footer">
+                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Закрыть</a>
             </div>
         </div>
     <?php endif ?>

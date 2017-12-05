@@ -167,6 +167,9 @@ class AddConvoyForm extends Model{
         $convoy->length = $this->length;
         $convoy->date = $this->date;
         $date = new \DateTime($this->date);
+        if($convoy->departure_time != $date->format('Y-m-d ').$this->departure_time){
+            $convoy->participants = null;
+        }
         $convoy->departure_time = $date->format('Y-m-d ').$this->departure_time;
         $convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
         if(new \DateTime($convoy->departure_time) > new \DateTime()){
@@ -206,7 +209,7 @@ class AddConvoyForm extends Model{
             $convoy->extra_picture = $convoy->id.'-1.'.$trailer->extension;
             $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
         }
-        return $convoy->update() !== false ? true : false;
+        return $convoy->update() !== false;
     }
 
 }

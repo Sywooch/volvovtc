@@ -53,15 +53,33 @@ class ConvoysController extends Controller{
             $convoy->server = TruckersMP::getServerName($convoy->server);
             $convoy->date = SiteController::getRuDate($convoy->date);
             $convoy->trailer = unserialize($convoy->trailer);
+            $convoy->participants = unserialize($convoy->participants);
+            $participants = null;
+            if($convoy->participants){
+                $participants = array();
+                foreach ($convoy->participants as $key => $participant){
+                    foreach ($participant as $id){
+                        if($id) {
+                            $participants[$key][$id] = User::find()
+                                ->select(['id', 'company', 'nickname', 'picture'])
+                                ->where(['id' => $id])
+                                ->one();
+                        }
+                    }
+                }
+            }
             return $this->render('convoy', [
-                'convoy' => $convoy
+                'convoy' => $convoy,
+                'participants' => $participants
             ]);
         }else{
             $hidden_convoys = Convoys::getPastConvoys();
             $convoy_need_scores = array();
-            foreach($hidden_convoys as $convoy){
-                if($convoy->scores_set == '0'){
-                    $convoy_need_scores[] = $convoy;
+            if($hidden_convoys){
+                foreach($hidden_convoys as $convoy){
+                    if($convoy->scores_set == '0'){
+                        $convoy_need_scores[] = $convoy;
+                    }
                 }
             }
             return $this->render('index', [
@@ -171,6 +189,22 @@ class ConvoysController extends Controller{
                 'convoy' => Convoys::findOne(Yii::$app->request->get('id')),
                 'all_members' => VtcMembers::getMembers()
             ]);
+        }else{
+            return $this->render('//site/error');
+        }
+    }
+
+    public function actionParticipants(){
+        if(Yii::$app->request->isAjax){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            $participants = Convoys::changeConvoyParticipants(
+                Yii::$app->request->post('convoy_id'),
+                Yii::$app->request->post('user_id'),
+                Yii::$app->request->post('participate'));
+            return [
+                'status' => 'OK',
+                'participants' => $participants
+            ];
         }else{
             return $this->render('//site/error');
         }

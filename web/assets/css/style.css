@@ -77,11 +77,11 @@ table.highlight>tbody>tr.yellow:hover{ background-color: #f1eab4 !important;}
 /* navbar */
 nav .nav-wrapper a{color: black;}
 .brand-logo img{height: 40px; padding-left: 10px; vertical-align: middle;}
-#profile-btn, #manage-btn{position: relative;}
-#profile-btn:hover #profile-dropdown, #manage-btn:hover #manage-dropdown{display: block;}
-#profile-dropdown, #manage-dropdown{position: absolute; right: 0; display: none; background-color: #fff;}
+#profile-btn, #manage-btn, #rules-btn{position: relative;}
+#profile-btn:hover #profile-dropdown, #manage-btn:hover #manage-dropdown, #rules-btn:hover #rules-dropdown{display: block;}
+#profile-dropdown, #manage-dropdown, #rules-dropdown{position: absolute; right: 0; display: none; background-color: #fff;}
 #profile-dropdown li, #manage-dropdown li{width: 100%;}
-#profile-dropdown li a, #manage-dropdown li a{min-width: 270px; white-space: nowrap}
+#profile-dropdown li a, #manage-dropdown li a, #rules-dropdown li a{min-width: 270px; white-space: nowrap}
 #notification-item{position: relative; color: #000; transition: .3s ease color, .3s ease background-color;}
 #notification-item .notification-list{display: none; position: absolute;right: 0;min-width: 400px;background-color: #fff;}
 #notification-item .notification-list li{padding: 0 0 0 10px; transition: 4s ease background-color; border-bottom: 1px solid #e6e6e6;}
@@ -175,6 +175,10 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 .var-list, .trailers-list{padding-left: 18px;}
 .trailers-list p, .var-list p{ margin: 0;}
 .trailers-list .trailer-name, .var-list .var-name{font-weight: bold; margin-top: 10px !important;}
+.convoy-participants button{ margin: 0 5px;}
+.participate-btns button{ position: relative;}
+.participate-btns .preloader-wrapper{ position: absolute; left:calc(50% - 15px);top: 5px;}
+.collection .collection-item.participant-item.avatar{min-height: 63px; line-height: 40px; background-color: #fafafa;}
 #trailer-info{ position: relative;}
 #trailer-info .preloader-wrapper{ position: absolute; left: calc(50% - 25px); top: calc(50% - 25px);}
 button.add-trailer, button.remove-trailer{height: 30px; vertical-align: bottom; line-height: 30px; border: 0; background-color: transparent; cursor: pointer;}

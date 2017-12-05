@@ -40,8 +40,8 @@ $this->title = 'Войти на сайт - Volvo Trucks';
 
 <div id="modal1" class="modal reset-pwd">
     <div class="modal-content row">
-        <h4>Сброс пароля</h4>
-        <p>Укажите свой E-Mail, и мы отправим Вам ссылку для сброса пароля.</p>
+        <h4 class="reset-pwd-title">Сброс пароля</h4>
+        <p class="reset-pwd-text">Укажите свой E-Mail, и мы отправим Вам ссылку для сброса пароля.</p>
         <div class="input-field col s9">
             <input id="email" type="email" class="validate">
             <label for="email" data-error="Укажите правильный E-Mail" data-success="">Ваш E-Mail</label>
