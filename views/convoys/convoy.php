@@ -82,8 +82,12 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     <div class="clearfix convoy-participants">
                         <h5 class="light center">Подтвердили участие:
                             <?php  ?>
-                            <?php if(is_array($participants) && key_exists('100',$participants) && count($participants['100']) > 0) : ?>
-                                <a href="#modal" class="modal-trigger participants-count"><?= count($participants['100']) ?></a>
+                            <?php if(is_array($participants) &&
+                                (key_exists('100',$participants) && count($participants['100']) > 0) ||
+                                (key_exists('50',$participants) && count($participants['50']) > 0)) : ?>
+                                <a href="#modal" class="modal-trigger participants-count">
+                                    <?= key_exists('100',$participants) ? count($participants['100']) : '0' ?>
+                                </a>
                             <?php else: ?>
                                 <span class="participants-count">0</span>
                             <?php endif ?>
@@ -187,28 +191,32 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             </div>
         </div>
     <?php endif ?>
-    <?php if(is_array($participants) && key_exists('100',$participants) && count($participants['100']) > 0) : ?>
+    <?php if(is_array($participants) &&
+        (key_exists('100',$participants) && count($participants['100']) > 0) ||
+        (key_exists('50',$participants) && count($participants['50']) > 0)) : ?>
         <div id="modal" class="modal modal-fixed-footer">
             <div class="modal-content">
-                <h4>Подтвердили участие в конвое:</h4>
-                <ul class="participants-list collection">
-                    <?php foreach($participants['100'] as $participant) : ?>
-                        <li class="participant-item collection-item avatar">
-                            <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
-                                <img src="<?= Yii::$app->request->baseUrl ?>/images/users/<?= $participant->picture ?>" class="circle">
-                            </a>
-                            <span style="font-size: 1.64rem" class="light">
-                                <?php if($participant->company) : ?>
-                                    [<?= $participant->company ?>]
-                                <?php endif ?>
-                                <?= $participant->nickname ?>
-                            </span>
-                        </li>
-                    <?php endforeach ?>
-                </ul>
-                <?php if(key_exists('50', $participants)): ?>
-                <h4>Возможно поедут:</h4>
-                <ul class="participants-list collection">
+                <?php if(key_exists('100',$participants)) : ?>
+                    <h4>Подтвердили участие в конвое:</h4>
+                    <ul class="participants-list collection">
+                        <?php foreach($participants['100'] as $participant) : ?>
+                            <li class="participant-item collection-item avatar">
+                                <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
+                                    <img src="<?= Yii::$app->request->baseUrl ?>/images/users/<?= $participant->picture ?>" class="circle">
+                                </a>
+                                <span style="font-size: 1.64rem" class="light">
+                                    <?php if($participant->company) : ?>
+                                        [<?= $participant->company ?>]
+                                    <?php endif ?>
+                                    <?= $participant->nickname ?>
+                                </span>
+                            </li>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif;
+                if(key_exists('50', $participants)): ?>
+                    <h4>Возможно поедут:</h4>
+                    <ul class="participants-list collection">
                         <?php foreach($participants['50'] as $participant) : ?>
                             <li class="participant-item collection-item avatar">
                                 <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
@@ -221,12 +229,12 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                                     <?= $participant->nickname ?>
                                 </span>
                             </li>
-                        <?php endforeach ;
-                    endif ?>
-                </ul>
-                <?php if(key_exists('0', $participants)): ?>
-                <h4>Отказались от участия:</h4>
-                <ul class="participants-list collection">
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif;
+                if(key_exists('0', $participants)): ?>
+                    <h4>Отказались от участия:</h4>
+                    <ul class="participants-list collection">
                         <?php foreach($participants['0'] as $participant) : ?>
                             <li class="participant-item collection-item avatar grey lighten-4">
                                 <a href="<?= Url::to(['site/profile', 'id' => $participant->id]) ?>">
@@ -239,9 +247,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                                     <?= $participant->nickname ?>
                                 </span>
                             </li>
-                        <?php endforeach;
-                    endif ?>
-                </ul>
+                        <?php endforeach ?>
+                    </ul>
+                <?php endif ?>
             </div>
             <div class="modal-footer">
                 <a class="modal-action modal-close waves-effect waves-green btn-flat ">Закрыть</a>
