@@ -139,7 +139,21 @@ AppAsset::register($this);
                     <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>>
                         <a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a>
                     </li>
-                    <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА</a></li>
+                    <li<?php if(Yii::$app->controller->action->id === 'rules'){?> class="active"<?php } ?> id="rules-btn">
+                        <a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА</a>
+                        <ul id="rules-dropdown" class="z-depth-2">
+                            <li>
+                                <a href="<?=Url::to(['site/variations', 'game' => 'ets2'])?>">
+                                    <i class="material-icons notranslate left">lightbulb_outline</i>ВАРИАЦИИ ТЯГАЧЕЙ
+                                </a>
+                            </li>
+<!--                            <li>-->
+<!--                                <a href="--><?//=Url::to(['site/exams'])?><!--">-->
+<!--                                    <i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ-->
+<!--                                </a>-->
+<!--                            </li>-->
+                        </ul>
+                    </li>
                     <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
                     <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
