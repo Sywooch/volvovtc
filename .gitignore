@@ -62,4 +62,11 @@ tests/_support/_generated
 #mods directory
 /web/mods/*
 
+#assets directory
+/web/assets/*
+!/web/assets/css
+!/web/assets/js
+!/web/assets/img
+!/web/assets/materialize
+
 !.htaccess

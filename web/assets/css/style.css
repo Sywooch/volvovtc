@@ -192,6 +192,10 @@ button.add-trailer, button.remove-trailer{height: 30px; vertical-align: bottom; 
 	.convoys .finish-place div{ float: none !important; text-align: center;}
     .convoys .arrow{transform: rotate(90deg);}
 }
+@media (max-width: 651px){
+	.participate-btns{ flex-direction: column; width: 70%; margin: 0 auto;}
+	.participate-btns button{ margin-bottom: 5px;}
+}
 
 /* members */
 .user-links{ margin: 0 auto;}
