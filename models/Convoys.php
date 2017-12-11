@@ -234,4 +234,25 @@ class Convoys extends ActiveRecord{
         return $convoy->update() !== false ? $new_participants : $participants;
     }
 
+    public static function getParticipantsData($array){
+        $new_participants = [
+            '100' => [],
+            '50' => [],
+            '0' => [],
+        ];
+        if($array){
+            foreach ($array as $participate => $participants){
+                foreach ($participants as $index => $participant) {
+                    if($participant){
+                        $new_participants[$participate][$index] = User::find()
+                            ->select(['id', 'nickname', 'company', 'picture'])
+                            ->where(['id' => $participant])
+                            ->one();
+                    }
+                }
+            }
+        }
+        return $new_participants;
+    }
+
 }

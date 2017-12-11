@@ -203,7 +203,7 @@ class ConvoysController extends Controller{
                 Yii::$app->request->post('participate'));
             return [
                 'status' => 'OK',
-                'participants' => $participants
+                'participants' => Convoys::getParticipantsData($participants)
             ];
         }else{
             return $this->render('//site/error');

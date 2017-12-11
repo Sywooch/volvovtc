@@ -81,10 +81,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 <?php if(!($interval->format('%h') >= '2' || $interval->format('%a') > '0') || $interval->format('%R') == '-') : ?>
                     <div class="clearfix convoy-participants">
                         <h5 class="light center">Подтвердили участие:
-                            <?php  ?>
-                            <?php if(is_array($participants) &&
-                                (key_exists('100',$participants) && count($participants['100']) > 0) ||
-                                (key_exists('50',$participants) && count($participants['50']) > 0)) : ?>
+                            <?php if($participants &&
+                                ((key_exists('100',$participants) && count($participants['100']) > 0) ||
+                                (key_exists('50',$participants) && count($participants['50']) > 0))) : ?>
                                 <a href="#modal" class="modal-trigger participants-count">
                                     <?= key_exists('100',$participants) ? count($participants['100']) : '0' ?>
                                 </a>
@@ -191,9 +190,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
             </div>
         </div>
     <?php endif ?>
-    <?php if(is_array($participants) &&
-        (key_exists('100',$participants) && count($participants['100']) > 0) ||
-        (key_exists('50',$participants) && count($participants['50']) > 0)) : ?>
+    <?php if($participants &&
+        ((key_exists('100',$participants) && count($participants['100']) > 0) ||
+        (key_exists('50',$participants) && count($participants['50']) > 0))) : ?>
         <div id="modal" class="modal modal-fixed-footer">
             <div class="modal-content">
                 <?php if(key_exists('100',$participants)) : ?>

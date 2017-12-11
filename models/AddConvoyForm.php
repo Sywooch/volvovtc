@@ -167,7 +167,7 @@ class AddConvoyForm extends Model{
         $convoy->length = $this->length;
         $convoy->date = $this->date;
         $date = new \DateTime($this->date);
-        if($convoy->departure_time != $date->format('Y-m-d ').$this->departure_time){
+        if($convoy->departure_time != $date->format('Y-m-d ').$this->departure_time.':00'){
             $convoy->participants = null;
         }
         $convoy->departure_time = $date->format('Y-m-d ').$this->departure_time;

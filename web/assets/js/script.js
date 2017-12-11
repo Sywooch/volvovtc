@@ -318,20 +318,21 @@ $(document).on('ready', function(){
             cache: false,
             dataType: 'json',
             beforeSend : function(){
-                button.animate({opacity: 0.5}, 300, function(){
-                    button.append(getPreloaderHtml('tiny', 'spinner-blue-only'));
-                });
+                button.css('opacity', '0.5').append(getPreloaderHtml('tiny', 'spinner-blue-only'));
             },
             success : function(response){
                 if(response.status == 'OK'){
                     $('.participants-count').html(response.participants[100].length);
                     $('.participate-btns button').removeClass('disabled');
                     button.addClass('disabled');
+                    if($('#modal').length){
+                        console.log('true');
+                    }
                 }
             },
             complete : function(){
                 button.css('opacity', '1');
-                $('.participate-btns button').find('.preloader-wrapper').remove();
+                $('.participate-btns').find('.preloader-wrapper').remove();
             }
         });
     });
