@@ -305,7 +305,6 @@ $(document).ready(function(){
             'Wilnet Transport' : null,
             'ACC' : null,
             'ACI SRL' : null,
-            'AA' : null,
             'Auto di Alonso' : null,
             'Cantiere Navale' : null,
             'Cargotras' : null,
