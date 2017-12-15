@@ -67,7 +67,7 @@ $this->title = 'Модификации для TruckersMP - Volvo Trucks';
                                     'site/modifications',
                                     'game' => 'ats',
                                     'category' => 'trailers',
-                                    'subcategory' => 'machinery'
+                                    'subcategory' => 'refrigerated'
                                 ])?>" class="btn indigo darken-3 waves-effect waves-light z-depth-3">Прицепы</a>
                             </li>
                             <li>

@@ -409,7 +409,7 @@ class SiteController extends Controller{
             $mods = $mods_query->andWhere(['game' => $game, 'category' => $category, 'subcategory' => $subcategory])->orderBy(['sort' => SORT_DESC])->all();
             $category = ModsCategories::findOne(['name' => $category, 'game' => $game]);
             $subcategory = ModsSubcategories::findOne(['name' => $subcategory, 'category_id' => $category->id]);
-            $all_subcategories = ModsSubcategories::findAll(['category_id' => $category->id]);
+            $all_subcategories = ModsSubcategories::find()->where(['category_id' => $category->id])->orderBy(['id' => SORT_ASC])->all();
             if(!$subcategory) return $this->redirect(['site/modifications']);
             return $this->render('mods_category', [
                 'mods' => $mods,
