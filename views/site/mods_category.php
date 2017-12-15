@@ -109,6 +109,7 @@ $this->title = $category->title . ' - '.$subcategory->title . ' - Volvo Trucks';
         <?php else: ?>
             <h5 class="light">Пока что нет модов в этой категории =(</h5>
         <?php endif ?>
+        <p class="grey-text light">Нужна модификация для мультиплеера? <a href="https://vk.com/im?sel=-105444090" target="_blank" style="text-decoration: underline;">Пиши нам!</a></p>
         <?php if(\app\models\User::isAdmin()): ?>
             <div class="fixed-action-btn">
                 <a href="<?=Url::to(['site/modifications', 'action' => 'add', 'cat' => $_GET['game'].'/'.$_GET['category'].'/'.Yii::$app->request->get('subcategory')])?>" class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
