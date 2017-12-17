@@ -9,6 +9,7 @@ $(document).on('ready', function(){
     $('select').material_select();
     $('.parallax').parallax();
     $('.modal').modal();
+    $('#step4').modal('open');
     $.extend($.fn.pickadate.defaults, {
         clear: 'Очистить',
         close: 'Закрыть',
@@ -333,6 +334,28 @@ $(document).on('ready', function(){
             complete : function(){
                 button.css('opacity', '1');
                 $('.participate-btns').find('.preloader-wrapper').remove();
+            }
+        });
+    });
+
+    $('#step4 a.modal-close').click(function(){
+        console.log($('#step4 #accept')[0]);
+        var uid = $(this).data('uid');
+        var complete = $('#step4 #accept')[0].checked;
+        $.ajax({
+            url : '/members/step4',
+            type: 'POST',
+            data: {
+                uid : uid,
+                complete : complete
+            },
+            cache: false,
+            dataType: 'json',
+            beforeSend : function(){
+                $('#step4').modal('close');
+            },
+            success : function(response){
+                console.log(response);
             }
         });
     });

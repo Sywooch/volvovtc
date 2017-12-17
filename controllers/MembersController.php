@@ -144,4 +144,18 @@ class MembersController extends Controller{
         }
     }
 
+    public function actionStep4(){
+        if(Yii::$app->request->isAjax && Yii::$app->request->post('uid')){
+            Yii::$app->response->format = Response::FORMAT_JSON;
+            if(Yii::$app->request->post('complete')){
+                VtcMembers::step4Complete(Yii::$app->request->post('uid'));
+            }
+            return [
+                'status' => 'OK'
+            ];
+        }else{
+            return $this->render('//site/error');
+        }
+    }
+
 }

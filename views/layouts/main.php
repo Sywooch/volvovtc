@@ -72,6 +72,9 @@ AppAsset::register($this);
                         <i class="material-icons notranslate">contacts</i>ВСТУПИТЬ</a>
                 </li>
             <?php endif ?>
+            <li<?php if(Yii::$app->controller->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['members/index'])?>">
+                    <i class="material-icons notranslate">supervisor_account</i>ВОДИТЕЛИ</a>
+            </li>
             <?php if(\app\models\User::isAdmin()) :
                 $c_id = ['trailers', 'achievements', 'members', 'appeals'];
                 $a_id = ['users']; ?>
@@ -81,32 +84,26 @@ AppAsset::register($this);
                             <a class="collapsible-header waves-effect"><i class="material-icons notranslate">view_module</i>УПРАВЛЕНИЕ</a>
                             <div class="collapsible-body">
                                 <ul>
-                                    <li><a href="<?=Url::to(['members/index'])?>">СОТРУДНИКИ</a></li>
                                     <li><a href="<?=Url::to(['members/stats'])?>">СТАТИСТИКА</a></li>
                                     <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                     <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                     <li><a href="<?=Url::to(['appeals/index'])?>">ЖАЛОБЫ</a></li>
-                                    <li><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                                 </ul>
                             </div>
                         </li>
                     </ul>
                 </li>
-            <?php else: ?>
-                <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
-                        <i class="material-icons notranslate">view_module</i>ВОДИТЕЛИ</a>
-                </li>
             <?php endif ?>
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">
                     <i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
             </li>
-            <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
+            <?php if(\app\models\User::isVtcMember()) : ?>
                 <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>><a href="<?=Url::to(['achievements/index'])?>">
                         <i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a>
                 </li>
             <?php endif ?>
-            <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">
-                    <i class="material-icons notranslate">settings</i>МОДЫ</a>
+            <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['modifications/index'])?>">
+                    <i class="material-icons notranslate">settings</i>МОДИФИКАЦИИ</a>
             </li>
             <?php if(Yii::$app->user->isGuest) : ?>
                 <li<?php if(Yii::$app->controller->action->id === 'login'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/login'])?>">
@@ -158,7 +155,7 @@ AppAsset::register($this);
                     <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
-                    <li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/modifications'])?>">МОДЫ</a></li>
+                    <li<?php if(Yii::$app->controller->id === 'mods'){?> class="active"<?php } ?>><a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a></li>
                     <?php if(\app\models\User::isAdmin()) :
                         $c_id = ['trailers', 'achievements', 'members', 'appeals'];
                         $a_id = ['users']; ?>
@@ -216,7 +213,13 @@ AppAsset::register($this);
         </nav>
     </div>
     <main class="<?= Yii::$app->controller->id ?> <?= Yii::$app->controller->action->id ?>">
+
         <?= $content ?>
+
+        <?php if(\app\models\User::isVtcMember() && !\app\models\VtcMembers::isCompleteStep4(Yii::$app->user->id)){
+            require_once 'member_modal.php';
+        } ?>
+
     </main>
     <footer class="page-footer grey lighten-3 ">
         <div class="container">
