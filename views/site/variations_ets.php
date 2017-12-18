@@ -24,6 +24,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                     <li><a href="#iveco">Iveco</a></li>
                 </ul>
             </li>
+            <li><a href="#trailer">Фирменный полуприцеп</a></li>
         </ul>
     </div>
     <div class="row" style="margin-top: 20px;">
@@ -211,15 +212,49 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div id="scania" class="card grey lighten-4 scrollspy">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/8">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scan1.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scan2.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanR.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanS.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanStr.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanR12.jpg">
                 </div>
-                <span class="card-title text-shadow">Scania R<br>Scania Streamline</span>
+                <span class="card-title text-shadow">Scania S<br>Scania R<br>Scania Streamline<br>Scania R 2012</span>
             </div>
             <div class="card-content">
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania R</div>
+                        <div class="collapsible-body grey lighten-4">
+                            <ul class="force-list-style">
+                                <li>Ребра передней маски, передняя маска, боковая панель - на выбор</li>
+                                <li>Передний логотип, эмблема - по желанию</li>
+                                <li>На решетку радиатора разрешается устанавливать до 4 лампочек</li>
+                                <li>Фары, дополнительные фары, фары на крыше - на выбор</li>
+                                <li>Козырьки: заводской вариант 1, заводской вариант 2 - по желанию</li>
+                                <li>Передние крылья, задние крылья - на выбор</li>
+                                <li>Передний бампер, задний бампер - на выбор</li>
+                                <li>Левый выхлоп: заводской вариант 1, заводской вариант 2 - по желанию</li>
+                                <li>Задние брызговики - по желанию</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania S</div>
+                        <div class="collapsible-body grey lighten-4">
+                            <ul class="force-list-style">
+                                <li>Ребра передней маски, передняя маска, боковая панель - на выбор</li>
+                                <li>Передний логотип, эмблема - по желанию</li>
+                                <li>На решетку радиатора разрешается устанавливать до 4 лампочек</li>
+                                <li>Фары, дополнительные фары, фары на крыше - на выбор</li>
+                                <li>Козырьки: заводской вариант 1, заводской вариант 2 - по желанию</li>
+                                <li>Передние крылья, задние крылья - на выбор</li>
+                                <li>Передний бампер, задний бампер - на выбор</li>
+                                <li>Левый выхлоп: заводской вариант 1, заводской вариант 2 - по желанию</li>
+                                <li>Задние брызговики - по желанию</li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania Streamline</div>
                         <div class="collapsible-body grey lighten-4">
                             <ul class="force-list-style">
                                 <li>Задний бампер, задние/передние брызговики на выбор</li>
@@ -231,7 +266,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                         </div>
                     </li>
                     <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania Streamline</div>
+                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania R 2012</div>
                         <div class="collapsible-body grey lighten-4">
                             <ul class="force-list-style">
                                 <li>Задний бампер, задние/передние брызговики на выбор</li>
@@ -378,6 +413,25 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                         </div>
                     </li>
                 </ul>
+            </div>
+        </div>
+    </div>
+    <div id="trailer" class="scrollspy">
+        <h5>Фирменные полуприцепы Volvo Trucks</h5>
+        <div class="card grey lighten-4">
+            <div class="card-image">
+                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/trailer.jpg">
+                <span class="card-title text-shadow">Чёрный рефрижератор Schwarzmüller<br>Белый рефрижератор Schwarzmüller</span>
+            </div>
+            <div class="card-content">
+                <a href="<?= Url::to([
+                    'modifications/category',
+                    'game' => 'ets',
+                    'category' => 'coloredtrailers',
+                    'subcategory' => 'refrigerated'
+                ]) ?>" class="btn-flat waves-effect">
+                    <i class="material-icons notranslate left">get_app</i>Скачать модификации
+                </a>
             </div>
         </div>
     </div>
