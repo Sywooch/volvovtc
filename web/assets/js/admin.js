@@ -154,9 +154,9 @@ $(document).ready(function(){
         readURL(this);
     });
 
-    $('.achievement-action-dropdown-button').click(function(){
-        $('.achievement-dropdown').not('#achievement-dropdown-'+$(this).data('id')).removeClass('active');
-        var list = $('#achievement-dropdown-'+$(this).data('id'));
+    $('.action-dropdown-button').click(function(){
+        $('.action-dropdown').not('#action-dropdown-'+$(this).data('id')).removeClass('active');
+        var list = $('#action-dropdown-'+$(this).data('id'));
         $(list).hasClass('active') ? $(list).removeClass('active') : $(list).addClass('active');
     });
 

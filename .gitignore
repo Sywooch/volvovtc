@@ -60,7 +60,7 @@ tests/_support/_generated
 /web/images/achievements/progress/*
 
 #mods directory
-/web/mods/*
+/web/mods_mp/*
 
 #assets directory
 /web/assets/*

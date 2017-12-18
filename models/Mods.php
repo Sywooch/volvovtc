@@ -18,27 +18,27 @@ class Mods extends ActiveRecord{
         ];
     }
 
-    public static function visibleMod($id){
+    public static function visibleMod($id, $action){
         $mod = Mods::findOne($id);
-        $mod->visible = Yii::$app->request->get('action') == 'show' ? '1' : '0';
+        $mod->visible = $action == 'show' ? '1' : '0';
         return $mod->update() == 1 ? true : false;
     }
 
     public static function deleteMod($id){
         $mod = Mods::findOne($id);
-        if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name)){
-            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name);
+        if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name)){
+            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
         }
         if($mod->picture && $mod->picture !== 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
         return $mod->delete();
     }
 
-    public static function resortMod($id){
+    public static function resortMod($id, $dir){
         $mod = Mods::findOne($id);
         $mod_2 = Mods::find()->where(['game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
-        if(Yii::$app->request->get('action') === 'sortup'){
+        if($dir === 'up'){
             $mod_2 = $mod_2->andWhere(['>', 'sort', $mod->sort])->orderBy(['sort' => SORT_ASC]);
-        }elseif(Yii::$app->request->get('action') === 'sortdown'){
+        }elseif($dir === 'down'){
             $mod_2 = $mod_2->andWhere(['<', 'sort', $mod->sort])->orderBy(['sort' => SORT_DESC]);
         }
         $mod_2 = $mod_2->one();
@@ -56,10 +56,11 @@ class Mods extends ActiveRecord{
         $name = '';
         $image = 'mods/default.jpg';
         if($mod->trailer && !$mod->picture) {
-            $trailer = \app\models\Trailers::findOne($mod->trailer);
-            $image = 'trailers/'.$trailer->picture;
-            $name = $trailer->name;
-            $description = $trailer->description;
+            if($trailer = \app\models\Trailers::findOne($mod->trailer)){
+                $image = 'trailers/'.$trailer->picture;
+                $name = $trailer->name;
+                $description = $trailer->description;
+            }
         }
         if($mod->picture){
             $image = 'mods/'. $mod->picture;

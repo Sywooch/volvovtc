@@ -13,6 +13,7 @@ class AddModForm extends Model{
     public $description;
     public $picture;
     public $file;
+    public $file_name;
     public $yandex_link;
     public $gdrive_link;
     public $mega_link;
@@ -33,6 +34,7 @@ class AddModForm extends Model{
             $this->mega_link = $mod->mega_link;
             $this->author = $mod->author;
             $this->trailer = $mod->trailer;
+            $this->file_name = $mod->file_name;
         }
     }
 
@@ -78,7 +80,7 @@ class AddModForm extends Model{
         $mod->sort = ($last_mod ? intval($last_mod->sort) : 0)+1;
         if($file = UploadedFile::getInstance($this, 'file')){
             $mod->file_name = $this->transliterate($file->name);
-            $file->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name);
+            $file->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
         }
         if($mod->save()){
             if($img = UploadedFile::getInstance($this, 'picture')){
@@ -107,7 +109,7 @@ class AddModForm extends Model{
         $mod->mega_link = $this->mega_link;
         $mod->author = $this->author;
         $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
-        if($this->trailer != '0') {
+        if($this->trailer != '0' && $mod->picture) {
             if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture)){
                 unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
             }
@@ -116,9 +118,9 @@ class AddModForm extends Model{
         $pic_change = false;
         $file_change = false;
         if($file = UploadedFile::getInstance($this, 'file')){
-            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name);
+            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
             $mod->file_name = $this->transliterate($file->name);
-            $file->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods/'.$mod->game.'/'.$mod->file_name);
+            $file->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
             $file_change = true;
         }
         if($img = UploadedFile::getInstance($this, 'picture')){

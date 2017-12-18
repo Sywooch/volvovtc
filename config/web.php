@@ -8,6 +8,7 @@ $config = [
     'id' => 'basic',
     'basePath' => dirname(__DIR__),
     'bootstrap' => ['log'],
+    'language' => 'ru-RU',
     'components' => [
         'request' => [
             // !!! insert a secret key in the following (if it is empty) - this is required by cookie validation
@@ -84,10 +85,12 @@ $config = [
                 'members/<action:\w+>/' => 'members/<action>',
 
                 // mods
-                'modifications/<game:\w+>/<category:\w+>/<subcategory:\w+>/' => 'site/modifications',
-                'modifications/<id:\d+>/<action:\w+>/' => 'site/modifications',
-                'modifications/<game:\w+>/<category:\w+>/' => 'site/modifications',
-                'modifications/<action:\w+>/' => 'site/modifications',
+                'modifications' => 'modifications/index',
+                'modifications/all/page/<page:\w+>/' => 'modifications/all',
+                'modifications/<game:\w+>/<category:\w+>/<subcategory:\w+>/' => 'modifications/category',
+                'modifications/<action:\w+>/<id:\d+>/' => 'modifications/<action>',
+                'modifications/<game:\w+>/<category:\w+>/' => 'modifications/category',
+                'modifications/<action:\w+>/' => 'modifications/<action>',
 
                 // news
                 'news/<id:\d+>/<action:\w+>/' => 'site/news',

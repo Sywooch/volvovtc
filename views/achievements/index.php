@@ -90,8 +90,8 @@ $this->title = 'Достижения - Volvo Trucks';
                                     <a href="#modal1" class="modal-trigger get-achievement" data-id="<?= $achievement->id ?>" data-title="<?= $achievement->title ?>">Выполнить</a>
                                 <?php endif ?>
                                 <?php if(\app\models\User::isAdmin()) : ?>
-                                    <a class='achievement-action-dropdown-button right' data-id="<?= $achievement->id ?>"><i class="material-icons notranslate">more_vert</i></a>
-                                    <ul id="achievement-dropdown-<?= $achievement->id ?>" class='achievement-dropdown card-panel grey lighten-4'>
+                                    <a class='action-dropdown-button right' data-id="<?= $achievement->id ?>"><i class="material-icons notranslate">more_vert</i></a>
+                                    <ul id="action-dropdown-<?= $achievement->id ?>" class='action-dropdown card-panel grey lighten-4'>
                                         <li class="clearfix">
                                             <a href="<?= Url::to(['achievements/edit', 'id' => $achievement->id]) ?>" class="indigo-text">
                                                 <i class="material-icons notranslate left">edit</i>Редактировать
