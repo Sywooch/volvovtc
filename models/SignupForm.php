@@ -9,7 +9,6 @@ class SignupForm extends Model{
 
     public $username;
     public $email;
-    public $visible_email = false;
     public $password;
     public $password_2;
     public $first_name;
@@ -26,7 +25,6 @@ class SignupForm extends Model{
     public $nickname;
     public $has_ats;
     public $has_ets;
-    public $company;
 
     public function rules() {
         return [
@@ -34,8 +32,8 @@ class SignupForm extends Model{
             [['password', 'password_2'], 'string', 'min' => 6],
             [['email'], 'email', 'message' => 'Невалидный E-Mail'],
             [['username', 'email', 'password', 'password_2', 'steam', 'vk'], 'trim'],
-            [['has_ets', 'has_ats', 'visible_email', 'visible_truckersmp', 'visible_steam'], 'boolean'],
-            [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'company', 'steamid64'], 'string'],
+            [['has_ets', 'has_ats', 'visible_truckersmp', 'visible_steam'], 'boolean'],
+            [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'steamid64'], 'string'],
             [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'https', 'message' => 'Неправильная ссылка'],
             [['email'], 'checkEmail'],
             [['steam'], 'checkSteam'],
@@ -81,7 +79,6 @@ class SignupForm extends Model{
         $user = new User();
         $user->email = $this->email;
         $user->username = $this->username;
-        $user->visible_email = $this->visible_email ? '1' : '0';
         $user->password = Yii::$app->security->generatePasswordHash($this->password);
         $user->first_name = $this->first_name;
         $user->last_name = $this->last_name;
@@ -95,7 +92,6 @@ class SignupForm extends Model{
         $user->visible_steam = $this->visible_steam;
         $user->nickname = $this->nickname;
         $user->birth_date = $this->birth_date;
-        $user->company = $this->company;
         $user->has_ets = $this->has_ets ? '1' : '0';
         $user->has_ats = $this->has_ats ? '1' : '0';
         $user->auth_key = Yii::$app->security->generateRandomString();

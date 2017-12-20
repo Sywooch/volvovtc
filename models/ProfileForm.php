@@ -11,7 +11,6 @@ class ProfileForm extends Model{
 
     public $username;
     public $email;
-    public $visible_email;
     public $password;
     public $password_new;
     public $password_new_2;
@@ -29,7 +28,6 @@ class ProfileForm extends Model{
     public $has_ats;
     public $has_ets;
     public $nickname;
-    public $company;
     public $picture;
     public $bg_image;
 
@@ -39,12 +37,12 @@ class ProfileForm extends Model{
             [['username', 'email', 'steam', 'vk'], 'trim'],
             [['username'], 'checkUsername'],
             [['email'], 'checkEmail'],
-            [['visible_email', 'has_ats', 'has_ets'], 'boolean'],
+            [['has_ats', 'has_ets'], 'boolean'],
             [['email'], 'email', 'message' => 'Неправильный E-Mail'],
             [['vk', 'steam', 'truckersmp'], 'url', 'defaultScheme' => 'https', 'message' => 'Неправильная ссылка'],
             [['steam'], 'checkSteam'],
             [['vk'], 'checkVk'],
-            [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname', 'company'], 'string']
+            [['first_name', 'last_name', 'country', 'city', 'birth_date', 'nickname'], 'string']
         ];
     }
 
@@ -87,7 +85,6 @@ class ProfileForm extends Model{
         if(isset($_POST['save_profile'])){
             $user->username = $form['username'];
             $user->email = $form['email'];
-            $user->visible_email = $form['visible_email'];
             $user->has_ats = $form['has_ats'];
             $user->has_ets = $form['has_ets'];
             $user->vk = $form['vk'];
@@ -105,7 +102,6 @@ class ProfileForm extends Model{
             $user->city = $form['city'];
             $user->birth_date = $form['birth_date'];
             $user->nickname = $form['nickname'];
-            $user->company = $form['company'];
             if($image = UploadedFile::getInstance($this, 'picture')){
                 if($user->picture !== 'default.jpg'){
                     unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/'.$user->picture);
@@ -144,7 +140,6 @@ class ProfileForm extends Model{
     private function updateIdentity($data){
         Yii::$app->user->identity->username = $data['username'];
         Yii::$app->user->identity->email = $data['email'];
-        Yii::$app->user->identity->visible_email = $data['visible_email'];
         Yii::$app->user->identity->has_ats = $data['has_ats'];
         Yii::$app->user->identity->has_ets = $data['has_ets'];
         Yii::$app->user->identity->vk = $data['vk'];
@@ -159,7 +154,6 @@ class ProfileForm extends Model{
         Yii::$app->user->identity->city = $data['city'];
         Yii::$app->user->identity->birth_date = $data['birth_date'];
         Yii::$app->user->identity->nickname = $data['nickname'];
-        Yii::$app->user->identity->company = $data['company'];
     }
 
     public static function updateImage($id, $file) {

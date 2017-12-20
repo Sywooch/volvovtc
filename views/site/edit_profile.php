@@ -19,19 +19,6 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
         ]);?>
     <div class="card grey lighten-4">
         <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/bg/<?= $user->bg_image ?>)">
-            <div class="profile-img z-depth-3" id="preview" style="background-image: url(<?=Yii::$app->request->baseUrl.'/images/users/'.$user->picture.'?t='.time()?>)">
-                <label class="overlay valign-wrapper">
-                    <i class="material-icons notranslate medium">file_upload</i>
-                    <?= $form->field($model, 'picture', [
-                        'template' => '<div>{input}{label}</div>',
-                        'options' => ['class' => 'false',]
-                    ])->fileInput([
-                        'id' => 'file_input',
-                        'style' => 'display: none',
-                        'accept' => 'image/*'
-                    ])->label(false) ?>
-                </label>
-            </div>
             <div class="bg-img">
                 <label class="overlay valign-wrapper">
                     <i class="material-icons notranslate medium">file_upload</i>
@@ -45,89 +32,98 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
                     ])->label(false) ?>
                 </label>
             </div>
-            <span class="card-title text-shadow">Редактирование профиля</span>
         </div>
-        <div class="card-content row">
-            <div class="col l6 s12">
-                <?= $form->field($model, 'first_name')->textInput([
-                    'value' => $user->first_name,
-                    'readonly' => $member ? 'true' : false
-                ])->label('Имя') ?>
-                <?= $form->field($model, 'last_name')->textInput([
-                    'value' => $user->last_name,
-                    'readonly' => $member ? 'true' : false
-                ])->label('Фамилия') ?>
-                <?= $form->field($model, 'username')->textInput([
-                    'required' => 'required',
-                    'value' => Yii::$app->user->identity->username
-                ])->label('Логин*')->error(false) ?>
-                <?= $form->field($model, 'email')->input('email', [
-                    'required' => 'required',
-                    'value' => $user->email
-                ])->label('E-Mail*')->error(false) ?>
-                <?= $form->field($model, 'visible_email', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->error(false)->label('Сделать E-Mail видимым для всех') ?>
-                <?= $form->field($model, 'country')->textInput([
-                    'value' => $user->country
-                ])->label('Страна') ?>
-                <?= $form->field($model, 'city')->textInput([
-                    'value' => $user->city
-                ])->label('Город') ?>
-                <?php if($member) : ?>
-                    <div class="row">
-                        <div class="input-field col s11">
-                            <label>Дата рождения</label>
-                            <input type="text" readonly value="<?= \app\controllers\SiteController::getRuDate($user->birth_date) ?>">
-                        </div>
-                    </div>
-                    <?= $form->field($model, 'birth_date')
-                        ->hiddenInput(['readonly' => true, 'value' => $user->birth_date])
-                        ->label(false) ?>
-                <?php else: ?>
-                    <div class="col s11">
-                        <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', [
-                            'class' => 'datepicker-profile',
-                            'data-value' => $user->birth_date,
-                            'readonly' => $member ? 'true' : false
-                        ])->label('Дата рождения') ?>
-                    </div>
-                <?php endif ?>
+        <div class="card-content">
+            <div class="profile-img z-depth-3" id="preview" style="background-image: url(<?=Yii::$app->request->baseUrl.'/images/users/'.$user->picture.'?t='.time()?>)">
+                <label class="overlay valign-wrapper">
+                    <i class="material-icons notranslate white-text">file_upload</i>
+                    <?= $form->field($model, 'picture', [
+                        'template' => '<div>{input}{label}</div>',
+                        'options' => ['class' => 'false',]
+                    ])->fileInput([
+                        'id' => 'file_input',
+                        'style' => 'display: none',
+                        'accept' => 'image/*'
+                    ])->label(false) ?>
+                </label>
             </div>
-            <div class="col l6 s12">
-                <?= $form->field($model, 'vk')->textInput([
-                    'value' => $user->vk,
-                    'readonly' => $member ? 'true' : false
-                ])->label('Профиль VK') ?>
-                <?= $form->field($model, 'steam')->textInput([
-                    'value' => $user->steam,
-                    'readonly' => $member ? 'true' : false
-                ])->label('Профиль Steam') ?>
-                <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>
-                <?= $form->field($model, 'visible_steam', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->error(false)->label('Сделать профиль Steam видимым для всех') ?>
-                <?= $form->field($model, 'visible_truckersmp', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox([
-                        'label' => null,
-                        'disabled' => $user->steam == '' ? 'true' : false
-                    ])->error(false)->label('Показать профиль TruckersMP') ?>
-                <?php $display = $user->visible_truckersmp == '1' ? 'block' : 'none' ?>
-                <?= $form->field($model, 'truckersmp')->textInput([
+            <div class="row" style="margin-top: 50px;">
+                <div class="col m6 s12">
+                    <span class="card-title">Редактирование профиля</span>
+                    <?= $form->field($model, 'first_name')->textInput([
+                        'value' => $user->first_name,
+                        'readonly' => $member ? 'true' : false
+                    ])->label('Имя') ?>
+                    <?= $form->field($model, 'last_name')->textInput([
+                        'value' => $user->last_name,
+                        'readonly' => $member ? 'true' : false
+                    ])->label('Фамилия') ?>
+                    <?= $form->field($model, 'username')->textInput([
+                        'required' => 'required',
+                        'value' => Yii::$app->user->identity->username
+                    ])->label('Логин*')->error(false) ?>
+                    <?= $form->field($model, 'email')->input('email', [
+                        'required' => 'required',
+                        'value' => $user->email
+                    ])->label('E-Mail*')->error(false) ?>
+                    <?= $form->field($model, 'country')->textInput([
+                        'value' => $user->country
+                    ])->label('Страна') ?>
+                    <?= $form->field($model, 'city')->textInput([
+                        'value' => $user->city
+                    ])->label('Город') ?>
+                </div>
+                <div class="col m6 s12">
+                    <?php if($member) : ?>
+                        <div class="row">
+                            <div class="input-field col s11">
+                                <label>Дата рождения</label>
+                                <input type="text" readonly value="<?= \app\controllers\SiteController::getRuDate($user->birth_date) ?>">
+                            </div>
+                        </div>
+                        <?= $form->field($model, 'birth_date')
+                            ->hiddenInput(['readonly' => true, 'value' => $user->birth_date])
+                            ->label(false) ?>
+                    <?php else: ?>
+                        <div class="col s11">
+                            <?= $form->field($model, 'birth_date', ['template' => '{label}{input}'])->input('date', [
+                                'class' => 'datepicker-profile',
+                                'data-value' => $user->birth_date,
+                                'readonly' => $member ? 'true' : false
+                            ])->label('Дата рождения') ?>
+                        </div>
+                    <?php endif ?>
+                    <?= $form->field($model, 'vk')->textInput([
+                        'value' => $user->vk,
+                        'readonly' => $member ? 'true' : false
+                    ])->label('Профиль VK') ?>
+                    <?= $form->field($model, 'steam')->textInput([
+                        'value' => $user->steam,
+                        'readonly' => $member ? 'true' : false
+                    ])->label('Профиль Steam') ?>
+                    <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>
+                    <?= $form->field($model, 'visible_steam', ['template' => '<div>{input}{label}</div>'])
+                        ->checkbox(['label' => null])->error(false)->label('Сделать профиль Steam видимым для всех') ?>
+                    <?= $form->field($model, 'visible_truckersmp', ['template' => '<div>{input}{label}</div>'])
+                        ->checkbox([
+                            'label' => null,
+                            'disabled' => $user->steam == '' ? 'true' : false
+                        ])->error(false)->label('Показать профиль TruckersMP') ?>
+                    <?php $display = $user->visible_truckersmp == '1' ? 'block' : 'none' ?>
+                    <?= $form->field($model, 'truckersmp')->textInput([
                         'value' => $user->truckersmp,
                         'style' => 'display: '.$display,
                         'readonly' => 'true'
                     ])->label(false) ?>
-                <?= $form->field($model, 'nickname')->textInput([
-                    'value' => $user->nickname,
-                    'readonly' => $member ? 'true' : false
-                ])->label('Ваш игровой псевдоним') ?>
-                <?= $form->field($model, 'company')->textInput([
-                    'value' => $member ? 'Volvo Trucks' : $user->company,
-                    'readonly' => $member ? 'true' : false
-                ])->label('Ваша компания') ?>
-                <?= $form->field($model, 'has_ets', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->error(false)->label('Есть <b>Euro Truck Simulator 2</b>') ?>
-                <?= $form->field($model, 'has_ats', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->error(false)->label('Есть <b>American Truck Simulator</b>') ?>
+                    <?= $form->field($model, 'nickname')->textInput([
+                        'value' => $user->nickname,
+                        'readonly' => $member ? 'true' : false
+                    ])->label('Ваш игровой псевдоним') ?>
+                    <?= $form->field($model, 'has_ets', ['template' => '<div>{input}{label}</div>'])
+                        ->checkbox(['label' => null])->error(false)->label('Есть <b>Euro Truck Simulator 2</b>') ?>
+                    <?= $form->field($model, 'has_ats', ['template' => '<div>{input}{label}</div>'])
+                        ->checkbox(['label' => null])->error(false)->label('Есть <b>American Truck Simulator</b>') ?>
+                </div>
             </div>
             <?php if($member): ?>
                 <div class="col s12">

@@ -403,7 +403,6 @@ class SiteController extends Controller{
             return $this->redirect(['site/login']);
         }
         if(Yii::$app->request->get('action') === 'edit'){
-            $model->visible_email = $user->visible_email == '1';
             $model->has_ats = $user->has_ats == '1';
             $model->has_ets = $user->has_ets == '1';
             $model->visible_truckersmp = $user->visible_truckersmp == '1';

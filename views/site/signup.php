@@ -24,8 +24,6 @@ $this->registerJsFile('https://www.google.com/recaptcha/api.js', ['position' => 
                 <?= $form->field($model, 'last_name')->textInput()->label('Фамилия') ?>
                 <?= $form->field($model, 'username')->textInput()->label('*Логин')->error(false) ?>
                 <?= $form->field($model, 'email')->input('email')->label('*E-Mail')->error(false) ?>
-                <?= $form->field($model, 'visible_email', ['template' => '<div>{input}{label}</div>'])
-                    ->checkbox(['label' => null])->error(false)->label('Сделать E-Mail видимым для всех') ?>
                 <?= $form->field($model, 'password')->passwordInput()->label('*Пароль (мин. 6 символов)')->error(false) ?>
                 <?= $form->field($model, 'password_2')->passwordInput()->label('*Повторите пароль (мин. 6 символов)')->error(false) ?>
                 <?= $form->field($model, 'nickname')->textInput()->label('Ваш игровой псевдоним') ?>
