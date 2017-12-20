@@ -117,7 +117,9 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                     Последнее обновление:
                     <?php if($convoy->updated_by) :
                         $user = \app\models\User::findOne($convoy->updated_by) ?>
-                        <?= $user->first_name . ' ' . $user->last_name ?> -
+                        <a href="<?= Url::to(['site/profile', 'id' => $convoy->updated_by]) ?>" class="grey-text">
+                            <?= $user->first_name . ' ' . $user->last_name ?>
+                        </a> -
                     <?php endif ?>
                     <?= \app\controllers\SiteController::getRuDate($convoy->updated) ?> в <?= $date->format('H:i') ?>
                 </h6>
