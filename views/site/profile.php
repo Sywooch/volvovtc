@@ -28,19 +28,19 @@ $this->title = 'Профиль - Volvo Trucks';
                 <?php endif; ?>
             </ul>
             <div class="row">
-                <div class="col s12 l3 offset-l2 center-s">
+                <div class="col s12 m6 l3 offset-l2 offset-m2 center-s">
                     <h4 class="card-title"><?=$user->first_name?> <?=$user->last_name?></h4>
                     <p class="grey-text"><?php if($user->company): ?>[<?=$user->company ?>]<?php endif ?><?=htmlentities($user->nickname) ?></p>
                 </div>
-                <div class="col s12 l2 center">
+                <div class="col s12 m4 l2 center">
                     <h4 class="card-title"><?= $user->age ?></h4>
-                    <p class="grey-text"><?= Yii::$app->formatter->asDate($user->birth_date, 'long') ?></p>
+                    <p class="grey-text truncate"><?= Yii::$app->formatter->asDate($user->birth_date, 'long') ?></p>
                 </div>
-                <div class="col s12 l2 center">
-                    <h4 class="card-title"><?=$user->city?></h4>
-                    <p class="grey-text"><?=$user->country?></p>
+                <div class="col s12 m6 l2 offset-m2 center-l center-s">
+                    <h4 class="card-title truncate"><?=$user->city?></h4>
+                    <p class="grey-text truncate"><?=$user->country?></p>
                 </div>
-                <div class="col s12 l2 center">
+                <div class="col s12 m4 l2 center">
                     <h4 class="card-title">
                         <?php if($user->has_ets == '0' && $user->has_ats == '0') echo 'Нет игр';
                         else if($user->has_ets == '0' && $user->has_ats == '1') echo 'ATS';
