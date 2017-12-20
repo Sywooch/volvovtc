@@ -1,4 +1,18 @@
-body{background-color: #fff;}
+@font-face {
+	font-family: "Roboto Condensed";
+	src: local(Roboto Condensed Regular), url("../fonts/roboto/RobotoCondensed-Regular.woff2") format("woff2"), url("../fonts/roboto/RobotoCondensed-Regular.ttf") format("ttf");
+	font-weight: 400;
+}@font-face {
+	font-family: "Roboto Condensed";
+	src: local(Roboto Condensed Light), url("../fonts/roboto/RobotoCondensed-Light.ttf") format("ttf");
+	font-weight: 300;
+}@font-face {
+	font-family: "Roboto Condensed";
+	src: local(Roboto Condensed Bold), url("../fonts/roboto/RobotoCondensed-Bold.ttf") format("ttf");
+	font-weight: 700;
+}
+
+body{background-color: #fff; font-family: "Roboto Condensed", sans-serif;}
 a{color: #3f51b5;}
 
 /* form fields and labels */
