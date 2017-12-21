@@ -25,11 +25,11 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                     </div>
                     <p class="grey-text">[Volvo Trucks] <?= $member->user_id->nickname ?></p>
                     <p>Дата рождения:
-                        <span class="nowrap"><b><?= \app\controllers\SiteController::getRuDate($member->user_id->birth_date) ?></b></span>
+                        <span class="nowrap"><b><?= Yii::$app->formatter->asDate($member->user_id->birth_date, 'long') ?></b></span>
                         <span class="nowrap">(<?= \app\models\User::getUserAge($member->user_id->birth_date) ?>)</span>
                     </p>
                     <p>В компании с
-                        <span class="nowrap"><b><?= \app\controllers\SiteController::getRuDate($member->start_date) ?></b></span>
+                        <span class="nowrap"><b><?= Yii::$app->formatter->asDate($member->start_date, 'long') ?></b></span>
                         <span class="nowrap">(<?= \app\models\VtcMembers::getMemberDays($member->start_date); ?>)</span>
                     </p>
                 </div>
