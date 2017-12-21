@@ -9,6 +9,7 @@ use app\models\Notifications;
 use app\models\User;
 use app\models\VtcMembers;
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -38,9 +39,16 @@ class MembersController extends Controller{
                     break;
                 }
             }
+
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
+		if(!Yii::$app->request->isAjax && $this->action->id != 'index' && $this->action->id != 'stats'){
+			if(Yii::$app->user->isGuest){
+				Url::remember();
+				return $this->redirect(['site/login']);
+			}
+		}
         return parent::beforeAction($action);
     }
 
@@ -60,11 +68,13 @@ class MembersController extends Controller{
     public function actionEdit(){
         if(Yii::$app->request->get('id') && User::isAdmin()){
             $model = new MemberForm(Yii::$app->request->get('id'));
-            if($model->load(Yii::$app->request->post()) && $model->validate()){
+            if($model && $model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->editMember(Yii::$app->request->get('id'))){
                     return $this->redirect(['members/edit', 'id' => Yii::$app->request->get('id')]);
                 }
-            }
+            }else{
+				return $this->render('//site/error');
+			}
             return $this->render('edit', [
                 'model' => $model,
                 'all_achievements' => Achievements::find()->all(),
@@ -80,38 +90,18 @@ class MembersController extends Controller{
     }
 
     public function actionReset(){
-        VtcMembers::zeroScores();
-        return $this->redirect(['members/stats']);
+    	if(User::isAdmin()){
+			VtcMembers::zeroScores();
+			return $this->redirect(['members/stats']);
+		}else{
+			return $this->render('//site/error');
+		}
     }
 
     public function actionDismiss(){
         if(Yii::$app->request->get('id') && User::isAdmin()){
             VtcMembers::fireMember(Yii::$app->request->get('id'));
             return $this->redirect(['members/stats']);
-        }else{
-            return $this->render('//site/error');
-        }
-    }
-
-    public function actionScores(){
-        if(Yii::$app->request->isAjax){
-            Yii::$app->response->format = Response::FORMAT_JSON;
-            if(Yii::$app->request->post('id') && Yii::$app->request->post('scores') && Yii::$app->request->post('target')){
-                if($result = VtcMembers::addScores(Yii::$app->request->post('id'), Yii::$app->request->post('scores'), Yii::$app->request->post('target'))){
-                    return [
-                        'status' => 'OK',
-                        'scores' => $result
-                    ];
-                }else{
-                    return [
-                        'status' => 'Error while adding scores',
-                    ];
-                }
-            }else{
-                return [
-                    'status' => 'Error, check data',
-                ];
-            }
         }else{
             return $this->render('//site/error');
         }

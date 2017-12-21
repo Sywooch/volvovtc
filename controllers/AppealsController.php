@@ -9,6 +9,7 @@ use app\models\User;
 use app\models\VtcMembers;
 use Yii;
 use yii\data\Pagination;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class AppealsController extends Controller{
@@ -40,6 +41,12 @@ class AppealsController extends Controller{
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
+		if($this->action->id != 'add' && $this->action->id != 'thx'){
+			if(Yii::$app->user->isGuest){
+				Url::remember();
+				return $this->redirect(['site/login']);
+			}
+		}
         return parent::beforeAction($action);
     }
 

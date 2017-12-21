@@ -11,6 +11,7 @@ use app\models\TruckersMP;
 use app\models\User;
 use app\models\VtcMembers;
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
@@ -43,13 +44,23 @@ class ConvoysController extends Controller{
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
+		if(!Yii::$app->request->isAjax && $this->action->id != 'index'){
+			if(Yii::$app->user->isGuest){
+				Url::remember();
+				return $this->redirect(['site/login']);
+			}
+		}
         return parent::beforeAction($action);
     }
 
     public function actionIndex(){
         if(Yii::$app->request->get('id')){
             if(!$convoy = Convoys::findOne(Yii::$app->request->get('id'))) return $this->render('error');
-            if($convoy->open == '0' && !User::isVtcMember()) return $this->redirect(['site/login']);
+            if($convoy->open == '0' && Yii::$app->user->isGuest){
+            	Url::remember();
+            	return $this->redirect(['site/login']);
+			}
+            if($convoy->open == '0' && !User::isVtcMember()) return $this->render('//site/error');
             $convoy->server = TruckersMP::getServerName($convoy->server);
             $convoy->date = SiteController::getRuDate($convoy->date);
             $convoy->trailer = unserialize($convoy->trailer);

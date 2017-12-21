@@ -6,6 +6,7 @@ use app\models\AchievementsProgress;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
+use yii\helpers\Url;
 use yii\web\Controller;
 use app\models\User;
 use app\models\Notifications;
@@ -42,6 +43,12 @@ class AchievementsController extends Controller{
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
+        if(!Yii::$app->request->isAjax){
+			if(Yii::$app->user->isGuest){
+				Url::remember();
+				return $this->redirect(['site/login']);
+			}
+		}
         return parent::beforeAction($action);
     }
 

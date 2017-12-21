@@ -35,6 +35,7 @@ use app\models\User;
 use app\models\VtcMembers;
 use yii\data\Pagination;
 use yii\filters\AccessControl;
+use yii\helpers\Url;
 use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
@@ -302,6 +303,7 @@ class SiteController extends Controller{
                 'rules' => $rules
             ]);
         }else{
+        	Url::remember();
             return $this->redirect(['site/login']);
         }
     }
@@ -339,7 +341,8 @@ class SiteController extends Controller{
     }
     
     public function actionLogin(){
-        if (!Yii::$app->user->isGuest) {
+        if(!Yii::$app->user->isGuest){
+        	if(Yii::$app->user->returnUrl) return $this->goBack();
             return $this->redirect(['site/profile', 'id' => Yii::$app->user->id]);
         }
         if(Yii::$app->request->isAjax && Yii::$app->request->get('ajax-action') == 'reset_password'){
@@ -400,6 +403,7 @@ class SiteController extends Controller{
             $user = Yii::$app->user->identity;
             if(VtcMembers::find()->where(['user_id' => $user->id])->one() != null) $member = true;
         }else if(!Yii::$app->request->get('id')){
+        	Url::remember();
             return $this->redirect(['site/login']);
         }
         if(Yii::$app->request->get('action') === 'edit'){
@@ -430,6 +434,10 @@ class SiteController extends Controller{
     }
 
     public function actionUsers(){
+		if(Yii::$app->user->isGuest){
+			Url::remember();
+			return $this->redirect(['site/login']);
+		}
         if(User::isAdmin()){
             $query = User::find();
             if(Yii::$app->request->get('q')){

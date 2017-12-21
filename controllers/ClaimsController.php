@@ -14,6 +14,7 @@ use app\models\User;
 use app\models\VacationForm;
 use app\models\VtcMembers;
 use Yii;
+use yii\helpers\Url;
 use yii\web\Controller;
 
 class ClaimsController extends Controller{
@@ -45,6 +46,10 @@ class ClaimsController extends Controller{
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
+		if(Yii::$app->user->isGuest && $this->action->id != 'index'){
+			Url::remember();
+			return $this->redirect(['site/login']);
+		}
         return parent::beforeAction($action);
     }
 
@@ -106,7 +111,7 @@ class ClaimsController extends Controller{
     }
 
     public function actionEdit(){
-        if(Yii::$app->request->get('claim') && Yii::$app->request->get('id') && !Yii::$app->user->isGuest){
+        if(Yii::$app->request->get('claim') && Yii::$app->request->get('id')){
             $id = Yii::$app->request->get('id');
             switch(Yii::$app->request->get('claim')){
                 case 'recruit' : {
