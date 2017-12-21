@@ -126,14 +126,7 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
-                            <?php if(\app\models\User::isAdmin()) : ?>
-                                <?php $scores_updated = null;
-                                    if($member->scores_updated){
-                                        $scores_date = new DateTime($member->scores_updated);
-                                        $scores_updated = $scores_date->format('d.m.y H:i');
-                                    } ?>
-                                <?php endif ?>
-                                <span<?php if($scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= $scores_updated ?>" data-delay="0"<?php endif ?>>
+                                <span<?php if($member->scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= Yii::$app->formatter->asDate($member->scores_updated, 'php:d.m.y H:i') ?>" data-delay="0"<?php endif ?>>
                                     <b><?= $member->scores_total == '0' ? '' : $member->scores_total ?></b>
                                 </span>
                             <?php endif ?>
@@ -164,7 +157,7 @@ $this->title = 'Статистика Volvo Trucks';
                         </td>
                         <td><?= \app\models\User::getUserAge($member->user_id->birth_date) ?></td>
                         <td><?php if($member->post_id->id == '1') : ?>
-                            <?= \app\controllers\SiteController::getRuDate($member->start_date) ?>
+                            <?= Yii::$app->formatter->asDate($member->start_date, 'long') ?>
                         <?php else: ?>
                             <?= $member->additional ?>
                         <?php endif ?></td>
@@ -187,17 +180,17 @@ $this->title = 'Статистика Volvo Trucks';
     <script>
         $(document).ready(function(){
             var steamid64 = {
-            <?php foreach ($all_members as $members):
-                foreach ($members as $member):
-                    if($member->user_id->steamid) : ?>
-                        <?= $member->user_id->id ?> : <?= $member->user_id->steamid ?>,
-                    <?php endif;
-                endforeach;
-            endforeach; ?>
-        }
+				<?php foreach ($all_members as $members):
+					foreach ($members as $member):
+						if($member->user_id->steamid) : ?>
+							<?= $member->user_id->id ?> : <?= $member->user_id->steamid ?>,
+						<?php endif;
+					endforeach;
+				endforeach; ?>
+			}
             var timer = setTimeout(function(){
                 loadMembersBans(steamid64);
-            }, 20000);
+            }, 25000);
             $('a:not(.notification-btn)').click(function(){
                 clearTimeout(timer);
             });
