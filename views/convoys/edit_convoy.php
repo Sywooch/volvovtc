@@ -64,12 +64,12 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                                 'tag' => false
                             ]
                         ])->checkbox(['label' => null])->error(false)->label('Scandinavia') ?>
-                        <?= $form->field($model, 'dlc[Viva La France!]', [
+                        <?= $form->field($model, 'dlc[Vive La France!]', [
                             'template' => '{input}{label}',
                             'options' => [
                                 'tag' => false
                             ]
-                        ])->checkbox(['label' => null])->error(false)->label('Viva La France!') ?>
+                        ])->checkbox(['label' => null])->error(false)->label('Vive La France!') ?>
                         <?= $form->field($model, 'dlc[Italia]', [
                             'template' => '{input}{label}',
                             'options' => [
