@@ -46,14 +46,14 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                 <div class="col l6 s12 flex-justify-center">
                     <div class="list-wrapper">
                         <ul class="fs17">
-                            <li class="clearfix"><i class="material-icons left notranslate">event</i>Дата: <b><?=  $convoy->date ?></b></li>
+                            <li class="clearfix"><i class="material-icons left notranslate">event</i>Дата: <b><?=  Yii::$app->formatter->asDate($convoy->date, 'php:l, j F Y') ?></b></li>
                             <li class="clearfix">
                                 <i class="material-icons left notranslate">access_time</i>
-                                Сборы в <b><?php  $time = new DateTime($convoy->meeting_time); echo $time->format('H:i') ?></b> (по Москве)
+                                Сборы в <b><?= Yii::$app->formatter->asDate($convoy->meeting_time, 'php:H:i') ?></b> (по Москве)
                             </li>
                             <li class="clearfix">
                                 <i class="material-icons left notranslate">alarm_on</i>
-                                Выезжаем в <b><?php  $time = new DateTime($convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)
+                                Выезжаем в <b><?= Yii::$app->formatter->asDate($convoy->departure_time, 'php:H:i') ?></b> (по Москве)
                             </li>
                             <li class="clearfix"><i class="material-icons left notranslate">headset_mic</i>Связь: <b><?=  $convoy->communications ?></b></li>
                         </ul>
@@ -121,7 +121,7 @@ $this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
                             <?= $user->first_name . ' ' . $user->last_name ?>
                         </a> -
                     <?php endif ?>
-                    <?= \app\controllers\SiteController::getRuDate($convoy->updated) ?> в <?= $date->format('H:i') ?>
+                    <?= Yii::$app->formatter->asDate($convoy->updated, 'php: j F Y в H:i') ?>
                 </h6>
             <?php endif ?>
         </div>

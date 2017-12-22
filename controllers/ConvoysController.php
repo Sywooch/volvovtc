@@ -62,7 +62,6 @@ class ConvoysController extends Controller{
 			}
             if($convoy->open == '0' && !User::isVtcMember()) return $this->render('//site/error');
             $convoy->server = TruckersMP::getServerName($convoy->server);
-            $convoy->date = SiteController::getRuDate($convoy->date);
             $convoy->trailer = unserialize($convoy->trailer);
             $convoy->participants = unserialize($convoy->participants);
             $participants = null;

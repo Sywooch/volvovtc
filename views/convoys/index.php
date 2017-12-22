@@ -19,7 +19,7 @@ $this->title = 'Конвои Volvo Trucks';
                             $time = $dt->format('H:i'); ?>
                             <li>
                                 <a class="black-text light" href="<?= Url::to(['convoys/scores', 'id' => $convoy->id]) ?>">
-                                    <?= $convoy->title ?> - <?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?>
+                                    <?= $convoy->title ?> - <?= Yii::$app->formatter->asDate($convoy->departure_time, 'php:l, j F Y в H:i') ?>
                                 </a>
                             </li>
                         <?php endforeach ?>
@@ -31,7 +31,7 @@ $this->title = 'Конвои Volvo Trucks';
     <?php if($nearest_convoy) : ?>
         <h5 class="light">
             Ближайший конвой
-            <span class="badge green white-text"><?= \app\controllers\SiteController::getRuDate($nearest_convoy->departure_time) ?></span>
+            <span class="badge green white-text"><?= Yii::$app->formatter->asDate($nearest_convoy->departure_time, 'php:l, j F Y в H:i') ?></span>
         </h5>
         <div class="card grey lighten-4">
             <div class="card-image convoy-map">
@@ -68,11 +68,11 @@ $this->title = 'Конвои Volvo Trucks';
                         <div class="list-wrapper">
                             <ul class="fs17">
                                 <li class="clearfix"><i class="material-icons left notranslate">event</i>
-                                    Дата: <b><?=  \app\controllers\SiteController::getRuDate($nearest_convoy->date) ?></b>
+                                    Дата: <b><?=  Yii::$app->formatter->asDate($nearest_convoy->date, 'php:j F Y - l') ?></b>
                                 </li>
                                 <li class="clearfix">
                                     <i class="material-icons left notranslate">alarm_on</i>
-                                    Выезжаем в <b><?php  $time = new DateTime($nearest_convoy->departure_time); echo $time->format('H:i') ?></b> (по Москве)
+                                    Выезжаем в <b><?php  Yii::$app->formatter->asDate($nearest_convoy->departure_time, 'H:i') ?></b> (по Москве)
                                 </li>
                             </ul>
                         </div>
@@ -113,9 +113,7 @@ $this->title = 'Конвои Volvo Trucks';
     <?php if(count($convoys) > 1) : ?>
         <h5 class="light" style="margin-top: 50px;">Все конвои Volvo Trucks</h5>
         <div class="row">
-            <?php foreach($convoys as $convoy) :
-                $dt = new DateTime($convoy->departure_time);
-                $time = $dt->format('H:i'); ?>
+            <?php foreach($convoys as $convoy) : ?>
                 <div class="col l6 s12">
                     <div class="card<?php if($convoy->visible == 0): ?> yellow<?php else: ?> grey<?php endif ?> lighten-4 hoverable">
                         <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $convoy->picture_small ?>?t=<?= time() ?>)">
@@ -123,7 +121,7 @@ $this->title = 'Конвои Volvo Trucks';
                         </div>
                         <div class="card-content" style="min-height: 120px;">
                             <h6 class="light fs17"><a href="<?=Url::to(['convoys/index', 'id' => $convoy->id])?>" class="black-text"><?= $convoy->title ?></a></h6>
-                            <span class="badge left green white-text" style="margin-left: 0;"><?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?></span>
+                            <span class="badge left green white-text" style="margin-left: 0;"><?= Yii::$app->formatter->asDate($convoy->departure_time, 'php:l, j F Y в H:i') ?></span>
 
                         </div>
                         <div class="card-action">
@@ -146,21 +144,22 @@ $this->title = 'Конвои Volvo Trucks';
         </div>
     <?php endif; ?>
     <?php if(\app\models\User::isVtcMember() && count($hidden_convoys) > 0) : ?>
-        <ul class="collapsible" data-collapsible="accordion">
+        <ul class="collapsible convoys-archive" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">archive</i>Архив конвоев</div>
-                <div class="collapsible-body grey lighten-4">
-                    <ul class="force-list-style">
-                        <?php foreach($hidden_convoys as $convoy) :
-                            $dt = new DateTime($convoy->departure_time);
-                            $time = $dt->format('H:i'); ?>
-                            <li>
-                                <a class="black-text light" href="<?= Url::to(['convoys/index', 'id' => $convoy->id]) ?>">
-                                    <?= $convoy->title ?> - <?= \app\controllers\SiteController::getRuDate($convoy->departure_time) ?> в <?= $time ?>
+                <div class="collapsible-body" style="padding: 0;">
+                    <ul class="collection">
+                        <?php foreach($hidden_convoys as $convoy) : ?>
+                            <li class="collection-item grey lighten-4" style="padding: 0;">
+                                <a class="black-text" href="<?= Url::to(['convoys/index', 'id' => $convoy->id]) ?>" style="display: block; width: 100%; height: 100%;">
+									<?= $convoy->title ?>
+									<?php if(\app\models\User::isAdmin()) : ?>
+										<i class="material-icons notranslate tiny grey-text" style="vertical-align: middle;"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
+									<?php endif ?>
+									<span class="secondary-content grey-text text-darken-1">
+										<?= Yii::$app->formatter->asDate($convoy->departure_time, 'php:l, j F Y в H:i') ?>
+									</span>
                                 </a>
-                                <?php if(\app\models\User::isAdmin()) : ?>
-                                    <i class="material-icons notranslate tiny grey-text" style="vertical-align: text-top;"><?= $convoy->visible === 1 ? 'visibility' : 'visibility_off' ?></i>
-                                <?php endif ?>
                             </li>
                         <?php endforeach ?>
                     </ul>

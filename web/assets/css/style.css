@@ -259,6 +259,8 @@ h5.category-title{ color: #fff; position: absolute; bottom:0; left: 0;}
 #trailer-info{ position: relative;}
 #trailer-info .preloader-wrapper{ position: absolute; left: calc(50% - 25px); top: calc(50% - 25px);}
 button.add-trailer, button.remove-trailer{height: 30px; vertical-align: bottom; line-height: 30px; border: 0; background-color: transparent; cursor: pointer;}
+.convoys-archive .collection-item, .convoys-archive .collection-body{padding: 0;}
+.convoys-archive .collection-item a{padding: 10px 20px;}
 @media (max-width: 993px){
 	.convoys .list-wrapper{min-width:250px;}
 }
