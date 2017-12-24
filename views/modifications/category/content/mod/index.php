@@ -20,7 +20,7 @@
         </div>
 
         <div class="card-action mod-links">
-            <a href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name
+            <a href="<?= Yii::$app->request->baseUrl.'/mods_mp/'.$mod->game.'/'.$mod->file_name
                 ?>" class="waves-effect">Скачать
                 <i class="material-icons notranslate left">get_app</i>
             </a>

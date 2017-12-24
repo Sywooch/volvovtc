@@ -68,13 +68,11 @@ class MembersController extends Controller{
     public function actionEdit(){
         if(Yii::$app->request->get('id') && User::isAdmin()){
             $model = new MemberForm(Yii::$app->request->get('id'));
-            if($model && $model->load(Yii::$app->request->post()) && $model->validate()){
+            if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->editMember(Yii::$app->request->get('id'))){
                     return $this->redirect(['members/edit', 'id' => Yii::$app->request->get('id')]);
                 }
-            }else{
-				return $this->render('//site/error');
-			}
+            }
             return $this->render('edit', [
                 'model' => $model,
                 'all_achievements' => Achievements::find()->all(),

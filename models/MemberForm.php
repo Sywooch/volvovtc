@@ -40,14 +40,17 @@ class MemberForm extends Model{
 
     public function __construct($id = null){
         if(isset($id)){
-            $member = VtcMembers::findOne($id);
-            $user = User::findOne($member->user_id);
+			if(!$member = VtcMembers::findOne($id)) return false;
+			if(!$user = User::findOne($member->user_id)) return false;
             $this->id = $id;
             $this->user_id = $user->id;
             $this->vacation = $member->vacation;
-            foreach (unserialize($user->achievements) as $achievement){
-                $this->achievements[$achievement] = true;
-            }
+			$this->achievements = array();
+			if($user->achievements){
+				foreach (unserialize($user->achievements) as $achievement){
+					$this->achievements[$achievement] = true;
+				}
+			}
             $this->vacation_undefined = $member->vacation_undefined == '1';
             $this->can_lead = $member->can_lead == '1';
             $this->can_center = $member->can_center == '1';

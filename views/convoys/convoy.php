@@ -3,7 +3,7 @@
 use app\models\Convoys;
 use yii\helpers\Url;
 
-$this->title = $convoy->title .' от '. $convoy->date . ' - Volvo Trucks';
+$this->title = $convoy->title .' от '. Yii::$app->formatter->asDate($convoy->date, 'long') . ' - Volvo Trucks';
 ?>
 
 <div class="container">
