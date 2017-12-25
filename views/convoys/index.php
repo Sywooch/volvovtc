@@ -68,11 +68,11 @@ $this->title = 'Конвои Volvo Trucks';
                         <div class="list-wrapper">
                             <ul class="fs17">
                                 <li class="clearfix"><i class="material-icons left notranslate">event</i>
-                                    Дата: <b><?=  Yii::$app->formatter->asDate($nearest_convoy->date, 'php:j F Y - l') ?></b>
+                                    Дата: <b><?= Yii::$app->formatter->asDate($nearest_convoy->date, 'php:j F Y - l') ?></b>
                                 </li>
                                 <li class="clearfix">
                                     <i class="material-icons left notranslate">alarm_on</i>
-                                    Выезжаем в <b><?php  Yii::$app->formatter->asDate($nearest_convoy->departure_time, 'H:i') ?></b> (по Москве)
+                                    Выезжаем в <b><?= Yii::$app->formatter->asDate($nearest_convoy->departure_time, 'php:H:i') ?></b> (по Москве)
                                 </li>
                             </ul>
                         </div>
