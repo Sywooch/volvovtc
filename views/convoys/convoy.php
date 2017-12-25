@@ -253,7 +253,7 @@ $this->title = $convoy->title .' от '. Yii::$app->formatter->asDate($convoy->d
                 <?php endif ?>
             </div>
             <div class="modal-footer">
-                <a class="modal-action modal-close waves-effect waves-green btn-flat ">Закрыть</a>
+                <a class="modal-action modal-close waves-effect btn-flat ">Закрыть</a>
             </div>
         </div>
     <?php endif ?>

@@ -179,7 +179,7 @@ class Convoys extends ActiveRecord{
             $list .= '<li><p class="var-name">'.self::getVariationName($var, true).'</p>';
             if($with_img && array_key_exists($var, $var_images)) {
                 $rand_key = array_rand($var_images[$var], 1);
-                $list .= '<img class="responsive-img materialboxed" src="/assets/img/'.$var_images[$var][$rand_key].'.jpg">';
+                $list .= '<img class="responsive-img materialboxed z-depth-2" src="/assets/img/'.$var_images[$var][$rand_key].'.jpg">';
             }
             $list .= '</li>';
         }
