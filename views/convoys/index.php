@@ -110,7 +110,7 @@ $this->title = 'Конвои Volvo Trucks';
             </div>
         </div>
     <?php endif; ?>
-    <?php if(count($convoys) > 1) : ?>
+    <?php if((count($convoys) > 0 && \app\models\User::isAdmin()) || (count($convoys) > 1 && !\app\models\User::isAdmin())) : ?>
         <h5 class="light" style="margin-top: 50px;">Все конвои Volvo Trucks</h5>
         <div class="row">
             <?php foreach($convoys as $convoy) : ?>
