@@ -112,8 +112,8 @@ class Convoys extends ActiveRecord{
                 '3' => 'Вариация №3',
                 '4' => 'Вариация №1 или №2',
                 '5' => 'Вариация №1 или №3',
-                '6' => 'Тягач, как в описании',
-                '7' => 'Легковой автомобиль Scout',
+                '6' => 'Легковой автомобиль Scout',
+                '7' => 'Тягач, как в описании',
             ];
         }else if($game == 'ats'){
             $vars = [
@@ -128,9 +128,10 @@ class Convoys extends ActiveRecord{
     public static function getVariationName($short, $link = false){
         switch ($short){
             case '0' : $variation = 'Любая вариация'; break;
+            case '7' : $variation = 'Тягач, как в описании'; break;
             case '6' : $variation = 'Легковой автомобиль Scout'; break;
-            case '5' : $variation = 'Тягач, как в описании'; break;
-            case '4' : $variation = 'Вариация №1 или №3'; break;
+            case '5' : $variation = 'Вариация №1 или №3'; break;
+            case '4' : $variation = 'Вариация №1 или №2'; break;
             case '3' : $variation = 'Вариация №3'; break;
             case '2' : $variation = 'Вариация №2'; break;
             case '21' : $variation = 'Вариация №2.1'; break;
