@@ -21,7 +21,7 @@ class VtcMembers extends ActiveRecord{
                 'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id', 'vacation_undefined', 'sort'], 'integer'],
             [['vacation', 'start_date'], 'safe'],
             [['additional'], 'string', 'max' => 1024],
-            [['scores_history'], 'string', 'max' => 2048],
+            [['scores_history'], 'string', 'max' => 4096],
             [['scores_updated'], 'safe'],
             [['user_id'], 'unique'],
         ];

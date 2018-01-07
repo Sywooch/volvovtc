@@ -125,15 +125,17 @@ class MemberForm extends Model{
         $member->can_lead = $this->can_lead ? '1' : '0';
         $member->can_center = $this->can_center ? '1' : '0';
         $member->can_close = $this->can_close ? '1' : '0';
-        if($member->scores_total != $this->scores_total){
-            $member->scores_updated = date('Y-m-d H:i');
-            $member->scores_history = VtcMembers::setScoresHistory($member->scores_history, [
+		if($member->scores_total != $this->scores_total){
+			$member->scores_updated = date('Y-m-d H:i');
+			$member->scores_history = VtcMembers::setScoresHistory($member->scores_history, [
                 'total' => $this->scores_total,
                 'month' => $this->scores_month,
-                'other' => $this->scores_other]);
-        }
-        $member->scores_total = $this->scores_total;
-        $member->scores_month = $this->scores_month;
+                'other' => $this->scores_other
+			]);
+			\Kint::dump(strlen($member->scores_history));
+		}
+		$member->scores_total = $this->scores_total;
+		$member->scores_month = $this->scores_month;
         $member->scores_other = $this->scores_other;
         $member->additional = $this->additional;
         $member->additional = VtcMembers::updateAdditionalByScores($member);
@@ -151,10 +153,11 @@ class MemberForm extends Model{
         $user->last_name = $this->last_name;
         $user->birth_date = $this->birth_date;
         $user->nickname = $this->nickname;
+        $achievements = null;
         foreach($this->achievements as $id => $achievement){
             if($achievement) $achievements[] = $id;
         }
-        $user->achievements = serialize($achievements);
+        if($achievements) $user->achievements = serialize($achievements);
         if($member->update() !== false && $user->update() !== false){
             foreach ($this->notify as $key => $value){
                 if($value != '0' && $value != ''){
@@ -173,7 +176,7 @@ class MemberForm extends Model{
             }
             return true;
         }else{
-            return false;
+        	return false;
         }
     }
 }
