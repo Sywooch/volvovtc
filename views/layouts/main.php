@@ -133,46 +133,7 @@ AppAsset::register($this);
                 <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons notranslate">menu</i></a>
                 <a href="<?=Yii::$app->request->baseUrl?>/" class="brand-logo" style="position: relative;">
 					<img src="<?=Yii::$app->request->baseUrl?>/assets/img/volvo-sign.png" alt="VOLVO TRUCKS">
-					<div class="hat" style=""></div>
-					<div class="bottom"></div>
 				</a>
-				<style>
-					.brand-logo .hat{
-						position: absolute;
-						top: 0;
-						right: -8px;
-						background: url(<?=Yii::$app->request->baseUrl?>/assets/img/hat.png) no-repeat;
-						background-size: cover;
-						width: 33px;
-						height: 26px;
-					}
-					.brand-logo .bottom{
-						position: absolute;
-						bottom: 0;
-						left: 32px;
-						background: url(<?=Yii::$app->request->baseUrl?>/assets/img/bottom.png) no-repeat;
-						background-size: cover;
-						width: 85%;
-						height: 20px;
-					}
-					@media (max-width: 1140px) and (min-width: 992px){
-						.brand-logo .hat{
-							top: 11px;
-							right: -7px;
-							width: 21px;
-							height: 18px;
-						}
-						.brand-logo .bottom{
-							bottom: 15px;
-							left: 21px;
-							height: 12px;
-						}
-					}
-					@media (max-width: 400px){
-						.brand-logo img{height: 30px;}
-						.side-nav{max-width: 85%;}
-					}
-				</style>
                 <ul id="nav-mobile" class="hide-on-med-and-down right">
                     <li<?php if(Yii::$app->controller->id == 'site' && Yii::$app->controller->action->id === 'index'){?> class="active"<?php } ?>>
                         <a href="<?=Yii::$app->request->baseUrl?>/">О НАС</a>
