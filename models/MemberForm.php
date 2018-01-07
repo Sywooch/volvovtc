@@ -126,13 +126,12 @@ class MemberForm extends Model{
         $member->can_center = $this->can_center ? '1' : '0';
         $member->can_close = $this->can_close ? '1' : '0';
 		if($member->scores_total != $this->scores_total){
-			$member->scores_updated = date('Y-m-d H:i');
+			$member->scores_updated = date('Y-m-d').' '.(intval(date('H')) + 2) .':'.date('i');
 			$member->scores_history = VtcMembers::setScoresHistory($member->scores_history, [
                 'total' => $this->scores_total,
                 'month' => $this->scores_month,
                 'other' => $this->scores_other
 			]);
-			\Kint::dump(strlen($member->scores_history));
 		}
 		$member->scores_total = $this->scores_total;
 		$member->scores_month = $this->scores_month;
