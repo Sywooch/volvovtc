@@ -50,7 +50,10 @@ class Trailers extends ActiveRecord{
             if($mod = Mods::findOne(['trailer' => $trailer, 'visible' => '1'])){
                 $list .= ' - <a target="_blank" href="'.Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name.'" class="indigo-text light">'.
                     'Загрузить модификацию</a>';
-            }
+            }else{
+				$list .= ' - <a target="_blank" href="https://generator.volvovtc.com/" class="indigo-text light">'.
+					'Сгенерировать модификацию</a>';
+			}
             $list .= '<p><img src="/images/trailers/'.$trailer->picture.'" class="materialboxed responsive-img z-depth-2"></li>';
 
         }

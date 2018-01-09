@@ -16,8 +16,14 @@ require_once 'parallax.php' ?>
         require_once 'empty_subcat.php';
     }
 
-    require_once 'contact.php';
+    require_once 'contact.php'; ?>
 
-    if(\app\models\User::isAdmin()) require_once 'admin_fixed_btn.php'; ?>
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large green tooltipped" href="https://generator.volvovtc.com/" target="_blank" data-tooltip="Сгенерировать мод на прицеп" data-position="left">
+			<i class="material-icons notranslate">build</i>
+		</a>
+	</div>
+
+    <?php if(\app\models\User::isAdmin()) require_once 'admin_fixed_btn.php'; ?>
 
 </div>
