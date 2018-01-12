@@ -143,7 +143,15 @@ class AddConvoyForm extends Model{
                 $map_small->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
             }
             if($trailer = UploadedFile::getInstance($this, 'extra_picture')){
-                $convoy->extra_picture = $convoy->id.'-1.'.$trailer->extension;
+				if($trailer->size > 1500000){
+					$img = new Image();
+					$img->load($trailer->tempName);
+					if($img->getWidth() > 1920){
+						$img->resizeToWidth(1920);
+					}
+					$img->save($trailer->tempName);
+				}
+                $convoy->extra_picture = time().'_'.str_replace(['.png', '.jpg'], '', $trailer->name).'_'.time().'.jpg';
                 $trailer->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
             }
             $convoy->update();

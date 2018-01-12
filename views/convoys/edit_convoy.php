@@ -226,14 +226,15 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                         <i class="material-icons notranslate left">clear</i>Удалить
                     </a>
                 <?php endif ?>
-                <div class="input-field file-field">
+				<label>Дополнительное изображение (макс. 15 Мб)</label>
+                <div class="file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
                         <i class="material-icons notranslate left">add</i>
-                        <span>Дополнительное изображение</span>
+                        <span>Загрузить</span>
                         <?= $form->field($model, 'extra_picture')->fileInput()->label(false)->error(false) ?>
                     </div>
                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
+                        <input class="file-path" type="text" value="<?= $model->extra_picture ?>" readonly="readonly">
                     </div>
                 </div>
                 <div class="input-field file-field">
