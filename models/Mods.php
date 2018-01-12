@@ -29,7 +29,9 @@ class Mods extends ActiveRecord{
         if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name)){
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
         }
-        if($mod->picture && $mod->picture !== 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
+        if($mod->picture && $mod->picture !== 'default.jpg' && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture)){
+        	unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
+		}
         return $mod->delete();
     }
 

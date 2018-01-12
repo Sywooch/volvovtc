@@ -1,83 +1,5 @@
 $(document).ready(function(){
 
-    $('.members-stat a[href="#modal1"]').click(function(){
-
-        // get member data from table
-        var memberId = $(this).data('id');
-        var scoresTotal = $(this).attr('data-scores-total');
-        var scoresMonth = $(this).attr('data-scores-month');
-        var scoresOther = $(this).attr('data-scores-other');
-        var nickname = $(this).data('nickname');
-        var link = $(this).data('profile-link');
-        var editLink = $(this).data('edit-profile-link');
-
-        // set member data into modal
-        $('#modal1').find('#nickname').html('[Volvo Trucks] ' + nickname);
-        $('#modal1').find('#nickname').attr('href', link);
-        $('#modal1').find('#edit-link').attr('href', editLink);
-        $('#modal1').find('#other-scores').html(scoresOther);
-        $('#modal1').find('#month-scores').html(scoresMonth);
-        $('#modal1').find('#total-scores').html(scoresTotal);
-        $('#modal1').find('button.add-scores').attr('data-id', memberId);
-    });
-
-    $('.add-scores').click(function(){
-        if(!confirm('Добавить '+$(this).data('scores')+' баллов?')){
-            return false;
-        }
-        var button = $(this);
-        var data = {
-            id : $(this).attr('data-id'),
-            scores : $(this).data('scores'),
-            target: $(this).data('target')
-        };
-        $.ajax({
-            cache: false,
-            dataType : 'json',
-            type : 'POST',
-            url : '/members/scores',
-            data : data,
-            beforeSend : function(){
-                button.find('i').replaceWith('<div class="preloader-wrapper active preloader">'+
-                                                    '<div class="spinner-layer spinner-red-only">'+
-                                                        '<div class="circle-clipper left">'+
-                                                            '<div class="circle"></div>'+
-                                                        '</div>' +
-                                                        '<div class="gap-patch">'+
-                                                            '<div class="circle"></div>'+
-                                                        '</div>' +
-                                                        '<div class="circle-clipper right">'+
-                                                            '<div class="circle"></div>'+
-                                                        '</div>'+
-                                                    '</div>'+
-                                                '</div>');
-            },
-            success : function(response){
-                if(response.status === 'OK'){
-                    $('#modal1').find('#other-scores').html(response.scores.other);
-                    $('#modal1').find('#month-scores').html(response.scores.month);
-                    $('#modal1').find('#total-scores').html(response.scores.total);
-                    $('[data-scores-other-id="'+data.id+'"]').html(response.scores.other == '0' ? '' : response.scores.other);
-                    $('[data-scores-month-id="'+data.id+'"]').html(response.scores.month == '0' ? '' : response.scores.month);
-                    $('[data-scores-total-id="'+data.id+'"] b').html(response.scores.total == '0' ? '' : response.scores.total);
-                    $('[data-id="'+data.id+'"]').attr('data-scores-total', response.scores.total);
-                    $('[data-id="'+data.id+'"]').attr('data-scores-month', response.scores.month);
-                    $('[data-id="'+data.id+'"]').attr('data-scores-other', response.scores.other);
-                    if(!$('a[data-id="'+data.id+'"]').parent().hasClass('tooltipped')){
-                        $('a[data-id="'+data.id+'"]').parent().addClass('tooltipped');
-                    }
-                    $('a[data-id="'+data.id+'"]').parent().attr('data-tooltip', 'Обновлено: '+response.scores.updated);
-                    $('.tooltipped').tooltip({delay: 0});
-                }else{
-                    console.log(response.status);
-                }
-            },
-            complete : function(){
-                button.find('.preloader').replaceWith('<i class="material-icons notranslate left">add</i>');
-            }
-        });
-    });
-
     $(document).on('change', '.upload-item [type=file]', function(){
         var uploader = $(this);
         var newBlock = uploader.parent().parent().clone();
@@ -95,19 +17,7 @@ $(document).ready(function(){
             processData: false, // Не обрабатываем файлы (Don't process the files)
             contentType: false, // Так jQuery скажет серверу что это строковой запрос
             beforeSend: function(){
-                uploader.parent().find('i').replaceWith('<div class="preloader-wrapper active">'+
-                                                            '<div class="spinner-layer spinner-red-only">'+
-                                                                '<div class="circle-clipper left">'+
-                                                                    '<div class="circle"></div>'+
-                                                                '</div>' +
-                                                                '<div class="gap-patch">'+
-                                                                    '<div class="circle"></div>'+
-                                                                '</div>' +
-                                                                '<div class="circle-clipper right">'+
-                                                                    '<div class="circle"></div>'+
-                                                                '</div>'+
-                                                            '</div>'+
-                                                        '</div>');
+                uploader.parent().find('i').replaceWith(getPreloaderHtml());
             },
             success: function(response){
                 if(response.status === 'OK'){
@@ -133,21 +43,38 @@ $(document).ready(function(){
     $(document).on('change', '[id*=trailer-select-]', function(){
         var id = $(this).val();
         var target = $(this).data('target');
-        if(target == 'mods'){
+        if(target === 'mods'){
             $('#addmodform-picture').attr('value', '');
             $('#addmodform-picture').parent().parent().parent().find('input[type=text]').val('');
         }
-        if(id != '0' && id != '-1'){
+        if(id !== '0' && id !== '-1'){
             renderTrailersPreview(target);
         }else{
             $('.trailer-preview img').attr('src', '/images/'+target+'/default.jpg');
             $('#trailer-description').html('');
-            if(target == 'mods') $('#trailer-name').html('');
-            else $('#trailer-name').html(id == '0' ? 'Любой прицеп' : 'Без прицепа');
+            if(target === 'mods') $('#trailer-name').html('');
+            else $('#trailer-name').html(id === '0' ? 'Любой прицеп' : 'Без прицепа');
         }
     });
 
+    $('#addconvoyform-picture_full').change(function(){
+		this.files[0].size > 2500000 ? $('.picture-small').show() : $('.picture-small').hide().find('[type=file]').val('');
+    });
+
+	$('#addmodform-file').change(function(){
+		if(this.files[0].size > 2500000){
+			alert('Максимальный размер файла 2 Мб');
+			$('#addmodform-file').val('');
+			return false;
+		}
+	});
+
     $('#addmodform-picture, #trailersform-picture, #achievementsform-image, #addconvoyform-picture_full').change(function(){
+        if(this.files[0].size > 16500000){
+            alert('Максимальный размер файла 15Мб');
+            $('#trailersform-picture').val('');
+            return false;
+        }
         $('#trailer-description').html('');
         $('#trailer-name').html('');
         $('#trailer-select').val('0').trigger("change");
@@ -189,7 +116,7 @@ $(document).ready(function(){
 }); // end of document ready
 
 function readURL(input) {
-    if (input.files && input.files[0]) {
+    if (input.files && input.files[0]){
         var reader = new FileReader();
         reader.onload = function (e) {
             $('#trailer-image, #preview').attr('src', e.target.result);

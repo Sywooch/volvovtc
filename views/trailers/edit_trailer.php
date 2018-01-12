@@ -5,7 +5,7 @@ use yii\helpers\Html;
 use yii\widgets\ActiveForm;
 
 $action = Yii::$app->controller->action->id == 'edit' ? 'Редактировать' : 'Добавить';
-$this->title = $action . ' трейлер - Volvo Trucks';
+$this->title = $action . ' прицеп - Volvo Trucks';
 
 ?>
 
@@ -45,11 +45,18 @@ $this->title = $action . ' трейлер - Volvo Trucks';
             <?php endif ?>
             <div class="file-field">
                 <div class="btn indigo darken-3 waves-effect waves-light">
-                    <span>Новое изображение</span>
-                    <?= $form->field($model, 'picture', ['template' => '{input}'])->fileInput(['tag' => false])->label(false) ?>
+                    <span>Загрузить изображение</span>
+                    <?= $form
+						->field($model, 'picture', ['template' => '{input}'])
+						->fileInput([
+							'tag' => false,
+							'accept' => 'image/jpeg, image/png'
+						])
+						->label(false) ?>
                 </div>
                 <div class="file-path-wrapper input-field">
-                    <input class="file-path validate" type="text">
+                    <input class="file-path" type="text" readonly="readonly" value="<?= $model->picture ?>">
+					<span class="grey-text right">Максимальный размер файла 15Мб</span>
                 </div>
             </div>
         </div>

@@ -36,11 +36,13 @@ $this->title .= ' достижение - Volvo Trucks';
                 <div class="input-field file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
                         <span>Изображение</span>
-                        <?= $form->field($model, 'image')->fileInput()->label(false)->error(false) ?>
+                        <?= $form->field($model, 'image')->fileInput(['accept' => 'image/jpeg, image/png'])->label(false)->error(false) ?>
                     </div>
                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text">
+                        <input class="file-path" type="text" readonly="readonly" value="<?= $model->image ?>">
                     </div>
+					<span class="grey-text right">Максимальный размер файла 15Мб</span>
+					<div class="clearfix"></div>
                 </div>
             </div>
         </div>

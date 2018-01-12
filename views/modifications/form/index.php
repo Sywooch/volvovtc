@@ -38,11 +38,13 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                 <div class="input-field file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
                         <span>Изображение</span>
-                        <?= $form->field($model, 'picture')->fileInput()->label(false)->error(false) ?>
+                        <?= $form->field($model, 'picture')->fileInput(['accept' => 'image/jpeg, image/png'])->label(false)->error(false) ?>
                     </div>
                     <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Выбрать, если не прицеп">
+                        <input class="file-path" type="text" placeholder="Выбрать, если не прицеп" readonly="readonly" value="<?= $model->picture ?>">
                     </div>
+					<span class="grey-text right">Максимальный размер файла 15Мб</span>
+					<div class="clearfix"></div>
                 </div>
             </div>
         </div>
@@ -79,14 +81,14 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Ссылки на скачивание</h5>
-                <label>Файл модификации</label>
+                <label>Файл модификации (макс. 2 Мб)</label>
                 <div class="file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
                         <span>Файл</span>
-                        <?= $form->field($model, 'file')->fileInput()->label(false) ?>
+                        <?= $form->field($model, 'file')->fileInput(['accept' => '.scs'])->label(false) ?>
                     </div>
                     <div class="file-path-wrapper">
-                        <input class="file-path" type="text" value="<?= $model->file_name ?>" disabled>
+                        <input class="file-path" type="text" value="<?= $model->file_name ?>" readonly="readonly">
                     </div>
                 </div>
                 <div class="input-field">

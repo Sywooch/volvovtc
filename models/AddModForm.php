@@ -6,6 +6,9 @@ use Yii;
 use yii\base\Model;
 use yii\web\UploadedFile;
 
+define('__FILEDIR__', $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/');
+define('__IMGDIR__', $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/');
+
 class AddModForm extends Model{
 
     public $category;
@@ -44,6 +47,7 @@ class AddModForm extends Model{
             [['title', 'yandex_link', 'gdrive_link', 'mega_link', 'author', 'warning'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 2048],
             [['trailer'], 'safe'],
+			[['picture'], 'file', 'extensions' => 'jpg png', 'maxSize' => 16500000]
         ];
     }
 
@@ -54,7 +58,7 @@ class AddModForm extends Model{
             'description' => 'Описание модификации',
             'warning' => 'Предупреждение',
             'picture' => 'Изображение',
-            'yandex_link' => 'Ссылка в Yandex',
+            'yandex_link' => 'Ссылка в Yandex.Диск',
             'gdrive_link' => 'Ссылка в Google Drive',
             'mega_link' => 'Ссылка в MEGA',
             'author' => 'Автор модификации',
@@ -79,20 +83,22 @@ class AddModForm extends Model{
         $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
         $mod->sort = ($last_mod ? intval($last_mod->sort) : 0)+1;
         if($file = UploadedFile::getInstance($this, 'file')){
-            $mod->file_name = $this->transliterate($file->name);
-            $file->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
+            $mod->file_name = time().'_'.$this->transliterate($file->name);
+            $file->saveAs(__FILEDIR__.$mod->game.'/'.$mod->file_name);
         }
-        if($mod->save()){
-            if($img = UploadedFile::getInstance($this, 'picture')){
-                $mod->picture = $mod->id.'.'.$img->extension;
-                $img->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
-                return $mod->update();
-            }else{
-                return true;
-            }
-        }else{
-            return false;
-        }
+		if($picture = UploadedFile::getInstance($this, 'picture')){
+			if($picture->size > 1500000){
+				$img = new Image();
+				$img->load($picture->tempName);
+				if($img->getWidth() > 1920){
+					$img->resizeToWidth(1920);
+				}
+				$img->save($picture->tempName);
+			}
+			$mod->picture = str_replace(['.png', '.jpg'], '', $picture->name).'_'.time().'.jpg';
+			$picture->saveAs(__IMGDIR__.$mod->picture);
+		}
+		return $mod->save();
     }
 
     public function editMod($id){
@@ -110,29 +116,35 @@ class AddModForm extends Model{
         $mod->author = $this->author;
         $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
         if($this->trailer != '0' && $mod->picture) {
-            if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture)){
-                unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
+            if(file_exists(__IMGDIR__.$mod->picture)){
+                unlink(__IMGDIR__.$mod->picture);
             }
             $mod->picture = null;
         }
-        $pic_change = false;
-        $file_change = false;
         if($file = UploadedFile::getInstance($this, 'file')){
-            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
-            $mod->file_name = $this->transliterate($file->name);
-            $file->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
-            $file_change = true;
+			if(file_exists(__FILEDIR__.$mod->game.'/'.$mod->file_name)){
+				unlink(__FILEDIR__.$mod->game.'/'.$mod->file_name);
+			}
+            $mod->file_name = time().'_'.$this->transliterate($file->name);
+            $file->saveAs(__FILEDIR__.$mod->game.'/'.$mod->file_name);
         }
-        if($img = UploadedFile::getInstance($this, 'picture')){
-            if($mod->picture !== 'default.jpg' && $mod->picture != null){
-                unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
+        if($picture = UploadedFile::getInstance($this, 'picture')){
+			$mod->trailer = null;
+            if($mod->picture !== 'default.jpg' && file_exists(__IMGDIR__.$mod->picture)){
+                unlink(__IMGDIR__.$mod->picture);
             }
-            $mod->trailer = null;
-            $mod->picture = $mod->id.'.'.$img->extension;
-            $img->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
-            $pic_change = true;
+			if($picture->size > 1500000){
+				$img = new Image();
+				$img->load($picture->tempName);
+				if($img->getWidth() > 1920){
+					$img->resizeToWidth(1920);
+				}
+				$img->save($picture->tempName);
+			}
+			$mod->picture = str_replace(['.png', '.jpg'], '', $picture->name).'_'.time().'.jpg';
+			$picture->saveAs(__IMGDIR__.$mod->picture);
         }
-        return $mod->update() == 1 || $pic_change || $file_change;
+        return $mod->update() !== false;
     }
 
     private function transliterate($str){

@@ -71,7 +71,7 @@ class AddConvoyForm extends Model{
         return [
             [['start_city', 'start_company', 'finish_city', 'finish_company', 'server', 'departure_time', 'date'], 'required'],
             [['rest', 'description', 'length', 'title', 'communications', 'meeting_time'], 'string'],
-            [['extra_picture', 'picture_full', 'picture_small'], 'file', 'extensions' => 'png, jpg'],
+            [['extra_picture', 'picture_full', 'picture_small'], 'file', 'extensions' => 'png, jpg', 'maxSize' => 16500000],
             [['open', 'visible', 'map_remove', 'attach_var_photo'], 'boolean'],
             [['add_info', 'author', 'game'], 'string'],
             [['dlc', 'trailer', 'truck_var'], 'safe']
@@ -81,8 +81,6 @@ class AddConvoyForm extends Model{
     public function attributeLabels(){
         return [
             'id' => 'ID',
-            'picture_full' => 'Ссылка на оригинал маршрута',
-            'picture_small' => 'Ссылка на превью маршрута',
             'extra_picture' => 'Дополнительное изображение',
             'add_info' => 'Дополнительная информация',
             'start_city' => 'Стартовый город',

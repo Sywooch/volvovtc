@@ -19,31 +19,34 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
 <div class="container">
     <h5 class="light"><?= str_replace(' - Volvo Trucks', '', $this->title) ?></h5>
     <div class="row">
-        <?php $form = ActiveForm::begin([
-            'options' => ['enctype' => 'multipart/form-data']
-        ]); ?>
+        <?php $form = ActiveForm::begin(['options' => ['enctype' => 'multipart/form-data']]); ?>
         <div class="col m6 s12">
             <div class="card-panel grey lighten-4">
                 <h5 class="light">Основная информация</h5>
-                <label>Карта маршрута</label>
-                <div class="file-field">
-                    <div class="btn indigo darken-3 waves-effect waves-light">
-                        <span>Выбрать новое изображение</span>
-                        <?= $form->field($model, 'picture_full')->fileInput() ?>
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Оригинальное изображение">
-                    </div>
-                </div>
-                <div class="file-field">
-                    <div class="btn indigo darken-3">
-                        <span>Выбрать уменьшеное изображение</span>
-                        <?= $form->field($model, 'picture_small')->fileInput()->label(false) ?>
-                    </div>
-                    <div class="file-path-wrapper">
-                        <input class="file-path validate" type="text" placeholder="Рекомендуется, если размер оригинала больше 5Мб">
-                    </div>
-                </div>
+				<div class="picture-full">
+					<label>Оригинальная карта маршрута (макс. 15 Мб)</label>
+					<div class="file-field">
+						<div class="btn indigo darken-3 waves-effect waves-light">
+							<span>Загрузить изображение</span>
+							<?= $form->field($model, 'picture_full')->fileInput() ?>
+						</div>
+						<div class="file-path-wrapper">
+							<input class="file-path" type="text" readonly="readonly" value="<?= $model->picture_full ?>">
+						</div>
+					</div>
+				</div>
+               <div class="picture-small" style="display: none">
+				   <label>Уменьшенная карта маршрута</label>
+				   <div class="file-field">
+					   <div class="btn indigo darken-3 waves-effect waves-light">
+						   <span>Загрузить изображение</span>
+						   <?= $form->field($model, 'picture_small')->fileInput() ?>
+					   </div>
+					   <div class="file-path-wrapper">
+						   <input class="file-path" type="text" readonly="readonly">
+					   </div>
+				   </div>
+			   </div>
                 <div class="input-field">
                     <?= $form->field($model, 'title')->textInput() ?>
                 </div>
