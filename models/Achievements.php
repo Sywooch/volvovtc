@@ -20,7 +20,7 @@ class Achievements extends ActiveRecord{
 
     public static function removeAchievement($id){
         $ach = Achievements::findOne($id);
-        if($ach->image && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$ach->image)){
+        if($ach->image !== 'default.jpg' && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$ach->image)){
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$ach->image);
         }
         return $ach->delete();
