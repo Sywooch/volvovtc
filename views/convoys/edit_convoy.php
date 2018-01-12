@@ -225,6 +225,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                     <a href="<?= Url::to(['convoys/deleteextrapicture', 'id' => $_GET['id']]) ?>" class="btn indigo darken-3 waves-effect waves-light" onclick="return confirm('Удалить дополнительное изображение?')">
                         <i class="material-icons notranslate left">clear</i>Удалить
                     </a>
+					<div class="clearfix"></div>
                 <?php endif ?>
 				<label>Дополнительное изображение (макс. 15 Мб)</label>
                 <div class="file-field">
@@ -237,11 +238,16 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                         <input class="file-path" type="text" value="<?= $model->extra_picture ?>" readonly="readonly">
                     </div>
                 </div>
-                <div class="input-field file-field">
-                    <?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea', 'id' => 'add_info'])->label(false) ?>
-                </div>
             </div>
         </div>
+		<div class="col s12">
+			<div class="card-panel grey lighten-4">
+				<h5 class="light">Описание</h5>
+				<div class="input-field file-field">
+					<?= $form->field($model, 'add_info')->textarea(['class' => 'materialize-textarea', 'id' => 'add_info'])->label(false) ?>
+				</div>
+			</div>
+		</div>
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
                     'class' => 'large material-icons notranslate'

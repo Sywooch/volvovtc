@@ -88,7 +88,7 @@ class AddConvoyForm extends Model{
             'finish_city' => 'Конечный город',
             'finish_company' => 'Конечное место',
             'rest' => 'Точка отдыха',
-            'description' => 'Описание',
+            'description' => 'Про конвой',
             'server' => 'Сервер',
             'length' => 'Протяженность маршрута',
             'departure_time' => 'Время выезда (по МСК)',
