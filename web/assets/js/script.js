@@ -274,7 +274,7 @@ $(document).on('ready', function(){
                 data.append(key, value);
             });
             $.ajax({
-                url : window.location.href + '/get?uid='+uid+'&achid='+achid,
+                url : 'achievements/get?uid='+uid+'&achid='+achid,
                 type: 'POST',
                 data: data,
                 cache: false,
