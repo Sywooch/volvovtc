@@ -42,6 +42,14 @@ $(document).on('ready', function(){
         min: true,
         max: 90
     });
+	$('.datepicker-member-convoy').pickadate({
+		max: 365,
+		min: true,
+		disable: [
+			1, 3, 4, 6, 7
+		]
+	});
+
 
     $(document).on('change', '#fulfill, #read-rules', function(){
         if($('#fulfill')[0].checked && $('#read-rules')[0].checked){

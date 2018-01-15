@@ -167,7 +167,7 @@ $this->title = 'Конвои Volvo Trucks';
             </li>
         </ul>
     <?php endif ?>
-    <?php if(\app\models\User::isAdmin()) : ?>
+    <?php if(\app\models\User::canCreateConvoy()) : ?>
         <div class="fixed-action-btn">
             <a class="btn-floating btn-large waves-effect waves-light red"><i class="material-icons notranslate">add</i></a>
             <ul>

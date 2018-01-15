@@ -102,7 +102,7 @@ class Convoys extends ActiveRecord{
     }
 
     public static function getVariationsByGame($game = 'ets'){
-        if($game == 'ets'){
+        if($game == 'ets' || $game == ''){
             $vars = [
                 '0' => 'Любая вариация',
                 '1' => 'Вариация №1',

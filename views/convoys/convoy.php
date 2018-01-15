@@ -4,10 +4,11 @@ use app\models\Convoys;
 use yii\helpers\Url;
 
 $this->title = $convoy->title .' от '. Yii::$app->formatter->asDate($convoy->date, 'long') . ' - Volvo Trucks';
+$card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5'
 ?>
 
 <div class="container">
-    <div class="card grey lighten-4">
+    <div class="card <?= $card_color ?>">
         <div class="card-image convoy-map">
 			<?php if($convoy->picture_full): ?>
 				<img src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $convoy->picture_small ?>?t=<?= time() ?>" class="materialboxed">
@@ -17,7 +18,13 @@ $this->title = $convoy->title .' от '. Yii::$app->formatter->asDate($convoy->d
             <span class="card-title text-shadow"><?=  $convoy->title ?></span>
         </div>
         <div class="card-content">
-            <p><?=  $convoy->description ?></p>
+			<?php if($convoy->visible == '0') : ?>
+				<p class="grey-text"><i class="material-icons notranslate left">visibility_off</i>Конвой скрыт</p>
+			<?php endif ?>
+			<?php if($convoy->description) : ?>
+				<p><?=  $convoy->description ?></p>
+			<?php endif ?>
+			<div class="clearfix"></div>
             <?php if($dlc = unserialize($convoy->dlc)) : ?>
                 <p class="grey-text">
                     <?= \app\models\Convoys::getDLCString(unserialize($convoy->dlc)) ?>
@@ -163,7 +170,7 @@ $this->title = $convoy->title .' от '. Yii::$app->formatter->asDate($convoy->d
             </li>
         </ul>
     <?php else: ?>
-        <div class="card grey lighten-4">
+        <div class="card <?= $card_color ?>">
             <div class="card-content">
                 <div class="row">
                     <div class="col m6 s12">

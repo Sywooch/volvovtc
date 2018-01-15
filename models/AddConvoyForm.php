@@ -28,7 +28,7 @@ class AddConvoyForm extends Model{
     public $truck_var;
     public $communications;
     public $author;
-    public $game;
+    public $game = 'ets';
     public $visible = true;
     public $open = false;
     public $dlc = array();
@@ -115,7 +115,13 @@ class AddConvoyForm extends Model{
         $convoy->length = $this->length;
         $date = new \DateTime($this->date);
         $convoy->departure_time = $date->format('Y-m-d ').$this->departure_time;
-        $convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
+        if(!$this->meeting_time){
+			$m_date = new \DateTime($convoy->departure_time);
+			$m_date->sub(new \DateInterval('PT15M'));
+			$convoy->meeting_time = $m_date->format('Y-m-d H:i');
+		}else{
+			$convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
+		}
         $convoy->date = $this->date;
         foreach ($this->trailer as $trailer){
             if(!(($trailer == '0' || $trailer == '-1') && count($this->trailer) > 1)){
@@ -125,9 +131,9 @@ class AddConvoyForm extends Model{
         $convoy->trailer = serialize(array_unique($trailers));
         $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;
-        $convoy->open = $this->open;
+        $convoy->open = $this->open ? '1' : '0';
         $convoy->dlc = serialize($this->dlc);
-        $convoy->visible = $this->visible;
+        $convoy->visible = $this->visible ? '1' : '0';
         $convoy->communications = $this->communications;
         $convoy->add_info = $this->add_info;
         $convoy->author = $this->author;

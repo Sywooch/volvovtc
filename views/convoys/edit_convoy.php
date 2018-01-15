@@ -10,8 +10,8 @@ $this->title = Yii::$app->controller->action->id == 'add' ? 'Добавить к
 $this->title .= $model->game == 'ets' ? ' по ETS2' : ' по ATS';
 $this->title .= ' - Volvo Trucks';
 $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/cities.js?t='.time(),  ['position' => yii\web\View::POS_END]);
-$this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/select2.min.js?t='.time(),  ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
-$this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2.min.css?t='.time());
+$this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/select2.min.js',  ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2.min.css');
 $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.css?t='.time());
 $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t='.time(),  ['position' => yii\web\View::POS_HEAD]);
 ?>
@@ -179,13 +179,14 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
                                 <button class="tooltipped indigo-text add-trailer" data-position="bottom" data-tooltip="Добавить прицеп">
                                     <i class="material-icons notranslate small">add</i>
                                 </button>
+							</div>
                         <?php else : ?>
                             <div class="col l1 s2 center" style="line-height: 44px;">
                                 <button class="tooltipped red-text remove-trailer" data-position="bottom" data-tooltip="Убрать прицеп">
                                     <i class="material-icons notranslate small">clear</i>
                                 </button>
+							</div>
                         <?php endif ?>
-                        </div>
                     </div>
                 <?php endforeach ?>
                 <div class="input-field">

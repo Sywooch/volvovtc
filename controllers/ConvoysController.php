@@ -102,16 +102,24 @@ class ConvoysController extends Controller{
     }
 
     public function actionAdd(){
-        if(User::isAdmin()){
+        if(User::canCreateConvoy()){
             $model = new AddConvoyForm();
+			$model->game = Yii::$app->request->get('game', 'ets');
+			if(!User::isAdmin()){
+				$model->communications = 'volvotrucks.ts-3.top';
+				$model->visible = false;
+				$model->attach_var_photo = true;
+				$model->title = 'Закрытый конвой от [Volvo Trucks] '.Yii::$app->user->identity->nickname;
+				$model->author = Yii::$app->user->identity->first_name.' '.Yii::$app->user->identity->last_name;
+			}
             if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($id = $model->addConvoy()){
                     return $this->redirect(['convoys/index', 'id' => $id]);
                 }else{
-                    $errors[] = 'Ошибка при добавлении';
+                    $model->addError('title', 'Ошибка при добавлении');
                 }
             }
-            return $this->render('edit_convoy', [
+            return $this->render(User::isAdmin() ? 'edit_convoy' : 'member_edit_convoy', [
                 'model' => $model,
                 'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], Yii::$app->request->get('game', 'ets')),
                 'servers' => TruckersMP::getServersList(Yii::$app->request->get('game', 'ets'))

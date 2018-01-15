@@ -43,7 +43,7 @@ class TrailersController extends Controller{
             }
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
-			if(!User::isAdmin()){
+			if(!User::canCreateConvoy()){
 				return $this->redirect(['//site/error']);
 			}
         }

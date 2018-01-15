@@ -85,6 +85,17 @@ class User extends ActiveRecord implements IdentityInterface{
         return $is_member;
     }
 
+	public static function canCreateConvoy(){
+    	$can = false;
+    	if(self::isAdmin()) return true;
+    	if(!Yii::$app->user->isGuest && $member =  VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one()){
+			if($member->can_lead == '1' && $member->post_id >= 3 && $member->post_id <= 6 && $member->scores_total > 0 && !$member->vacation){
+				$can = true;
+			}
+		}
+		return $can;
+    }
+
     public static function generatePasswordResetString($email){
         $user = User::findOne(['email' => $email]);
         if($user){
