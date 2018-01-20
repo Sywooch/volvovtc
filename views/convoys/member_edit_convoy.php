@@ -27,7 +27,11 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
 					<div class="file-field">
 						<div class="btn indigo darken-3 waves-effect waves-light">
 							<span>Загрузить изображение</span>
-							<?= $form->field($model, 'picture_full')->fileInput() ?>
+							<?= $form->field($model, 'picture_full')->fileInput([
+								'class' => 'validate-img-size',
+								'data-maxsize' => '15000000',
+								'data-alert' => 'Максимальный размер файла 15Мб',
+							]) ?>
 						</div>
 						<div class="file-path-wrapper">
 							<input class="file-path" type="text" readonly="readonly" value="<?= $model->picture_full ?>">
@@ -35,11 +39,15 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
 					</div>
 				</div>
 				<div class="picture-small" style="display: none">
-					<label>Уменьшенная карта маршрута</label>
+					<label>Уменьшенная карта маршрута (макс. 5 Мб)</label>
 					<div class="file-field">
 						<div class="btn indigo darken-3 waves-effect waves-light">
 							<span>Загрузить изображение</span>
-							<?= $form->field($model, 'picture_small')->fileInput() ?>
+							<?= $form->field($model, 'picture_small')->fileInput([
+								'class' => 'validate-img-size',
+								'data-maxsize' => '5000000',
+								'data-alert' => 'Максимальный размер файла 5Мб',
+							]) ?>
 						</div>
 						<div class="file-path-wrapper">
 							<input class="file-path" type="text" readonly="readonly">

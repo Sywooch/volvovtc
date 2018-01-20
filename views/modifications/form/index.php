@@ -38,7 +38,12 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                 <div class="input-field file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
                         <span>Изображение</span>
-                        <?= $form->field($model, 'picture')->fileInput(['accept' => 'image/jpeg, image/png'])->label(false)->error(false) ?>
+                        <?= $form->field($model, 'picture')->fileInput([
+							'class' => 'validate-img-size',
+							'data-maxsize' => '15000000',
+							'data-alert' => 'Максимальный размер файла 15Мб',
+							'accept' => 'image/jpeg, image/png'
+						])->label(false)->error(false) ?>
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path" type="text" placeholder="Выбрать, если не прицеп" readonly="readonly" value="<?= $model->picture ?>">
@@ -85,7 +90,12 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                 <div class="file-field">
                     <div class="btn indigo darken-3 waves-effect waves-light">
                         <span>Файл</span>
-                        <?= $form->field($model, 'file')->fileInput(['accept' => '.scs'])->label(false) ?>
+                        <?= $form->field($model, 'file')->fileInput([
+							'class' => 'validate-img-size',
+							'data-maxsize' => '2000000',
+							'data-alert' => 'Максимальный размер файла 2Мб',
+							'accept' => '.scs'
+						])->label(false) ?>
                     </div>
                     <div class="file-path-wrapper">
                         <input class="file-path" type="text" value="<?= $model->file_name ?>" readonly="readonly">

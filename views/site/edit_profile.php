@@ -23,12 +23,14 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
                 <label class="overlay valign-wrapper">
                     <i class="material-icons notranslate medium">file_upload</i>
                     <?= $form->field($model, 'bg_image', [
-                        'template' => '<div>{input}{label}</div>',
-                        'options' => ['class' => 'false']
+                        'template' => '{input}{label}',
+                        'options' => ['tag' => false]
                     ])->fileInput([
-                        'id' => 'file_input',
+						'class' => 'validate-img-size',
+						'data-maxsize' => '15000000',
+						'data-alert' => 'Максимальный размер файла 15Мб',
                         'style' => 'display: none',
-                        'accept' => 'image/*'
+                        'accept' => 'image/jpeg, image/png'
                     ])->label(false) ?>
                 </label>
             </div>
@@ -38,12 +40,11 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
                 <label class="overlay valign-wrapper">
                     <i class="material-icons notranslate white-text">file_upload</i>
                     <?= $form->field($model, 'picture', [
-                        'template' => '<div>{input}{label}</div>',
-                        'options' => ['class' => 'false',]
+                        'template' => '{input}{label}',
+                        'options' => ['tag' => false]
                     ])->fileInput([
-                        'id' => 'file_input',
                         'style' => 'display: none',
-                        'accept' => 'image/*'
+                        'accept' => 'image/jpeg, image/png'
                     ])->label(false) ?>
                 </label>
             </div>

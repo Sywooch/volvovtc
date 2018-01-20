@@ -21,7 +21,7 @@ $this->title = $action . ' прицеп - Volvo Trucks';
             <?= $form->field($model, 'name')->textInput() ?>
             <?= $form->field($model, 'description')->textarea(['class' => 'materialize-textarea']) ?>
             <?= $form->field($model, 'category')->dropDownList($categories)->label(false) ?>
-            <?= $form->field($model, 'weight')->input('number') ?>
+            <?= $form->field($model, 'weight')->textInput() ?>
             <?= $form->field($model, 'game', ['template' => '{input}{label}'])
                 ->radioList([
                     'ets' => 'Euro Truck Simulator 2',
@@ -50,6 +50,9 @@ $this->title = $action . ' прицеп - Volvo Trucks';
 						->field($model, 'picture', ['template' => '{input}'])
 						->fileInput([
 							'tag' => false,
+							'class' => 'validate-img-size',
+							'data-maxsize' => '15000000',
+							'data-alert' => 'Максимальный размер файла 15Мб',
 							'accept' => 'image/jpeg, image/png'
 						])
 						->label(false) ?>
