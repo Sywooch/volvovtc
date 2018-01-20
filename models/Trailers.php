@@ -30,7 +30,7 @@ class Trailers extends ActiveRecord{
     }
 
     public static function getTrailersInfo($trailers){
-        $query = Trailers::find()->select(['picture', 'name', 'description']);
+        $query = Trailers::find()->select(['id', 'picture', 'name', 'description']);
         foreach ($trailers as $trailer){
             $query = $query->orWhere(['id' => $trailer]);
         }
@@ -47,8 +47,9 @@ class Trailers extends ActiveRecord{
         $trailers = Trailers::getTrailersInfo($trailers);
         foreach ($trailers as $trailer){
             $list .= '<li class="trailer-name">'.$trailer->name;
-            if($mod = Mods::findOne(['trailer' => $trailer, 'visible' => '1'])){
-                $list .= ' - <a target="_blank" href="'.Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name.'" class="indigo-text light">'.
+			$mod = Mods::findOne(['trailer' => $trailer->id, 'visible' => '1']);
+            if($mod){
+                $list .= ' - <a target="_blank" href="'.Mods::getModsPath($mod->game).$mod->file_name.'" class="indigo-text light">'.
                     'Загрузить модификацию</a>';
             }else{
 				$list .= ' - <a target="_blank" href="https://generator.volvovtc.com/" class="indigo-text light">'.

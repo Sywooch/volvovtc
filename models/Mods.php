@@ -18,6 +18,11 @@ class Mods extends ActiveRecord{
         ];
     }
 
+	public static function getModsPath($game = 'ets', $path = false){
+    	if($path) return $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/' . ($game == 'ats' ? 'ats/' : 'ets/');
+		return Yii::$app->request->baseUrl.'/mods_mp/' . ($game == 'ats' ? 'ats/' : 'ets/');
+    }
+
     public static function visibleMod($id, $action){
         $mod = Mods::findOne($id);
         $mod->visible = $action == 'show' ? '1' : '0';
@@ -26,8 +31,8 @@ class Mods extends ActiveRecord{
 
     public static function deleteMod($id){
         $mod = Mods::findOne($id);
-        if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name)){
-            unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/mods_mp/'.$mod->game.'/'.$mod->file_name);
+        if(file_exists(self::getModsPath($mod->game, true).$mod->file_name)){
+            unlink(self::getModsPath($mod->game, true).$mod->file_name);
         }
         if($mod->picture && $mod->picture !== 'default.jpg' && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture)){
         	unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/mods/'.$mod->picture);
