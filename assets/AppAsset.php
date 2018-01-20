@@ -19,12 +19,12 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'assets/materialize/css/materialize.min.css',
-        'assets/css/style.css',
+        'assets/css/style.css?2001',
     ];
     public $js = [
         'assets/materialize/js/materialize.js',
         //'assets/js/jquery.mask.min.js',
-        'assets/js/script.js',
+        'assets/js/script.js?2001',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
     public $depends = [
