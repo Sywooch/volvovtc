@@ -16,7 +16,7 @@ class Convoys extends ActiveRecord{
     public function rules(){
         return [
             [['truck_var', 'time', 'date', 'updated'], 'safe'],
-            [['visible', 'open', 'updated_by'], 'integer'],
+            [['visible', 'open', 'updated_by', 'week_day'], 'integer'],
             [['description'], 'string', 'max' => 2048],
             [['rest', 'participants'], 'string', 'max' => 1024],
             [['add_info'], 'string', 'max' => 512],
@@ -53,7 +53,8 @@ class Convoys extends ActiveRecord{
                 ->select(['id', 'picture_small', 'title', 'departure_time', 'visible', 'scores_set'])
                 ->andWhere(['<', 'departure_time', gmdate('Y-m-d ') . (intval(gmdate('H')) + 2) . ':' . gmdate('i:s')]);
             if(!User::isAdmin()) $hidden_convoys->andWhere(['visible' => '1']); // only visible convoys for non-admins
-            $hidden_convoys = $hidden_convoys->orderBy(['date' => SORT_ASC])->all();
+            $hidden_convoys = $hidden_convoys->orderBy(['week_day' => SORT_ASC, 'departure_time' => SORT_ASC])->all();
+
             return $hidden_convoys;
         }
         return false;

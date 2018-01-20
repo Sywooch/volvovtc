@@ -128,6 +128,7 @@ class AddConvoyForm extends Model{
                 $trailers[] = $trailer;
             }
         }
+        $convoy->week_day = intval($date->format('w'));
         $convoy->trailer = serialize(array_unique($trailers));
         $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;
@@ -192,6 +193,7 @@ class AddConvoyForm extends Model{
                 $trailers[] = $trailer;
             }
         }
+		$convoy->week_day = intval($date->format('w'));
         $convoy->trailer = serialize(array_unique($trailers));
         $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;

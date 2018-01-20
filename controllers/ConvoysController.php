@@ -83,10 +83,10 @@ class ConvoysController extends Controller{
                 'participants' => $participants
             ]);
         }else{
-            $hidden_convoys = Convoys::getPastConvoys();
+            $archive_convoys = Convoys::getPastConvoys();
             $convoy_need_scores = array();
-            if($hidden_convoys){
-                foreach($hidden_convoys as $convoy){
+            if($archive_convoys){
+                foreach($archive_convoys as $convoy){
                     if($convoy->scores_set == '0'){
                         $convoy_need_scores[] = $convoy;
                     }
@@ -95,7 +95,7 @@ class ConvoysController extends Controller{
             return $this->render('index', [
                 'nearest_convoy' => Convoys::getNearestConvoy(),
                 'convoys' => Convoys::getFutureConvoys(),
-                'hidden_convoys' => $hidden_convoys,
+                'hidden_convoys' => $archive_convoys,
                 'convoy_need_scores' => $convoy_need_scores
             ]);
         }
