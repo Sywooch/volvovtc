@@ -44,11 +44,13 @@ $this->title = 'Достижения - Volvo Trucks';
             'maxButtonCount' => 5
         ]) ?>
         <div class="row">
-            <?php foreach ($achievements as $key => $achievement):
+            <?php $i =  0;
+            foreach ($achievements as $key => $achievement):
                 if(!$achievement->related || $achievement->related && ($user_complete_ach && in_array($achievement->related, $user_complete_ach)) || \app\models\User::isAdmin()):
                     $progress_percent = 0;
                     $card_color = 'grey lighten-4';
                     $completed = false;
+                    $i++;
                     if($user_complete_ach && in_array($achievement->id, $user_complete_ach)){
                         $card_color = 'green lighten-2';
                         $completed = true;
@@ -59,11 +61,8 @@ $this->title = 'Достижения - Volvo Trucks';
                             if($achievement->id == $ach['ach_id']) $progress++;
                         }
                         if($progress > 0) $progress_percent = $progress / $achievement->progress * 100;
-                    }
-                    if($key % 3 == 0) : ?>
-                        <div class="clearfix"></div>
-                    <?php endif ?>
-                    <div class="col s12 m4">
+                    } ?>
+                    <div class="col s12 m6 l4">
                         <div class="card <?= $card_color ?> hoverable">
                             <div class="card-image">
                                 <?php if($progress_percent > 0) : ?>
@@ -120,6 +119,12 @@ $this->title = 'Достижения - Volvo Trucks';
                             </div>
                         </div>
                     </div>
+					<?php if($i % 3 == 0) : ?>
+						<div class="clearfix-l"></div>
+					<?php endif ?>
+					<?php if($i % 2 == 0) : ?>
+						<div class="clearfix-m"></div>
+					<?php endif ?>
             <?php endif;
             endforeach; ?>
         </div>
