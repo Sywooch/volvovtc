@@ -19,9 +19,8 @@ class TrailersForm extends Model{
     public function rules(){
         return [
             [['name'], 'required', 'message' => 'Введите название трейлера'],
-            [['description', 'game', 'category'], 'string'],
+            [['description', 'game', 'category', 'weight'], 'string'],
             [['picture'], 'file', 'extensions' => 'png, jpg', 'maxSize' => 16500000],
-            [['weight'], 'integer']
         ];
     }
 
