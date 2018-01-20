@@ -162,7 +162,6 @@ class ProfileForm extends Model{
         switch ($file['type']){
             case 'image/png': $ext = '.png'; break;
             case 'image/gif': $ext = '.gif'; break;
-            case 'image/jpeg' :
             default: $ext = '.jpg';
         }
         $user->picture = $user->id . $ext;
@@ -177,14 +176,22 @@ class ProfileForm extends Model{
 
     public static function updateBgImage($id, $file) {
         $user = User::findOne($id);
-        if($user->bg_image != 'default.jpg') unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/' . $user->bg_image);
+        if($user->bg_image != 'default.jpg' && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/'.$user->bg_image)){
+        	unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/'.$user->bg_image);
+		}
         switch ($file['type']){
             case 'image/png': $ext = '.png'; break;
-            case 'image/gif': $ext = '.gif'; break;
-            case 'image/jpeg' :
             default: $ext = '.jpg';
         }
-        $user->bg_image = $user->id . $ext;
+		if($file['size'] > 1500000){
+			$img = new Image();
+			$img->load($file['tmp_name']);
+			if($img->getWidth() > 1920){
+				$img->resizeToWidth(1920);
+			}
+			$img->save($file['tmp_name']);
+		}
+        $user->bg_image = $user->id. $file['name'] . $ext;
         $user->update();
         $dir = $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/bg/' . $user->bg_image;
         $path = false;

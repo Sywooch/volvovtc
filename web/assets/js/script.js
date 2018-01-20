@@ -69,7 +69,7 @@ $(document).on('ready', function(){
 
     $('.profile-img [type=file]').change(function(){
         if(this.files.length > 0){
-            $('.profile-img').after('<div class="white-text save-img-profile text-shadow">' +
+            $('.profile-img').append('<div class="white-text save-img-profile text-shadow">' +
                 '<i class="material-icons notranslate medium-small">refresh</i>' +
                 '</div>');
         }else{
@@ -103,8 +103,7 @@ $(document).on('ready', function(){
             processData: false, // Не обрабатываем файлы (Don't process the files)
             contentType: false, // Так jQuery скажет серверу что это строковой запрос
             beforeSend: function(){
-                $('.profile-img').parent().find('.save-img-profile i').replaceWith(getPreloaderHtml('preloader-profile'));
-
+                $('.save-img-profile i').replaceWith(getPreloaderHtml('preloader-profile'));
             },
             success: function(response){
                 if(response.status === 'OK'){
@@ -133,7 +132,7 @@ $(document).on('ready', function(){
             processData: false, // Не обрабатываем файлы (Don't process the files)
             contentType: false, // Так jQuery скажет серверу что это строковой запрос
             beforeSend: function(){
-                $('.profile-img').parent().find('.save-img-bg i').replaceWith(getPreloaderHtml());
+                $('.save-img-bg i').replaceWith(getPreloaderHtml());
 
             },
             success: function(response){
@@ -178,7 +177,7 @@ $(document).on('ready', function(){
     $(document).on('click', '*',function(e){
         e.stopPropagation();
         if(!$(this).parents().hasClass('notification-btn-item')) $('.notification-list').removeClass('active');
-        if(!$(this).parents().hasClass('achievement-action-dropdown-button')) $('.achievement-dropdown').removeClass('active');
+        if(!$(this).parents().hasClass('action-dropdown-button')) $('.action-dropdown').removeClass('active');
     });
 
     $('.clear-notification').click(function(){
@@ -367,6 +366,13 @@ $(document).on('ready', function(){
             }
         });
     });
+
+    $('#category-select, #game-select').change(function(){
+    	var url = $(this).data('url');
+    	if($('#game-select').val() !== '') url += $('#game-select').val() + '/';
+    	if($('#category-select').val() !== '') url += $('#category-select').val();
+		window.location.href = url;
+	});
 
 });
 
