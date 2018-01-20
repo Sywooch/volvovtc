@@ -57,13 +57,17 @@ class TrailersController extends Controller{
 			$query->where(['like', 'name', $q])
 				->orWhere(['like', 'description', $q]);
 		}
+		if(Yii::$app->request->get('game')){
+			$game = Yii::$app->request->get('game');
+			$query->andWhere(['game' => $game]);
+		}
 		if(Yii::$app->request->get('category')){
 			$category = Yii::$app->request->get('category');
-			$query->where(['category' => $category]);
+			$query->andWhere(['category' => $category]);
 		}
 		$total = $query->count();
 		$pagination = new Pagination([
-			'defaultPageSize' => 10,
+			'defaultPageSize' => 8,
 			'totalCount' => $total
 		]);
 		$trailers = $query->orderBy(['name' => SORT_ASC])->offset($pagination->offset)->limit($pagination->limit)->all();

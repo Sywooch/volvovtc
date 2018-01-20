@@ -8,7 +8,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
 ?>
 
 <div class="container row">
-    <div class="col s12 m7">
+    <div class="col s12 m6">
         <div class="card-panel grey lighten-4 search">
             <form method="get">
                 <div class="input-field">
@@ -25,16 +25,25 @@ $this->title = 'Трейлеры - Volvo Trucks';
             </form>
         </div>
     </div>
-    <div class="order col m5 s12 right-align">
+    <div class="order col m4 s12 right-align">
         <div class="input-field right-align">
-            <select onchange="window.location.href = '<?= Url::to(['trailers/index']) ?>/'+this.value">
+            <select id="category-select" data-url="<?= Url::to(['trailers/index']) ?>/">
                 <option value="" <?= Yii::$app->request->get('category') ? '' : 'selected' ?>>Все прицепы</option>
                 <?php foreach($categories as $name => $cat): ?>
                     <option value="<?= $name ?>" <?= Yii::$app->request->get('category') == $name ? 'selected' : '' ?>><?= $cat['title'] ?></option>
                 <?php endforeach ?>
-
             </select>
             <label>Фильтрация по категориям</label>
+        </div>
+    </div>
+    <div class="order col m2 s12 right-align">
+        <div class="input-field right-align">
+            <select id="game-select" data-url="<?= Url::to(['trailers/index']) ?>/">
+                <option value="" <?= Yii::$app->request->get('category') ? '' : 'selected' ?>>Все игры</option>
+				<option value="ets" <?= Yii::$app->request->get('game') == 'ets' ? 'selected' : '' ?>>ETS2</option>
+				<option value="ats" <?= Yii::$app->request->get('game') == 'ats' ? 'selected' : '' ?>>ATS</option>
+            </select>
+            <label>Фильтрация по играх</label>
         </div>
     </div>
     <h5 class="light col s12 m6">Всего <?= $total ?></h5>
@@ -43,7 +52,7 @@ $this->title = 'Трейлеры - Volvo Trucks';
         'firstPageLabel' => 'Начало',
         'lastPageLabel' => 'Конец',
         'options' => [
-            'class' => 'pagination center col m6 s12'
+            'class' => 'pagination right-align col m6 s12'
         ],
         'prevPageCssClass' => 'waves-effect',
         'pageCssClass' => 'waves-effect',
