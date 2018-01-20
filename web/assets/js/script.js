@@ -273,7 +273,7 @@ $(document).on('ready', function(){
     $('#get-ach').click(function(){
         var button = $(this);
         var files = $(this).parents('.modal').find('[type=file]')[0].files;
-        if(files.length == 1){
+        if(files.length === 1){
             var uid = $(this).data('uid');
             var achid = $(this).data('achid');
             var data = new FormData();
@@ -289,10 +289,10 @@ $(document).on('ready', function(){
                 processData: false, // Не обрабатываем файлы (Don't process the files)
                 contentType: false, // Так jQuery скажет серверу что это строковой запрос
                 beforeSend : function(){
-                    button.replaceWith(getPreloaderHtml('tiny'));
+                    button.before(getPreloaderHtml('tiny preloader-achievement'));
                 },
                 success : function(response){
-                    if(response.status == 'OK'){
+                    if(response.status === 'OK'){
                         Materialize.toast('Скриншот успешно оправлен на модерацию!', 6000);
                     }else{
                         Materialize.toast('Что-то пошло не так =(', 6000);

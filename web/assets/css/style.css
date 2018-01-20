@@ -384,6 +384,7 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .progress{margin: 0; background-color: rgba(13, 56, 150, 0.35);}
 .progress .determinate{background-color: #0d3896;}
 .moderate-count{position: absolute;bottom: 0px;height: 17px;line-height: 18px;left: 0;width: 100%;}
+.preloader-achievement{vertical-align: middle;}
 
  /* datepicker */
 .picker__weekday-display{background-color: #072b7b;}
