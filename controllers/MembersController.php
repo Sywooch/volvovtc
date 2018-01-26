@@ -8,7 +8,9 @@ use app\models\MemberForm;
 use app\models\Notifications;
 use app\models\User;
 use app\models\VtcMembers;
+use app\models\VtcPositions;
 use Yii;
+use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
@@ -73,8 +75,10 @@ class MembersController extends Controller{
                     return $this->redirect(['members/edit', 'id' => Yii::$app->request->get('id')]);
                 }
             }
+            $positions = VtcPositions::find()->select(['id', 'name'])->asArray()->all();
             return $this->render('edit', [
                 'model' => $model,
+                'positions' => ArrayHelper::map($positions, 'id', 'name'),
                 'all_achievements' => Achievements::find()->all(),
                 'achievements_progress' => AchievementsProgress::find()
                     ->select(['ach_id'])

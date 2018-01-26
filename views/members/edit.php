@@ -19,19 +19,7 @@ $this->title = 'Редактирование информации о водит�
             <div class="card-panel grey lighten-4">
                 <h5 class="light">[Volvo Trucks] <?= $model->nickname ?></h5>
                 <label>Должность</label>
-                <?= $form->field($model, 'post_id')->dropdownList([
-                    '1' => 'Испытательный срок',
-                    '2' => 'Стажер',
-                    '3' => '3 категория',
-                    '4' => '2 категория',
-                    '5' => '1 категория',
-                    '6' => 'Легенда',
-                    '7' => 'Логист',
-                    '8' => 'Отдел кадров',
-                    '9' => 'Инструктор',
-                    '10' => 'Заместитель директора',
-                    '11' => 'Директор',
-                ])->error(false)->label(false) ?>
+                <?= $form->field($model, 'post_id')->dropdownList($positions)->error(false)->label(false) ?>
                 <div class="col s11">
                     <?= $form->field($model, 'start_date', ['template' => '{label}{input}'])
                         ->input('date', [
