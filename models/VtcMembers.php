@@ -97,9 +97,9 @@ class VtcMembers extends ActiveRecord{
 
     public static function updateAdditionalByScores($member){
         $additional = '';
-        if($member->post_id == '2' && $member->scores_total >= 100) $additional = 'На 3 категорию';
-        if(($member->post_id == '3' || $member->post_id == '2') && $member->scores_total >= 200) $additional = 'На 2 категорию';
-        if(($member->post_id == '4' || $member->post_id == '3' || $member->post_id == '2') && $member->scores_total >= 400) $additional = 'На 1 категорию';
+        if($member->post_id == '2' && $member->scores_total >= 50 && $member->exam_3_cat == '0') $additional = 'На 3 категорию';
+        if(($member->post_id == '3' || $member->post_id == '2') && $member->scores_total >= 200 && $member->exam_2_cat == '0') $additional = 'На 2 категорию';
+        if(($member->post_id == '4' || $member->post_id == '3' || $member->post_id == '2') && $member->scores_total >= 400 && $member->exam_1_cat == '0') $additional = 'На 1 категорию';
         return $additional;
     }
 
