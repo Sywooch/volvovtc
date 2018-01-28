@@ -13,6 +13,7 @@ class AchievementsForm extends Model{
     public $image;
     public $related;
     public $progress = 1;
+    public $scores = 0;
     public $visible = true;
 
     public function __construct($id = null){
@@ -23,6 +24,7 @@ class AchievementsForm extends Model{
             $this->visible = $achievement->visible == '1';
             $this->image = $achievement->image;
             $this->progress = $achievement->progress;
+            $this->scores = $achievement->scores;
             $this->related = $achievement->related;
         }
     }
@@ -34,7 +36,7 @@ class AchievementsForm extends Model{
             [['image'], 'file', 'extensions' => ['png', 'jpg']],
             [['visible'], 'boolean'],
             [['progress'], 'integer', 'min' => 1],
-            [['related'], 'integer']
+            [['related', 'scores'], 'integer']
         ];
     }
 
@@ -44,7 +46,8 @@ class AchievementsForm extends Model{
             'description' => 'Описание',
             'image' => 'Изображение',
             'progress' => 'Количество этапов',
-            'related' => 'От какого достижения зависит'
+            'related' => 'От какого достижения зависит',
+            'scores' => 'Баллов за выполненое достижение',
         ];
     }
 
@@ -57,6 +60,7 @@ class AchievementsForm extends Model{
         $achievement->progress = $this->progress;
         $achievement->date = date('Y-m-d');
         $achievement->related = $this->related;
+        $achievement->scores = $this->scores;
         $achievement->sort = ($last_achievement ? intval($last_achievement->sort) : 0)+1;
         if($achievement->save() == 1){
             if($file = UploadedFile::getInstance($this, 'image')){
@@ -85,6 +89,7 @@ class AchievementsForm extends Model{
         $achievement->description = $this->description;
         $achievement->related = $this->related;
         $achievement->progress = $this->progress;
+        $achievement->scores = $this->scores;
         $achievement->visible = $this->visible ? '1' : '0';
         if($file = UploadedFile::getInstance($this, 'image')){
 			if($achievement->image !== 'default.jpg' && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$achievement->image)){

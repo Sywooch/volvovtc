@@ -10,7 +10,7 @@ class Achievements extends ActiveRecord{
     public function rules(){
         return [
             [['title', 'date', 'sort'], 'required'],
-            [['visible', 'sort', 'progress', 'related'], 'integer'],
+            [['visible', 'sort', 'progress', 'related', 'scores'], 'integer'],
             [['date'], 'safe'],
             [['title'], 'string', 'max' => 512],
             [['description'], 'string', 'max' => 2048],

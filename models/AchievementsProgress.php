@@ -58,8 +58,9 @@ class AchievementsProgress extends ActiveRecord{
                 $user->achievements = serialize($achievements);
             }
             if($member = VtcMembers::findOne(['user_id' => $user->id])){
-				$member->scores_other = intval($member->scores_other) + 10;
-				$member->scores_total = intval($member->scores_total) + 10;
+            	$scores = intval($achievement->scores);
+				$member->scores_other = intval($member->scores_other) + $scores;
+				$member->scores_total = intval($member->scores_total) + $scores;
 				$member->update();
 			}
             $result = $user->update() !== false;
