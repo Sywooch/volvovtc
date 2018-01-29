@@ -53,6 +53,8 @@ $this->title = 'Редактирование информации о водит�
                     <h5 class="light">Возможности</h5>
                     <?= $form->field($model, 'can_lead', ['template' => '<div>{input}{label}</div>'])
                         ->checkbox(['label' => null])->error(false)->label('Ведущий') ?>
+                    <?= $form->field($model, 'can_lead_open', ['template' => '<div>{input}{label}</div>'])
+                        ->checkbox(['label' => null])->error(false)->label('Ведущий открытого конвоя') ?>
                     <?= $form->field($model, 'can_center', ['template' => '<div>{input}{label}</div>'])
                         ->checkbox(['label' => null])->error(false)->label('Центральный') ?>
                     <?= $form->field($model, 'can_close', ['template' => '<div>{input}{label}</div>'])

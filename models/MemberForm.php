@@ -14,6 +14,7 @@ class MemberForm extends Model{
     public $vacation;
     public $vacation_undefined = false;
     public $can_lead = false;
+    public $can_lead_open = false;
     public $can_center = false;
     public $can_close = false;
     public $scores_total;
@@ -53,6 +54,7 @@ class MemberForm extends Model{
 			}
             $this->vacation_undefined = $member->vacation_undefined == '1';
             $this->can_lead = $member->can_lead == '1';
+            $this->can_lead_open = $member->can_lead_open == '1';
             $this->can_center = $member->can_center == '1';
             $this->can_close = $member->can_close == '1';
             $this->scores_total = $member->scores_total;
@@ -78,7 +80,7 @@ class MemberForm extends Model{
 
     public function rules(){
         return [
-            [['can_lead', 'can_center', 'can_close', 'scores_total', 'scores_month', 'scores_other',
+            [['can_lead', 'can_lead_open', 'can_center', 'can_close', 'scores_total', 'scores_month', 'scores_other',
                 'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id'], 'integer'],
             [['vacation', 'start_date', 'achievements'], 'safe'],
             [['vacation_undefined'], 'boolean'],
@@ -94,6 +96,7 @@ class MemberForm extends Model{
             'vacation' => 'Отпуск',
             'vacation_undefined' => 'Неопределенный срок',
             'can_lead' => 'Ведущий',
+            'can_lead_open' => 'Ведущий открытого конвоя',
             'can_center' => 'Центральный',
             'can_close' => 'Замыкающий',
             'scores_total' => 'Всего баллов',
@@ -123,6 +126,7 @@ class MemberForm extends Model{
         $member->vacation = $this->vacation;
         $member->vacation_undefined = $this->vacation_undefined ? '1' : '0';
         $member->can_lead = $this->can_lead ? '1' : '0';
+        $member->can_lead_open = $this->can_lead_open ? '1' : '0';
         $member->can_center = $this->can_center ? '1' : '0';
         $member->can_close = $this->can_close ? '1' : '0';
 		if($member->scores_total != $this->scores_total){

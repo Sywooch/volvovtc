@@ -17,7 +17,7 @@ class VtcMembers extends ActiveRecord{
     public function rules(){
         return [
             [['user_id'], 'required'],
-            [['user_id', 'can_lead', 'can_center', 'can_close', 'scores_total', 'scores_month', 'scores_other',
+            [['user_id', 'can_lead', 'can_lead_open', 'can_center', 'can_close', 'scores_total', 'scores_month', 'scores_other',
                 'exam_driving', 'exam_3_cat', 'exam_2_cat', 'exam_1_cat', 'post_id', 'vacation_undefined', 'sort'], 'integer'],
             [['vacation', 'start_date'], 'safe'],
             [['additional'], 'string', 'max' => 1024],
@@ -86,7 +86,7 @@ class VtcMembers extends ActiveRecord{
             $member->scores_total = intval($member->scores_total) + intval($scores);
         }
         $member->additional = self::updateAdditionalByScores($member);
-        $member->scores_updated = date('Y-m-d H:i');
+        $member->scores_updated = date('Y-m-d ').(intval(date('H')) + 2).date(':i');
         $member->scores_history = self::setScoresHistory($member->scores_history, ['total' => $member->scores_total, 'month' => $member->scores_month, 'other' => $member->scores_other]);
         if($member->update() !== false){
             Notifications::addNotification('Вам было начислено '. $scores . ' баллов!', $member->user_id);

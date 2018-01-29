@@ -84,11 +84,14 @@ $this->title = 'Статистика Volvo Trucks';
                         <td>
                             <?php if($member->post_id->admin == 1) : ?>
                                 <span>&mdash;</span>
-                            <?php else: ?>
-                                <i class="material-icons notranslate <?= $member->can_lead == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
-                                    <?= $member->can_lead == '1' ? 'check_box' : 'check_box_outline_blank' ?>
-                                </i>
-                            <?php endif ?>
+                            <?php else:
+								$class = 'black';
+								if($member->can_lead == '1') $class =  'green';
+								if($member->can_lead_open) $class = 'indigo'; ?>
+								<i class="material-icons notranslate <?= $class ?>-text" style="vertical-align: bottom;">
+									<?= $member->can_lead == '1' ? 'check_box' : 'check_box_outline_blank' ?>
+								</i>
+							<?php endif ?>
                         </td>
                         <td>
                             <?php if($member->post_id->admin == 1) : ?>
