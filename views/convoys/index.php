@@ -29,10 +29,7 @@ $this->title = 'Конвои Volvo Trucks';
         </ul>
     <?php endif ?>
     <?php if($nearest_convoy) : ?>
-        <h5 class="light">
-            Ближайший конвой
-            <span class="badge green white-text"><?= Yii::$app->formatter->asDate($nearest_convoy->departure_time, 'php:l, j F Y в H:i') ?></span>
-        </h5>
+        <h5 class="light">Ближайший конвой</h5>
         <div class="card grey lighten-4">
             <div class="card-image convoy-map">
                 <?php if($nearest_convoy->picture_full): ?>
