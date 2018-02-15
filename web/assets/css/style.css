@@ -62,7 +62,7 @@ a{color: #3f51b5;}
 .input-field textarea{border-left: none;border-right: none;border-top: none;}
 
 	/* label color */
-.input-field label{color: #a89eb3;}
+.input-field label, textarea.materialize-textarea:focus:not([readonly])+label{color: #a89eb3;}
 
 	/* label focus color */
 .input-field input[readonly=true]{color: #adadad;}
@@ -149,7 +149,7 @@ strong{font-weight: bold !important;}
 
 /* dropdown menu */
 .action-dropdown-button{ cursor: pointer; margin-right: 0 !important;}
-.action-dropdown{display: none; position: absolute; right: 0; padding: 0;}
+.action-dropdown{display: none; position: absolute; right: 0; padding: 0; min-width: 190px}
 .action-dropdown.active{display: block; z-index: 3;}
 .action-dropdown li a{display: block; margin: 0 !important; padding: 10px;}
 .action-dropdown li a:hover{background-color: rgba(0,0,0,0.05);}
@@ -388,6 +388,19 @@ th.first .preloader-wrapper{vertical-align: middle;}
 .progress .determinate{background-color: #0d3896;}
 .moderate-count{position: absolute;bottom: 0px;height: 17px;line-height: 18px;left: 0;width: 100%;}
 .preloader-achievement{vertical-align: middle;}
+
+/* gallery */
+.gallery #lightgallery .col{padding: 0; overflow: hidden;}
+.gallery #lightgallery .photo{height: 250px; background-position: center center; background-size: cover; transition: opacity .3s ease}
+.gallery #lightgallery .first .photo{height: 500px;}
+.gallery #lightgallery .photo:hover{opacity: .8; cursor: zoom-in;}
+.gallery #lightgallery .photo-hidden .photo{filter: blur(2px)}
+.gallery #lightgallery .photo-hidden:before{content: 'Фото спрятано'; position: absolute; top: 120px; z-index: 2;
+	color: #ffca00; font-weight: 600; font-size: 15px; text-transform: uppercase; width: 100%; text-align: center;
+	text-shadow: 0 0 8px rgba(0, 0, 0, 1);}
+#lightgallery img.thumb{display: none;}
+#gallery-send-btn{ position: relative;}
+#gallery-send-btn .preloader-wrapper{ position: absolute; left:calc(50% - 15px);top: 5px;}
 
  /* datepicker */
 .picker__weekday-display{background-color: #072b7b;}

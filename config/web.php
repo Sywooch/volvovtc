@@ -78,6 +78,12 @@ $config = [
                 'convoys/<action:\w+>/<game:\w+>/' => 'convoys/<action>',
                 'convoys/<action:\w+>/' => 'convoys/<action>',
 
+				//gallery
+				'gallery/sort/<operation:\w+>/<id:\d+>/' => 'gallery/sort',
+				'gallery/<action:\w+>/<id:\d+>/' => 'gallery/<action>',
+				'gallery/upload' => 'gallery/upload',
+				'gallery' => 'gallery/index',
+
                 // members
                 'members' => 'members/index',
                 'members/<action:\w+>/<id:\d+>/<dir:\w+>/' => 'members/<action>',

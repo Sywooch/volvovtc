@@ -346,7 +346,7 @@ $(document).on('ready', function(){
     });
 
     $('#step4 a.modal-close').click(function(){
-        console.log($('#step4 #accept')[0]);
+        // console.log($('#step4 #accept')[0]);
         var uid = $(this).data('uid');
         var complete = $('#step4 #accept')[0].checked;
         $.ajax({
@@ -362,7 +362,7 @@ $(document).on('ready', function(){
                 $('#step4').modal('close');
             },
             success : function(response){
-                console.log(response);
+                // console.log(response);
             }
         });
     });
@@ -372,6 +372,70 @@ $(document).on('ready', function(){
     	if($('#game-select').val() !== '') url += $('#game-select').val() + '/';
     	if($('#category-select').val() !== '') url += $('#category-select').val();
 		window.location.href = url;
+	});
+
+	// <input type="file" class="validate-img-size" data-maxsize="15000000" data-alert="Max size limit 15Mb">
+	$('.validate-img-size').change(function(){
+		var maxSize = parseInt($(this).data('maxsize'));
+		if(maxSize === undefined || maxSize === '') maxSize = 15000000;
+		maxSize += 500000;
+		if(this.files[0].size > maxSize){
+			if($(this).data('alert') !== undefined) alert($(this).data('alert'));
+			$(this).val('');
+			return false;
+		}
+	});
+
+	$('#gallery-send-btn').click(function(){
+		var $lg = $('#lightgallery');
+		var button = $(this);
+		var files = button.parents('.modal').find('[type=file]')[0].files;
+		if(files.length === 1){
+			var data = new FormData();
+			$.each(files, function(key, value){
+				data.append(key, value);
+			});
+			data.append('description', $('#gallery-description').val());
+			$.ajax({
+				url : '/gallery/upload?uid=' + button.data('uid'),
+				type: 'POST',
+				data: data,
+				processData: false, // Не обрабатываем файлы (Don't process the files)
+				contentType: false, // Так jQuery скажет серверу что это строковой запрос
+				cache: false,
+				dataType: 'json',
+				beforeSend : function(){
+					button.css('opacity', '0.5').append(getPreloaderHtml('tiny'));
+				},
+				success : function(response){
+					$lg.data('lightGallery').destroy(true);
+					var newDiv = '<div class="item col s6 m4 l3';
+					newDiv += response.status === '2' ? ' photo-hidden' : '';
+					newDiv += '" style="position: relative;">';
+					newDiv += '<div data-src="'+response.image+'" style="background-image: url('+response.image+')" class="photo">';
+					newDiv += '<img src="'+response.image+'" class="thumb"></div>';
+					$('#lightgallery').append(newDiv);
+					if(response.status === '1'){
+						Materialize.toast('Фотография успешно загружена!', 4000)
+					}
+					else if(response.status === '2'){
+						Materialize.toast('Фотография успешно загружена и отправлена на модерацию!', 4000)
+					}
+				},
+				complete : function(){
+					button.css('opacity', '1').find('.preloader-wrapper').remove();
+					$('#gallery-image-upload-modal').modal('close');
+					$('#gallery-image-upload-modal').find('.file-path').val('');
+					$('#gallery-image').val('');
+					$('#gallery-description').val('');
+					$('#gallery-description').trigger('autoresize');
+					$('#lightgallery').lightGallery({
+						thumbnail : true,
+						selector: '.photo'
+					});
+				}
+			});
+		}
 	});
 
 });

@@ -61,18 +61,6 @@ $(document).ready(function(){
 		this.files[0].size > 2500000 ? $('.picture-small').show() : $('.picture-small').hide().find('[type=file]').val('');
     });
 
-	// <input type="file" class="validate-img-size" data-maxsize="15000000" data-alert="Max size limit 15Mb">
-	$('.validate-img-size').change(function(){
-		var maxSize = parseInt($(this).data('maxsize'));
-		if(maxSize === undefined || maxSize === '') maxSize = 15000000;
-		maxSize += 500000;
-		if(this.files[0].size > maxSize){
-			if($(this).data('alert') !== undefined) alert($(this).data('alert'));
-			$(this).val('');
-			return false;
-		}
-	});
-
     $('#addmodform-picture, #trailersform-picture, #achievementsform-image, #addconvoyform-picture_full').change(function(){
         $('#trailer-description').html('');
         $('#trailer-name').html('');
