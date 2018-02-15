@@ -57,38 +57,42 @@ $this->title = 'Галерея Volvo Trucks';
 	<?php endforeach ?>
 </div>
 
-<div class="fixed-action-btn">
-	<a class="btn-floating btn-large red waves-effect waves-light modal-trigger" href="#gallery-image-upload-modal">
-		<i class="large material-icons">add</i>
-	</a>
-</div>
+<?php if(\app\models\User::isAdmin() || \app\models\User::isVtcMember()) : ?>
 
-<div id="gallery-image-upload-modal" class="modal">
-	<div class="modal-content">
-		<h4 class="light center">Загрузка изображения в галерею</h4>
-		<div class="row">
-			<div class="file-field input-field">
-				<div class="btn indigo darken-3">
-					<span>Выберите файл</span>
-					<input type="file" id="gallery-image" class="validate-img-size" data-maxsize="15000000" data-alert="Максимальный размер файла 15Мб">
+	<div class="fixed-action-btn">
+		<a class="btn-floating btn-large red waves-effect waves-light modal-trigger" href="#gallery-image-upload-modal">
+			<i class="large material-icons">add</i>
+		</a>
+	</div>
+
+	<div id="gallery-image-upload-modal" class="modal">
+		<div class="modal-content">
+			<h4 class="light center">Загрузка изображения в галерею</h4>
+			<div class="row">
+				<div class="file-field input-field">
+					<div class="btn indigo darken-3">
+						<span>Выберите файл</span>
+						<input type="file" id="gallery-image" class="validate-img-size" data-maxsize="15000000" data-alert="Максимальный размер файла 15Мб">
+					</div>
+					<div class="file-path-wrapper">
+						<input class="file-path" type="text" placeholder="Максимальный размер 15Мб" readonly>
+					</div>
 				</div>
-				<div class="file-path-wrapper">
-					<input class="file-path" type="text" placeholder="Максимальный размер 15Мб" readonly>
+				<div class="input-field col s12">
+					<textarea id="gallery-description" class="materialize-textarea"></textarea>
+					<label for="gallery-description">Добавьте описание</label>
 				</div>
-			</div>
-			<div class="input-field col s12">
-				<textarea id="gallery-description" class="materialize-textarea"></textarea>
-				<label for="gallery-description">Добавьте описание</label>
 			</div>
 		</div>
+		<div class="modal-footer">
+			<a href="#!" id="gallery-send-btn" class="modal-action waves-effect waves-light btn indigo darken-3" data-uid="<?= Yii::$app->user->id ?>">
+				<i class="material-icons notranslate left">send</i>Загрузить
+			</a>
+			<a href="#!" class="modal-action modal-close waves-effect btn-flat">Отмена</a>
+		</div>
 	</div>
-	<div class="modal-footer">
-		<a href="#!" id="gallery-send-btn" class="modal-action waves-effect waves-light btn indigo darken-3" data-uid="<?= Yii::$app->user->id ?>">
-			<i class="material-icons notranslate left">send</i>Загрузить
-		</a>
-		<a href="#!" class="modal-action modal-close waves-effect btn-flat">Отмена</a>
-	</div>
-</div>
+
+<?php endif ?>
 
 <script type="text/javascript">
 	$(document).ready(function() {
