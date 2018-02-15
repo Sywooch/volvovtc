@@ -67,9 +67,11 @@ AppAsset::register($this);
             <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">
                     <i class="material-icons notranslate">local_shipping</i>КОНВОИ</a>
             </li>
-            <li<?php if(Yii::$app->controller->id === 'gallery'){?> class="active"<?php } ?>><a href="<?=Url::to(['gallery/index'])?>">
-                    <i class="material-icons notranslate">collections</i>ГАЛЕРЕЯ</a>
-            </li>
+			<?php if(\app\models\User::isAdmin()) : ?>
+				<li<?php if(Yii::$app->controller->id === 'gallery'){?> class="active"<?php } ?>><a href="<?=Url::to(['gallery/index'])?>">
+						<i class="material-icons notranslate">collections</i>ГАЛЕРЕЯ</a>
+				</li>
+			<?php endif ?>
             <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                 <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">
                         <i class="material-icons notranslate">contacts</i>ВСТУПИТЬ</a>
@@ -157,7 +159,9 @@ AppAsset::register($this);
                         </ul>
                     </li>
                     <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
-                    <li<?php if(Yii::$app->controller->id === 'gallery'){?> class="active"<?php } ?>><a href="<?=Url::to(['gallery/index'])?>">ГАЛЕРЕЯ</a></li>
+					<?php if(\app\models\User::isAdmin()) : ?>
+						<li<?php if(Yii::$app->controller->id === 'gallery'){?> class="active"<?php } ?>><a href="<?=Url::to(['gallery/index'])?>">ГАЛЕРЕЯ</a></li>
+					<?php endif ?>
                     <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
