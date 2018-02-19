@@ -3,6 +3,14 @@
 use yii\helpers\Url;
 
 $this->title = 'Модификации для TruckersMP - Volvo Trucks';
+$this->registerMetaTag([
+	'name' => 'description',
+	'content' => 'Моды для Euro Truck Simulator 2 Multiplayer и American Truck Simulator Multiplayer.'
+]);
+$this->registerMetaTag([
+	'name' => 'keywords',
+	'content' => 'моды для мп, ets2, ats, truckersmp, моды для ets2mp, моды для atsmp, как найти прицеп на конвой, как взять груз на конвой'
+]);
 ?>
 
 <div class="parallax-container parallax-shadow hide-on-small-only" style="height: 400px;">
