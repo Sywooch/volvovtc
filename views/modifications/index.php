@@ -5,7 +5,7 @@ use yii\helpers\Url;
 $this->title = 'Модификации для TruckersMP - Volvo Trucks';
 $this->registerMetaTag([
 	'name' => 'description',
-	'content' => 'Моды для Euro Truck Simulator 2 Multiplayer и American Truck Simulator Multiplayer.'
+	'content' => 'Моды для Euro Truck Simulator 2 Multiplayer и American Truck Simulator Multiplayer. Моды для TruckersMP.'
 ]);
 $this->registerMetaTag([
 	'name' => 'keywords',
