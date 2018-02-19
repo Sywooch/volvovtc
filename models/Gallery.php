@@ -62,6 +62,12 @@ class Gallery extends ActiveRecord{
 
 	public static function removePhoto($id){
 		$photo = Gallery::findOne($id);
+		if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/gallery/'.$photo->image)){
+			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/gallery/'.$photo->image);
+		}
+		if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/gallery/'.$photo->image_original)){
+			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/gallery/'.$photo->image_original);
+		}
 		return $photo->delete();
     }
 
