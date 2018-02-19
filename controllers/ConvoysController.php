@@ -56,11 +56,25 @@ class ConvoysController extends Controller{
     public function actionIndex(){
         if(Yii::$app->request->get('id')){
             if(!$convoy = Convoys::findOne(Yii::$app->request->get('id'))) return $this->render('error');
-            if($convoy->open == '0' && Yii::$app->user->isGuest){
-            	Url::remember();
-            	return $this->redirect(['site/login']);
+//            if($convoy->open == '0' && Yii::$app->user->isGuest){
+//            	Url::remember();
+//            	return $this->redirect(['site/login']);
+//			}
+            if($convoy->open == '0' && (Yii::$app->user->isGuest || !User::isVtcMember())){
+				$trailer = Trailers::findOne(unserialize($convoy->trailer)[0]);
+            	return $this->render('//site/error', [
+            		'meta' => [
+            			[
+							'property' => 'og:title',
+							'content' => $convoy->title,
+						],
+						[
+							'property' => 'og:image',
+							'content' => 'https://'.$_SERVER['SERVER_NAME'].Yii::$app->request->baseUrl . '/images/trailers/' . $trailer->picture
+						]
+					]
+				]);
 			}
-            if($convoy->open == '0' && !User::isVtcMember()) return $this->render('//site/error');
             $convoy->server = TruckersMP::getServerName($convoy->server);
             $convoy->trailer = unserialize($convoy->trailer);
             $convoy->participants = unserialize($convoy->participants);

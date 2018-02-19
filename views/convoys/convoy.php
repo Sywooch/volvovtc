@@ -3,8 +3,9 @@
 use app\models\Convoys;
 use yii\helpers\Url;
 
-$this->title = $convoy->title .' от '. Yii::$app->formatter->asDate($convoy->date, 'long') . ' - Volvo Trucks';
-$card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5'
+
+$this->title = $convoy->title . ' - Volvo Trucks';
+$card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
 ?>
 
 <div class="container">
