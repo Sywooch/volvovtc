@@ -170,6 +170,7 @@ class Convoys extends ActiveRecord{
             case '2' : $vars = ['21', '22']; break;
             case '21' : $vars = ['21']; break;
             case '22' : $vars = ['22']; break;
+            case '3' : $vars = ['3']; break;
             case '4' : $vars = ['1', '21', '22']; break;
             case '5' : $vars = ['1', '3']; break;
             case '6' : $vars = ['6']; break;
