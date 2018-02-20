@@ -218,7 +218,7 @@ nav .nav-wrapper a{color: black;}
 .flex .mods-img{width: 120px; height: 111px; background-position: bottom; background-size: cover;}
 .categories .btn, .categories .btn-flat, .mod-order .btn{width: 242px}
 .modifications .game-img{width: 320px; background-size: cover; background-position-x: center;}
-.modifications .tedit-img{min-width: 320px; background-size: contain; background: no-repeat center center;}
+.modifications .tedit-img{min-width: 320px; background-size: contain; background: no-repeat center center; border-right: 1px solid rgba(160,160,160,0.2);}
 .mod{margin: 10px 0;}
 .mod-number{text-align: center;}
 .mod-title{font-weight: bold;}
