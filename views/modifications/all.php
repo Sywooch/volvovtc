@@ -1,5 +1,8 @@
-<?php use yii\helpers\Url;
-use yii\widgets\LinkPager; ?>
+<?php
+
+use yii\helpers\Url;
+use yii\widgets\LinkPager;
+?>
 
 <div class="container">
     <div class="card-panel grey lighten-4 search">
