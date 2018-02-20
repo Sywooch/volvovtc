@@ -138,7 +138,15 @@ $this->registerMetaTag([
     </div>
 </div>
 <div class="fixed-action-btn">
-	<a class="btn-floating btn-large green tooltipped" href="https://generator.volvovtc.com/" target="_blank" data-tooltip="Сгенерировать мод на прицеп" data-position="left">
+	<a class="btn-floating btn-large green tooltipped waves-effect waves-light" href="https://generator.volvovtc.com/" target="_blank"
+	   data-tooltip="Сгенерировать мод на прицеп" data-position="left">
 		<i class="material-icons notranslate">build</i>
 	</a>
 </div>
+<?php if(\app\models\User::isAdmin()) : ?>
+	<div class="fixed-action-btn fixed-action-btn_second">
+		<a class="btn-floating btn-large red waves-effect waves-light" href="<?= Url::to(['modifications/add']) ?>" target="_blank">
+			<i class="material-icons notranslate">add</i>
+		</a>
+	</div>
+<?php endif ?>

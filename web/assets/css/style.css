@@ -109,6 +109,7 @@ select option, .dropdown-content li>span{ color: #0d3896;}
 .force-list-style>li{list-style: disc !important; margin: 0 10px;}
 .text-shadow{text-shadow: 0 0 8px rgba(0, 0, 0, 1);}
 /*.fixed-action-btn{bottom: 50px;}*/
+.fixed-action-btn_second{bottom: 85px;}
 .badge{border-radius: 10px; box-shadow: 0 3px 3px 0 rgba(0,0,0,0.14)}
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating){ color: #283593;}
 .card .card-action a:not(.btn):not(.btn-large):not(.btn-large):not(.btn-floating):hover{ color: #7986cb;}
