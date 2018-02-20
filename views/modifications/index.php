@@ -83,7 +83,7 @@ $this->registerMetaTag([
                                     'modifications/category',
                                     'game' => 'ats',
                                     'category' => 'coloredtrailers',
-                                    'subcategory' => 'containerscurtainsliders'
+                                    'subcategory' => 'refrigerated'
                                 ])?>" class="btn indigo darken-3 waves-effect waves-light z-depth-3">Цветные прицепы</a>
                             </li>
                         </ul>
