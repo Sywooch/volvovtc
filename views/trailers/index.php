@@ -5,6 +5,7 @@ use app\models\User;;
 use yii\widgets\LinkPager;
 
 $this->title = 'Трейлеры - Volvo Trucks';
+Url::remember();
 ?>
 
 <div class="container row">

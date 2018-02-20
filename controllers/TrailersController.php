@@ -104,7 +104,7 @@ class TrailersController extends Controller{
 		$model = new TrailersForm(Yii::$app->request->get('id'));
 		if($model->load(Yii::$app->request->post()) && $model->validate()) {
 			if($model->editTrailer(Yii::$app->request->get('id'))) {
-				return $this->redirect(['trailers/index']);
+				return $this->goBack();
 			}
 		}
 		$categories = TrailersCategories::find()->select(['name', 'title'])->orderBy(['title' => SORT_ASC])->asArray()->all();
@@ -122,7 +122,7 @@ class TrailersController extends Controller{
 		if(Trailers::deleteTrailer(Yii::$app->request->get('id'))){
 			return $this->redirect(['trailers/index']);
 		}else{
-			return $this->redirect(Yii::$app->request->referrer);
+			return $this->goBack();
 		}
     }
 
