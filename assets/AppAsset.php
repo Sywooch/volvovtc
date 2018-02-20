@@ -19,7 +19,7 @@ class AppAsset extends AssetBundle
     public $baseUrl = '@web';
     public $css = [
         'assets/materialize/css/materialize.min.css',
-        'assets/css/style.css?2001',
+        'assets/css/style.css?2002',
     ];
     public $js = [
         'assets/materialize/js/materialize.js',
