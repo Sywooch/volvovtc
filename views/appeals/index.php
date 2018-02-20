@@ -76,6 +76,8 @@ $this->title = 'Жалобы на сотрудников - Volvo Trucks';
             'maxButtonCount' => 5
         ]) ?>
     <?php else: ?>
-        <h5 class="light">Нет жалоб</h5>
+		<div class="card-panel grey lighten-4">
+			<h5 class="card-title light">Нет жалоб</h5>
+		</div>
     <?php endif ?>
 </div>
