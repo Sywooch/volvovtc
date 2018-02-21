@@ -70,5 +70,6 @@ tests/_support/_generated
 !/web/assets/js
 !/web/assets/img
 !/web/assets/materialize
+!/web/assets/lightGallery
 
 !.htaccess
