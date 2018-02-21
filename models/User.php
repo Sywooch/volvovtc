@@ -31,6 +31,10 @@ class User extends ActiveRecord implements IdentityInterface{
         return User::findOne(['username' => $username]);
     }
 
+    public static function findBySteamId($steamid){
+        return User::findOne(['steamid' => $steamid]);
+    }
+
     public function getId(){
         return $this->id;
     }
@@ -45,6 +49,39 @@ class User extends ActiveRecord implements IdentityInterface{
 
     public function validatePassword($password){
         return password_verify($password, $this->password);
+    }
+
+	public static function loginBySteamId($json){
+		if($user = User::findBySteamId($json->steamid)){
+			return Yii::$app->user->login($user, 3600*24*30);
+		}else{
+			$user = new User();
+			$user->first_name = explode(' ', $json->realname)[0];
+			$user->last_name = explode(' ', $json->realname)[1];
+			$url = $json->avatarfull;
+			$img = $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/'.$json->steamid.'.jpg';
+			file_put_contents($img, file_get_contents($url));
+			$user->picture = $json->steamid.'.jpg';
+			$tr_id = TruckersMP::getUserID($json->steamid);
+			$user->truckersmp = $tr_id ? 'https://truckersmp.com/user/'.$tr_id : null;
+			$user->steamid = $json->steamid;
+			$user->steam = $json->profileurl;
+			foreach(Steam::getUsersGames($json->steamid) as $game){
+				if($game->appid == '227300') $user->has_ets = '1';
+				if($game->appid == '270880') $user->has_ats = '1';
+			}
+			$user->nickname = $json->personaname;
+			$user->social = 'steam';
+			$user->auth_key = Yii::$app->security->generateRandomString();
+			$user->registered = date('Y-m-d');
+			if($user->save()){
+				Mail::newUserToAdmin($user);
+				Yii::$app->user->login($user, 3600*24*30);
+				return true;
+			}else{
+				return false;
+			}
+		}
     }
 
     public static function getUserAge($birth_date){

@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use ErrorException;
+use LightOpenID;
 
 class Steam{
 
@@ -26,5 +28,39 @@ class Steam{
             return false;
         }
     }
+
+	public static function getUsersGames($steamid){
+		$json = json_decode(file_get_contents('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='.self::$key.'&steamid='.$steamid.'&format=json'));
+		return $json->response->games;
+    }
+
+    public static function authUser(){
+		require '../lib/lightopenid/openid.php';
+		try{
+			$openid = new LightOpenID('http://'.$_SERVER['HTTP_HOST']);
+			if(!$openid->mode){
+				$openid->identity = 'http://steamcommunity.com/openid/?l=english';
+				header('Location: '. $openid->authUrl());
+				exit();
+			}elseif($openid->mode == 'cancel'){
+				return false;
+			}else{
+				if($openid->validate()){
+					$id = $openid->identity;
+					$ptn = '/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/';
+					preg_match($ptn, $id, $matches);
+					$url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.self::$key.'&steamids='.$matches[1];
+					$json_object = file_get_contents($url);
+					$json = json_decode($json_object);
+//					\Kint::dump($json);
+					return $json->response->players[0];
+				}else{
+					return false;
+				}
+			}
+		}catch(ErrorException $e){
+			return false;
+		}
+	}
 
 }

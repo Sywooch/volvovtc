@@ -326,7 +326,7 @@ class SiteController extends Controller{
         if($model->load(Yii::$app->request->post()) && $model->validate()){
             if(Recaptcha::verifyCaptcha(Yii::$app->request->post('g-recaptcha-response'))){
                 if($id = $model->signup()){
-                    Yii::$app->user->login(User::findByUsername($model->username));
+                    Yii::$app->user->login(User::findByUsername($model->username), 3600*24*30);
                     return $this->redirect(['site/profile', 'id' => $id]);
                 }else{
                     $model->addError('attr', 'Ошибка при регистрации');
@@ -353,7 +353,14 @@ class SiteController extends Controller{
                 'status' => $mailed,
             ];
         }
-        $model = new LoginForm();
+		$model = new LoginForm();
+        if(Yii::$app->request->get('social') == 'steam'){
+			if($steamid = Steam::authUser()){
+				return User::loginBySteamId($steamid) ?
+					$this->goBack() :
+					$this->redirect(['site/login']);
+			}
+		}
         if ($model->load(Yii::$app->request->post())){
             $model->attributes = Yii::$app->request->post();
             if($model->validate()){
@@ -368,7 +375,7 @@ class SiteController extends Controller{
     
     public function actionLogout(){
         Yii::$app->user->logout();
-        return $this->goHome();
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
     public function actionProfile(){
