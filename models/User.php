@@ -56,6 +56,10 @@ class User extends ActiveRecord implements IdentityInterface{
 			return Yii::$app->user->login($user, 3600*24*30);
 		}else{
 			$user = new User();
+			$user->username = !User::findByUsername(explode('/', $json->profileurl)[4]) ?
+				explode('/', $json->profileurl)[4] :
+				$json->steamid;
+			$user->email = $user->username.'@volvovtc.com';
 			$user->first_name = explode(' ', $json->realname)[0];
 			$user->last_name = explode(' ', $json->realname)[1];
 			$url = $json->avatarfull;
