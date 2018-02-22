@@ -23,7 +23,6 @@ class AppAsset extends AssetBundle
     ];
     public $js = [
         'assets/materialize/js/materialize.js',
-        //'assets/js/jquery.mask.min.js',
         'assets/js/script.js?2002',
     ];
     public $jsOptions = ['position' => \yii\web\View::POS_HEAD];
