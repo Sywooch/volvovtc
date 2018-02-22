@@ -439,7 +439,7 @@ class SiteController extends Controller{
         }
         $id = Yii::$app->user->id;
         if(Yii::$app->request->get('id')) $id = Yii::$app->request->get('id');
-        if(!$user = User::findIdentity($id)){
+        if(!$user = User::findOne($id)){
             return $this->goBack();
         }
         $user->age = User::getUserAge($user->birth_date);
@@ -447,7 +447,8 @@ class SiteController extends Controller{
             'user' => $user,
             'member' => $member,
             'model' => $model,
-			'pass_model' => $pass_model
+			'pass_model' => $pass_model,
+			'pass_set' => $user->password
         ]);
     }
 

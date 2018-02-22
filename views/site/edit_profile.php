@@ -153,7 +153,7 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
     <div class="card grey lighten-4">
         <div class="card-content">
             <span class="card-title">Изменить пароль</span>
-			<?php if($user->password): ?>
+			<?php if($pass_set): ?>
 				<?= $form->field($pass_model, 'password')->passwordInput()->label('Старый пароль*') ?>
 			<?php else : ?>
 				<?= $form->field($pass_model, 'password', ['template' => '{input}'])->hiddenInput(['value' => 'false'])->label(false) ?>
