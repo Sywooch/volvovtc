@@ -78,17 +78,19 @@ $this->title = 'Зарегистрированые пользователи са
 						</div>
 					</div>
 				</div>
-				<div class="card-action">
-					<?php if($user->vk){ ?>
-						<a target="_blank" href="<?=$user->vk?>">ВКонтакте</a>
-					<?php }
-					if($user->steam){ ?>
-						<a target="_blank" href="<?=$user->steam?>">Steam</a>
-					<?php }
-					if($user->truckersmp){ ?>
-						<a target="_blank" href="<?=$user->truckersmp?>">TruckersMP</a>
-					<?php } ?>
-				</div>
+				<?php if($user->vk || $user->steam || $user->truckersmp): ?>
+					<div class="card-action">
+						<?php if($user->vk){ ?>
+							<a target="_blank" href="<?=$user->vk?>">ВКонтакте</a>
+						<?php }
+						if($user->steam){ ?>
+							<a target="_blank" href="<?=$user->steam?>">Steam</a>
+						<?php }
+						if($user->truckersmp){ ?>
+							<a target="_blank" href="<?=$user->truckersmp?>">TruckersMP</a>
+						<?php } ?>
+					</div>
+				<?php endif ?>
 			</div>
         </div>
     <?php endforeach; ?>
