@@ -153,15 +153,13 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
     <div class="card grey lighten-4">
         <div class="card-content">
             <span class="card-title">Изменить пароль</span>
-            <?= $form->field($model, 'password')->passwordInput([
-                'required' => 'required'
-            ])->label('Старый пароль*') ?>
-            <?= $form->field($model, 'password_new')->passwordInput([
-                'required' => 'required'
-            ])->label('Новый пароль*') ?>
-            <?= $form->field($model, 'password_new_2')->passwordInput([
-                'required' => 'required'
-            ])->label('Повторите новый пароль*') ?>
+			<?php if($user->password): ?>
+				<?= $form->field($pass_model, 'password')->passwordInput()->label('Старый пароль*') ?>
+			<?php else : ?>
+				<?= $form->field($pass_model, 'password', ['template' => '{input}'])->hiddenInput(['value' => 'false'])->label(false) ?>
+			<?php endif ?>
+            <?= $form->field($pass_model, 'password_new')->passwordInput()->label('Новый пароль*') ?>
+            <?= $form->field($pass_model, 'password_new_2')->passwordInput()->label('Повторите новый пароль*') ?>
         </div>
         <div class="card-action">
             <?=Html::submitButton('Изменить пароль '.

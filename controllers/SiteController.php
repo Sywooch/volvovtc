@@ -12,6 +12,7 @@ use app\models\ModsSubcategories;
 use app\models\NicknameForm;
 use app\models\Notifications;
 use app\models\Other;
+use app\models\PasswordForm;
 use app\models\Recaptcha;
 use app\models\Steam;
 use app\models\TruckersMP;
@@ -379,7 +380,6 @@ class SiteController extends Controller{
     }
     
     public function actionProfile(){
-        $model = new ProfileForm();
         $edit = false;
         $member = false;
         if(Yii::$app->request->isAjax){
@@ -413,6 +413,17 @@ class SiteController extends Controller{
         	Url::remember();
             return $this->redirect(['site/login']);
         }
+		$pass_model = new PasswordForm();
+		$model = new ProfileForm();
+		if(isset($_POST['save_profile_password'])){
+			if($pass_model->load(Yii::$app->request->post()) && $pass_model->validate()){
+				if($pass_model->editPassword()){
+					return $this->redirect(['site/profile']);
+				}
+			}else{
+				$pass_model->addError('password_new', 'Ошибка');
+			}
+		}
         if(Yii::$app->request->get('action') === 'edit'){
             $model->has_ats = $user->has_ats == '1';
             $model->has_ets = $user->has_ets == '1';
@@ -432,11 +443,11 @@ class SiteController extends Controller{
             return $this->goBack();
         }
         $user->age = User::getUserAge($user->birth_date);
-        //$user->birth_date = self::getRuDate($user->birth_date);
         return $this->render($edit ? 'edit_profile' : 'profile', [
             'user' => $user,
             'member' => $member,
-            'model' => $model
+            'model' => $model,
+			'pass_model' => $pass_model
         ]);
     }
 
