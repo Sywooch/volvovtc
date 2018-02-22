@@ -66,7 +66,15 @@ class TruckersMP{
     }
 
     private function requestPlayer($id){
-        return json_decode(file_get_contents('https://api.truckersmp.com/v2/player/'.$id));
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt($ch,CURLOPT_URL,'https://api.truckersmp.com/v2/player/'.$id);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return json_decode($data);
+//        return json_decode(file_get_contents('https://api.truckersmp.com/v2/player/'.$id));
     }
 
     private function requestBans($id){

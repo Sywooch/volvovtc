@@ -30,7 +30,7 @@ class Steam{
     }
 
 	public static function getUsersGames($steamid){
-		$json = json_decode(file_get_contents('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='.self::$key.'&steamid='.$steamid.'&format=json'));
+		$json = json_decode(self::getData('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='.self::$key.'&steamid='.$steamid.'&format=json'));
 		return $json->response->games;
     }
 
@@ -45,14 +45,15 @@ class Steam{
 			}elseif($openid->mode == 'cancel'){
 				return false;
 			}else{
-				if($openid->validate()){
-					$id = $openid->identity;
+				if($openid->validate() !== false){
+					$id = $openid->data['openid_identity'];
 					$ptn = '/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/';
 					preg_match($ptn, $id, $matches);
 					$url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.self::$key.'&steamids='.$matches[1];
-					$json_object = file_get_contents($url);
+//					$json_object = file_get_contents($url);
+					$json_object = self::getData($url);
+//					\Kint::dump($json_object);
 					$json = json_decode($json_object);
-//					\Kint::dump($json);
 					return $json->response->players[0];
 				}else{
 					return false;
@@ -61,6 +62,17 @@ class Steam{
 		}catch(ErrorException $e){
 			return false;
 		}
+	}
+
+	public static function getData($url){
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
 	}
 
 }
