@@ -100,7 +100,7 @@ $this->title = 'Редактирование профиля - Volvo Trucks';
                     ])->label('Профиль VK') ?>
                     <?= $form->field($model, 'steam')->textInput([
                         'value' => $user->steam,
-                        'readonly' => $member ? 'true' : false
+                        'readonly' => $member || $user->social == 'steam' ? 'true' : false
                     ])->label('Профиль Steam') ?>
                     <?= $form->field($model, 'steamid64')->hiddenInput()->label(false) ?>
                     <?= $form->field($model, 'visible_steam', ['template' => '<div>{input}{label}</div>'])
