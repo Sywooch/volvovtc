@@ -202,9 +202,10 @@ $(document).on('ready', function(){
     });
 
     $('#signupform-steam, #profileform-steam').change(function(){
+		$('#signupform-visible_truckersmp, #profileform-visible_truckersmp').attr('disabled', true).prop('checked', false);
+		$('#signupform-truckersmp, #profileform-truckersmp').val('');
         var regexp = new RegExp('^(https?:\/\/)?steamcommunity\.com\/(id|profiles)\/[^\/]*\/?$');
         if(regexp.test($(this).val())){
-            $('#signupform-visible_truckersmp, #profileform-visible_truckersmp').attr('disabled', false);
             $.ajax({
                 url : window.location.protocol + '//' + window.location.host + '/signup?ajax-action=get_truckersmpid',
                 type: 'POST',
@@ -212,9 +213,10 @@ $(document).on('ready', function(){
                 cache: false,
                 dataType: 'json',
                 success : function(response){
-                    if(response.status === 'OK'){
+                    if(response.status === 'OK' && response.url !== false){
                         $('#signupform-truckersmp, #profileform-truckersmp').val(response.url);
                         $('#signupform-steamid64, #profileform-steamid64').val(response.steamid);
+						$('#signupform-visible_truckersmp, #profileform-visible_truckersmp').attr('disabled', false);
                     }
                 }
             });

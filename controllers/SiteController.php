@@ -317,7 +317,7 @@ class SiteController extends Controller{
             return [
                 'status' => 'OK',
                 'steamid' => $steam_id,
-                'url' => 'https://truckersmp.com/user/'. $id .'/'
+                'url' => $id ? 'https://truckersmp.com/user/'. $id .'/' : false
             ];
         }
         if(!Yii::$app->user->isGuest){

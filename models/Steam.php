@@ -14,7 +14,7 @@ class Steam{
         $url = explode('/', $url);
         if (!preg_match('/^7656119[0-9]{10}$/i', $url[2])){
             $json = json_decode(file_get_contents('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key='.self::$key.'&vanityurl='.$url[2]));
-            return $json->response->steamid;
+            return $json->response->success == '1' ? $json->response->steamid : false;
         }else{
             return $url[2];
         }
