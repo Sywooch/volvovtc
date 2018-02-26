@@ -1,46 +1,6 @@
 $(document).ready(function(){
 
-    $(document).on('change', '.upload-item [type=file]', function(){
-        var uploader = $(this);
-        var newBlock = uploader.parent().parent().clone();
-        var files = $(this)[0].files;
-        var data = new FormData();
-        $.each(files, function(key, value){
-            data.append(key, value);
-        });
-        $.ajax({
-            url : window.location.href + '?ajax-action=upload-news-img',
-            type: 'POST',
-            data: data,
-            cache: false,
-            dataType: 'json',
-            processData: false, // Не обрабатываем файлы (Don't process the files)
-            contentType: false, // Так jQuery скажет серверу что это строковой запрос
-            beforeSend: function(){
-                uploader.parent().find('i').replaceWith(getPreloaderHtml());
-            },
-            success: function(response){
-                if(response.status === 'OK'){
-                    uploader.parent().attr('style', 'background-image: url('+response.file.path+'?t='+response.t+')');
-                    uploader.after('<input type="hidden" name="picture[]" value="'+response.file.name+'">');
-                }
-            },
-            complete : function(){
-                uploader.parent().find('.preloader-wrapper').replaceWith('<i class="material-icons notranslate medium red-text text-shadow">clear</i>');
-                uploader.parent().addClass('delete-item');
-                if($(document).find('[name^=picture]').length < 10){
-                    uploader.parent().parent().after(newBlock);
-                }
-                uploader.remove();
-            }
-        });
-    });
-
-    $(document).on('click', '.delete-item', function(){
-        if(confirm('Удалить изображение?')) $(this).parent().remove();
-    });
-
-    $(document).on('change', '[id*=trailer-select-]', function(){
+    $(document).on('change', '#trailer-select', function(){
         var id = $(this).val();
         var target = $(this).data('target');
         if(target === 'mods'){
@@ -58,7 +18,9 @@ $(document).ready(function(){
     });
 
     $('#addconvoyform-picture_full').change(function(){
-		this.files[0].size > 2500000 ? $('.picture-small').show() : $('.picture-small').hide().find('[type=file]').val('');
+    	if($(this).hasClass('convoy-validate-img-size') && validateImgSize($(this))){
+			this.files[0].size > 2500000 ? $('.picture-small').show() : $('.picture-small').hide().find('[type=file]').val('');
+		}
     });
 
     $('#addmodform-picture, #trailersform-picture, #achievementsform-image, #addconvoyform-picture_full').change(function(){
@@ -74,32 +36,6 @@ $(document).ready(function(){
         $(list).hasClass('active') ? $(list).removeClass('active') : $(list).addClass('active');
     });
 
-    $('button.add-trailer').click(function(e){
-        e.preventDefault();
-        if($('.row.inner').length < 4){
-            var row = $('.row.inner').last();
-            var select = $(row).find('select').clone().removeClass('select2-hidden-accessible');
-            select.find('option[value=0], option[value=-1]').remove();
-            var id = parseInt(select.attr('id').substring(15)) + 1;
-            var selectHtml = select.attr('id', 'trailer-select-' + id).attr('name', 'AddConvoyForm[trailer][' + id + ']').wrap('<p/>').parent().html();
-            row.after('<div class="row inner">' +
-                '<div class="col l11 s10" style="padding-bottom: 20px;">' + selectHtml + '</div>' +
-                '<div class="col l1 s2 center" style="line-height: 44px;">' +
-                '<button class="red-text remove-trailer">' +
-                '<i class="material-icons notranslate small">clear</i></button></div></div>');
-            $('#trailer-select-' + id).select2();
-            if($('.row.inner').length >= 4) $(this).hide();
-            renderTrailersPreview('trailers');
-        }
-    });
-
-    $(document).on('click', '.remove-trailer, .remove-trailer i', function(){
-        $(this).parents('.row.inner').first().remove();
-        $(this).parents('.tooltipped').tooltip('remove');
-        if($('.row.inner').length < 4) $('button.add-trailer').show();
-        renderTrailersPreview('trailers');
-    });
-
 }); // end of document ready
 
 function readURL(input) {
@@ -112,7 +48,7 @@ function readURL(input) {
     }
 }
 
-function renderTrailersPreview(target){
+function renderTrailersPreview(){
     var trailers = [];
     $.each($('.trailers-select'), function(i, select){
         trailers.push(select.value);
@@ -127,50 +63,19 @@ function renderTrailersPreview(target){
             trailers : trailers
         },
         beforeSend : function(){
-            info.animate({opacity : 0.5}, 300, function(){
-                info.append('<div class="preloader-wrapper active">'+
-                    '<div class="spinner-layer spinner-red-only">'+
-                    '<div class="circle-clipper left">'+
-                    '<div class="circle"></div>'+
-                    '</div>' +
-                    '<div class="gap-patch">'+
-                    '<div class="circle"></div>'+
-                    '</div>' +
-                    '<div class="circle-clipper right">'+
-                    '<div class="circle"></div>'+
-                    '</div>'+
-                    '</div>'+
-                    '</div>');
+            info.animate({opacity : 0.5}, 200, function(){
+                info.append(getPreloaderHtml('tiny'));
             });
         },
         success : function(response){
             if(response.status == 'OK'){
-                if(target == 'mods'){
-                    $('#trailer-name').html(response.trailers[0].name);
-                    $('#trailer-description').html(response.trailers[0].description);
-                    $('#trailer-image').attr('src', '/images/trailers/'+response.trailers[0].picture);
-                }else{
-                    var cols = '12';
-                    switch(response.trailers.length){
-                        case 4 : cols = '6'; break;
-                        case 3 : cols = '4'; break;
-                        case 2 : cols = '6'; break;
-                        case 1 :
-                        default : cols = '12'; break;
-                    }
-                    info.find('.trailer-preview, .clearfix').remove();
-                    $.each(response.trailers, function(i, trailer){
-                        info.append('<div class="trailer-preview col s'+cols+'">'+
-                            '<img src="/images/trailers/'+trailer.picture+'" class="responsive-img z-depth-2 materialboxed" id="trailer-image-'+i+'">'+
-                            '</div>');
-                    });
-                    $('.materialboxed').materialbox();
-                    info.append('<div class="clearfix">');
-                }
+				$('#trailer-name').html(response.trailers[0].name);
+				$('#trailer-description').html(response.trailers[0].description);
+				$('#trailer-image').attr('src', '/images/trailers/'+response.trailers[0].picture);
             }
         },
         complete : function(){
-            info.animate({opacity : 1}, 300, function(){
+            info.animate({opacity : 1}, 200, function(){
                 info.find('.preloader-wrapper').remove();
             });
         }
@@ -188,19 +93,7 @@ function loadMembersBans(steamid64){
         },
         beforeSend : function(){
             Materialize.toast('Загружаем баны...', 3000);
-            $('th.first').append('<div class="preloader-wrapper tiny active">'+
-                '<div class="spinner-layer spinner-red-only">'+
-                '<div class="circle-clipper left">'+
-                '<div class="circle"></div>'+
-                '</div>' +
-                '<div class="gap-patch">'+
-                '<div class="circle"></div>'+
-                '</div>' +
-                '<div class="circle-clipper right">'+
-                '<div class="circle"></div>'+
-                '</div>'+
-                '</div>'+
-                '</div>');
+            $('th.first').append(getPreloaderHtml('tiny'));
         },
         success : function(response){
             if(response.status == 'OK'){
