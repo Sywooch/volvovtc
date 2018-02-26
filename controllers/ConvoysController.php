@@ -57,7 +57,7 @@ class ConvoysController extends Controller{
         if(Yii::$app->request->get('id')){
             if(!$convoy = Convoys::find()
 				->select(['convoys.*', 'trailers.name AS tr_name', 'trailers.picture AS tr_image', 'mods.file_name as tr_mod_file_name'])
-				->innerJoin('trailers', 'trailers.id = convoys.trailer')
+				->leftJoin('trailers', 'trailers.id = convoys.trailer')
 				->leftJoin('mods', 'trailers.id = mods.trailer')
 				->where(['convoys.id' => Yii::$app->request->get('id')])
 				->one()) return $this->render('//site/error');

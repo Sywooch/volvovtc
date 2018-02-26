@@ -41,7 +41,7 @@ class AddConvoyForm extends Model{
         if(isset($id)){
             $convoy = Convoys::find()
 				->select(['convoys.*', 'trailers.name AS tr_name', 'trailers.picture AS tr_image'])
-				->innerJoin('trailers', 'trailers.id = convoys.trailer')
+				->leftJoin('trailers', 'trailers.id = convoys.trailer')
 				->where(['convoys.id' => Yii::$app->request->get('id')])
 				->one();
             $this->start_city = $convoy->start_city;

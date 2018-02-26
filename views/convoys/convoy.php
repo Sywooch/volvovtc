@@ -170,17 +170,27 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
                             <h5 class="card-title light">Прицеп на конвой:</h5>
 							<div class="trailer">
 								<p class="trailer-name">
-									<?= $convoy->tr_name ?>
-									<?php if($convoy->tr_mod_file_name){
-										$link = Mods::getModsPath($convoy->game).$convoy->tr_mod_file_name;
-										$text = 'Скачать модификацию';
-									}else{
-										$link = 'https://generator.volvovtc.com/';
-										$text = 'Сгенерировать модификацию';
-									} ?>
-									- <a href="<?= $link ?>" target="_blank"><?= $text ?></a>
+									<?php if($convoy->trailer != '0' && $convoy->trailer != '-1') : ?>
+										<?= $convoy->tr_name ?>
+										<?php if($convoy->tr_mod_file_name){
+											$link = Mods::getModsPath($convoy->game).$convoy->tr_mod_file_name;
+											$text = 'Скачать модификацию';
+										}else{
+											$link = 'https://generator.volvovtc.com/';
+											$text = 'Сгенерировать модификацию';
+										} ?>
+										- <a href="<?= $link ?>" target="_blank"><?= $text ?></a>
+									<?php else : ?>
+										<?php if($convoy->trailer == '0') : ?>
+										    Любой прицеп
+										<?php elseif($convoy->trailer == '-1'): ?>
+											Без прицепа
+										<?php endif ?>
+									<?php endif ?>
 								</p>
-								<img class="materialboxed responsive-img z-depth-2" src="/images/trailers/<?= $convoy->tr_image ?>">
+								<?php if($convoy->trailer != '0' && $convoy->trailer != '-1') : ?>
+									<img class="materialboxed responsive-img z-depth-2" src="/images/trailers/<?= $convoy->tr_image ?>">
+								<?php endif ?>
 							</div>
                         </div>
                     </div>
@@ -263,7 +273,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
             <a href="<?=Url::to([
                 'convoys/edit',
                 'id' => $convoy->id
-            ])?>" class="btn-floating btn-large red tooltipped" data-position="left" data-tooltip="Редактировать">
+            ])?>" class="btn-floating btn-large red tooltipped waves-effect waves-light" data-position="left" data-tooltip="Редактировать">
                 <i class="large material-icons notranslate">mode_edit</i>
             </a>
             <ul>
@@ -271,7 +281,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
                     <a onclick='return confirm("Удалить?")' href="<?=Url::to([
                         'convoys/remove',
                         'id' => $convoy->id
-                    ])?>" class="btn-floating yellow darken-3 tooltipped" data-position="left" data-tooltip="Удалить">
+                    ])?>" class="btn-floating yellow darken-3 tooltipped waves-effect waves-light" data-position="left" data-tooltip="Удалить">
                         <i class="material-icons notranslate">delete</i>
                     </a>
                 </li>
@@ -279,7 +289,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
                     <a href="<?=Url::to([
                         $convoy->visible == '1' ? 'convoys/hide' : 'convoys/show',
                         'id' => $convoy->id
-                    ])?>" class="btn-floating green tooltipped" data-position="left" data-tooltip="<?= $convoy->visible == '1' ?
+                    ])?>" class="btn-floating green tooltipped waves-effect waves-light" data-position="left" data-tooltip="<?= $convoy->visible == '1' ?
                         'Скрыть конвой' : 'Сделать видимым' ?>">
                         <i class="material-icons notranslate"><?= $convoy->visible == '1' ? 'visibility_off' : 'visibility' ?></i>
                     </a>
