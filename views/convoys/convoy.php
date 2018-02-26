@@ -1,7 +1,8 @@
 <?php
 
 use app\models\Convoys;
-use yii\helpers\Url;
+	use app\models\Mods;
+	use yii\helpers\Url;
 
 
 $this->title = $convoy->title . ' - Volvo Trucks';
@@ -140,6 +141,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
             <?php endif ?>
         </div>
     </div>
+
     <?php if($convoy->open) : ?>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
@@ -147,6 +149,10 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
                     <i class="material-icons notranslate">add_circle</i>Дополнительная информация для сотрудников ВТК Volvo Trucks
                 </div>
                 <div class="collapsible-body grey lighten-4">
+	<?php else : ?>
+		<div class="card <?= $card_color ?>">
+			<div class="card-content">
+	<?php endif ?>
                     <div class="row">
                         <div class="col m6 s12">
                             <h5 class="card-title light">
@@ -161,45 +167,32 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
                             <?php endif ?>
                         </div>
                         <div class="col m6 s12">
-                            <h5 class="card-title light">
-                                Прицеп<?php if(count($convoy->trailer)):?>ы<?php endif ?> на конвой:
-                            </h5>
-                            <?= \app\models\Trailers::getTrailersListHtml($convoy->trailer) ?>
+                            <h5 class="card-title light">Прицеп на конвой:</h5>
+							<div class="trailer">
+								<p class="trailer-name">
+									<?= $convoy->tr_name ?>
+									<?php if($convoy->tr_mod_file_name){
+										$link = Mods::getModsPath($convoy->game).$convoy->tr_mod_file_name;
+										$text = 'Скачать модификацию';
+									}else{
+										$link = 'https://generator.volvovtc.com/';
+										$text = 'Сгенерировать модификацию';
+									} ?>
+									- <a href="<?= $link ?>" target="_blank"><?= $text ?></a>
+								</p>
+								<img class="materialboxed responsive-img z-depth-2" src="/images/trailers/<?= $convoy->tr_image ?>">
+							</div>
                         </div>
                     </div>
-                </div>
-            </li>
-        </ul>
-    <?php else: ?>
-        <div class="card <?= $card_color ?>">
-            <div class="card-content">
-                <div class="row">
-                    <div class="col m6 s12">
-                        <h5 class="card-title light">
-                            Вариаци<?= $convoy->truck_var == 2 || $convoy->truck_var == 4 || $convoy->truck_var == 5 ? 'и' : 'я' ?> на конвой:
-                        </h5>
-                        <?php if($convoy->game == 'ats') : ?>
-                            <?= str_replace('Любая вариация', 'Любой тягач', Convoys::getVarList(explode(',', $convoy->truck_var)[0], explode(',', $convoy->truck_var)[1] == '1')) ?>
-                        <?php else : ?>
-                            <?= Convoys::getVarList(explode(',', $convoy->truck_var)[0], explode(',', $convoy->truck_var)[1] == '1') ?>
-                        <?php endif ?>
-                        <?php if($convoy->add_info) : ?>
-                            <p><?= $convoy->add_info ?></p>
-                        <?php endif ?>
-                        <?php if($convoy->extra_picture) : ?>
-                            <img class="materialboxed z-depth-2" src="<?=Yii::$app->request->baseUrl?>/images/convoys/<?=  $convoy->extra_picture ?>?t=<?= time() ?>" width="100%" ">
-                        <?php endif ?>
-                    </div>
-                    <div class="col m6 s12">
-                        <h5 class="card-title light">
-                            Прицеп<?php if(count($convoy->trailer)):?>ы<?php endif ?> на конвой:
-                        </h5>
-                        <?= \app\models\Trailers::getTrailersListHtml($convoy->trailer) ?>
-                    </div>
-                </div>
+    <?php  if($convoy->open) : ?>
+				</div>
+			</li>
+		</ul>
+	<?php else : ?>
             </div>
         </div>
-    <?php endif ?>
+	<?php endif ?>
+
     <?php if($participants &&
         ((key_exists('100',$participants) && count($participants['100']) > 0) ||
         (key_exists('50',$participants) && count($participants['50']) > 0))) : ?>
