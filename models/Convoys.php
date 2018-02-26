@@ -9,6 +9,10 @@ use yii\helpers\Url;
 
 class Convoys extends ActiveRecord{
 
+	public $tr_image;
+	public $tr_name;
+	public $tr_mod_file_name;
+
     public static function tableName(){
         return 'convoys';
     }
@@ -86,6 +90,19 @@ class Convoys extends ActiveRecord{
 			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
 		}
         $convoy->extra_picture = null;
+        $convoy->save();
+    }
+
+    public static function deleteMap($id) {
+        $convoy = Convoys::findOne($id);
+		if($convoy->picture_full && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full)) {
+			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full);
+		}
+		if($convoy->picture_small && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small)) {
+			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
+		}
+        $convoy->picture_full = null;
+        $convoy->picture_small = null;
         $convoy->save();
     }
 
@@ -167,7 +184,7 @@ class Convoys extends ActiveRecord{
             '21' => ['var2'],
             '22' => ['var22']
         ];
-        $list = '<ul class="var-list browser-default">';
+        $list = '<ul class="var-list">';
         switch ($string){
             case '1' : $vars = ['1']; break;
             case '2' : $vars = ['21', '22']; break;

@@ -8,9 +8,12 @@ use yii\helpers\ArrayHelper;
 
 class Trailers extends ActiveRecord{
 
+	public $mod;
+
     public static function deleteTrailer($id){
         $trailer = Trailers::findOne($id);
-        if($trailer->picture && $trailer->picture !== 'default.jpg' && file_exists(Yii::$app->request->baseUrl).'/web/images/trailers/'.$trailer->picture){
+        if($trailer->picture && $trailer->picture !== 'default.jpg'
+			&& file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl).'/web/images/trailers/'.$trailer->picture){
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/trailers/'.$trailer->picture);
         }
         return $trailer->delete();
@@ -35,31 +38,6 @@ class Trailers extends ActiveRecord{
             $query = $query->orWhere(['id' => $trailer]);
         }
         return $query->all();
-    }
-
-    public static function getTrailersListHtml($trailers){
-        $list = '<ul class="trailers-list browser-default">';
-        if($trailers[0] == '0' || $trailers[0] == '-1'){
-            $list .= '<li class="trailer-name">';
-            $list .= $trailers[0] == '0' ? 'Любой прицеп' : 'Без прицепа';
-            $list .= '</li>';
-        }
-        $trailers = Trailers::getTrailersInfo($trailers);
-        foreach ($trailers as $trailer){
-            $list .= '<li class="trailer-name">'.$trailer->name;
-			$mod = Mods::findOne(['trailer' => $trailer->id, 'visible' => '1']);
-            if($mod){
-                $list .= ' - <a target="_blank" href="'.Mods::getModsPath($mod->game).$mod->file_name.'" class="indigo-text light">'.
-                    'Загрузить модификацию</a>';
-            }else{
-				$list .= ' - <a target="_blank" href="https://generator.volvovtc.com/" class="indigo-text light">'.
-					'Сгенерировать модификацию</a>';
-			}
-            $list .= '<p><img src="/images/trailers/'.$trailer->picture.'" class="materialboxed responsive-img z-depth-2"></li>';
-
-        }
-        $list .= '</ul>';
-        return $list ;
     }
 
 }
