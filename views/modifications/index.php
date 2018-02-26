@@ -145,7 +145,7 @@ $this->registerMetaTag([
 </div>
 <?php if(\app\models\User::isAdmin()) : ?>
 	<div class="fixed-action-btn fixed-action-btn_second">
-		<a class="btn-floating btn-large red waves-effect waves-light" href="<?= Url::to(['modifications/add']) ?>" target="_blank">
+		<a class="btn-floating btn-large red waves-effect waves-light" href="<?= Url::to(['modifications/add']) ?>">
 			<i class="material-icons notranslate">add</i>
 		</a>
 	</div>
