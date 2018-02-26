@@ -377,15 +377,8 @@ $(document).on('ready', function(){
 	});
 
 	// <input type="file" class="validate-img-size" data-maxsize="15000000" data-alert="Max size limit 15Mb">
-	$('.validate-img-size').change(function(){
-		var maxSize = parseInt($(this).data('maxsize'));
-		if(maxSize === undefined || maxSize === '') maxSize = 15000000;
-		maxSize += 500000;
-		if(this.files[0].size > maxSize){
-			if($(this).data('alert') !== undefined) alert($(this).data('alert'));
-			$(this).val('');
-			return false;
-		}
+	$('.validate-img-size').change(function(e){
+		validateImgSize($(this));
 	});
 
 	$('#gallery-send-btn').click(function(){
@@ -458,4 +451,16 @@ function getPreloaderHtml(preloaderClass, color){
         '</div>'+
         '</div>'+
         '</div>';
+}
+
+function validateImgSize($el){
+	var maxSize = parseInt($el.data('maxsize'));
+	if(maxSize === undefined || maxSize === '') maxSize = 15000000;
+	maxSize += 500000;
+	if($el[0].files[0].size > maxSize){
+		if($el.data('alert') !== undefined) alert($el.data('alert'));
+		$el.val('');
+		return false;
+	}
+	return true;
 }
