@@ -14,18 +14,23 @@ class User extends ActiveRecord implements IdentityInterface{
 //    public $authKey;
 //    public $accessToken;
     public $age;
+    public $member_id;
 
     public static function tableName() {
         return 'users';
     }
 
     public static function findIdentity($id){
-        return self::findOne($id);
+    	$user = self::find()
+			->select(['users.*', 'vtc_members.id as member_id'])
+			->leftJoin('vtc_members', 'users.id = vtc_members.user_id')
+			->where(['users.id' => $id])->one();
+        return $user;
     }
 
     public static function findIdentityByAccessToken($token, $type = null){
 
-    }
+}
 
     public static function findByUsername($username){
         return User::findOne(['username' => $username]);
@@ -112,15 +117,15 @@ class User extends ActiveRecord implements IdentityInterface{
 
     public static function isVtcMember($id = null){
         if(isset($id)){
-            $user = User::findOne($id);
-            $is_member = VtcMembers::find()->where(['user_id' => $user->id])->count() !== '0';
+			$is_member = User::find()
+				->select(['users.id as uid', 'vtc_members.id as mid'])
+				->innerJoin('vtc_members', 'users.id = vtc_members.user_id')
+				->where(['users.id' => $id])->count() !== '0';
         }else {
             if(Yii::$app->user->isGuest) {
                 $is_member = false;
             } else {
-                $is_member = VtcMembers::find()
-                    ->where(['user_id' => Yii::$app->user->identity->id])
-                    ->one() ? true : false;
+                $is_member = Yii::$app->user->identity->member_id ? true : false;
             }
         }
         return $is_member;
