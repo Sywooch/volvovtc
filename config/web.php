@@ -131,6 +131,7 @@ $config = [
                 '<action:\w+>/<id:\d+>/' => 'site/<action>',
                 '<action>/page/<page:\d+>/' => 'site/<action>',
                 '<action>' => 'site/<action>',
+				'<controller:\w+>/<action:\w+>' => '<controller>/<action>'
             ],
         ],
     ],
