@@ -64,8 +64,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div class="card grey lighten-4">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/7">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var1_1.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var1_2.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var1_1.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var1_2.jpg">
                 </div>
                 <span class="card-title text-shadow">Volvo FH<br>Volvo FH Classic</span>
             </div>
@@ -95,7 +95,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <h5>Вариация №2.1</h5>
         <div class="card grey lighten-4">
             <div class="card-image">
-                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var2.jpg">
+                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var2.jpg">
                 <span class="card-title text-shadow">Volvo FH Classic</span>
             </div>
             <div class="card-content">
@@ -129,7 +129,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <h5>Вариация №2.2</h5>
         <div class="card grey lighten-4">
             <div class="card-image">
-                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var22.jpg">
+                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var22.jpg">
                 <span class="card-title text-shadow">Volvo FH</span>
             </div>
             <div class="card-content">
@@ -184,8 +184,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div id="mercedes" class="card scrollspy grey lighten-4">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/7">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_merc1.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_merc2.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_merc1.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_merc2.jpg">
                 </div>
                 <span class="card-title text-shadow">Mercedes-Benz Actros MP3<br>Mercedes-Benz Actros MP4</span>
             </div>
@@ -213,10 +213,10 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div id="scania" class="card grey lighten-4 scrollspy">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/8">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanR.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanS.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanStr.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_scanR12.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_scanR.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_scanS.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_scanStr.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_scanR12.jpg">
                 </div>
                 <span class="card-title text-shadow">Scania S<br>Scania R<br>Scania Streamline<br>Scania R 2012</span>
             </div>
@@ -284,8 +284,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div id="daf" class="card grey lighten-4 scrollspy">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="160/75">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_daf2.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_daf1.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_daf2.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_daf1.jpg">
                 </div>
                 <span class="card-title text-shadow">DAF XF105<br>DAF XF Euro 6</span>
             </div>
@@ -343,8 +343,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div id="renault" class="card grey lighten-4 scrollspy">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/7">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_ren2.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_ren1.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_ren2.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_ren1.jpg">
                 </div>
                 <span class="card-title text-shadow">Renault Premium<br>Renault Magnum</span>
             </div>
@@ -371,7 +371,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         </div>
         <div id="man" class="card grey lighten-4 scrollspy">
             <div class="card-image">
-                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_man.jpg">
+                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_man.jpg">
                 <span class="card-title text-shadow">MAN TGX</span>
             </div>
             <div class="card-content">
@@ -390,8 +390,8 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div id="iveco" class="card grey lighten-4 scrollspy">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/7">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_ive2.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var3_ive1.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_ive2.jpg">
+                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_ive1.jpg">
                 </div>
                 <span class="card-title text-shadow">Iveco Stralis<br>Iveco HI-WAY</span>
             </div>
@@ -421,7 +421,7 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <h5>Фирменные полуприцепы Volvo Trucks</h5>
         <div class="card grey lighten-4">
             <div class="card-image">
-                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/trailer.jpg">
+                <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/trailer.jpg">
                 <span class="card-title text-shadow">Чёрный рефрижератор Schwarzmüller<br>Белый рефрижератор Schwarzmüller</span>
             </div>
             <div class="card-content">

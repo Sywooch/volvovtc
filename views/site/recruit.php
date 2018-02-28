@@ -10,8 +10,8 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
 
     <?php if($step == '1') : ?>
 
-        <div class="card">
-            <div class="card-image no-img" style="background-image: url(assets/img/recruit.jpg)">
+        <div class="card grey lighten-4">
+            <div class="card-image no-img" style="background-image: url(assets/img/recruit/recruit.jpg)">
                 <span class="recruit-text-f text-shadow">Вступление в компанию</span>
                 <span class="recruit-text-s text-shadow">Шаг 1</span>
             </div>
@@ -22,7 +22,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                     <li>Ваши личные сообщения ВК открыты для всех <a href="https://vk.com/settings?act=privacy" target="_blank">Открыть</a></li>
                     <li>Ваши профиль на сайте полностью заполнен <a href="<?=Url::to(['site/profile', 'action' => 'edit'])?>" target="_blank">Заполнить</a></li>
 <!--                    <li>Вам есть 18 лет. Если Вам нет 18, <a href="https://vk.com/im?sel=105513579" target="_blank">писать сюда</a></li>-->
-                    <li>Вы ознакомились с <a href="<?= Url::to(['site/rules']) ?>" target="_blank">правилами</a></li>
+<!--                    <li>Вы ознакомились с <a href="--><?//= Url::to(['site/rules']) ?><!--" target="_blank">правилами</a></li>-->
                     <li>Вы не состоите в другой ВТК</li>
                 </ol>
             </div>
@@ -35,14 +35,14 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
 
     <?php if($step == '2') : ?>
 
-        <div class="card">
-            <div class="card-image no-img" style="background-image: url(assets/img/recruit-2.jpg)">
+        <div class="card grey lighten-4">
+            <div class="card-image no-img" style="background-image: url(assets/img/recruit/recruit-2.jpg)">
                 <span class="recruit-text-f text-shadow">Вступление в компанию</span>
                 <span class="recruit-text-s text-shadow">Шаг 2</span>
             </div>
             <div class="card-content">
                 <h5>Прежде, чем подавать заявку на вступление, хорошо прочитайте все правила!</h5>
-                <div class="step-2-rules card-panel grey lighten-3">
+                <div class="step-2-rules card-panel grey lighten-5">
                     <?= $rules->text ?>
                 </div>
 
@@ -68,8 +68,8 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                 'inputOptions' => ['autocomplete' => 'Off']
             ],
         ]); ?>
-        <div class="card">
-            <div class="card-image no-img" style="background-image: url(assets/img/recruit-3.jpg)">
+        <div class="card grey lighten-4">
+            <div class="card-image no-img" style="background-image: url(assets/img/recruit/recruit-3.jpg)">
                 <span class="recruit-text-f text-shadow">Вступление в компанию</span>
                 <span class="recruit-text-s text-shadow">Шаг 3</span>
             </div>
