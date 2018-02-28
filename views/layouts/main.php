@@ -149,11 +149,11 @@ AppAsset::register($this);
                                     <i class="material-icons notranslate left">lightbulb_outline</i>ВАРИАЦИИ ТЯГАЧЕЙ
                                 </a>
                             </li>
-<!--                            <li>-->
-<!--                                <a href="--><?//=Url::to(['site/exams'])?><!--">-->
-<!--                                    <i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ-->
-<!--                                </a>-->
-<!--                            </li>-->
+                            <li>
+                                <a href="<?=Url::to(['site/exams'])?>">
+                                    <i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ
+                                </a>
+                            </li>
                         </ul>
                     </li>
                     <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
@@ -196,12 +196,12 @@ AppAsset::register($this);
                     <li id="notification-item" class="notification-btn-item">
                         <a class="notification-btn">
                             <i class="material-icons notranslate">notifications</i>
-                            <?php if($this->params['hasUnreadNotifications']) : ?>
+                            <?php if(isset($this->params['hasUnreadNotifications']) && $this->params['hasUnreadNotifications']) : ?>
                                 <div class="new-notifications z-depth-2 green"></div>
                             <?php endif ?>
                         </a>
                         <ul class="notification-list z-depth-3">
-                            <?php if(count($this->params['notifications']) > 0):
+                            <?php if(isset($this->params['notifications']) && count($this->params['notifications']) > 0):
                                 foreach($this->params['notifications'] as $notification): ?>
                                     <li class="flex<?php if($notification->status == '0'): ?> unread-notification<?php endif ?>" data-id="<?= $notification->id ?>" style="justify-content: space-between">
                                         <span class="truncate"><?= $notification->text ?></span>
