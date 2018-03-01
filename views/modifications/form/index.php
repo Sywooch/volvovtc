@@ -23,7 +23,7 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                     <div class="col l11 s10">
                         <?= $form->field($model, 'trailer')
                             ->dropdownList($trailers, [
-                                'id' => 'trailer-select-0',
+                                'id' => 'trailer-select',
                                 'class' => 'browser-default trailers-select',
                                 'data-target' => 'mods'])
                             ->error(false)
@@ -115,11 +115,11 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
         <div class="fixed-action-btn">
             <?=Html::submitButton(Html::tag('i', 'save', [
                 'class' => 'large material-icons notranslate'
-            ]), ['class' => 'btn-floating btn-large red']) ?>
+            ]), ['class' => 'btn-floating btn-large red waves-effect waves-light']) ?>
         </div>
         <?php ActiveForm::end(); ?>
     </div>
 </div>
 <script>
-    $('#trailer-select-0').select2();
+    $('#trailer-select').select2();
 </script>

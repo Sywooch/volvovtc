@@ -24,7 +24,7 @@ $this->title = 'Volvo Trucks - TruckersMP';
             <?php endif ?>
         </div>
     </div>
-    <div class="parallax"><img src="assets/img/parallax-bg/1-1.jpg"></div>
+    <div class="parallax"><img src="assets/img/home/1-1.jpg"></div>
 </div>
 <section class="z-depth-4" style="padding-bottom: 50px;">
     <div class="container">
@@ -58,7 +58,7 @@ $this->title = 'Volvo Trucks - TruckersMP';
     </div>
 </section>
 <div class="parallax-container valign-wrapper">
-    <div class="parallax"><img src="assets/img/parallax-bg/2.jpg"></div>
+    <div class="parallax"><img src="assets/img/home/2.jpg"></div>
 </div>
 <section class="z-depth-4" style="padding: 50px 0">
     <div class="container">
@@ -88,5 +88,5 @@ $this->title = 'Volvo Trucks - TruckersMP';
     </div>
 </section>
 <div class="parallax-container valign-wrapper">
-    <div class="parallax"><img src="assets/img/parallax-bg/3.jpg"></div>
+    <div class="parallax"><img src="assets/img/home/3.jpg"></div>
 </div>

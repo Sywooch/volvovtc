@@ -7,7 +7,7 @@ class TruckersMP{
 
     public static function getUserID($steamid){
         $json = self::requestPlayer($steamid);
-        return $json->response->id;
+        return !$json->error ? $json->response->id : false;
     }
 
     public static function isMemberBanned($truckersmp){
@@ -65,11 +65,19 @@ class TruckersMP{
         return $name;
     }
 
-    private function requestPlayer($id){
-        return json_decode(file_get_contents('https://api.truckersmp.com/v2/player/'.$id));
+    private static function requestPlayer($id){
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt($ch,CURLOPT_URL,'https://api.truckersmp.com/v2/player/'.$id);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return json_decode($data);
+//        return json_decode(file_get_contents('https://api.truckersmp.com/v2/player/'.$id));
     }
 
-    private function requestBans($id){
+    private static function requestBans($id){
         return json_decode(file_get_contents('https://api.ets2mp.com/bans/'.$id));
     }
 

@@ -9,6 +9,10 @@ use yii\helpers\Url;
 
 class Convoys extends ActiveRecord{
 
+	public $tr_image;
+	public $tr_name;
+	public $tr_mod_file_name;
+
     public static function tableName(){
         return 'convoys';
     }
@@ -89,20 +93,17 @@ class Convoys extends ActiveRecord{
         $convoy->save();
     }
 
-    public static function getServerName($short){
-        switch ($short){
-            case 'eu1' : $server = 'Europe 1'; break;
-            case 'eu3' : $server = 'EU3 [No Cars]'; break;
-            case 'us_ets' : $server = 'United States - ETS2'; break;
-            case 'us_ats' : $server = 'United States - ATS'; break;
-            case 'hk' : $server = 'Honk Kong'; break;
-            case 'sa' : $server = 'South America'; break;
-            case 'ffa' : $server = 'Fun4All'; break;
-            case 'eu2_ats' :
-            case 'eu2_ets' :
-            default: $server = 'Europe 2'; break;
-        }
-        return $server;
+    public static function deleteMap($id) {
+        $convoy = Convoys::findOne($id);
+		if($convoy->picture_full && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full)) {
+			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_full);
+		}
+		if($convoy->picture_small && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small)) {
+			unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->picture_small);
+		}
+        $convoy->picture_full = null;
+        $convoy->picture_small = null;
+        $convoy->save();
     }
 
     public static function getVariationsByGame($game = 'ets'){
@@ -163,11 +164,11 @@ class Convoys extends ActiveRecord{
 
     public static function getVarList($string, $with_img){
         $var_images = [
-            '1' => ['var1_1', 'var1_2'],
-            '21' => ['var2'],
-            '22' => ['var22']
+            '1' => 'var1',
+            '21' => 'var2',
+            '22' => 'var22'
         ];
-        $list = '<ul class="var-list browser-default">';
+        $list = '<ul class="var-list">';
         switch ($string){
             case '1' : $vars = ['1']; break;
             case '2' : $vars = ['21', '22']; break;
@@ -184,25 +185,11 @@ class Convoys extends ActiveRecord{
         foreach ($vars as $var){
             $list .= '<li><p class="var-name">'.self::getVariationName($var, true).'</p>';
             if($with_img && array_key_exists($var, $var_images)) {
-                $rand_key = array_rand($var_images[$var], 1);
-                $list .= '<img class="responsive-img materialboxed z-depth-2" src="/assets/img/'.$var_images[$var][$rand_key].'.jpg">';
+                $list .= '<img class="responsive-img materialboxed z-depth-2" src="/assets/img/'.$var_images[$var].'.jpg">';
             }
             $list .= '</li>';
         }
         return $list .= '</ul>';
-    }
-
-    public static function getTrailerData($trailers){
-        $trailers_image = array();
-        foreach ($trailers as $trailer){
-            if($trailer != 0 && $trailer != -1) {
-                $trailer_db = Trailers::findOne($trailer);
-                $trailers_image[] = 'trailers/'.$trailer_db->picture;
-            }else{
-                $trailers_image[] = 'trailers/default.jpg';
-            }
-        }
-        return $trailers_image;
     }
 
     public static function setConvoyScores($scores, $target, $lead = null){

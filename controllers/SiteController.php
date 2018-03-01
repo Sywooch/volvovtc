@@ -12,6 +12,7 @@ use app\models\ModsSubcategories;
 use app\models\NicknameForm;
 use app\models\Notifications;
 use app\models\Other;
+use app\models\PasswordForm;
 use app\models\Recaptcha;
 use app\models\Steam;
 use app\models\TruckersMP;
@@ -161,133 +162,11 @@ class SiteController extends Controller{
     public function actionVariations(){
         return $this->render(Yii::$app->request->get('game') == 'ats' ? 'variations_ats' : 'variations_ets');
     }
-    
-    public function actionNews(){
 
-        // adding images by ajax
-        if(Yii::$app->request->isAjax){
-            if(Yii::$app->request->get('ajax-action') == 'upload-news-img'){
-                Yii::$app->response->format = Response::FORMAT_JSON;
-                if($data = News::addAjaxImage($_FILES[0])){
-                    return [
-                        'status' => 'OK',
-                        'file' => $data,
-                        't' => time()
-                    ];
-                }else{
-                    return [
-                        'status' => 'Error'
-                    ];
-                }
-            }
-        }
-
-        // handling add news
-        if(Yii::$app->request->get('action') == 'add'){
-            // if admin
-            if(User::isAdmin()){
-                $model = new AddNewsForm();
-                $errors = array();
-                if($model->load(Yii::$app->request->post()) && $model->validate()){
-                    if($id = $model->addNews(Yii::$app->request->post('picture'))){
-                        return $this->redirect(['site/news', 'id' => $id]);
-                    }else{
-                        $errors[] = 'Ошибка при добавлении';
-                    }
-                }
-                return $this->render('add_news', [
-                    'model' => $model,
-                    'errors' => $errors,
-                ]);
-            }else{
-                return $this->render('error');
-            }
-        }
-
-        // handling edit news
-        if(Yii::$app->request->get('action') == 'edit' && $id = Yii::$app->request->get('id')){
-            // if admin
-            if(User::isAdmin()){
-                $model = new AddNewsForm($id);
-                $errors = array();
-                if($model->load(Yii::$app->request->post()) && $model->validate()){
-                    if(!$model->editNews($id, Yii::$app->request->post('picture'))){
-                        $errors[] = 'Ошибка при редактировании';
-                    }else{
-                        return $this->redirect(['site/news', 'id' => $id]);
-                    }
-                }else{
-                    return $this->render('add_news', [
-                        'model' => $model,
-                        'errors' => $errors,
-                    ]);
-                }
-            }else{
-                return $this->render('error');
-            }
-        }
-
-        // handling news visibility
-        if((Yii::$app->request->get('action') == 'show' || Yii::$app->request->get('action') == 'hide')
-            && $id = Yii::$app->request->get('id')){
-            if(News::visibleNews($id)){
-                return $this->redirect(['site/news']);
-            }else{
-                $this->redirect(['site/news', 'id' => $id]);
-                $errors[] = 'Возникла ошибка';
-            }
-        }
-
-        // handling deleting news
-        if(Yii::$app->request->get('action') == 'delete' && $id = Yii::$app->request->get('id')){
-            if(News::deleteNews($id)){
-                return $this->redirect(['site/news']);
-            }else{
-                $this->redirect(['site/news', 'id' => $id]);
-                $errors[] = 'Возникла ошибка';
-            }
-        }
-
-        // handling resorting news
-        if((Yii::$app->request->get('action') == 'sortup' || Yii::$app->request->get('action') == 'sortdown')
-            && $id = Yii::$app->request->get('id')){
-            if(News::resortNews($id)){
-                return $this->redirect(['site/news']);
-            }else{
-                $this->redirect(['site/news']);
-                $errors[] = 'Возникла ошибка';
-            }
-        }
-
-        // displaying exact news
-        if(Yii::$app->request->get('id') && !Yii::$app->request->get('action')) {
-            if(!$news = News::findOne(Yii::$app->request->get('id'))) return $this->render('error');
-            return $this->render('one_news', [
-                'news' => $news
-            ]);
-        }
-
-        // displaying all news
-        else{
-            if(!Yii::$app->user->isGuest && Yii::$app->user->identity->admin == 1){
-                $query = News::find();
-            }else{
-                $query = News::find()->where(['visible' => '1']);
-            }
-            $pagination = new Pagination([
-                'defaultPageSize' => 5,
-                'totalCount' => $query->count()
-            ]);
-            $news = $query->orderBy(['sort' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
-            return $this->render('news', [
-                'news' => $news,
-                'currentPage' => Yii::$app->request->get('page', 1),
-                'totalPages' => $pagination->getPageCount(),
-                'pagination' => $pagination
-            ]);
-        }
+	public function actionExams(){
+		return $this->render('exams');
     }
-    
+
     public function actionRecruit(){
         if(!Yii::$app->user->isGuest){
             $model = new RecruitForm();
@@ -316,7 +195,7 @@ class SiteController extends Controller{
             return [
                 'status' => 'OK',
                 'steamid' => $steam_id,
-                'url' => 'https://truckersmp.com/user/'. $id .'/'
+                'url' => $id ? 'https://truckersmp.com/user/'. $id .'/' : false
             ];
         }
         if(!Yii::$app->user->isGuest){
@@ -326,7 +205,7 @@ class SiteController extends Controller{
         if($model->load(Yii::$app->request->post()) && $model->validate()){
             if(Recaptcha::verifyCaptcha(Yii::$app->request->post('g-recaptcha-response'))){
                 if($id = $model->signup()){
-                    Yii::$app->user->login(User::findByUsername($model->username));
+                    Yii::$app->user->login(User::findByUsername($model->username), 3600*24*30);
                     return $this->redirect(['site/profile', 'id' => $id]);
                 }else{
                     $model->addError('attr', 'Ошибка при регистрации');
@@ -353,7 +232,14 @@ class SiteController extends Controller{
                 'status' => $mailed,
             ];
         }
-        $model = new LoginForm();
+		$model = new LoginForm();
+        if(Yii::$app->request->get('social') == 'steam'){
+			if($steamid = Steam::authUser()){
+				return User::loginBySteamId($steamid) ?
+					$this->goBack() :
+					$this->redirect(['site/login']);
+			}
+		}
         if ($model->load(Yii::$app->request->post())){
             $model->attributes = Yii::$app->request->post();
             if($model->validate()){
@@ -368,11 +254,10 @@ class SiteController extends Controller{
     
     public function actionLogout(){
         Yii::$app->user->logout();
-        return $this->goHome();
+        return $this->redirect(Yii::$app->request->referrer);
     }
     
     public function actionProfile(){
-        $model = new ProfileForm();
         $edit = false;
         $member = false;
         if(Yii::$app->request->isAjax){
@@ -406,6 +291,17 @@ class SiteController extends Controller{
         	Url::remember();
             return $this->redirect(['site/login']);
         }
+		$pass_model = new PasswordForm();
+		$model = new ProfileForm();
+		if(isset($_POST['save_profile_password'])){
+			if($pass_model->load(Yii::$app->request->post()) && $pass_model->validate()){
+				if($pass_model->editPassword()){
+					return $this->redirect(['site/profile']);
+				}
+			}else{
+				$pass_model->addError('password_new', 'Ошибка');
+			}
+		}
         if(Yii::$app->request->get('action') === 'edit'){
             $model->has_ats = $user->has_ats == '1';
             $model->has_ets = $user->has_ets == '1';
@@ -421,15 +317,16 @@ class SiteController extends Controller{
         }
         $id = Yii::$app->user->id;
         if(Yii::$app->request->get('id')) $id = Yii::$app->request->get('id');
-        if(!$user = User::findIdentity($id)){
+        if(!$user = User::findOne($id)){
             return $this->goBack();
         }
         $user->age = User::getUserAge($user->birth_date);
-        //$user->birth_date = self::getRuDate($user->birth_date);
         return $this->render($edit ? 'edit_profile' : 'profile', [
             'user' => $user,
             'member' => $member,
-            'model' => $model
+            'model' => $model,
+			'pass_model' => $pass_model,
+			'pass_set' => $user->password
         ]);
     }
 

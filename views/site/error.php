@@ -2,7 +2,7 @@
 
 $this->title = 'Ошибка - Страница не найдена';
 
-if($meta){
+if(isset($meta)){
 	foreach($meta as $item){
 		$this->registerMetaTag($item);
 	}

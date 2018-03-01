@@ -55,13 +55,17 @@ class ConvoysController extends Controller{
 
     public function actionIndex(){
         if(Yii::$app->request->get('id')){
-            if(!$convoy = Convoys::findOne(Yii::$app->request->get('id'))) return $this->render('error');
+            if(!$convoy = Convoys::find()
+				->select(['convoys.*', 'trailers.name AS tr_name', 'trailers.picture AS tr_image', 'mods.file_name as tr_mod_file_name'])
+				->leftJoin('trailers', 'trailers.id = convoys.trailer')
+				->leftJoin('mods', 'trailers.id = mods.trailer')
+				->where(['convoys.id' => Yii::$app->request->get('id')])
+				->one()) return $this->render('//site/error');
 //            if($convoy->open == '0' && Yii::$app->user->isGuest){
 //            	Url::remember();
 //            	return $this->redirect(['site/login']);
 //			}
             if($convoy->open == '0' && (Yii::$app->user->isGuest || !User::isVtcMember())){
-				$trailer = Trailers::findOne(unserialize($convoy->trailer)[0]);
             	return $this->render('//site/error', [
             		'meta' => [
             			[
@@ -70,13 +74,12 @@ class ConvoysController extends Controller{
 						],
 						[
 							'property' => 'og:image',
-							'content' => 'https://'.$_SERVER['SERVER_NAME'].Yii::$app->request->baseUrl . '/images/trailers/' . $trailer->picture
+							'content' => 'https://'.$_SERVER['SERVER_NAME'].Yii::$app->request->baseUrl . '/images/trailers/' . $convoy->tr_image
 						]
 					]
 				]);
 			}
             $convoy->server = TruckersMP::getServerName($convoy->server);
-            $convoy->trailer = unserialize($convoy->trailer);
             $convoy->participants = unserialize($convoy->participants);
             $participants = null;
             if($convoy->participants){
@@ -93,7 +96,7 @@ class ConvoysController extends Controller{
                 }
             }
             return $this->render('convoy', [
-                'convoy' => $convoy,
+            	'convoy' => $convoy,
                 'participants' => $participants
             ]);
         }else{
@@ -155,7 +158,6 @@ class ConvoysController extends Controller{
                 return $this->render('edit_convoy', [
                     'model' => $model,
                     'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], $model->game),
-                    'trailers_data' => Convoys::getTrailerData($model->trailer),
                     'servers' => TruckersMP::getServersList($model->game)
                 ]);
             }
@@ -202,6 +204,15 @@ class ConvoysController extends Controller{
         }else{
             return $this->render('//site/error');
         }
+    }
+
+	public function actionDeletemap(){
+		if(User::isAdmin() && Yii::$app->request->get('id')){
+			Convoys::deleteMap(Yii::$app->request->get('id'));
+			return $this->redirect(['convoys/edit', 'id' => Yii::$app->request->get('id')]);
+		}else{
+			return $this->render('//site/error');
+		}
     }
 
     public function actionScores(){

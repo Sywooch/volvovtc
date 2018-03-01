@@ -24,5 +24,5 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
     <div class="card-panel grey lighten-4">
         <h5 class="light"><i class="material-icons notranslate small left">info</i>По просторам Америки мы ездим на всех тягачах в нашем фирменном цвете.</h5>
     </div>
-    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/var_us.jpg" class="materialboxed responsive-img z-depth-3" style="margin-bottom: 20px;">
+    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var_us.jpg" class="materialboxed responsive-img z-depth-3" style="margin-bottom: 20px;">
 </div>

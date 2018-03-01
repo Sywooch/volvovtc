@@ -2,6 +2,8 @@
 
 namespace app\models;
 
+use ErrorException;
+use LightOpenID;
 
 class Steam{
 
@@ -12,7 +14,7 @@ class Steam{
         $url = explode('/', $url);
         if (!preg_match('/^7656119[0-9]{10}$/i', $url[2])){
             $json = json_decode(file_get_contents('http://api.steampowered.com/ISteamUser/ResolveVanityURL/v0001/?key='.self::$key.'&vanityurl='.$url[2]));
-            return $json->response->steamid;
+            return $json->response->success == '1' ? $json->response->steamid : false;
         }else{
             return $url[2];
         }
@@ -26,5 +28,51 @@ class Steam{
             return false;
         }
     }
+
+	public static function getUsersGames($steamid){
+		$json = json_decode(self::getData('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='.self::$key.'&steamid='.$steamid.'&format=json'));
+		return $json->response->games;
+    }
+
+    public static function authUser(){
+		require '../lib/lightopenid/openid.php';
+		try{
+			$openid = new LightOpenID('http://'.$_SERVER['HTTP_HOST']);
+			if(!$openid->mode){
+				$openid->identity = 'http://steamcommunity.com/openid/?l=english';
+				header('Location: '. $openid->authUrl());
+				exit();
+			}elseif($openid->mode == 'cancel'){
+				return false;
+			}else{
+				if($openid->validate() !== false){
+					$id = $openid->data['openid_identity'];
+					$ptn = '/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/';
+					preg_match($ptn, $id, $matches);
+					$url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.self::$key.'&steamids='.$matches[1];
+//					$json_object = file_get_contents($url);
+					$json_object = self::getData($url);
+//					\Kint::dump($json_object);
+					$json = json_decode($json_object);
+					return $json->response->players[0];
+				}else{
+					return false;
+				}
+			}
+		}catch(ErrorException $e){
+			return false;
+		}
+	}
+
+	public static function getData($url){
+		$ch = curl_init();
+		$timeout = 5;
+		curl_setopt($ch,CURLOPT_URL,$url);
+		curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+		curl_setopt($ch,CURLOPT_CONNECTTIMEOUT,$timeout);
+		$data = curl_exec($ch);
+		curl_close($ch);
+		return $data;
+	}
 
 }
