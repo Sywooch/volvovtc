@@ -69,7 +69,9 @@ AppAsset::register($this);
 							<ul>
 								<li><a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА КОМПАНИИ</a></li>
 								<li><a href="<?=Url::to(['site/variations', 'game' => 'ets2'])?>">ВАРИАЦИИ ГРУЗОВИКОВ</a></li>
-								<li><a href="<?=Url::to(['site/exams'])?>">ЭКЗАМЕНЫ ДЛЯ ВОДИТЕЛЕЙ</a></li>
+								<?php if(\app\models\User::isVtcMember()) : ?>
+									<li><a href="<?=Url::to(['site/exams'])?>">ЭКЗАМЕНЫ ДЛЯ ВОДИТЕЛЕЙ</a></li>
+								<?php endif ?>
 							</ul>
 						</div>
 					</li>
@@ -163,11 +165,13 @@ AppAsset::register($this);
                                     <i class="material-icons notranslate left">lightbulb_outline</i>ВАРИАЦИИ ТЯГАЧЕЙ
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?=Url::to(['site/exams'])?>">
-                                    <i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ
-                                </a>
-                            </li>
+							<?php if(\app\models\User::isVtcMember()) : ?>
+								<li>
+									<a href="<?=Url::to(['site/exams'])?>">
+										<i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ
+									</a>
+								</li>
+							<?php endif ?>
                         </ul>
                     </li>
                     <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
