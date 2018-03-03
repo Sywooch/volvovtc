@@ -87,7 +87,8 @@ class ProfileForm extends Model{
 		$user->steam = $form['steam'];
 		if($form['steam'] != ''){
 			$user->steamid = Steam::getUser64ID($form['steam']);
-			$user->truckersmp = 'https://truckersmp.com/user/' . TruckersMP::getUserID($user->steamid);
+			$tr_id = TruckersMP::getUserID($user->steamid);
+			$user->truckersmp = $tr_id ? 'https://truckersmp.com/user/' . $tr_id : null;
 			$user->visible_truckersmp = $form['visible_truckersmp'];
 		}
 		$user->visible_steam = $form['visible_steam'];
