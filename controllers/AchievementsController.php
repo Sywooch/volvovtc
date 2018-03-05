@@ -61,7 +61,6 @@ class AchievementsController extends Controller{
                 $query->where(['like', 'title', $q])
                     ->orWhere(['like', 'description', $q]);
             }
-            $user_complete_ach = User::find()->select(['achievements'])->where(['id' => Yii::$app->user->id])->one();
             $user_ach_progress = AchievementsProgress::find()->select(['ach_id'])->where(['uid' => Yii::$app->user->id, 'complete' => 1])->asArray()->all();
             $total = $query->count();
             $pagination = new Pagination([
@@ -74,7 +73,7 @@ class AchievementsController extends Controller{
             }
             return $this->render('index', [
                 'achievements' => $query->orderBy(['sort' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all(),
-                'user_complete_ach' => unserialize($user_complete_ach->achievements),
+                'user_complete_ach' => unserialize(Yii::$app->user->identity->achievements),
                 'user_ach_progress' => $user_ach_progress,
                 'currentPage' => Yii::$app->request->get('page', 1),
                 'totalPages' => $pagination->getPageCount(),
@@ -157,31 +156,33 @@ class AchievementsController extends Controller{
 
     public function actionModerate(){
         if(User::isAdmin()){
-            $achievements = Achievements::find()->asArray()->all();
-            $new_achievements = array();
-            foreach ($achievements as $achievement) {
-                $new_achievements[$achievement['id']]['title'] = $achievement['title'];
-                $new_achievements[$achievement['id']]['description'] = $achievement['description'];
-                $new_achievements[$achievement['id']]['image'] = $achievement['image'];
-                $new_achievements[$achievement['id']]['visible'] = $achievement['visible'];
-                $new_achievements[$achievement['id']]['sort'] = $achievement['sort'];
-            }
-            $query = AchievementsProgress::find();
+            $query = AchievementsProgress::find()
+				->select([
+						'achievements_progress.id',
+						'achievements_progress.ach_id',
+						'achievements_progress.uid',
+						'achievements_progress.proof',
+						'achievements_progress.complete',
+						'achievements.title',
+						'achievements.description',
+						'achievements.image',
+						'users.company as u_company',
+						'users.nickname as u_nickname'
+					])
+				->innerJoin('achievements', 'achievements_progress.ach_id = achievements.id')
+				->innerJoin('users', 'achievements_progress.uid = users.id');
             $total = $query->count();
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
                 'totalCount' => $total
             ]);
-            $progress = $query->orderBy(['complete' => SORT_ASC, 'id' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
-            $count = 0;
-            foreach($progress as $item){
-                $item->uid = User::findOne($item->uid);
-                if($item->complete == 0) $count++;
-            }
+            $progress = $query->orderBy([
+					'achievements_progress.complete' => SORT_ASC,
+					'achievements_progress.id' => SORT_DESC
+				])
+				->offset($pagination->offset)->limit($pagination->limit)->all();
             return $this->render('moderate_achievements', [
                 'progress' => $progress,
-                'count' => $count,
-                'achievements' => $new_achievements,
                 'currentPage' => Yii::$app->request->get('page', 1),
                 'totalPages' => $pagination->getPageCount(),
                 'pagination' => $pagination,

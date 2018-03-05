@@ -3,13 +3,11 @@
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
-$this->title = 'Модерация достижений - Volvo Trucks';
-?>
+$this->title = 'Модерация достижений - Volvo Trucks'; ?>
 
 <div class="container">
     <h4 class="light">Модерация достижений</h4>
     <?php if(count($progress) > 0) : ?>
-        <p>Требуют модерации - <?= $count ?></p>
         <?= LinkPager::widget([
             'pagination' => $pagination,
             'firstPageLabel' => 'Начало',
@@ -26,20 +24,16 @@ $this->title = 'Модерация достижений - Volvo Trucks';
         ]) ?>
         <?php foreach($progress as $item) : ?>
             <div class="card horizontal <?php if($item->complete == 0) : ?>grey<?php else: ?>green<?php endif?> lighten-4 hoverable">
-                <?php if($achievements[$item->ach_id]['image']){
-                    $image = $achievements[$item->ach_id]['image'];
-                }else{
-                    $image = 'default.jpg';
-                } ?>
-                <div class="card-image no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/achievements/<?= $image ?>)">
+                <?php $image = Yii::$app->request->baseUrl . '/images/achievements/'. ($item->image != '' ? $item->image : 'default.jpg'); ?>
+                <div class="card-image no-img_horizontal" style="background-image: url(<?= $image ?>)">
                     <a href="<?= Url::to(['achievements/edit', 'id' => $item->ach_id]) ?>"></a>
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
                         <div class="card-title">
-                            <a class="black-text" href="<?= Url::to(['site/profile', 'id' => $item->uid->id]) ?>">[<?= $item->uid->company ?>] <?= $item->uid->nickname ?></a>
-                            - <a class="black-text" href="<?= Url::to(['achievements/index', 'id' => $item->ach_id]) ?>"><?= $achievements[$item->ach_id]['title'] ?></a></div>
-                        <p><?= $achievements[$item->ach_id]['description'] ?></p>
+                            <a class="black-text" href="<?= Url::to(['site/profile', 'id' => $item->uid]) ?>">[<?= $item->u_company ?>] <?= $item->u_nickname ?></a>
+                            - <a class="black-text" href="<?= Url::to(['achievements/edit', 'id' => $item->ach_id]) ?>"><?= $item->title ?></a></div>
+                        <p><?= $item->description ?></p>
                         <p><a target="_blank" href="<?=Yii::$app->request->baseUrl?>/images/achievements/progress/<?= $item->proof ?>" class="fs17">СМОТРЕТЬ СКРИНШОТ</a></p>
                     </div>
                     <?php if($item->complete == 0) : ?>
