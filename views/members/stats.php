@@ -50,39 +50,39 @@ $this->title = 'Статистика Volvo Trucks';
                 </tr>
                 </thead>
                 <?php foreach($members as $member) : ?>
-                    <tr class="<?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>yellow lighten-4<?php endif ?><?php if($member->banned): ?>red lighten-4<?php endif ?>" data-uid="<?= $member->user_id->id ?>">
+                    <tr class="<?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>yellow lighten-4<?php endif ?><?php if($member->banned): ?>red lighten-4<?php endif ?>" data-uid="<?= $member->user_id ?>">
                         <td><?= $i++ ?></td>
                         <td style="text-align: left; padding-left: 20px;white-space: nowrap;">
-                            <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member->user_id)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->user_id->picture ?>)"></a>
+                            <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member->user_id)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->picture ?>)"></a>
                             <div style="display: inline-block; vertical-align: middle;">
-                                <a href="<?= \app\models\User::isAdmin() ? Url::to(['members/edit', 'id' => $member->id]) : Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="black-text">[Volvo Trucks] <?= $member->user_id->nickname ?></a>
+                                <a href="<?= \app\models\User::isAdmin() ? Url::to(['members/edit', 'id' => $member->id]) : Url::to(['site/profile', 'id' => $member->user_id]) ?>" class="black-text">[Volvo Trucks] <?= $member->nickname ?></a>
                                 <?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>
                                     <span class="member-vacation grey-text" style="display: block;">В отпуске <?= $member->vacation_undefined == '1' ? 'на н. срок' : 'до ' . \app\controllers\SiteController::getRuDate($member->vacation) ?></span>
                                 <?php endif ?>
                             </div>
 
                         </td>
-                        <td><?= $member->user_id->first_name . ' ' . $member->user_id->last_name ?></td>
+                        <td><?= $member->first_name . ' ' . $member->last_name ?></td>
                         <td>
                             <ul class="user-links" style="width: 84px;">
-                                <?php if($member->user_id->vk) : ?>
-                                    <li class="vk"><a class="waves-effect circle" target="_blank" href="<?= $member->user_id->vk ?>"></a></li>
+                                <?php if($member->vk) : ?>
+                                    <li class="vk"><a class="waves-effect circle" target="_blank" href="<?= $member->vk ?>"></a></li>
                                 <?php endif; ?>
-                                <?php if($member->user_id->steam) : ?>
-                                    <li class="steam<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_steam != 1):?> link-disabled<?php endif ?>">
-                                        <a class="waves-effect circle" <?php if(\app\models\User::isAdmin() || $member->user_id->visible_steam == 1):?> href="<?= $member->user_id->steam ?>"<?php endif ?> target="_blank"></a>
+                                <?php if($member->steam) : ?>
+                                    <li class="steam<?php if(!\app\models\User::isAdmin() && $member->visible_steam != 1):?> link-disabled<?php endif ?>">
+                                        <a class="waves-effect circle" <?php if(\app\models\User::isAdmin() || $member->visible_steam == 1):?> href="<?= $member->steam ?>"<?php endif ?> target="_blank"></a>
                                     </li>
                                 <?php endif; ?>
-                                <?php if($member->user_id->truckersmp) : ?>
-                                    <li class="truckers-mp<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_truckersmp != 1):?> link-disabled<?php endif ?>">
-                                        <a class="waves-effect circle" <?php if(\app\models\User::isAdmin() || $member->user_id->visible_truckersmp == 1):?> href="<?= $member->user_id->truckersmp ?>"<?php endif ?> target="_blank"></a>
+                                <?php if($member->truckersmp) : ?>
+                                    <li class="truckers-mp<?php if(!\app\models\User::isAdmin() && $member->visible_truckersmp != 1):?> link-disabled<?php endif ?>">
+                                        <a class="waves-effect circle" <?php if(\app\models\User::isAdmin() || $member->visible_truckersmp == 1):?> href="<?= $member->truckersmp ?>"<?php endif ?> target="_blank"></a>
                                     </li>
                                 <?php endif; ?>
                             </ul>
                         </td>
-                        <td><b><?= $member->post_id->name ?></b></td>
+                        <td><b><?= $member->post_name ?></b></td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else:
 								$class = 'black';
@@ -94,7 +94,7 @@ $this->title = 'Статистика Volvo Trucks';
 							<?php endif ?>
                         </td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <i class="material-icons notranslate <?= $member->can_center == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
@@ -103,7 +103,7 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <i class="material-icons notranslate <?= $member->can_close == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
@@ -112,21 +112,21 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <span><?= $member->scores_other == '0' ? '' : $member->scores_other ?></span>
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <span><?= $member->scores_month == '0' ? '' : $member->scores_month ?></span>
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <span<?php if($member->scores_updated): ?> class="tooltipped" data-tooltip="Обновлено: <?= Yii::$app->formatter->asDate($member->scores_updated, 'php:d.m.y H:i') ?>" data-delay="0"<?php endif ?>>
@@ -135,7 +135,7 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php endif ?>
                         </td>
                         <td style="min-width: 90px">
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <i class="material-icons notranslate <?= $member->exam_3_cat == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
@@ -150,7 +150,7 @@ $this->title = 'Статистика Volvo Trucks';
                             <?php endif ?>
                         </td>
                         <td>
-                            <?php if($member->post_id->admin == 1) : ?>
+                            <?php if($member->post_admin == 1) : ?>
                                 <span>&mdash;</span>
                             <?php else: ?>
                                 <i class="material-icons notranslate <?= $member->exam_driving == '1' ? 'green' : 'black' ?>-text" style="vertical-align: bottom;">
@@ -158,8 +158,8 @@ $this->title = 'Статистика Volvo Trucks';
                                 </i>
                             <?php endif ?>
                         </td>
-                        <td><?= \app\models\User::getUserAge($member->user_id->birth_date) ?></td>
-                        <td><?php if($member->post_id->id == '1') : ?>
+                        <td><?= \app\models\User::getUserAge($member->birth_date) ?></td>
+                        <td><?php if($member->post_id == '1') : ?>
                             <?= Yii::$app->formatter->asDate($member->start_date, 'long') ?>
                         <?php else: ?>
                             <?= $member->additional ?>
@@ -182,17 +182,17 @@ $this->title = 'Статистика Volvo Trucks';
 <?php if(\app\models\User::isAdmin()): ?>
     <script>
         $(document).ready(function(){
-            var steamid64 = {
+            var truckersmp = {
 				<?php foreach ($all_members as $members):
 					foreach ($members as $member):
-						if($member->user_id->steamid) : ?>
-							<?= $member->user_id->id ?> : <?= $member->user_id->steamid ?>,
+						if($member->truckersmp) : ?>
+							<?= $member->user_id ?> : "<?= $member->truckersmp ?>",
 						<?php endif;
 					endforeach;
 				endforeach; ?>
 			}
             var timer = setTimeout(function(){
-                loadMembersBans(steamid64);
+                loadMembersBans(truckersmp);
             }, 25000);
             $('a:not(.notification-btn)').click(function(){
                 clearTimeout(timer);

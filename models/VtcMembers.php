@@ -8,6 +8,20 @@ use yii\db\ActiveRecord;
 
 class VtcMembers extends ActiveRecord{
 
+	public $first_name;
+	public $last_name;
+	public $birth_date;
+	public $nickname;
+	public $company;
+	public $picture;
+	public $vk;
+	public $steam;
+	public $truckersmp;
+	public $visible_truckersmp;
+	public $visible_steam;
+	public $post_name;
+	public $post_admin;
+
     public $banned = false;
 
     public static function tableName(){
@@ -29,33 +43,27 @@ class VtcMembers extends ActiveRecord{
 
     public static function getMembers($get_bans = false){
         $members = array();
-        $posts = array();
-        $all_members = VtcMembers::find()->orderBy('post_id DESC, `scores_month` + `scores_other` DESC, scores_total DESC, start_date')->all();
-        $positions = VtcPositions::find()->select(['id'])->all();
-        foreach($positions as $position){
-            $posts[] = $position->id;
-        }
+        $all_members = VtcMembers::find()
+			->select(['users.*', 'vtc_members.*', 'vtc_positions.name as post_name', 'vtc_positions.admin as post_admin'])
+			->innerJoin('users', 'users.id = vtc_members.user_id')
+			->leftJoin('vtc_positions', 'vtc_positions.id = vtc_members.post_id')
+			->orderBy('post_id DESC, `scores_month` + `scores_other` DESC, scores_total DESC, start_date')->all();
         foreach($all_members as $member){
-            if(in_array($member->post_id, $posts)){
-                $member->user_id = User::findOne($member->user_id);
-                $member->post_id = VtcPositions::find()->where(['id' => $member->post_id])->one();
-                if($member->user_id->truckersmp != '' && $get_bans){
+                if($member->truckersmp != '' && $get_bans){
                     $member->banned = TruckersMP::isMemberBanned($member->user_id->truckersmp);
                 }
-                if($member->post_id->admin == '1') $members['Администрация'][] = $member;
-                else $members[$member->post_id->name][] = $member;
-            }
-        }
+                if($member->post_admin == '1') $members['Администрация'][] = $member;
+                else $members[$member->post_name][] = $member;
+		}
         return $members;
     }
 
     public static function getAllMembers($order_by_sort = true){
-        $members =  VtcMembers::find();
+        $members =  VtcMembers::find()
+			->select(['vtc_members.*', 'users.*', 'vtc_members.id as id'])
+			->innerJoin('users', 'vtc_members.user_id = users.id');
         if($order_by_sort) $members = $members->orderBy(['sort' => SORT_ASC, 'start_date' => SORT_DESC]);
         $members = $members->all();
-        foreach($members as $member){
-            $member->user_id = User::findOne($member->user_id);
-        }
         return $members;
     }
 
@@ -127,8 +135,7 @@ class VtcMembers extends ActiveRecord{
     public static function getBans($steamid64){
         $bans = array();
         foreach ($steamid64 as $uid => $steamid){
-            $user = User::findOne($uid);
-            $bans[$uid] = TruckersMP::isMemberBanned($user->truckersmp);
+            $bans[$uid] = TruckersMP::isMemberBanned($steamid);
         }
         return $bans;
     }
