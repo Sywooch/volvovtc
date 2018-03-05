@@ -160,6 +160,9 @@ class User extends ActiveRecord implements IdentityInterface{
     }
 
     public static function isOnline($user){
+    	if(is_numeric($user)){
+    		$user = User::findOne($user);
+		}
         if($user->last_active){
             $last_active = new \DateTime($user->last_active);
             $now = new \DateTime();
