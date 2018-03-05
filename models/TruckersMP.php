@@ -78,7 +78,7 @@ class TruckersMP{
     }
 
     private static function requestBans($id){
-        return json_decode(file_get_contents('https://api.ets2mp.com/bans/'.$id));
+        return json_decode(file_get_contents('https://api.truckersmp.com/v2/bans/'.$id));
     }
 
     private static function getServersInfo(){
