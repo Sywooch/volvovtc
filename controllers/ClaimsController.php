@@ -54,15 +54,11 @@ class ClaimsController extends Controller{
     }
 
     public function actionIndex(){
-        $recruits = ClaimsRecruit::getClaims(20);
-        $fired = ClaimsFired::getClaims(20);
-        $vacation = ClaimsVacation::getClaims(20);
-        $nickname = ClaimsNickname::getClaims(20);
         return $this->render('index', [
-            'recruits' => $recruits,
-            'fired' => $fired,
-            'vacation' => $vacation,
-            'nickname' => $nickname
+            'recruits' => ClaimsRecruit::getClaims(20),
+            'fired' => ClaimsFired::getClaims(20),
+            'vacation' => ClaimsVacation::getClaims(20),
+            'nickname' => ClaimsNickname::getClaims(20)
         ]);
     }
 
