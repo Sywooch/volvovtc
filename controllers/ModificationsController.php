@@ -56,16 +56,31 @@ class ModificationsController extends Controller{
             $game = Yii::$app->request->get('game');
             $category = Yii::$app->request->get('category');
             $subcategory = Yii::$app->request->get('subcategory') ? Yii::$app->request->get('subcategory') : Yii::$app->request->get('category');
-            $mods_query = Mods::find();
-            if(!User::isAdmin()) $mods_query = $mods_query->where(['visible' => '1']);
-            $mods = $mods_query->andWhere(['game' => $game, 'category' => $category, 'subcategory' => $subcategory])->orderBy(['sort' => SORT_DESC])->all();
-            $category = ModsCategories::findOne(['name' => $category, 'game' => $game]);
-            $subcategory = ModsSubcategories::findOne(['name' => $subcategory, 'category_id' => $category->id]);
-            $all_subcategories = ModsSubcategories::find()->where(['category_id' => $category->id])->orderBy(['id' => SORT_ASC])->all();
-            if(!$subcategory) return $this->redirect(['site/modifications']);
-            return $this->render('category/index', [
+            $mods_query = Mods::find()
+				->select(['mods.*', 'trailers.picture as tr_image'])
+				->leftJoin('trailers', 'mods.trailer = trailers.id');
+            if(!User::isAdmin()) $mods_query = $mods_query->where(['mods.visible' => '1']);
+            $mods = $mods_query->andWhere(['mods.game' => $game, 'mods.category' => $category, 'mods.subcategory' => $subcategory])
+				->orderBy(['mods.sort' => SORT_DESC])->all();
+            $subcategory = ModsSubcategories::find()
+				->select([
+					'mods_subcategories.*',
+					'mods_categories.id as cat_id',
+					'mods_categories.name as cat_name',
+					'mods_categories.title as cat_title',
+					'mods_categories.picture as cat_image',
+				])
+				->leftJoin('mods_categories', 'mods_categories.id = mods_subcategories.category_id')
+				->where([
+					'mods_subcategories.name' => $subcategory,
+					'mods_categories.name' => $category,
+					'mods_subcategories.for_ets' => $game == 'ets' ? '1' : '0'
+				])
+				->one();
+            $all_subcategories = ModsSubcategories::find()->where(['category_id' => $subcategory->cat_id])->orderBy(['id' => SORT_ASC])->all();
+            if(!$subcategory) return $this->redirect(['modifications/index']);
+            return $this->render('category', [
                 'mods' => $mods,
-                'category' => $category,
                 'subcategory' => $subcategory,
                 'all_subcategories' => $all_subcategories
             ]);
@@ -162,19 +177,21 @@ class ModificationsController extends Controller{
     }
 
     public function actionAll(){
-        $query = Mods::find();
+        $query = Mods::find()
+			->select(['mods.*', 'trailers.picture as tr_image'])
+			->leftJoin('trailers', 'mods.trailer = trailers.id');
         if(Yii::$app->request->get('q')){
-            $query = $query->where(['like', 'title', Yii::$app->request->get('q')])
-                ->orWhere(['like', 'description', Yii::$app->request->get('q')]);
+            $query = $query->where(['like', 'mods.title', Yii::$app->request->get('q')])
+                ->orWhere(['like', 'mods.description', Yii::$app->request->get('q')]);
         }
-        if(!User::isAdmin()) $query = $query->andWhere(['visible' => '1']);
+        if(!User::isAdmin()) $query = $query->andWhere(['mods.visible' => '1']);
         $total = $query->count();
         $pagination = new Pagination([
             'defaultPageSize' => 10,
             'totalCount' => $total
         ]);
-        if(Yii::$app->request->get('sort') == 'title') $query = $query->orderBy(['title' => SORT_ASC]);
-        $mods = $query->orderBy(['id' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
+        if(Yii::$app->request->get('sort') == 'title') $query = $query->orderBy(['mods.title' => SORT_ASC]);
+        $mods = $query->orderBy(['mods.id' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
         return $this->render('all', [
             'mods' => $mods,
             'currentPage' => Yii::$app->request->get('page', 1),

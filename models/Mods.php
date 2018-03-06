@@ -7,6 +7,8 @@ use yii\db\ActiveRecord;
 
 class Mods extends ActiveRecord{
 
+	public $tr_image;
+
     public function rules(){
         return [
             [['category', 'subcategory', 'title'], 'required'],

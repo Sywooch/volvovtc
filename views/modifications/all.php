@@ -2,7 +2,8 @@
 
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
-?>
+
+$this->title = 'Моды для ETS2MP и ATSMP - Volvo Trucks' ?>
 
 <div class="container">
     <div class="card-panel grey lighten-4 search">
@@ -39,14 +40,14 @@ use yii\widgets\LinkPager;
     </div>
     <?php foreach($mods as $mod) :
         if($mod->trailer){
-            $trailer_data = \app\models\Mods::getTrailerData($mod);
-            $mod->picture = $trailer_data['image'];
+            $mod->picture = 'trailers/' . $mod->tr_image;
         }else{
             $mod->picture = 'mods/' . $mod->picture;
         }
         $class = $mod->visible == '1' ? 'grey' : 'yellow'; ?>
         <div class="card horizontal <?= $class ?> lighten-4 hoverable">
-            <div class="card-image no-img_horizontal" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/<?= $mod->picture ?>); min-width: 33%"></div>
+            <div class="card-image no-img_horizontal"
+				 style="background-image: url(<?= Yii::$app->request->baseUrl ?>/images/<?= $mod->picture ?>); min-width: 33%"></div>
             <div class="card-stacked">
                 <div class="card-content">
                     <span class="card-title"><?= $mod->title ?></span>
