@@ -15,6 +15,7 @@ class User extends ActiveRecord implements IdentityInterface{
 //    public $accessToken;
     public $age;
     public $member_id;
+    public $step4_complete;
 
     public static function tableName() {
         return 'users';
@@ -22,7 +23,7 @@ class User extends ActiveRecord implements IdentityInterface{
 
     public static function findIdentity($id){
     	$user = self::find()
-			->select(['users.*', 'vtc_members.id as member_id'])
+			->select(['users.*', 'vtc_members.id as member_id', 'vtc_members.step4_complete'])
 			->leftJoin('vtc_members', 'users.id = vtc_members.user_id')
 			->where(['users.id' => $id])->one();
         return $user;

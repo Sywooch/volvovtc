@@ -176,7 +176,7 @@ AppAsset::register($this);
                     </li>
                     <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
                     <li<?php if(Yii::$app->controller->id === 'gallery'){?> class="active"<?php } ?>><a href="<?=Url::to(['gallery/index'])?>">ГАЛЕРЕЯ</a></li>
-                    <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
+                    <?php if(\app\models\User::isVtcMember()): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
                     <li<?php if(Yii::$app->controller->id === 'mods'){?> class="active"<?php } ?>><a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a></li>
@@ -242,7 +242,7 @@ AppAsset::register($this);
 
 			<div class="clearfix"></div>
 
-        <?php if(\app\models\User::isVtcMember() && !\app\models\VtcMembers::isCompleteStep4(Yii::$app->user->id)){
+        <?php if(\app\models\User::isVtcMember() && !\app\models\VtcMembers::isCompleteStep4()){
             require_once 'member_modal.php';
         } ?>
 

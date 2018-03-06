@@ -213,9 +213,8 @@ class VtcMembers extends ActiveRecord{
         return $member_2->update() == 1 && $member->update() == 1 ? true : false;
     }
 
-    public static function isCompleteStep4($id){
-        $member = VtcMembers::findOne(['user_id' => $id]);
-        return $member->step4_complete == '1';
+    public static function isCompleteStep4(){
+        return Yii::$app->user->identity->step4_complete == '1';
     }
 
     public static function step4Complete($id){
