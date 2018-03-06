@@ -20,26 +20,34 @@ use app\models\User; ?>
             case '2': $color_class = 'red lighten-4-5'; break;
             case '0':
             default : $color_class = 'grey lighten-4'; break;
-        }
-        $user = User::find()->select(['picture', 'nickname'])->where(['id' => $claim->user_id])->one(); ?>
+        } ?>
         <div class="card horizontal hoverable <?= $color_class ?>">
-            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $user->picture ?>)">
+            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $claim->picture ?>)">
                 <a href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>" class="waves-effect waves-light"></a>
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>">[Volvo Trucks] <?= htmlentities($user->nickname) ?></a>
+                    <a class="card-title black-text" href="<?= Url::to(
+						$claim->v_member_id ?
+							['members/edit', 'id' => $claim->v_member_id] :
+							['site/profile', 'id' => $claim->user_id]
+					) ?>">
+						[Volvo Trucks] <?= htmlentities($claim->nickname) ?>
+					</a>
                     <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p class="nowrap">С <?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
-                            <p class="nowrap"><b><?= $claim->vacation_undefined == '1' ? 'На Н. срок' : 'По ' . \app\controllers\SiteController::getRuDate($claim->to_date) ?></b></p>
+                            <p class="nowrap">С <?= Yii::$app->formatter->asDate($claim->date, 'long') ?></p>
+                            <p class="nowrap"><b><?= $claim->vacation_undefined == '1' ?
+										'На Н. срок' :
+										'По ' . Yii::$app->formatter->asDate($claim->to_date, 'long') ?></b></p>
                         </div>
                         <div class="claim-status" style="flex: 1;">
                             <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?><br><?= strip_tags($claim->reason) ?></p>
-                            <?php if($claim->viewed):
-                                $by = User::find()->where(['id' => $claim->viewed])->one() ?>
-                                <p class="grey-text">Рассмотрел: <?= $by->first_name ?> <?= $by->last_name ?></p>
-                            <?php endif ?>
+							<?php if($claim->viewed): ?>
+								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$claim->viewed]) ?>">
+									Рассмотрел: <?= $claim->first_name ?> <?= $claim->last_name ?>
+								</a>
+							<?php endif ?>
                         </div>
                     </div>
                 </div>

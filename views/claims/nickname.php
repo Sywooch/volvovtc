@@ -20,28 +20,32 @@ use app\models\User; ?>
             case '2': $color_class = 'red lighten-4-5'; break;
             case '0':
             default : $color_class = 'grey lighten-4'; break;
-        }
-        $user = User::find()->select(['picture', 'nickname'])->where(['id' => $claim->user_id])->one(); ?>
+        } ?>
         <div class="card horizontal hoverable <?= $color_class ?>">
-            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $user->picture ?>)">
+            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $claim->picture ?>)">
                 <a href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>" class="waves-effect waves-light"></a>
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $claim->user_id]) ?>">
+                    <a class="card-title black-text" href="<?= Url::to(
+                    		$claim->member_id ?
+							['members/edit', 'id' => $claim->member_id] :
+							['site/profile', 'id' => $claim->user_id]
+					) ?>">
                         <span class="old-nickname">[Volvo Trucks] <?= htmlentities($claim->old_nickname) ?></span>
                         &rArr;
                         <span class="new-nickname">[Volvo Trucks] <?= htmlentities($claim->new_nickname) ?></span>
                     </a>
                     <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p class="nowrap"><?= \app\controllers\SiteController::getRuDate($claim->date) ?></p>
+                            <p class="nowrap"><?= Yii::$app->formatter->asDate($claim->date, 'long') ?></p>
                         </div>
                         <div class="claim-status" style="flex: 1;">
                             <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?></p>
-                            <?php if($claim->viewed):
-                                $by = User::find()->where(['id' => $claim->viewed])->one() ?>
-                                <p class="grey-text">Рассмотрел: <?= $by->first_name ?> <?= $by->last_name ?></p>
+                            <?php if($claim->viewed): ?>
+                                <a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$claim->viewed]) ?>">
+									Рассмотрел: <?= $claim->first_name ?> <?= $claim->last_name ?>
+								</a>
                             <?php endif ?>
                         </div>
                     </div>

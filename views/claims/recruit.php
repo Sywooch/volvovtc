@@ -20,18 +20,19 @@ use app\models\User; ?>
             case '2': $color_class = 'red lighten-4-5'; break;
             case '0':
             default : $color_class = 'grey lighten-4'; break;
-        }
-        $user = User::find()->select(['picture', 'first_name', 'last_name'])->where(['id' => $recruit->user_id])->one(); ?>
+        } ?>
         <div class="card horizontal hoverable <?= $color_class ?>">
-            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $user->picture ?>)">
+            <div class="card-image grey lighten-4 no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $recruit->picture ?>)">
                 <a href="<?= Url::to(['site/profile', 'id' => $recruit->user_id]) ?>" class="waves-effect waves-light"></a>
             </div>
             <div class="card-stacked">
                 <div class="card-content">
-                    <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $recruit->user_id]) ?>"><?= $user->first_name ?> <?= $user->last_name ?></a>
+                    <a class="card-title black-text" href="<?= Url::to(['site/profile', 'id' => $recruit->user_id]) ?>">
+						<?= $recruit->first_name ?> <?= $recruit->last_name ?>
+					</a>
                     <div class="flex claim-info">
                         <div style="max-width: 70%">
-                            <p class="nowrap"><?= \app\controllers\SiteController::getRuDate($recruit->date) ?></p>
+                            <p class="nowrap"><?= Yii::$app->formatter->asDate($recruit->date, 'long') ?></p>
                             <?php if($recruit->hear_from) : ?>
                                 <p><b>Откуда узнали?</b> <?= strip_tags($recruit->hear_from) ?></p>
                             <?php endif ?>
@@ -44,9 +45,10 @@ use app\models\User; ?>
                         </div>
                         <div class="claim-status" style="flex: 1;">
                             <p><b class="fs17"><?= \app\models\ClaimsRecruit::getStatusTitle($recruit->status) ?></b><br><?= strip_tags($recruit->reason) ?></p>
-                            <?php if($recruit->viewed):
-                                $by = User::find()->where(['id' => $recruit->viewed])->one() ?>
-                                <p class="grey-text">Рассмотрел: <?= $by->first_name ?> <?= $by->last_name ?></p>
+                            <?php if($recruit->viewed): ?>
+                                <a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$recruit->viewed]) ?>">
+									Рассмотрел: <?= $recruit->a_first_name ?> <?= $recruit->a_last_name ?>
+								</a>
                             <?php endif ?>
                         </div>
                     </div>
