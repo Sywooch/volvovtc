@@ -71,7 +71,7 @@ class VtcMembers extends ActiveRecord{
         $all_members = self::getAllMembers(false);
         $members = array();
         foreach ($all_members as $member){
-            $members[$member->id] = '[Volvo Trucks] '.$member->user_id->nickname;
+            $members[$member->id] = '[Volvo Trucks] '.$member->nickname;
         }
         return $members;
     }
