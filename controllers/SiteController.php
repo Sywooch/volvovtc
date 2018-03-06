@@ -286,7 +286,7 @@ class SiteController extends Controller{
         }
         if(!Yii::$app->user->isGuest){
             $user = Yii::$app->user->identity;
-            if(VtcMembers::find()->where(['user_id' => $user->id])->one() != null) $member = true;
+            if(User::isVtcMember()) $member = true;
         }else if(!Yii::$app->request->get('id')){
         	Url::remember();
             return $this->redirect(['site/login']);
@@ -315,8 +315,7 @@ class SiteController extends Controller{
                 $model->addError('attribute', 'Возникла ошибка');
             }
         }
-        $id = Yii::$app->user->id;
-        if(Yii::$app->request->get('id')) $id = Yii::$app->request->get('id');
+        $id = Yii::$app->request->get('id', Yii::$app->user->id);
         if(!$user = User::findOne($id)){
             return $this->goBack();
         }
