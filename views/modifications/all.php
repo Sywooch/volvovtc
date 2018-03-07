@@ -52,11 +52,21 @@ $this->title = 'Моды для ETS2MP и ATSMP - Volvo Trucks' ?>
                 <div class="card-content">
                     <span class="card-title"><?= $mod->title ?></span>
                     <p><?= $mod->description ?></p>
+					<?php if($mod->warning) : ?><p><i>(<?= $mod->warning ?>)</i></p><?php endif ?>
                 </div>
                 <div class="card-action">
                     <a href="<?= Yii::$app->request->baseUrl.'/mods/'.$mod->game.'/'.$mod->file_name?>">Скачать
                         <i class="material-icons notranslate left">get_app</i>
                     </a>
+					<?php if($mod->yandex_link) : ?>
+						<a href="<?= $mod->yandex_link ?>" class="waves-effect">Яндекс.Диск</a>
+					<?php endif ?>
+					<?php if($mod->gdrive_link) : ?>
+						<a href="<?= $mod->gdrive_link ?>" class="waves-effect">Google Drive</a>
+					<?php endif ?>
+					<?php if($mod->mega_link) : ?>
+						<a href="<?= $mod->mega_link ?>" class="waves-effect">MEGA</a>
+					<?php endif ?>
                 </div>
             </div>
         </div>
