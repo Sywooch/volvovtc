@@ -117,7 +117,7 @@ AppAsset::register($this);
 				</li>
             <?php endif ?>
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>>
-				<a href="<?=Url::to(['site/claims'])?>"><i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
+				<a href="<?=Url::to(['claims/index'])?>"><i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
             </li>
             <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
                 <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>>
@@ -197,7 +197,7 @@ AppAsset::register($this);
                     <?php else: ?>
                         <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">ВОДИТЕЛИ</a></li>
                     <?php endif ?>
-                    <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">ЗАЯВЛЕНИЯ</a></li>
+                    <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['claims/index'])?>">ЗАЯВЛЕНИЯ</a></li>
                     <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
                         <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                     <?php endif ?>
@@ -259,7 +259,7 @@ AppAsset::register($this);
                         </ul>
                         <p><i class="material-icons notranslate left">note_add</i>ЗАЯВЛЕНИЯ</p>
                         <ul>
-                            <li><a href="<?= Url::to(['site/claims']) ?>">Написать заявление</a></li>
+                            <li><a href="<?= Url::to(['claims/index']) ?>">Написать заявление</a></li>
                             <li><a href="<?= Url::to(['appeals/add']) ?>">Жалоба на водителя</a></li>
                         </ul>
                     </div>
@@ -271,8 +271,8 @@ AppAsset::register($this);
                         </ul>
                         <p><i class="material-icons notranslate left">settings</i>МОДИФИКАЦИИ</p>
                         <ul>
-                            <li><a href="<?= Url::to(['site/mods']) ?>">Моды для ETS2MP</a></li>
-                            <li><a href="<?= Url::to(['site/mods']) ?>">Моды для ATSMP</a></li>
+                            <li><a href="<?= Url::to(['modifications/index']) ?>">Моды для ETS2MP</a></li>
+                            <li><a href="<?= Url::to(['modifications/index']) ?>">Моды для ATSMP</a></li>
                         </ul>
                     </div>
                     <div class="col m4 s12">
