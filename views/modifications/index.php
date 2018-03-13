@@ -113,7 +113,7 @@ $this->registerMetaTag([
 								<p class="grey-text"><i class="material-icons notranslate left">visibility_off</i>Мод скрыт</p>
 								<div class="clearfix"></div>
 							<?php endif ?>
-							<h6 class="fs17 mod-title"><?= $mod->title ?></h6>
+							<h6 class="fs17 mod-title"><b><?= $mod->title ?></b></h6>
 							<?php if($mod->description) : ?>
 								<div class="mod-description">
 									<span><?= $mod->description ?></span>
@@ -121,7 +121,7 @@ $this->registerMetaTag([
 							<?php endif ?>
 							<?php if($mod->warning) : ?>
 								<div class="mod-warning">
-									<span>(<?= $mod->warning ?>)</span>
+									<span><i>(<?= $mod->warning ?>)</i></span>
 								</div>
 							<?php endif ?>
 						</div>
