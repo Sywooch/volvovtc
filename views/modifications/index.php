@@ -23,7 +23,7 @@ $this->registerMetaTag([
 </div>
 
 <div class="row">
-	<div class="col m3 s12">
+	<div class="col m3 s12" style="padding-bottom: 10px;">
 		<div class="card-panel grey lighten-4 search">
 			<form method="get">
 				<div class="input-field">
@@ -93,7 +93,6 @@ $this->registerMetaTag([
 		   data-tooltip="Сгенерировать мод на прицеп" data-position="bottom">
 			<i class="material-icons notranslate left">build</i>Генератор модификаций
 		</a>
-
 	</div>
 
 	<div class="col m9 s12">
