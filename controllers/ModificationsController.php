@@ -130,7 +130,7 @@ class ModificationsController extends Controller{
             if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->addMod() != false){
                     $cat = explode('/', $model->category);
-                    return $this->redirect(['modifications/category', 'game' => $cat[0], 'category' => $cat[1], 'subcategory' => $cat[2]]);
+                    return $this->redirect(['modifications/index', 'game' => $cat[0], 'category' => $cat[1], 'subcategory' => $cat[2]]);
                 }
             }
             return $this->render('form/index', [
@@ -149,10 +149,10 @@ class ModificationsController extends Controller{
             if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->editMod(Yii::$app->request->get('id')) != false){
                     $mod = Mods::findOne(Yii::$app->request->get('id'));
-                    return $this->redirect(['modifications/category',
+                    return $this->redirect(['modifications/index',
                         'game' => $mod->game,
                         'category' => $mod->category,
-                        'subcategory' => $mod->category == $mod->subcategory ? '' : $mod->subcategory
+                        'subcategory' => $mod->subcategory
                     ]);
                 }
             }
@@ -171,10 +171,10 @@ class ModificationsController extends Controller{
         if(Yii::$app->request->get('id') && User::isAdmin()){
             $mod = Mods::findOne(Yii::$app->request->get('id'));
             Mods::deleteMod(Yii::$app->request->get('id'));
-            return $this->redirect(['modifications/category',
+            return $this->redirect(['modifications/index',
                 'game' => $mod->game,
                 'category' => $mod->category,
-                'subcategory' => $mod->category == $mod->subcategory ? '' : $mod->subcategory
+                'subcategory' => $mod->subcategory
             ]);
         }else{
             return $this->render('//site/error');
