@@ -15,7 +15,7 @@ $this->registerMetaTag([
 
 <div class="parallax-container parallax-shadow hide-on-small-only" style="height: 400px;">
 	<div class="row">
-		<div class="col m9 offset-m3">
+		<div class="col m7 l9 offset-l3 offset-m5">
 			<h4 class="parallax-title light white-text text-shadow col s12"><?= $subcategory->cat_title ?></h4>
 		</div>
 	</div>
@@ -23,7 +23,7 @@ $this->registerMetaTag([
 </div>
 
 <div class="row">
-	<div class="col m3 s12" style="padding-bottom: 10px;">
+	<div class="col l3 m5 s12" style="padding-bottom: 10px;">
 		<div class="card-panel grey lighten-4 search">
 			<form method="get">
 				<div class="input-field">
@@ -95,12 +95,12 @@ $this->registerMetaTag([
 		</a>
 	</div>
 
-	<div class="col m9 s12">
+	<div class="col l9 m7 s12">
 		<?php if($mods) :
 			foreach ($mods as $key => $mod):
 				$class = $mod->visible == '1' ? 'grey' : 'yellow'; ?>
 
-				<div class="col m4 s12">
+				<div class="col l4 m6 s12">
 					<div class="card <?= $class ?> lighten-4 hoverable">
 
 						<div class="card-image mod-img">
@@ -180,8 +180,11 @@ $this->registerMetaTag([
 				</div>
 
 				<?php if(($key - 2) % 3 == 0) : ?>
-				<div class="clearfix"></div>
-			<?php endif ?>
+					<div class="clearfix-l"></div>
+				<?php endif ?>
+				<?php if($key % 2 != 0) : ?>
+					<div class="clearfix-m"></div>
+				<?php endif ?>
 
 			<?php endforeach;
 		else : ?>
