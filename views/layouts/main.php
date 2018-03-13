@@ -89,7 +89,18 @@ AppAsset::register($this);
                 </li>
             <?php endif ?>
 			<li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>>
-				<a href="<?=Url::to(['modifications/index'])?>"><i class="material-icons notranslate">settings</i>МОДИФИКАЦИИ</a>
+				<ul class="collapsible collapsible-accordion">
+					<li>
+						<a class="collapsible-header waves-effect"><i class="material-icons notranslate">settings</i>МОДИФИКАЦИИ</a>
+						<div class="collapsible-body">
+							<ul>
+								<li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ETS2MP</a></li>
+								<li><a href="<?=Url::to(['modifications/index', 'game' => 'ats'])?>">ATSMP</a></li>
+								<li><a href="<?=Url::to(['modifications/tedit'])?>">TEDIT</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
 			</li>
             <?php if(\app\models\User::isAdmin()) :
                 $c_id = ['trailers', 'achievements', 'members', 'appeals'];
@@ -179,7 +190,14 @@ AppAsset::register($this);
                     <?php if(!\app\models\User::isVtcMember()): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
-                    <li<?php if(Yii::$app->controller->id === 'mods'){?> class="active"<?php } ?>><a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a></li>
+                    <li<?php if(Yii::$app->controller->id === 'mods'){?> class="active"<?php } ?> id="mods-btn">
+						<a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a>
+						<ul id="mods-dropdown" class="z-depth-2">
+							<li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ETS2MP</a></li>
+							<li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ATSMP</a></li>
+							<li><a href="<?=Url::to(['modifications/tedit'])?>">TEDIT</a></li>
+						</ul>
+					</li>
                     <?php if(\app\models\User::isAdmin()) :
                         $c_id = ['trailers', 'achievements', 'members', 'appeals'];
                         $a_id = ['users']; ?>

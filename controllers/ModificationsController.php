@@ -48,21 +48,36 @@ class ModificationsController extends Controller{
     }
 
     public function actionIndex(){
-        return $this->render('index');
-    }
-
-    public function actionCategory(){
-        if(Yii::$app->request->get('game') && Yii::$app->request->get('category')){
-            $game = Yii::$app->request->get('game');
-            $category = Yii::$app->request->get('category');
-            $subcategory = Yii::$app->request->get('subcategory') ? Yii::$app->request->get('subcategory') : Yii::$app->request->get('category');
-            $mods_query = Mods::find()
-				->select(['mods.*', 'trailers.picture as tr_image'])
-				->leftJoin('trailers', 'mods.trailer = trailers.id');
-            if(!User::isAdmin()) $mods_query = $mods_query->where(['mods.visible' => '1']);
-            $mods = $mods_query->andWhere(['mods.game' => $game, 'mods.category' => $category, 'mods.subcategory' => $subcategory])
-				->orderBy(['mods.sort' => SORT_DESC])->all();
-            $subcategory = ModsSubcategories::find()
+    	$game = Yii::$app->request->get('game', null);
+    	$category = Yii::$app->request->get('category', null);
+    	$subcategory = Yii::$app->request->get('subcategory', null);
+    	$order_by = 'id';
+		$mods = Mods::find()
+			->select(['mods.*', 'trailers.picture as tr_image'])
+			->leftJoin('trailers', 'mods.trailer = trailers.id');
+		if(Yii::$app->request->get('q')){
+			$mods = $mods->andWhere(['like', 'mods.title', Yii::$app->request->get('q')])
+				->orWhere(['like', 'mods.description', Yii::$app->request->get('q')]);
+		}
+		if(!User::isAdmin()) $mods = $mods->where(['mods.visible' => '1']);
+		if($game){
+			$mods = $mods->andWhere(['mods.game' => $game]);
+			if($category){
+				$mods = $mods->andWhere(['mods.category' => $category]);
+				if($subcategory){
+					$mods = $mods->andWhere(['mods.subcategory' => $subcategory]);
+					$order_by = 'sort';
+				}else $subcategory = $category;
+			}
+		}
+		$total = $mods->count();
+		$pagination = new Pagination([
+			'defaultPageSize' => 9,
+			'totalCount' => $total
+		]);
+		$mods = $mods->orderBy(['mods.'.$order_by => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
+		if($category){
+			$subcategory = ModsSubcategories::find()
 				->select([
 					'mods_subcategories.*',
 					'mods_categories.id as cat_id',
@@ -77,17 +92,37 @@ class ModificationsController extends Controller{
 					'mods_subcategories.for_ets' => $game == 'ets' ? '1' : '0'
 				])
 				->one();
-            $all_subcategories = ModsSubcategories::find()->where(['category_id' => $subcategory->cat_id])->orderBy(['id' => SORT_ASC])->all();
-            if(!$subcategory) return $this->redirect(['modifications/index']);
-            return $this->render('category', [
-                'mods' => $mods,
-                'subcategory' => $subcategory,
-                'all_subcategories' => $all_subcategories
-            ]);
-        }else{
-            return $this->render('//site/error');
-        }
+		}else{
+			$subcategory = new ModsSubcategories();
+			$subcategory->cat_name = 'all';
+			$subcategory->cat_title = 'Модификации для TruckersMP';
+			$subcategory->cat_image = 'mods-main.jpg';
+		}
+
+		$all_subcategories = ModsSubcategories::find()
+			->select([
+				'mods_subcategories.*',
+				'mods_categories.name as cat_name',
+				'mods_categories.title as cat_title'
+			])
+			->leftJoin('mods_categories', 'mods_categories.id = mods_subcategories.category_id')
+			->orderBy(['for_ets' => SORT_DESC, 'category_id' => SORT_ASC])
+			->asArray()->all();
+		if(!$subcategory) return $this->redirect(['modifications/index']);
+		return $this->render('index', [
+			'mods' => $mods,
+			'subcategory' => $subcategory,
+			'all_subcategories' => ArrayHelper::index($all_subcategories, null, 'for_ets'),
+			'currentPage' => Yii::$app->request->get('page', 1),
+			'totalPages' => $pagination->getPageCount(),
+			'pagination' => $pagination,
+			'total' => $total,
+		]);
     }
+
+	public function actionTedit(){
+		return $this->render('tedit');
+	}
 
     public function actionAdd(){
         if(User::isAdmin()){
@@ -174,31 +209,6 @@ class ModificationsController extends Controller{
         }else{
             return $this->render('//site/error');
         }
-    }
-
-    public function actionAll(){
-        $query = Mods::find()
-			->select(['mods.*', 'trailers.picture as tr_image'])
-			->leftJoin('trailers', 'mods.trailer = trailers.id');
-        if(Yii::$app->request->get('q')){
-            $query = $query->where(['like', 'mods.title', Yii::$app->request->get('q')])
-                ->orWhere(['like', 'mods.description', Yii::$app->request->get('q')]);
-        }
-        if(!User::isAdmin()) $query = $query->andWhere(['mods.visible' => '1']);
-        $total = $query->count();
-        $pagination = new Pagination([
-            'defaultPageSize' => 10,
-            'totalCount' => $total
-        ]);
-        if(Yii::$app->request->get('sort') == 'title') $query = $query->orderBy(['mods.title' => SORT_ASC]);
-        $mods = $query->orderBy(['mods.id' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all();
-        return $this->render('all', [
-            'mods' => $mods,
-            'currentPage' => Yii::$app->request->get('page', 1),
-            'totalPages' => $pagination->getPageCount(),
-            'pagination' => $pagination,
-            'total' => $total,
-        ]);
     }
 
 }
