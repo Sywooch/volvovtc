@@ -133,7 +133,7 @@ class ModificationsController extends Controller{
                     return $this->redirect(['modifications/index', 'game' => $cat[0], 'category' => $cat[1], 'subcategory' => $cat[2]]);
                 }
             }
-            return $this->render('form/index', [
+            return $this->render('edit', [
                 'model' => $model,
                 'categories' => ArrayHelper::merge(['Нет категории' => ['' => 'Выберите категорию']], ModsCategories::getCatsWithSubCats()),
                 'trailers' => Trailers::getTrailers(['0' => 'Нет прицепа']),
@@ -156,11 +156,10 @@ class ModificationsController extends Controller{
                     ]);
                 }
             }
-            return $this->render('form/index', [
+            return $this->render('edit', [
                 'model' => $model,
                 'categories' => ModsCategories::getCatsWithSubCats(),
-                'trailers' => Trailers::getTrailers(['0' => 'Нет прицепа']),
-                'trailer_data' => Mods::getTrailerData($model)
+                'trailers' => Trailers::getTrailers(['0' => 'Нет прицепа'])
             ]);
         }else{
             return $this->render('//site/error');
