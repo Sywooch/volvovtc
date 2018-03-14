@@ -52,18 +52,26 @@ class AppealsController extends Controller{
 
     public function actionIndex(){
         if(User::isAdmin()){
-            $query = Appeals::find()->orderBy(['date' => SORT_DESC]);
+            $query = Appeals::find()
+				->select([
+					'appeals.*',
+					'app_user.picture as appealed_user_picture',
+					'app_user.nickname as appealed_user_nickname',
+					'app_user.company as appealed_user_company',
+					'from_user.company as from_user_company',
+					'from_user.nickname as from_user_nickname',
+					'from_user.first_name as from_user_first_name',
+					'from_user.last_name as from_user_last_name'
+				])
+				->leftJoin('users as app_user', 'app_user.id = appeals.appeal_to_user_id')
+				->leftJoin('users as from_user', 'from_user.id = appeals.uid')
+				->orderBy(['date' => SORT_DESC]);
             $total = $query->count();
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
                 'totalCount' => $total
             ]);
             $appeals = $query->offset($pagination->offset)->limit($pagination->limit)->all();
-            foreach ($appeals as $appeal){
-                $appeal->appealed_member = VtcMembers::findOne($appeal->appeal_to_id);
-                $appeal->appealed_user = User::findOne($appeal->appeal_to_user_id);
-                $appeal->from_user = User::findOne($appeal->uid);
-            }
             return $this->render('index', [
                 'appeals' => $appeals,
                 'currentPage' => Yii::$app->request->get('page', 1),

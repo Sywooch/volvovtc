@@ -7,9 +7,13 @@ use yii\db\ActiveRecord;
 
 class Appeals extends ActiveRecord{
 
-    public $appealed_user;
-    public $appealed_member;
-    public $from_user;
+    public $appealed_user_picture;
+    public $appealed_user_nickname;
+    public $appealed_user_company;
+    public $from_user_nickname;
+    public $from_user_company;
+    public $from_user_first_name;
+    public $from_user_last_name;
 
     public function rules(){
         return [

@@ -1,1 +1,0 @@
-<p class="grey-text light">Нужна модификация для мультиплеера? <a href="https://vk.com/im?sel=-105444090" target="_blank" style="text-decoration: underline;">Пиши нам!</a></p>

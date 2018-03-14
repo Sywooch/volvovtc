@@ -7,6 +7,14 @@ use yii\db\ActiveRecord;
 
 class AchievementsProgress extends ActiveRecord{
 
+	public $title;
+	public $description;
+	public $image;
+	public $progress;
+	public $scores;
+	public $u_company;
+	public $u_nickname;
+
     public function rules(){
         return [
             [['ach_id', 'uid', 'proof'], 'required'],
@@ -43,12 +51,21 @@ class AchievementsProgress extends ActiveRecord{
     }
 
     public static function applyAchievement($id){
-        $ach = AchievementsProgress::findOne($id);
+		$ach = AchievementsProgress::find()
+			->select([
+				'achievements_progress.id',
+				'achievements_progress.ach_id',
+				'achievements_progress.uid',
+				'achievements_progress.complete',
+				'achievements.progress',
+				'achievements.scores'
+			])
+			->innerJoin('achievements', 'achievements_progress.ach_id = achievements.id')
+			->where(['achievements_progress.id' => $id])->one();
         $ach->complete = 1;
-        $user_progress = AchievementsProgress::find()->where(['uid' => $ach->uid, 'ach_id' => $ach->ach_id, 'complete' => 1])->all();
-        $achievement = Achievements::findOne($ach->ach_id);
+        $user_progress = AchievementsProgress::find()->where(['uid' => $ach->uid, 'ach_id' => $ach->ach_id, 'complete' => 1])->count();
         $result = true;
-        if(($achievement->progress > 1 && count($user_progress)+1 == $achievement->progress) || $achievement->progress == 1){
+        if(($ach->progress > 1 && $user_progress + 1 == $ach->progress) || $ach->progress == 1){
             $user = User::findOne($ach->uid);
             if($user->achievements == null){
                 $user->achievements = serialize([$ach->ach_id]);
@@ -58,18 +75,20 @@ class AchievementsProgress extends ActiveRecord{
                 $user->achievements = serialize($achievements);
             }
             if($member = VtcMembers::findOne(['user_id' => $user->id])){
-            	$scores = intval($achievement->scores);
+            	$scores = intval($ach->scores);
 				$member->scores_other = intval($member->scores_other) + $scores;
 				$member->scores_total = intval($member->scores_total) + $scores;
 				$member->update();
 			}
+			Notifications::addNotification('Ваш скриншот для достижения прошел модерацию!', $user->id);
             $result = $user->update() !== false;
         }
-        return $result && $ach->update() !== false;
+        return $result && $ach->update(true, ['complete']) !== false;
     }
 
     public static function denyAchievement($id){
         $ach = AchievementsProgress::findOne($id);
+		Notifications::addNotification('Ваш скриншот для достижения не прошел модерацию!', $ach->uid);
         if(file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/progress/'.$ach->proof)){
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/progress/'.$ach->proof);
         }

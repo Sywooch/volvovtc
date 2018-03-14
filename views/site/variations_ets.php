@@ -44,7 +44,9 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <h5>Вариация №1</h5>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть общий тюнинг</div>
+                <div class="collapsible-header grey lighten-4">
+					<i class="material-icons notranslate">arrow_forward</i>Смотреть общий тюнинг для вариации №1
+				</div>
                 <div class="collapsible-body grey lighten-4">
                     <ul class="force-list-style">
                         <li>Кузов, шасси, двигатель, трансмиссия - на выбор</li>
@@ -64,107 +66,103 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
         <div class="card grey lighten-4">
             <div class="card-image">
                 <div class="fotorama fotorama-nav-right" data-max-width="100%" data-nav="thumbs" data-fit="cover" data-ratio="16/7">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var1_1.jpg">
-                    <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var1_2.jpg">
+					<img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var1_2.jpg">
+					<img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var1_1.jpg">
                 </div>
                 <span class="card-title text-shadow">Volvo FH<br>Volvo FH Classic</span>
             </div>
-            <div class="card-content row">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Volvo FH Classic</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Volvo FH</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Разрешается устанавливать решетку радиатора двух видов</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="card-collapsible collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Volvo FH Classic</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Volvo FH</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Разрешается устанавливать решетку радиатора двух видов</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
     </div>
     <div id="21" class="scrollspy">
         <h5>Вариация №2.1</h5>
+		<p class="grey-text">Данный грузовик предназначен для крупногабаритных и насыпных грузов.</p>
         <div class="card grey lighten-4">
             <div class="card-image">
                 <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var2.jpg">
                 <span class="card-title text-shadow">Volvo FH Classic</span>
             </div>
-            <div class="card-content">
-                <span class="grey-text">Данный грузовик предназначен для крупногабаритных и насыпных грузов.</span>
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
-                        <div class="collapsible-body grey lighten-4 list-style-default">
-                            <ul>
-                                <li>Кабина: Sleeper (малая)</li>
-                                <li>Шасси: 6х2 / 6х2 подъемная ось / 6х4 (на выбор)</li>
-                                <li>Цвет: Белый (просто белый, не металлик)</li>
-                                <li>Лайтбар: Sting</li>
-                                <li>Два маячка по бокам</li>
-                                <li>Козырек: заводской</li>
-                                <li>Зеркала / ручки в цвет кузова</li>
-                                <li>Колеса из 1 вариации</li>
-                                <li>Остальное все запрещено, кроме табличек, DLC National Window Flags и любых аксессуаров в кабину
-                                    <ul>
-                                        <li>Разрешается установить три желтых лампочки по середине на лайтбаре</li>
-                                    </ul>
-                                </li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="card-collapsible collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
+					<div class="collapsible-body grey lighten-4 list-style-default">
+						<ul>
+							<li>Кабина: Sleeper (малая)</li>
+							<li>Шасси: 6х2 / 6х2 подъемная ось / 6х4 (на выбор)</li>
+							<li>Цвет: Белый (просто белый, не металлик)</li>
+							<li>Лайтбар: Sting
+								<ul>
+									<li>Два маячка по бокам</li>
+									<li>Разрешается установить три желтых лампочки по середине на лайтбаре (по желанию)</li>
+								</ul>
+							</li>
+							<li>Козырек: заводской</li>
+							<li>Зеркала / ручки в цвет кузова</li>
+							<li>Колеса из 1 вариации</li>
+							<li>Остальное все запрещено, кроме табличек, DLC National Window Flags и любых аксессуаров в кабину</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
     </div>
     <div id="22" class="scrollspy">
         <h5>Вариация №2.2</h5>
+		<p class="grey-text">Данный грузовик предназначен для крупногабаритных и крупнотоннажных грузов.</p>
         <div class="card grey lighten-4">
             <div class="card-image">
                 <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var22.jpg">
                 <span class="card-title text-shadow">Volvo FH</span>
             </div>
-            <div class="card-content">
-                <span class="grey-text">Данный грузовик предназначен для крупногабаритных и крупнотоннажных грузов.</span>
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
-                        <div class="collapsible-body grey lighten-4 list-style-default">
-                            <ul>
-                                <li>Кузов: Globetrotter 8х4</li>
-                                <li>Шасси 8х4</li>
-                                <li>Двигатель, трансмиссия - на выбор</li>
-                                <li>Пользовательский цвет - оранжевый металлик. <a class="modal-trigger" href="#var22modal">Как установить?</a></li>
-                                <li>Диски, ступицы, гайки, колпаки разрешается устанавливать: стандартные, хромированные и крашенные (от белых к черным оттенкам и в цвет кузова)</li>
-                                <li>Шины разрешается красить только от черных до белых оттенков</li>
-                                <li>Решетка радиатора: черная</li>
-                                <li>Козырек - заводской</li>
-                                <li>Проблесковый маяк - Star (Необходимо DLC Special Transport)</li>
-                                <li>Переднее зеркало, таблички - по желанию</li>
-                                <li>Основные зеркала, дверные ручки в цвет кузова</li>
-                                <li>Ступеньки дверей - на ваш выбор</li>
-                                <li>Разрешается устанавливать элементы тюнинга добавляемые в DLC National Window Flags и любые аксессуары в кабину</li>
-                                <li>Остальное все запрещено</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="card-collapsible collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть тюнинг</div>
+					<div class="collapsible-body grey lighten-4 list-style-default">
+						<ul>
+							<li>Кузов: Globetrotter 8х4</li>
+							<li>Шасси 8х4</li>
+							<li>Двигатель, трансмиссия - на выбор</li>
+							<li>Пользовательский цвет - оранжевый металлик. <a class="modal-trigger" href="#var22modal">Как установить?</a></li>
+							<li>Диски, ступицы, гайки, колпаки разрешается устанавливать: стандартные, хромированные и крашенные (от белых к черным оттенкам и в цвет кузова)</li>
+							<li>Шины разрешается красить только от черных до белых оттенков</li>
+							<li>Решетка радиатора: черная</li>
+							<li>Козырек - заводской</li>
+							<li>Проблесковый маяк - Star (Необходимо DLC Special Transport)</li>
+							<li>Переднее зеркало, таблички - по желанию</li>
+							<li>Основные зеркала, дверные ручки в цвет кузова</li>
+							<li>Ступеньки дверей - на ваш выбор</li>
+							<li>Разрешается устанавливать элементы тюнинга добавляемые в DLC National Window Flags и любые аксессуары в кабину</li>
+							<li>Остальное все запрещено</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
     </div>
     <div id="3" class="scrollspy">
         <h5>Вариация №3</h5>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
-                <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть общий тюнинг</div>
+                <div class="collapsible-header grey lighten-4">
+					<i class="material-icons notranslate">arrow_forward</i>Смотреть общий тюнинг для вариации №3
+				</div>
                 <div class="collapsible-body grey lighten-4">
                     <ul class="force-list-style">
                         <li>Кузов, шасси, двигатель, трансмиссия - на выбор</li>
@@ -189,26 +187,24 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                 </div>
                 <span class="card-title text-shadow">Mercedes-Benz Actros MP3<br>Mercedes-Benz Actros MP4</span>
             </div>
-            <div class="card-content row">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Mercedes-Benz Actros MP3</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Mercedes-Benz Actros MP4</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Разрешается устанавливать под юбку на места левого и правого выхлопов элемент Katana</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="collapsible card-collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Mercedes-Benz Actros MP3</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Mercedes-Benz Actros MP4</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Разрешается устанавливать под юбку на места левого и правого выхлопов элемент Katana</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
         <div id="scania" class="card grey lighten-4 scrollspy">
             <div class="card-image">
@@ -218,68 +214,42 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                     <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_scanStr.jpg">
                     <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_scanR12.jpg">
                 </div>
-                <span class="card-title text-shadow">Scania S<br>Scania R<br>Scania Streamline<br>Scania R 2012</span>
+                <span class="card-title text-shadow">Scania R<br>Scania S<br>Scania Streamline<br>Scania R 2012</span>
             </div>
-            <div class="card-content">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania R</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Ребра передней маски, передняя маска, боковая панель - на выбор</li>
-                                <li>Передний логотип, эмблема - по желанию</li>
-                                <li>На решетку радиатора разрешается устанавливать до 4 лампочек</li>
-                                <li>Фары, дополнительные фары, фары на крыше - на выбор</li>
-                                <li>Козырьки: заводской вариант 1, заводской вариант 2 - по желанию</li>
-                                <li>Передние крылья, задние крылья - на выбор</li>
-                                <li>Передний бампер, задний бампер - на выбор</li>
-                                <li>Левый выхлоп: заводской вариант 1, заводской вариант 2 - по желанию</li>
-                                <li>Задние брызговики - по желанию</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania S</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Ребра передней маски, передняя маска, боковая панель - на выбор</li>
-                                <li>Передний логотип, эмблема - по желанию</li>
-                                <li>На решетку радиатора разрешается устанавливать до 4 лампочек</li>
-                                <li>Фары, дополнительные фары, фары на крыше - на выбор</li>
-                                <li>Козырьки: заводской вариант 1, заводской вариант 2 - по желанию</li>
-                                <li>Передние крылья, задние крылья - на выбор</li>
-                                <li>Передний бампер, задний бампер - на выбор</li>
-                                <li>Левый выхлоп: заводской вариант 1, заводской вариант 2 - по желанию</li>
-                                <li>Задние брызговики - по желанию</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania Streamline</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Задний бампер, задние/передние брызговики на выбор</li>
-                                <li>Металлический настил, верхний выхлоп по желанию</li>
-                                <li>Окантовка ручек, ветровики по желанию</li>
-                                <li>Дуги на решетке, решетка радиатора по желанию</li>
-                                <li>Передняя маска, эмблема на выбор</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Scania R 2012</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Задний бампер, задние/передние брызговики на выбор</li>
-                                <li>Металлический настил, верхний выхлоп по желанию</li>
-                                <li>Окантовка ручек, ветровики по желанию</li>
-                                <li>Дуги на решетке, решетка радиатора по желанию</li>
-                                <li>Передняя маска, эмблема на выбор</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="collapsible card-collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4">
+						<i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Scania S и R NextGen
+					</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Ребра передней маски, передняя маска, боковая панель - на выбор</li>
+							<li>Передний логотип, эмблема - по желанию</li>
+							<li>На решетку радиатора разрешается устанавливать до 4 лампочек</li>
+							<li>Фары, дополнительные фары, фары на крыше - на выбор</li>
+							<li>Козырьки: заводской вариант 1, заводской вариант 2 - по желанию</li>
+							<li>Передние крылья, задние крылья - на выбор</li>
+							<li>Передний бампер, задний бампер - на выбор</li>
+							<li>Левый выхлоп: заводской вариант 1, заводской вариант 2 - по желанию</li>
+							<li>Задние брызговики - по желанию</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header grey lighten-4">
+						<i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Scania Streamline и Scania R 2012
+					</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Задний бампер, задние/передние брызговики на выбор</li>
+							<li>Металлический настил, верхний выхлоп по желанию</li>
+							<li>Окантовка ручек, ветровики по желанию</li>
+							<li>Дуги на решетке, решетка радиатора по желанию</li>
+							<li>Передняя маска, эмблема на выбор</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
         <div id="daf" class="card grey lighten-4 scrollspy">
             <div class="card-image">
@@ -289,56 +259,54 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                 </div>
                 <span class="card-title text-shadow">DAF XF105<br>DAF XF Euro 6</span>
             </div>
-            <div class="card-content">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для DAF XF105</div>
-                        <div class="collapsible-body grey lighten-4 list-style-default">
-                            <ul class="force-list-style">
-                                <li>Задний бампер, задние/передние брызговики на выбор
-                                    <ul>
-                                        <li>На задний бампер разрешается устанавливать лампочки</li>
-                                    </ul>
-                                </li>
-                                <li>Металлический настил, верхний выхлоп по желанию</li>
-                                <li>Окантовка ручек, ветровики по желанию</li>
-                                <li>Передняя маска, эмблема, рамка лобового стекла на выбор</li>
-                                <li>Защита бампера: Samurai, Prospector краска/хром по желанию</li>
-                                <li>Защита бампера: Samurai, Prospector краска/хром по желанию
-                                    <ul>
-                                        <li>На защиту бампера Prospector краска/хром разрешается устанавливать лампочки</li>
-                                    </ul>
-                                </li>
-                                <li>Козырьки: заводской вариант, заводской вариант (краска) по желанию</li>
-                                <li>На некоторые виды юбок разрешается устанавливать лампочки</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для DAF XF Euro 6</div>
-                        <div class="collapsible-body grey lighten-4 list-style-default">
-                            <ul class="force-list-style">
-                                <li>Задний бампер, задние/передние брызговики на выбор
-                                    <ul>
-                                        <li>На задний бампер разрешается устанавливать лампочки</li>
-                                    </ul>
-                                </li>
-                                <li>Металлический настил, верхний выхлоп по желанию</li>
-                                <li>Окантовка ручек, ветровики по желанию</li>
-                                <li>Передняя маска, эмблема, панель под эмблемой, рамка лобового стекла на выбор</li>
-                                <li>Решетка радиатора по желанию</li>
-                                <li>Защита бампера: Samurai, Pride краска/хром по желанию</li>
-                                <li>Козырьки: заводской вариант, заводской вариант (краска),Locus (краска), cyclopean по желанию
-                                    <ul>
-                                        <li>На козырек Cyclopean разрешается устанавливать лампочки</li>
-                                    </ul>
-                                </li>
-                                <li>На некоторые виды юбок разрешается устанавливать лампочки</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="collapsible card-collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для DAF XF105</div>
+					<div class="collapsible-body grey lighten-4 list-style-default">
+						<ul class="force-list-style">
+							<li>Задний бампер, задние/передние брызговики на выбор
+								<ul>
+									<li>На задний бампер разрешается устанавливать лампочки</li>
+								</ul>
+							</li>
+							<li>Металлический настил, верхний выхлоп по желанию</li>
+							<li>Окантовка ручек, ветровики по желанию</li>
+							<li>Передняя маска, эмблема, рамка лобового стекла на выбор</li>
+							<li>Защита бампера: Samurai, Prospector краска/хром по желанию</li>
+							<li>Защита бампера: Samurai, Prospector краска/хром по желанию
+								<ul>
+									<li>На защиту бампера Prospector краска/хром разрешается устанавливать лампочки</li>
+								</ul>
+							</li>
+							<li>Козырьки: заводской вариант, заводской вариант (краска) по желанию</li>
+							<li>На некоторые виды юбок разрешается устанавливать лампочки</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для DAF XF Euro 6</div>
+					<div class="collapsible-body grey lighten-4 list-style-default">
+						<ul class="force-list-style">
+							<li>Задний бампер, задние/передние брызговики на выбор
+								<ul>
+									<li>На задний бампер разрешается устанавливать лампочки</li>
+								</ul>
+							</li>
+							<li>Металлический настил, верхний выхлоп по желанию</li>
+							<li>Окантовка ручек, ветровики по желанию</li>
+							<li>Передняя маска, эмблема, панель под эмблемой, рамка лобового стекла на выбор</li>
+							<li>Решетка радиатора по желанию</li>
+							<li>Защита бампера: Samurai, Pride краска/хром по желанию</li>
+							<li>Козырьки: заводской вариант, заводской вариант (краска),Locus (краска), cyclopean по желанию
+								<ul>
+									<li>На козырек Cyclopean разрешается устанавливать лампочки</li>
+								</ul>
+							</li>
+							<li>На некоторые виды юбок разрешается устанавливать лампочки</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
         <div id="renault" class="card grey lighten-4 scrollspy">
             <div class="card-image">
@@ -348,44 +316,40 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                 </div>
                 <span class="card-title text-shadow">Renault Premium<br>Renault Magnum</span>
             </div>
-            <div class="card-content">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Renault Premium</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Renault Magnum</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="collapsible card-collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Renault Premium</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Renault Magnum</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
         <div id="man" class="card grey lighten-4 scrollspy">
             <div class="card-image">
                 <img src="<?= Yii::$app->request->baseUrl ?>/assets/img/variations/var3_man.jpg">
                 <span class="card-title text-shadow">MAN TGX</span>
             </div>
-            <div class="card-content">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для MAN TGX</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="collapsible card-collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для MAN TGX</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
         <div id="iveco" class="card grey lighten-4 scrollspy">
             <div class="card-image">
@@ -395,26 +359,24 @@ $this->title = 'Вариации тягачей - Volvo Trucks';
                 </div>
                 <span class="card-title text-shadow">Iveco Stralis<br>Iveco HI-WAY</span>
             </div>
-            <div class="card-content">
-                <ul class="collapsible" data-collapsible="accordion">
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Iveco Stralis</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                    <li>
-                        <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть доп. тюнинг для Iveco HI-WAY</div>
-                        <div class="collapsible-body grey lighten-4">
-                            <ul class="force-list-style">
-                                <li>Нет дополнительного тюнинга</li>
-                            </ul>
-                        </div>
-                    </li>
-                </ul>
-            </div>
+			<ul class="collapsible card-collapsible" data-collapsible="accordion">
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Iveco Stralis</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+				<li>
+					<div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">arrow_forward</i>Смотреть дополнительнй тюнинг для Iveco HI-WAY</div>
+					<div class="collapsible-body grey lighten-4">
+						<ul class="force-list-style">
+							<li>Нет дополнительного тюнинга</li>
+						</ul>
+					</div>
+				</li>
+			</ul>
         </div>
     </div>
     <div id="trailer" class="scrollspy">

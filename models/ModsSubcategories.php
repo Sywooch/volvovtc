@@ -7,6 +7,11 @@ use yii\db\ActiveRecord;
 
 class ModsSubcategories extends ActiveRecord{
 
+	public $cat_id;
+	public $cat_title;
+	public $cat_name;
+	public $cat_image;
+
     public function rules(){
         return [
             [['category_id', 'title'], 'required'],

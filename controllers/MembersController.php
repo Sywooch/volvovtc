@@ -61,7 +61,6 @@ class MembersController extends Controller{
     }
 
     public function actionStats(){
-        VtcMembers::cleanVacations();
         return $this->render('stats', [
             'all_members' => VtcMembers::getMembers(false)
         ]);
@@ -94,6 +93,7 @@ class MembersController extends Controller{
     public function actionReset(){
     	if(User::isAdmin()){
 			VtcMembers::zeroScores();
+			VtcMembers::cleanVacations();
 			return $this->redirect(['members/stats']);
 		}else{
 			return $this->render('//site/error');

@@ -69,7 +69,9 @@ AppAsset::register($this);
 							<ul>
 								<li><a href="<?=Url::to(['site/rules'])?>">ПРАВИЛА КОМПАНИИ</a></li>
 								<li><a href="<?=Url::to(['site/variations', 'game' => 'ets2'])?>">ВАРИАЦИИ ГРУЗОВИКОВ</a></li>
-								<li><a href="<?=Url::to(['site/exams'])?>">ЭКЗАМЕНЫ ДЛЯ ВОДИТЕЛЕЙ</a></li>
+								<?php if(\app\models\User::isVtcMember()) : ?>
+									<li><a href="<?=Url::to(['site/exams'])?>">ЭКЗАМЕНЫ ДЛЯ ВОДИТЕЛЕЙ</a></li>
+								<?php endif ?>
 							</ul>
 						</div>
 					</li>
@@ -87,7 +89,18 @@ AppAsset::register($this);
                 </li>
             <?php endif ?>
 			<li<?php if(Yii::$app->controller->action->id === 'modifications'){?> class="active"<?php } ?>>
-				<a href="<?=Url::to(['modifications/index'])?>"><i class="material-icons notranslate">settings</i>МОДИФИКАЦИИ</a>
+				<ul class="collapsible collapsible-accordion">
+					<li>
+						<a class="collapsible-header waves-effect"><i class="material-icons notranslate">settings</i>МОДИФИКАЦИИ</a>
+						<div class="collapsible-body">
+							<ul>
+								<li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ETS2MP</a></li>
+								<li><a href="<?=Url::to(['modifications/index', 'game' => 'ats'])?>">ATSMP</a></li>
+								<li><a href="<?=Url::to(['modifications/tedit'])?>">TEDIT</a></li>
+							</ul>
+						</div>
+					</li>
+				</ul>
 			</li>
             <?php if(\app\models\User::isAdmin()) :
                 $c_id = ['trailers', 'achievements', 'members', 'appeals'];
@@ -115,7 +128,7 @@ AppAsset::register($this);
 				</li>
             <?php endif ?>
             <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>>
-				<a href="<?=Url::to(['site/claims'])?>"><i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
+				<a href="<?=Url::to(['claims/index'])?>"><i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
             </li>
             <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
                 <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>>
@@ -163,19 +176,28 @@ AppAsset::register($this);
                                     <i class="material-icons notranslate left">lightbulb_outline</i>ВАРИАЦИИ ТЯГАЧЕЙ
                                 </a>
                             </li>
-                            <li>
-                                <a href="<?=Url::to(['site/exams'])?>">
-                                    <i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ
-                                </a>
-                            </li>
+							<?php if(\app\models\User::isVtcMember()) : ?>
+								<li>
+									<a href="<?=Url::to(['site/exams'])?>">
+										<i class="material-icons notranslate left">filter_list</i>ЭКЗАМЕНЫ
+									</a>
+								</li>
+							<?php endif ?>
                         </ul>
                     </li>
                     <li<?php if(Yii::$app->controller->id === 'convoys'){?> class="active"<?php } ?>><a href="<?=Url::to(['convoys/index'])?>">КОНВОИ</a></li>
                     <li<?php if(Yii::$app->controller->id === 'gallery'){?> class="active"<?php } ?>><a href="<?=Url::to(['gallery/index'])?>">ГАЛЕРЕЯ</a></li>
-                    <?php if(\app\models\VtcMembers::find()->where(['user_id' => Yii::$app->user->id])->one() == false): ?>
+                    <?php if(!\app\models\User::isVtcMember()): ?>
                         <li<?php if(Yii::$app->controller->action->id === 'recruit'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/recruit'])?>">ВСТУПИТЬ</a></li>
                     <?php endif ?>
-                    <li<?php if(Yii::$app->controller->id === 'mods'){?> class="active"<?php } ?>><a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a></li>
+                    <li<?php if(Yii::$app->controller->id === 'mods'){?> class="active"<?php } ?> id="mods-btn">
+						<a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a>
+						<ul id="mods-dropdown" class="z-depth-2">
+							<li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ETS2MP</a></li>
+							<li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ATSMP</a></li>
+							<li><a href="<?=Url::to(['modifications/tedit'])?>">TEDIT</a></li>
+						</ul>
+					</li>
                     <?php if(\app\models\User::isAdmin()) :
                         $c_id = ['trailers', 'achievements', 'members', 'appeals'];
                         $a_id = ['users']; ?>
@@ -193,7 +215,7 @@ AppAsset::register($this);
                     <?php else: ?>
                         <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">ВОДИТЕЛИ</a></li>
                     <?php endif ?>
-                    <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/claims'])?>">ЗАЯВЛЕНИЯ</a></li>
+                    <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['claims/index'])?>">ЗАЯВЛЕНИЯ</a></li>
                     <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
                         <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                     <?php endif ?>
@@ -238,7 +260,7 @@ AppAsset::register($this);
 
 			<div class="clearfix"></div>
 
-        <?php if(\app\models\User::isVtcMember() && !\app\models\VtcMembers::isCompleteStep4(Yii::$app->user->id)){
+        <?php if(\app\models\User::isVtcMember() && !\app\models\VtcMembers::isCompleteStep4()){
             require_once 'member_modal.php';
         } ?>
 
@@ -255,7 +277,7 @@ AppAsset::register($this);
                         </ul>
                         <p><i class="material-icons notranslate left">note_add</i>ЗАЯВЛЕНИЯ</p>
                         <ul>
-                            <li><a href="<?= Url::to(['site/claims']) ?>">Написать заявление</a></li>
+                            <li><a href="<?= Url::to(['claims/index']) ?>">Написать заявление</a></li>
                             <li><a href="<?= Url::to(['appeals/add']) ?>">Жалоба на водителя</a></li>
                         </ul>
                     </div>
@@ -267,8 +289,8 @@ AppAsset::register($this);
                         </ul>
                         <p><i class="material-icons notranslate left">settings</i>МОДИФИКАЦИИ</p>
                         <ul>
-                            <li><a href="<?= Url::to(['site/mods']) ?>">Моды для ETS2MP</a></li>
-                            <li><a href="<?= Url::to(['site/mods']) ?>">Моды для ATSMP</a></li>
+                            <li><a href="<?= Url::to(['modifications/index']) ?>">Моды для ETS2MP</a></li>
+                            <li><a href="<?= Url::to(['modifications/index']) ?>">Моды для ATSMP</a></li>
                         </ul>
                     </div>
                     <div class="col m4 s12">

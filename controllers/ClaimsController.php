@@ -54,15 +54,11 @@ class ClaimsController extends Controller{
     }
 
     public function actionIndex(){
-        $recruits = ClaimsRecruit::find()->orderBy(['id'=> SORT_DESC])->limit(20)->all();
-        $fired = ClaimsFired::find()->orderBy(['id'=> SORT_DESC])->limit(20)->all();
-        $vacation = ClaimsVacation::find()->orderBy(['id'=> SORT_DESC])->limit(20)->all();
-        $nickname = ClaimsNickname::find()->orderBy(['id'=> SORT_DESC])->limit(20)->all();
         return $this->render('index', [
-            'recruits' => $recruits,
-            'fired' => $fired,
-            'vacation' => $vacation,
-            'nickname' => $nickname
+            'recruits' => ClaimsRecruit::getClaims(20),
+            'fired' => ClaimsFired::getClaims(20),
+            'vacation' => ClaimsVacation::getClaims(20),
+            'nickname' => ClaimsNickname::getClaims(20)
         ]);
     }
 

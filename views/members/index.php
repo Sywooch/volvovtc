@@ -17,16 +17,16 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
     </div>
     <?php foreach($all_members as $key => $member): ?>
         <div class="card horizontal grey lighten-4 hoverable">
-            <div class="card-image no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->user_id->picture ?>)"></div>
+            <div class="card-image no-img_horizontal" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->picture ?>)"></div>
             <div class="card-stacked">
                 <div class="card-content">
                     <div class="card-title">
-                        <?= $member->user_id->first_name . ' ' . $member->user_id->last_name ?>
+                        <?= $member->first_name . ' ' . $member->last_name ?>
                     </div>
-                    <p class="grey-text">[Volvo Trucks] <?= $member->user_id->nickname ?></p>
+                    <p class="grey-text">[Volvo Trucks] <?= $member->nickname ?></p>
                     <p>Дата рождения:
-                        <span class="nowrap"><b><?= Yii::$app->formatter->asDate($member->user_id->birth_date, 'long') ?></b></span>
-                        <span class="nowrap">(<?= \app\models\User::getUserAge($member->user_id->birth_date) ?>)</span>
+                        <span class="nowrap"><b><?= Yii::$app->formatter->asDate($member->birth_date, 'long') ?></b></span>
+                        <span class="nowrap">(<?= \app\models\User::getUserAge($member->birth_date) ?>)</span>
                     </p>
                     <p>В компании с
                         <span class="nowrap"><b><?= Yii::$app->formatter->asDate($member->start_date, 'long') ?></b></span>
@@ -34,7 +34,7 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                     </p>
                 </div>
                 <div class="card-action">
-                    <a href="<?= Url::to(['site/profile', 'id' => $member->user_id->id]) ?>" class="fs17">Профиль</a>
+                    <a href="<?= Url::to(['site/profile', 'id' => $member->user_id]) ?>" class="fs17">Профиль</a>
                     <?php if(\app\models\User::isAdmin()) : ?>
                         <a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="fs17">Редактировать</a>
                         <a href="<?= Url::to(['members/resort', 'id' => $member->id, 'dir' => 'down']) ?>">
@@ -45,17 +45,17 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                         </a>
                     <?php endif ?>
                     <ul class="user-links right" style="width: 84px;">
-                        <?php if($member->user_id->vk) : ?>
-                            <li class="vk"><a class="waves-effect" target="_blank" href="<?= $member->user_id->vk ?>"></a></li>
+                        <?php if($member->vk) : ?>
+                            <li class="vk"><a class="waves-effect" target="_blank" href="<?= $member->vk ?>"></a></li>
                         <?php endif; ?>
-                        <?php if($member->user_id->steam) : ?>
-                            <li class="steam<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_steam != 1):?> link-disabled<?php endif ?>">
-                                <a class="waves-effect" <?php if(\app\models\User::isAdmin() || $member->user_id->visible_steam == 1):?> href="<?= $member->user_id->steam ?>"<?php endif ?> target="_blank"></a>
+                        <?php if($member->steam) : ?>
+                            <li class="steam<?php if(!\app\models\User::isAdmin() && $member->visible_steam != 1):?> link-disabled<?php endif ?>">
+                                <a class="waves-effect" <?php if(\app\models\User::isAdmin() || $member->visible_steam == 1):?> href="<?= $member->steam ?>"<?php endif ?> target="_blank"></a>
                             </li>
                         <?php endif; ?>
-                        <?php if($member->user_id->truckersmp) : ?>
-                            <li class="truckers-mp<?php if(!\app\models\User::isAdmin() && $member->user_id->visible_truckersmp != 1):?> link-disabled<?php endif ?>">
-                                <a class="waves-effect"<?php if(\app\models\User::isAdmin() || $member->user_id->visible_truckersmp == 1):?> href="<?= $member->user_id->truckersmp ?>"<?php endif ?> target="_blank"></a>
+                        <?php if($member->truckersmp) : ?>
+                            <li class="truckers-mp<?php if(!\app\models\User::isAdmin() && $member->visible_truckersmp != 1):?> link-disabled<?php endif ?>">
+                                <a class="waves-effect"<?php if(\app\models\User::isAdmin() || $member->visible_truckersmp == 1):?> href="<?= $member->truckersmp ?>"<?php endif ?> target="_blank"></a>
                             </li>
                         <?php endif; ?>
                     </ul>
