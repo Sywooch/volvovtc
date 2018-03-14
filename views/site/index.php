@@ -2,15 +2,26 @@
 
 use yii\helpers\Url;
 
-$this->title = 'Volvo Trucks - TruckersMP';
+$this->title = 'ВТК Volvo Trucks - TruckersMP';
+$this->registerMetaTag([
+    'name' => 'description',
+    'content' => 'ВТК Volvo Trucks - это динамичная, прогрессивная виртуальная транспортная компания. 
+    Мы на постоянной основе проводим внутренние конвои, а для преданных поклонников ВТК 
+    есть возможность сделать доставку важного груза с профессионалами нашей дружной команды.'
+]);
+$this->registerMetaTag([
+    'name' => 'keywords',
+    'content' => 'втк, виртуальная транспортная компания, ets2, ats, truckersmp, моды для ets2mp, моды для atsmp'
+]);
 ?>
-<!--<img src="logo.png" alt="" style="display: none;">-->
+
 <div id="index-banner" class="parallax-container valign-wrapper">
     <div class="section" style="flex: 1;">
         <div class="container white-text">
             <h1 class="center text-shadow">ВТК VOLVO TRUCKS</h1>
             <div class="row center">
-                <h6 class="col offset-l3 l6 s12 text-shadow">Виртуальная транспортная компания Volvo Trucks - это сообщество профессиональных водителей Euro Truck Simulator 2 и American Truck Simulator.</h6>
+                <h6 class="col offset-l3 l6 s12 text-shadow">Виртуальная транспортная компания Volvo Trucks -
+                    это сообщество профессиональных водителей Euro Truck Simulator 2 и American Truck Simulator.</h6>
             </div>
             <?php if(Yii::$app->user->isGuest) : ?>
                 <div class="row center">
@@ -31,27 +42,35 @@ $this->title = 'Volvo Trucks - TruckersMP';
         <div class="row">
             <div class="col s12 m4">
                 <div class="center">
-                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">flash_on</i></h2>
-                    <h5>Динамика</h5>
-                    <p class="light fs17">Мы на постоянной основе проводим внутренние конвои, а для преданных поклонников ВТК есть возможность сделать доставку важного груза с профессионалами нашей дружной команды. <br>Volvo Trucks - это динамичная, прогрессивная компания с парусом наполняемым ветром свободы. </p>
-                    <a href="<?= Url::to(['site/members']) ?>" class="btn indigo darken-3 waves-effect waves-light">Водители</a>
+                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">local_shipping</i></h2>
+                    <h5>Конвои</h5>
+                    <p class="light fs17">Наши конвои не просто бездумные поездки,
+                        а тщательно продуманные маршруты по живописным местам Европы и некоторым штатам США.
+                        Живое общение и ламповая атмосфера поможет скоротать время во время длительных рейсов,
+                        а также найти новых друзей объединенных одним интересом - Volvo и большие машины.</p>
+                    <a href="<?= Url::to(['convoys/index']) ?>" class="btn indigo darken-3 waves-effect waves-light">Конвои</a>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="center">
                     <h2 class="indigo-text darken-3"><i class="material-icons notranslate">group</i></h2>
                     <h5>Квалификация</h5>
-                    <p class="light fs17">Что важно для любой команды? Любой из Вас скажет это опыт и этого не отнять у Volvo Trucks. В нашей команде исключительно профессиональные водители ETS2, готовые выполнить доставку любой сложности в любой уголок игрового мира. Только с нами Вы узнаете то, чего не узнаете с другими. Наш девиз подтвержден годами существования ВТК: Опыт, точность, дисциплина!</p>
+                    <p class="light fs17">Что важно для любой команды? Любой из Вас скажет это опыт и этого не отнять у Volvo Trucks.
+                        В нашей команде исключительно профессиональные водители ETS2,
+                        готовые выполнить доставку любой сложности в любой уголок игрового мира. Только с нами Вы узнаете то,
+                        чего не узнаете с другими. Наш девиз подтвержден годами существования ВТК: Опыт, точность, дисциплина!</p>
                     <a href="<?= Url::to(['site/rules']) ?>" class="btn indigo darken-3 waves-effect waves-light">Правила</a>
                 </div>
             </div>
             <div class="col s12 m4">
                 <div class="center">
-                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">settings</i></h2>
+                    <h2 class="indigo-text darken-3"><i class="material-icons notranslate">flash_on</i></h2>
                     <h5>Узнаваемость</h5>
-                    <p class="light fs17">Наша Компания отличается высокой дисциплиной, качеством перевозок и взаимовыручкой между водителями.
-                        Каждый сотрудник Volvo Trucks выделяется на дороге, благодаря строгому фирменному стилю тягача и безупречной манере вождения.</p>
-                    <a href="<?= Url::to(['site/variations']) ?>" class="btn indigo darken-3 waves-effect waves-light">Фирменный стиль</a>
+                    <p class="light fs17">Наша Компания отличается высокой дисциплиной,
+                        качеством перевозок и взаимовыручкой между водителями.
+                        Каждый сотрудник Volvo Trucks выделяется на дороге,
+                        благодаря строгому фирменному стилю тягача и безупречной манере вождения.</p>
+                    <a href="<?= Url::to(['gallery/index']) ?>" class="btn indigo darken-3 waves-effect waves-light">Галерея</a>
                 </div>
             </div>
         </div>
