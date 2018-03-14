@@ -8,12 +8,14 @@ use yii\db\ActiveRecord;
 class Mods extends ActiveRecord{
 
 	public $tr_image;
+	public $tr_name;
 
     public function rules(){
         return [
             [['category', 'subcategory', 'title'], 'required'],
-            [['category', 'subcategory', 'title', 'file_name', 'yandex_link', 'gdrive_link', 'mega_link', 'author'], 'string', 'max' => 255],
+            [['category', 'subcategory', 'title', 'file_name', 'yandex_link', 'gdrive_link', 'mega_link'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 2048],
+            [['dlc'], 'string', 'max' => 512],
             [['picture'], 'string', 'max' => 45],
             [['game'], 'string', 'max' => 3],
             [['trailer'], 'safe'],

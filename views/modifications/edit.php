@@ -51,16 +51,59 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
 					<span class="grey-text right">Максимальный размер файла 15Мб</span>
 					<div class="clearfix"></div>
                 </div>
+
+                <div class="center">
+                    <?= $form->field($model, 'dlc[Scandinavia]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('Scandinavia') ?>
+                    <?= $form->field($model, 'dlc[Vive La France!]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('Vive La France!') ?>
+                    <?= $form->field($model, 'dlc[Italia]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('Italia') ?>
+                    <?= $form->field($model, 'dlc[Schwarzmüller Trailer Pack]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('Schwarzmüller Trailer Pack') ?>
+                    <?= $form->field($model, 'dlc[Heavy Cargo Pack]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('Heavy Cargo Pack') ?>
+                    <?= $form->field($model, 'dlc[High Power Cargo Pack]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('High Power Cargo Pack') ?>
+                    <?= $form->field($model, 'dlc[Special Transport]', [
+                        'template' => '{input}{label}',
+                        'options' => [
+                            'tag' => false
+                        ]
+                    ])->checkbox(['label' => null])->error(false)->label('Special Transport') ?>
+                </div>
             </div>
         </div>
         <div class="col l6 s12">
             <div class="card-panel grey lighten-4">
                 <div id="trailer-info">
-                    <?php if(Yii::$app->controller->action->id == 'add'){
-                        require_once 'trailer_data_add.php';
-                    }else{
-                        require_once 'trailer_data_edit.php';
-                    } ?>
+                    <h6 class="light" id="trailer-name" style="font-weight: bold;"><?= $model->tr_name ?></h6>
+                    <img src="<?= Yii::$app->request->baseUrl . '/images/' . $model->picture ?>"
+                         class="responsive-img z-depth-2" id="trailer-image" style="width: 100%;">
                 </div>
             </div>
         </div>
@@ -77,9 +120,6 @@ $this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.c
                 </div>
                 <div class="input-field">
                     <?= $form->field($model, 'warning')->textarea(['class' => 'materialize-textarea'])->error(false) ?>
-                </div>
-                <div class="input-field">
-                    <?= $form->field($model, 'author')->textInput()->error(false) ?>
                 </div>
             </div>
         </div>
