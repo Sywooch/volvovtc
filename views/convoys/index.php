@@ -146,8 +146,9 @@ $this->title = 'Конвои Volvo Trucks';
                 <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">archive</i>Архив конвоев</div>
                 <div class="collapsible-body" style="padding: 0;">
                     <ul class="collection">
-                        <?php foreach($hidden_convoys as $convoy) : ?>
-                            <li class="collection-item grey lighten-4" style="padding: 0;">
+                        <?php foreach($hidden_convoys as $convoy) :
+                            $card_class = $convoy->visible == '1' ? 'grey' : 'yellow' ?>
+                            <li class="collection-item <?= $card_class ?> lighten-4" style="padding: 0;">
                                 <a class="black-text" href="<?= Url::to(['convoys/index', 'id' => $convoy->id]) ?>" style="display: block; width: 100%; height: 100%;">
 									<?= $convoy->title ?>
 									<?php if(\app\models\User::isAdmin()) : ?>
