@@ -182,7 +182,6 @@ class SiteController extends Controller{
                 'rules' => $rules
             ]);
         }else{
-        	Url::remember();
             return $this->redirect(['site/login']);
         }
     }
@@ -289,7 +288,6 @@ class SiteController extends Controller{
             $user = Yii::$app->user->identity;
             if(User::isVtcMember()) $member = true;
         }else if(!Yii::$app->request->get('id')){
-        	Url::remember();
             return $this->redirect(['site/login']);
         }
 		$pass_model = new PasswordForm();
@@ -332,7 +330,6 @@ class SiteController extends Controller{
 
     public function actionUsers(){
 		if(Yii::$app->user->isGuest){
-			Url::remember();
 			return $this->redirect(['site/login']);
 		}
         if(User::isAdmin()){
