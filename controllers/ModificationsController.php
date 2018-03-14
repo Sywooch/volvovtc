@@ -148,14 +148,11 @@ class ModificationsController extends Controller{
             $model = new AddModForm(Yii::$app->request->get('id'));
             if($model->load(Yii::$app->request->post()) && $model->validate()){
                 if($model->editMod(Yii::$app->request->get('id')) != false){
-                    $mod = Mods::findOne(Yii::$app->request->get('id'));
-                    return $this->redirect(['modifications/index',
-                        'game' => $mod->game,
-                        'category' => $mod->category,
-                        'subcategory' => $mod->subcategory
-                    ]);
+                    Mods::findOne(Yii::$app->request->get('id'));
+                    return $this->goBack();
                 }
             }
+            Url::remember(Yii::$app->request->referrer);
             return $this->render('edit', [
                 'model' => $model,
                 'categories' => ModsCategories::getCatsWithSubCats(),
