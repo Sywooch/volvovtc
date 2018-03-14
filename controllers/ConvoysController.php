@@ -60,10 +60,6 @@ class ConvoysController extends Controller{
 				->leftJoin('mods', 'trailers.id = mods.trailer')
 				->where(['convoys.id' => Yii::$app->request->get('id')])
 				->one()) return $this->render('//site/error');
-//            if($convoy->open == '0' && Yii::$app->user->isGuest){
-//            	Url::remember();
-//            	return $this->redirect(['site/login']);
-//			}
             if($convoy->open == '0' && (Yii::$app->user->isGuest || !User::isVtcMember())){
             	return $this->render('//site/error', [
             		'meta' => [
