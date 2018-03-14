@@ -131,7 +131,7 @@ class AddConvoyForm extends Model{
 			$convoy->meeting_time = $date->format('Y-m-d ').$this->meeting_time;
 		}
         $convoy->date = $this->date;
-        $convoy->week_day = intval($date->format('w'));
+        $convoy->week_day = intval($date->format('N'));
         $convoy->trailer = $this->trailer;
         $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;
@@ -191,7 +191,7 @@ class AddConvoyForm extends Model{
         if(new \DateTime($convoy->departure_time) > new \DateTime()){
             $convoy->scores_set = '0';
         }
-		$convoy->week_day = intval($date->format('w'));
+		$convoy->week_day = intval($date->format('N'));
         $convoy->trailer = $this->trailer;
         $convoy->truck_var = $this->truck_var.','.intval($this->attach_var_photo);
         $convoy->title = $this->title;
