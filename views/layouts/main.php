@@ -2,10 +2,13 @@
 
 use yii\helpers\Html;
 use app\assets\AppAsset;
-use yii\helpers\Url;
 
-AppAsset::register($this);
-?>
+if (\app\models\User::isAdmin()){
+    $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/admin.js',
+        ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
+}
+AppAsset::register($this); ?>
+
 <?php $this->beginPage() ?>
 <!DOCTYPE html>
 <html lang="<?= Yii::$app->language ?>">
@@ -26,9 +29,6 @@ AppAsset::register($this);
         ga('send', 'pageview');
     </script>
     <?php $this->head() ?>
-    <?php if(\app\models\User::isAdmin()): ?>
-        <script src="<?= Yii::$app->request->baseUrl ?>/assets/js/admin.js"></script>
-    <?php endif ?>
 </head>
 <body>
 <?php $this->beginBody() ?>
