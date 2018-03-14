@@ -40,8 +40,9 @@ $this->registerMetaTag([
 				</div>
 			</form>
 		</div>
-		<h5 class="light">Категории модификаций</h5>
-		<ul class="collapsible cat-list" data-collapsible="expandable">
+		<h5 class="light hide-on-small-and-down">Категории модификаций</h5>
+        <div class="row show-on-small"></div>
+		<ul class="collapsible cat-list hide-on-small-and-down" data-collapsible="expandable">
 			<?php foreach($all_subcategories as $game => $categories) : ?>
 				<li class="first-lvl">
 					<div class="collapsible-header grey lighten-4<?php if($subcategory->for_ets === $game) : ?> active<?php endif ?>">
