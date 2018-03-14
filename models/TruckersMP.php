@@ -19,7 +19,7 @@ class TruckersMP{
         foreach ($bans->response as $ban){
             $expiration = new \DateTime($ban->expiration);
             $now = new \DateTime();
-            if($expiration > $now){
+            if($expiration > $now && $ban->active === true){
                 $banned = true;
                 break;
             }
