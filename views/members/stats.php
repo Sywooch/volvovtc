@@ -19,9 +19,6 @@ $this->title = 'Статистика Volvo Trucks';
                 <th colspan="2">Экзамены</th>
                 <th>Возраст</th>
                 <th>Дополнительно</th>
-                <?php if(\app\models\User::isAdmin()) : ?>
-                    <th></th>
-                <?php endif ?>
             </tr>
             </thead>
             <?php $i = 1;
@@ -44,9 +41,6 @@ $this->title = 'Статистика Volvo Trucks';
                     <th><?php if($members == $last_position) : ?>
                         В компании с:
                     <?php endif ?></th>
-                    <?php if(\app\models\User::isAdmin()) : ?>
-                        <th></th>
-                    <?php endif ?>
                 </tr>
                 </thead>
                 <?php foreach($members as $member) : ?>
@@ -164,9 +158,6 @@ $this->title = 'Статистика Volvo Trucks';
                         <?php else: ?>
                             <?= $member->additional ?>
                         <?php endif ?></td>
-                        <?php if(\app\models\User::isAdmin()) : ?>
-                            <td><a href="<?= Url::to(['members/edit', 'id' => $member->id]) ?>" class="indigo-text iconed notranslate">edit</a></td>
-                        <?php endif ?>
                     </tr>
                 <?php endforeach; ?>
             <?php endforeach; ?>
