@@ -45,7 +45,7 @@ class AddModForm extends Model{
             $this->trailer = $mod->trailer;
             $this->tr_name = $mod->tr_name;
             $this->file_name = $mod->file_name;
-            $this->dlc = $mod->dlc;
+            $this->dlc = unserialize($mod->dlc);
         }
     }
 
