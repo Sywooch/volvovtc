@@ -184,7 +184,7 @@ class ModificationsController extends Controller{
         if(Yii::$app->request->get('dir') && Yii::$app->request->get('id') && User::isAdmin()){
             $mod = Mods::findOne(Yii::$app->request->get('id'));
             Mods::resortMod(Yii::$app->request->get('id'), Yii::$app->request->get('dir'));
-            return $this->redirect(['modifications/category', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
+            return $this->redirect(['modifications/index', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
         }else{
             return $this->render('//site/error');
         }
@@ -194,7 +194,7 @@ class ModificationsController extends Controller{
         if(Yii::$app->request->get('id') && User::isAdmin()){
             Mods::visibleMod(Yii::$app->request->get('id'), 'show');
             $mod = Mods::findOne(Yii::$app->request->get('id'));
-            return $this->redirect(['modifications/category', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
+            return $this->redirect(['modifications/index', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
         }else{
             return $this->render('//site/error');
         }
@@ -204,7 +204,7 @@ class ModificationsController extends Controller{
         if(Yii::$app->request->get('id') && User::isAdmin()){
             Mods::visibleMod(Yii::$app->request->get('id'), 'hide');
             $mod = Mods::findOne(Yii::$app->request->get('id'));
-            return $this->redirect(['modifications/category', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
+            return $this->redirect(['modifications/index', 'game' => $mod->game, 'category' => $mod->category, 'subcategory' => $mod->subcategory]);
         }else{
             return $this->render('//site/error');
         }

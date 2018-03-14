@@ -164,7 +164,7 @@ $this->registerMetaTag([
 											<i class="material-icons notranslate left"><?= $mod->visible === 1 ? 'visibility' : 'visibility_off' ?></i>Спрятать/Показать
 										</a>
 									</li>
-									<?php if(count($mods) > 1) { ?>
+									<?php if(count($mods) > 1 && Yii::$app->request->get('subcategory')) { ?>
 										<li class="divider"></li>
 										<li class="clearfix">
 											<a href="<?= Url::to(['modifications/sort', 'id' => $mod->id, 'dir' => 'up']) ?>" class="indigo-text">

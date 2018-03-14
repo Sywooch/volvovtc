@@ -94,6 +94,7 @@ $config = [
                 'modifications/<game:\w{3}>/<category:\w+>/<subcategory:\w+>/page/<page:\d+>/' => 'modifications/index',
                 'modifications/<game:\w{3}>/<category:\w+>/<subcategory:\w+>/' => 'modifications/index',
 				'modifications/<game:\w{3}>/<category:\w+>/' => 'modifications/index',
+				'modifications/add/' => 'modifications/add',
 				'modifications/<game:\w{3}>/' => 'modifications/index',
 				'modifications/page/<page:\d+>/' => 'modifications/index',
 				'modifications/<action:\w+>/<id:\d+>/' => 'modifications/<action>',
