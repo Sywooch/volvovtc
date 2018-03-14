@@ -1,11 +1,12 @@
 <?php
 
 use yii\helpers\Url;
-use yii\helpers\Html;
 
 $this->title = 'Вариации тягачей - Volvo Trucks';
 
-?>
+$this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/fotorama.css');
+$this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/fotorama.js',
+    ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]); ?>
 
 <div class="container">
     <div class="col hide-on-med-and-down m3 l2 fixed-right">
