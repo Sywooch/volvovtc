@@ -14,39 +14,47 @@ class AddModForm extends Model{
     public $category;
     public $title;
     public $description;
-    public $picture;
+    public $picture = 'mods/default.jpg';
     public $file;
     public $file_name;
     public $yandex_link;
     public $gdrive_link;
     public $mega_link;
-    public $author;
     public $warning;
     public $trailer;
+    public $dlc = array();
+
+    public $tr_name;
+    public $tr_image;
 
     public function __construct($id = null){
         if(isset($id)){
-            $mod = Mods::findOne($id);
+            $mod = Mods::find()
+                ->select(['mods.*', 'trailers.name as tr_name', 'trailers.picture as tr_image'])
+                ->leftJoin('trailers', 'trailers.id = mods.trailer')
+                ->where(['mods.id' => $id])
+                ->one();
             $this->category = implode('/', [$mod->game, $mod->category, $mod->subcategory]);
             $this->title = $mod->title;
             $this->description = $mod->description;
             $this->warning = $mod->warning;
-            $this->picture = $mod->picture;
+            $this->picture = $mod->tr_name ? 'trailers/'.$mod->tr_image : 'mods/'.$mod->picture;
             $this->yandex_link = $mod->yandex_link;
             $this->gdrive_link = $mod->gdrive_link;
             $this->mega_link = $mod->mega_link;
-            $this->author = $mod->author;
             $this->trailer = $mod->trailer;
+            $this->tr_name = $mod->tr_name;
             $this->file_name = $mod->file_name;
+            $this->dlc = $mod->dlc;
         }
     }
 
     public function rules(){
         return [
             [['category', 'title'], 'required'],
-            [['title', 'yandex_link', 'gdrive_link', 'mega_link', 'author', 'warning'], 'string', 'max' => 255],
+            [['title', 'yandex_link', 'gdrive_link', 'mega_link', 'warning'], 'string', 'max' => 255],
             [['description'], 'string', 'max' => 2048],
-            [['trailer'], 'safe'],
+            [['trailer', 'dlc'], 'safe'],
 			[['picture'], 'file', 'extensions' => 'jpg png', 'maxSize' => 16500000]
         ];
     }
@@ -61,7 +69,6 @@ class AddModForm extends Model{
             'yandex_link' => 'Ссылка в Yandex.Диск',
             'gdrive_link' => 'Ссылка в Google Drive',
             'mega_link' => 'Ссылка в MEGA',
-            'author' => 'Автор модификации',
             'trailer' => 'Трейлер',
         ];
     }
@@ -79,7 +86,7 @@ class AddModForm extends Model{
         $mod->yandex_link = $this->yandex_link;
         $mod->gdrive_link = $this->gdrive_link;
         $mod->mega_link = $this->mega_link;
-        $mod->author = $this->author;
+        $mod->dlc = serialize($this->dlc);
         $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
         $mod->sort = ($last_mod ? intval($last_mod->sort) : 0)+1;
         if($file = UploadedFile::getInstance($this, 'file')){
@@ -113,7 +120,7 @@ class AddModForm extends Model{
         $mod->yandex_link = $this->yandex_link;
         $mod->gdrive_link = $this->gdrive_link;
         $mod->mega_link = $this->mega_link;
-        $mod->author = $this->author;
+        $mod->dlc = serialize($this->dlc);
         $mod->trailer = $this->trailer == '0' ? null : $this->trailer;
         if($this->trailer != '0' && $mod->picture) {
             if(file_exists(__IMGDIR__.$mod->picture)){

@@ -113,6 +113,11 @@ $this->registerMetaTag([
 								<p class="grey-text"><i class="material-icons notranslate left">visibility_off</i>Мод скрыт</p>
 								<div class="clearfix"></div>
 							<?php endif ?>
+                            <?php if($dlc = unserialize($mod->dlc)) : ?>
+                                <p class="grey-text">
+                                    <?= str_replace('Для участия н', 'Н', \app\models\Convoys::getDLCString($dlc)) ?>
+                                </p>
+                            <?php endif ?>
 							<h6 class="fs17 mod-title"><b><?= $mod->title ?></b></h6>
 							<?php if($mod->description) : ?>
 								<div class="mod-description">
