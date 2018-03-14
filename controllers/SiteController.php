@@ -247,6 +247,7 @@ class SiteController extends Controller{
                 return $this->goBack();
             }
         }
+        Url::remember(Yii::$app->request->referrer);
         return $this->render('login', [
             'model' => $model
         ]);

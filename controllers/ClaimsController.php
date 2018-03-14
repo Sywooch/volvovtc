@@ -47,7 +47,6 @@ class ClaimsController extends Controller{
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
 		if(Yii::$app->user->isGuest && $this->action->id != 'index'){
-			Url::remember();
 			return $this->redirect(['site/login']);
 		}
         return parent::beforeAction($action);

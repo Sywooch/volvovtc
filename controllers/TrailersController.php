@@ -23,7 +23,6 @@ class TrailersController extends Controller{
 
     public function beforeAction($action){
 		if(Yii::$app->user->isGuest){
-			Url::remember();
 			return $this->redirect(['site/login']);
 		}else{
             // online

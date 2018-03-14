@@ -46,7 +46,6 @@ class ConvoysController extends Controller{
         }
 		if(!Yii::$app->request->isAjax && $this->action->id != 'index'){
 			if(Yii::$app->user->isGuest){
-				Url::remember();
 				return $this->redirect(['site/login']);
 			}
 		}

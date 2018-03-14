@@ -47,7 +47,6 @@ class MembersController extends Controller{
         }
 		if(!Yii::$app->request->isAjax && $this->action->id != 'index' && $this->action->id != 'stats'){
 			if(Yii::$app->user->isGuest){
-				Url::remember();
 				return $this->redirect(['site/login']);
 			}
 		}

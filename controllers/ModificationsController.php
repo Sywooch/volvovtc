@@ -40,7 +40,6 @@ class ModificationsController extends Controller{
         }
         if($this->action->id != 'index' && $this->action->id != 'category' && $this->action->id != 'all'){
 			if(Yii::$app->user->isGuest){
-				Url::remember();
 				return $this->redirect(['site/login']);
 			}
 		}

@@ -45,7 +45,6 @@ class AchievementsController extends Controller{
         }
         if(!Yii::$app->request->isAjax){
 			if(Yii::$app->user->isGuest){
-				Url::remember();
 				return $this->redirect(['site/login']);
 			}
 		}

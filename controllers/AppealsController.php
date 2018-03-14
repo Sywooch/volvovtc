@@ -43,7 +43,6 @@ class AppealsController extends Controller{
         }
 		if($this->action->id != 'add' && $this->action->id != 'thx'){
 			if(Yii::$app->user->isGuest){
-				Url::remember();
 				return $this->redirect(['site/login']);
 			}
 		}
