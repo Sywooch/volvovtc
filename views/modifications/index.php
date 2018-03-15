@@ -41,7 +41,16 @@ $this->registerMetaTag([
 			</form>
 		</div>
 		<h5 class="light hide-on-small-and-down">Категории модификаций</h5>
-        <div class="row show-on-small"></div>
+        <div class="row hide-on-med-and-up">
+            <div class="col s6">
+                <a href="<?= Url::to(['modifications/index', 'game' => 'ets']) ?>"
+                   class="col s12 btn-flat waves-effect waves-light center">ETS2</a>
+            </div>
+            <div class="col s6">
+                <a href="<?= Url::to(['modifications/index', 'game' => 'ats']) ?>"
+                   class="col s12 btn-flat waves-effect waves-light center">ATS</a>
+            </div>
+        </div>
 		<ul class="collapsible cat-list hide-on-small-and-down" data-collapsible="expandable">
 			<?php foreach($all_subcategories as $game => $categories) : ?>
 				<li class="first-lvl">
