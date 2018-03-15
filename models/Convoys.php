@@ -189,7 +189,7 @@ class Convoys extends ActiveRecord{
         foreach ($vars as $var){
             $list .= '<li><p class="var-name">'.self::getVariationName($var, true).'</p>';
             if($with_img && array_key_exists($var, $var_images)) {
-                $list .= '<img class="responsive-img materialboxed z-depth-2" src="/assets/img/'.$var_images[$var].'.jpg">';
+                $list .= '<img class="responsive-img materialboxed z-depth-2" src="/assets/img/variations/'.$var_images[$var].'.jpg">';
             }
             $list .= '</li>';
         }
