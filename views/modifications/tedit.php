@@ -25,8 +25,22 @@ $this->registerMetaTag([
         <div class="card-image tedit-img hide-on-med-and-down" style="background-image: url(<?=Yii::$app->request->baseUrl?>/assets/img/mods/tedit.png)"></div>
         <div class="card-stacked">
             <div class="card-content">
-				<p><i class="material-icons notranslate left orange-text">warning</i>Для корректной работы программы нужно открыть <b>config.cfg</b> через текстовый редактор и
-					в параметре <b>g_save_format</b> изменить значение <b>0</b> на <b>2</b>.</p>
+				<article>
+					<p class="fs17"><h5 style="display: inline-block; margin-bottom: 0;"><b>TEDIT</b></h5> - замечательный оффлайн инструмент, призваный в корне изменить геймплей игры путем покупки собственного прицепа.<br>
+					В мире TruckersMP TEDIT получил широкое расспостранение благодаря возможности легко и быстро "взять" нужный прицеп,
+						даже те, которые не доступны стандартными средствами,
+						обходя при этом ограничения игры (отсутствие маршрута груза на внутриигровой карте, возможность перемещения между гаражами)</p>
+				</article>
+				<h5><b>Установка и работа с TEDIT</b></h5>
+				<ol>
+					<li>Открыть <b>config.cfg</b> через текстовый редактор и в параметре <b>g_save_format</b> изменить
+						значение <b>0</b> на <b>2</b>, перезапустить игру, сохраниться.</li>
+					<li>Скопировать содержимое соответствующей папки из архива в любое удобное место.</li>
+					<li>При первом запуске необходимо указать папку с сохранением к которому хотим применить TEDIT.</li>
+					<li>Перезагружаем сейв в программе кнопкой <b>Reload</b>, если необходимо.</li>
+					<li>Покупаем прицеп, берем груз, сохраняем кнопкой <b>Save game.sii</b> (подробнее на видео ниже)</li>
+					<li>Переходим в игру, загружаем то же сохранение.</li>
+				</ol>
                 <ul class="collapsible" data-collapsible="accordion">
                     <li>
                         <div class="collapsible-header grey lighten-4"><i class="material-icons notranslate">ondemand_video</i>Euro Truck Simulator 2</div>
@@ -45,11 +59,22 @@ $this->registerMetaTag([
                         </div>
                     </li>
                 </ul>
+				<article>
+					<i class="material-icons notranslate left orange-text">warning</i>
+					<span class="bold">Внимание! Программа предназначена только для продвинутых пользователей!</span><br>
+					Для безпроблемного пользования необходимо:
+					<ul class="browser-default" style="margin-top: 0; margin-left: 15px;">
+						<li>знать элементарную структуру игры</li>
+						<li>быть знакомым с понятием "def"</li>
+						<li>понимать последствия внесенных изменений</li>
+					</ul>
+				</article>
+				<p class="grey-text">Автор программы: knox_xss</p>
             </div>
 			<div class="card-action">
-				<a class="btn indigo darken-3 waves-effect waves-light" href="<?= Yii::$app->request->baseUrl ?>/tedit_v6.11.2.rar" target="_blank">
+				<a class="btn indigo darken-3 waves-effect waves-light" href="<?= Yii::$app->request->baseUrl ?>/tedit_v6.13.1.1.rar" target="_blank">
 					<i class="material-icons notranslate left">file_download</i>
-					Скачать TEDIT v6.11.2
+					Скачать TEDIT v6.13.1.1
 				</a>
 				<a href="http://truck-sim.club/topic/21801-svoi-pritcep-tedit-v6112-reliz-i-obschee-obsuzhdenie/?p=371683" class="right btn-flat" target="_blank">
 					Всегда свежая версия
