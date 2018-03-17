@@ -81,10 +81,3 @@ $this->registerMetaTag([
         </div>
     </div>
 </div>
-
-<div class="fixed-action-btn">
-	<a class="btn-floating btn-large green tooltipped waves-effect waves-light" href="https://generator.volvovtc.com/" target="_blank"
-	   data-tooltip="Сгенерировать мод на прицеп" data-position="left">
-		<i class="material-icons notranslate">build</i>
-	</a>
-</div>
