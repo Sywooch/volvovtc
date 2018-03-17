@@ -17,13 +17,11 @@ $this->registerMetaTag([
     <div class="container">
         <h4 class="parallax-title light white-text text-shadow">TEDIT - Личный прицеп</h4>
     </div>
-    <div class="parallax"><img src="<?=Yii::$app->request->baseUrl?>/assets/img/mods/mods-main.jpg"></div>
+    <div class="parallax"><img src="<?=Yii::$app->request->baseUrl?>/images/mods/categories/mods-main.jpg"></div>
 </div>
 
 <div class="container">
-    <div class="card horizontal grey lighten-4">
-        <div class="card-image tedit-img hide-on-med-and-down" style="background-image: url(<?=Yii::$app->request->baseUrl?>/assets/img/mods/tedit.png)"></div>
-        <div class="card-stacked">
+    <div class="card grey lighten-4">
             <div class="card-content">
 				<article>
 					<p class="fs17"><h5 style="display: inline-block; margin-bottom: 0;"><b>TEDIT</b></h5> - замечательный оффлайн инструмент, призваный в корне изменить геймплей игры путем покупки собственного прицепа.<br>
