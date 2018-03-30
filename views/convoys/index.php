@@ -113,7 +113,11 @@ $this->title = 'Конвои Volvo Trucks';
             <?php foreach($convoys as $convoy) : ?>
                 <div class="col l6 s12">
                     <div class="card<?php if($convoy->visible == 0): ?> yellow<?php else: ?> grey<?php endif ?> lighten-4 hoverable">
-                        <div class="card-image no-img" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/convoys/<?= $convoy->picture_small ?>?t=<?= time() ?>)">
+					<?php $img = $convoy->picture_small ? 
+						Yii::$app->request->baseUrl.'/images/convoys/'. $convoy->picture_small .'?t='. time() : 
+						Yii::$app->request->baseUrl.'/assets/img/no_route.jpg';
+					?>
+                        <div class="card-image no-img" style="background-image: url(<?= $img ?>)">
                             <a href="<?=Url::to(['convoys/index', 'id' => $convoy->id])?>" style="display: block;width: 100%;height: 100%;"></a>
                         </div>
                         <div class="card-content" style="min-height: 120px;">
