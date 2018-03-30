@@ -19,7 +19,9 @@ $this->title = 'Редактировать заявление на смену н
     <?php if(\app\models\User::isAdmin()) : ?>
         <div class="card-panel grey lighten-4 user">
             <div class="link-image">
-                <a href="<?= Url::to(['site/profile', 'id' => $user->id]) ?>" class=" circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($user)) : ?>online<?php endif ?>" style="background-image: url(<?= Yii::$app->request->baseUrl ?>/web/images/users/<?= $user->picture ?>)">
+                <a href="<?= Url::to(['site/profile', 'id' => $user->id]) ?>"
+				   class="circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($user)) : ?>online<?php endif ?>"
+				   style="background-image: url(<?= Yii::$app->request->baseUrl ?>/web/images/users/<?= $user->picture ?>)">
                 </a>
             </div>
             <div class="user-info row">
@@ -37,7 +39,7 @@ $this->title = 'Редактировать заявление на смену н
                 </div>
                 <div class="col l12 s12">
                     <div class="col l5 s5 right-align truncate"><span>Дата рождения:</span></div>
-                    <div class="col l7 s7 profile-info truncate"><span><b><?= \app\controllers\SiteController::getRuDate($user->birth_date) ?></b></span></div>
+                    <div class="col l7 s7 profile-info truncate"><span><b><?= Yii::$app->formatter->asDate($user->birth_date, 'long') ?></b></span></div>
                 </div>
                 <div class="col l12 s12">
                     <div class="col l5 s5 right-align"><span>Страна:</span></div>
@@ -49,7 +51,7 @@ $this->title = 'Редактировать заявление на смену н
                 </div>
                 <div class="col l12 s12">
                     <div class="col l5 s5 right-align"><span>Зарегестрирован:</span></div>
-                    <div class="col l7 s7 profile-info"><span><b><?= \app\controllers\SiteController::getRuDate($user->registered) ?></b></span></div>
+                    <div class="col l7 s7 profile-info"><span><b><?= Yii::$app->formatter->asDate($user->registered, 'long') ?></b></span></div>
                 </div>
             </div>
             <div class="user-links">

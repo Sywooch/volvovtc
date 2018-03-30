@@ -18,6 +18,7 @@ use app\models\User; ?>
         switch ($recruit->status){
             case '1': $color_class = 'light-green lighten-4-5'; break;
             case '2': $color_class = 'red lighten-4-5'; break;
+            case '3': $color_class = 'yellow lighten-5'; break;
             case '0':
             default : $color_class = 'grey lighten-4'; break;
         } ?>
