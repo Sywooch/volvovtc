@@ -1,9 +1,9 @@
 <?php
 
 use yii\helpers\Url;
-	use yii\widgets\LinkPager;
+use yii\widgets\LinkPager;
 
-	$this->title = 'Модификации для TruckersMP - Volvo Trucks';
+	$this->title = 'Моды для ETS2MP и ATSMP, Модификации для мультиплеера - ВТК Volvo Trucks';
 $this->registerMetaTag([
 	'name' => 'description',
 	'content' => 'Моды для Euro Truck Simulator 2 Multiplayer и American Truck Simulator Multiplayer. Моды для TruckersMP.'
