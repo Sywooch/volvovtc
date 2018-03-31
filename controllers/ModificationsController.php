@@ -38,7 +38,7 @@ class ModificationsController extends Controller{
             Yii::$app->view->params['notifications'] = $notifications;
             Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
         }
-        if($this->action->id != 'index' && $this->action->id != 'category' && $this->action->id != 'all'){
+        if($this->action->id == 'add' && $this->action->id == 'edit'){
 			if(Yii::$app->user->isGuest){
 				return $this->redirect(['site/login']);
 			}
