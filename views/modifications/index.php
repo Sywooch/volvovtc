@@ -107,7 +107,7 @@ $this->registerMetaTag([
 			</li>
 		</ul>
 
-		<a class="btn green tooltipped waves-effect waves-light" href="https://generator.volvovtc.com/" target="_blank" style="width: 100%;"
+		<a class="btn-large green tooltipped waves-effect waves-light fs17" href="https://generator.volvovtc.com/" target="_blank" style="width: 100%;"
 		   data-tooltip="Сгенерировать мод на прицеп" data-position="bottom">
 			<i class="material-icons notranslate left">build</i>Генератор модификаций
 		</a>
