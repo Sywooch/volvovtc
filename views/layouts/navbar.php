@@ -37,7 +37,7 @@
                     <a href="<?=Url::to(['modifications/index'])?>">МОДЫ</a>
                     <ul id="mods-dropdown" class="z-depth-2">
                         <li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ETS2MP</a></li>
-                        <li><a href="<?=Url::to(['modifications/index', 'game' => 'ets'])?>">ATSMP</a></li>
+                        <li><a href="<?=Url::to(['modifications/index', 'game' => 'ats'])?>">ATSMP</a></li>
                         <li><a href="<?=Url::to(['modifications/tedit'])?>">TEDIT</a></li>
                     </ul>
                 </li>
