@@ -91,6 +91,12 @@ class ModificationsController extends Controller{
 					'mods_subcategories.for_ets' => $game == 'ets' ? '1' : '0'
 				])
 				->one();
+		}else if($game){
+			$subcategory = new ModsSubcategories();
+			$subcategory->cat_name = $game;
+			$subcategory->cat_title = 'Моды для ' . ($game == 'ets' ? 'ETS2MP' : 'ATSMP');
+			$subcategory->cat_image = $game == 'ets' ? 'mods-main.jpg' : '2.jpg';
+			$subcategory->for_ets = $game == 'ets' ? 1 : 0;
 		}else{
 			$subcategory = new ModsSubcategories();
 			$subcategory->cat_name = 'all';

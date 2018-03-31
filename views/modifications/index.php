@@ -3,7 +3,7 @@
 use yii\helpers\Url;
 use yii\widgets\LinkPager;
 
-	$this->title = 'Моды для ETS2MP и ATSMP, Модификации для мультиплеера - ВТК Volvo Trucks';
+$this->title = 'Моды для ETS2MP и ATSMP, Модификации для мультиплеера - ВТК Volvo Trucks';
 $this->registerMetaTag([
 	'name' => 'description',
 	'content' => 'Моды для Euro Truck Simulator 2 Multiplayer и American Truck Simulator Multiplayer. Моды для TruckersMP.'
@@ -16,7 +16,13 @@ $this->registerMetaTag([
 <div class="parallax-container parallax-shadow hide-on-small-only" style="height: 400px;">
 	<div class="row">
 		<div class="col m7 l9 offset-l3 offset-m5">
-			<h4 class="parallax-title light white-text text-shadow col s12"><?= $subcategory->cat_title ?></h4>
+			<h4 class="parallax-title light white-text text-shadow col s12">
+				<?= $subcategory->cat_title ?>
+				<?php $cat_no_sub = ['all', 'ets', 'ats'];
+				if(!in_array($subcategory->cat_name, $cat_no_sub)) : ?>
+				    - <?= $subcategory->title ?>
+				<?php endif ?>
+			</h4>
 		</div>
 	</div>
 	<div class="parallax"><img src="<?=Yii::$app->request->baseUrl?>/images/mods/categories/<?=$subcategory->cat_image?>"></div>
@@ -63,7 +69,7 @@ $this->registerMetaTag([
 						<ul class="collapsible z-depth-0">
 							<?php foreach(\yii\helpers\ArrayHelper::index($categories, null, 'cat_title') as $category => $sub_categories): ?>
 								<li class="second-lvl">
-									<div class="collapsible-header grey lighten-4<?php if($subcategory->cat_title == $category) : ?> active<?php endif ?>">
+									<div class="collapsible-header grey lighten-4<?php if($subcategory->cat_title == $category || $subcategory->cat_name == $game) : ?> active<?php endif ?>">
 										<i class="material-icons left notranslate">keyboard_arrow_right</i>
 										<?= $category ?>
 									</div>
@@ -84,8 +90,10 @@ $this->registerMetaTag([
 								</li>
 							<?php endforeach; ?>
 							<li>
+								<?php $class = 'grey lighten-4';
+								if($subcategory->for_ets === $game && $subcategory->cat_name == ($game == 1 ? 'ets' : 'ats')) $class = 'indigo darken-4 white-text'; ?>
 								<a href="<?= Url::to(['modifications/index', 'game' => $game == 1 ? 'ets' : 'ats']) ?>"
-								   class="collapsible-header grey lighten-4">
+								   class="collapsible-header <?= $class ?>">
 									<i class="material-icons left notranslate">keyboard_arrow_right</i>
 									Все моды для <?= $game == 1 ? 'ETS2' : 'ATS' ?>MP
 								</a>
