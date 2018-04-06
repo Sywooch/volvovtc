@@ -275,9 +275,10 @@ $(document).on('ready', function(){
     $('#get-ach').click(function(){
         var button = $(this);
         var files = $(this).parents('.modal').find('[type=file]')[0].files;
+		var uid = $(this).data('uid');
+		var achid = $(this).attr('data-achid');
+		console.log(achid);
         if(files.length === 1){
-            var uid = $(this).data('uid');
-            var achid = $(this).data('achid');
             var data = new FormData();
             $.each(files, function(key, value){
                 data.append(key, value);
@@ -307,8 +308,6 @@ $(document).on('ready', function(){
                     $('.modal').find('[type=text]').val('');
                 }
             });
-        }else{
-            console.log('error');
         }
     });
 
