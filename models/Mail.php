@@ -8,48 +8,39 @@ use yii\helpers\Url;
 
 class Mail{
 
-    public static function newUserToAdmin($data = []){
+	public static $to = [
+		"viiper94@gmail.com", // Mayday
+		"a.borisov97@mail.ru", // Canyon
+	];
 
-        $to = [
-            "viiper94@gmail.com", // Mayday
-            "a.borisov97@mail.ru", // Canyon
-        ];
+    public static function newUserToAdmin($data = []){
 
         $subject = "Новый пользователь на сайте VolvoVTC.com";
 
         Yii::$app->mailer->compose('admin/newuser', [
-            'data' => $data,
-            'subject' => $subject
+            'data' => $data
         ])->setFrom('info@volvovtc.com')
-            ->setTo($to)
+            ->setTo(self::$to)
             ->setSubject($subject)
             ->send();
 
         return true;
-
     }
 
-    public static function newClaimToAdmin($claim, $data = []){
+    public static function newClaimToAdmin($claim, $data = [], $user){
 
-        $to = [
-            "viiper94@gmail.com", // Mayday
-            "a.borisov97@mail.ru", // Canyon
-        ];
-
-        $subject = "Новое заявление на сайте VolvoVTC.com";
+        $subject = "Заявление $claim на сайте VolvoVTC.com";
 
         Yii::$app->mailer->compose('admin/newclaim', [
             'claim' => $claim,
-            'user' => User::findOne($data->user_id),
-            'data' => $data,
-            'subject' => $subject
+            'user' => $user,
+            'data' => $data
         ])->setFrom('info@volvovtc.com')
-            ->setTo($to)
+            ->setTo(self::$to)
             ->setSubject($subject)
             ->send();
 
         return true;
-
     }
 
     public static function sendResetPassword($string, $email){
@@ -65,27 +56,37 @@ class Mail{
             ->send();
 
         return true;
-
     }
 
     public static function newAppeal($appeal, $uid){
-        $to = [
-            "viiper94@gmail.com", // Mayday
-            "a.borisov97@mail.ru", // Canyon
-        ];
 
-        $subject = "Новая жалоюа на сайте VolvoVTC.com";
+        $subject = "Новая жалоба на сайте VolvoVTC.com";
 
         Yii::$app->mailer->compose('admin/newappeal', [
             'appeal' => $appeal,
             'user' => User::findOne($uid),
             'subject' => $subject
         ])->setFrom('info@volvovtc.com')
-            ->setTo($to)
+            ->setTo(self::$to)
             ->setSubject($subject)
             ->send();
 
         return true;
+    }
+
+	public static function newMemberConvoyToAdmin($cid){
+
+		$subject = 'Конвой от [Volvo Trucks] '.Yii::$app->user->identity->nickname;
+
+		Yii::$app->mailer->compose('admin/newconvoy', [
+			'convoy_id' => $cid,
+			'subject' => $subject
+		])->setFrom('info@volvovtc.com')
+			->setTo(self::$to)
+			->setSubject($subject)
+			->send();
+
+		return true;
     }
 
 }

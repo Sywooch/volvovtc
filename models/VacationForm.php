@@ -47,7 +47,7 @@ class VacationForm extends Model{
         }
         $claim->vacation_undefined = $this->vacation_undefined == '1' ? 1 : 0;
         $claim->date = date('Y-m-d');
-        Mail::newClaimToAdmin('на отпуск', $claim);
+        Mail::newClaimToAdmin('на отпуск', $claim, Yii::$app->user->identity);
         return $claim->save();
     }
 

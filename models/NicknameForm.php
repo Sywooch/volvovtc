@@ -44,7 +44,7 @@ class NicknameForm extends Model{
         $claim->new_nickname = $this->new_nickname;
         $claim->old_nickname = Yii::$app->user->identity->nickname;
         $claim->date = date('Y-m-d');
-        Mail::newClaimToAdmin('на смену ника', $claim);
+        Mail::newClaimToAdmin('на смену ника', $claim, Yii::$app->user->identity);
         return $claim->save();
     }
 

@@ -39,7 +39,7 @@ class FiredForm extends Model{
         $claim->user_id = Yii::$app->user->id;
         $claim->reason = nl2br($this->reason);
         $claim->date = date('Y-m-d');
-        Mail::newClaimToAdmin('на увольнение', $claim);
+        Mail::newClaimToAdmin('на увольнение', $claim, Yii::$app->user->identity);
         return $claim->save();
     }
 

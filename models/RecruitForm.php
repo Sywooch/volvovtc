@@ -109,7 +109,7 @@ class RecruitForm extends Model{
         $claim->hear_from = nl2br($this->hear_from);
         $claim->comment = nl2br($this->comment);
         $claim->date = date('Y-m-d');
-        Mail::newClaimToAdmin('на вступление', $claim);
+        Mail::newClaimToAdmin('на вступление', $claim, Yii::$app->user->identity);
         return $claim->save();
     }
 
