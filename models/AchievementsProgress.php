@@ -43,11 +43,20 @@ class AchievementsProgress extends ActiveRecord{
             default: $ext = '.jpg';
         }
         $ach->proof = $uid.'-'.$achid.'-'.time().$ext;
-        if(move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/progress/' . $ach->proof)){
-            return $ach->save();
-        }else{
-            return false;
-        }
+        if(is_uploaded_file($file['tmp_name'])){
+			if($file['size'] > 1500000){
+				$img = new Image();
+				$img->load($file['tmp_name']);
+				if($img->getWidth() > 1920){
+					$img->resizeToWidth(1920);
+				}
+				$img->save($file['tmp_name']);
+			}
+			if(move_uploaded_file($file['tmp_name'], $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/progress/' . $ach->proof)){
+				return $ach->save();
+			}
+		}
+		return false;
     }
 
     public static function applyAchievement($id){
