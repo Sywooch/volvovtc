@@ -33,7 +33,6 @@ $this->title = 'Модерация достижений - Volvo Trucks'; ?>
                             <a class="black-text" href="<?= Url::to(['members/edit', 'id' => $item->member_id]) ?>">[<?= $item->u_company ?>] <?= $item->u_nickname ?></a>
                             - <a class="black-text" href="<?= Url::to(['achievements/edit', 'id' => $item->ach_id]) ?>"><?= $item->title ?></a></div>
                         <p><?= $item->description ?></p>
-                        <p></p>
                     </div>
                     <?php if($item->complete == 0) : ?>
                         <div class="card-action">
