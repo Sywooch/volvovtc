@@ -35,7 +35,7 @@ class AddConvoyForm extends Model{
     public $open = false;
     public $dlc = array();
     public $map_remove = false;
-    public $attach_var_photo = false;
+    public $attach_var_photo = true;
 
     public function __construct($id = null){
         if(isset($id)){
@@ -164,6 +164,7 @@ class AddConvoyForm extends Model{
                 $convoy->extra_picture = time().'_'.str_replace(['.png', '.jpg'], '', $extra_picture->name).'_'.time().'.jpg';
 				$extra_picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
             }
+            Mail::newMemberConvoyToAdmin($convoy->id);
             $convoy->update();
             return $convoy->id;
         }else{
