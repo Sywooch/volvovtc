@@ -3,6 +3,7 @@
 namespace app\controllers;
 
 use app\models\AchievementsProgress;
+use app\models\Mail;
 use Yii;
 use yii\data\Pagination;
 use yii\helpers\ArrayHelper;
@@ -144,13 +145,13 @@ class AchievementsController extends Controller{
     public function actionGet(){
         if(Yii::$app->request->isAjax){
             Yii::$app->response->format = Response::FORMAT_JSON;
-            return [
-                'status' => AchievementsProgress::getAchievement(Yii::$app->user->id, Yii::$app->request->get('achid'), $_FILES[0]) ? 'OK' : 'Error',
-                'files' => $_FILES[0],
-            ];
-        }else{
-            return false;
+            $progress = AchievementsProgress::getAchievement(Yii::$app->user->id, Yii::$app->request->get('achid'), $_FILES[0]);
+            if($progress && AchievementsProgress::find()->where(['complete' => 0])->count() == 1) Mail::newAchievementToAdmin();
+			return [
+				'status' => $progress ? 'OK' : 'Error'
+			];
         }
+		return false;
     }
 
     public function actionModerate(){

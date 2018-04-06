@@ -76,12 +76,23 @@ class Mail{
 
 	public static function newMemberConvoyToAdmin($cid){
 
-		$subject = 'Конвой от [Volvo Trucks] '.Yii::$app->user->identity->nickname;
+		$subject = 'Конвой от [Volvo Trucks] '.Yii::$app->user->identity->nickname . ' на сайте VolvoVTC.com';
 
 		Yii::$app->mailer->compose('admin/newconvoy', [
-			'convoy_id' => $cid,
-			'subject' => $subject
+			'convoy_id' => $cid
 		])->setFrom('info@volvovtc.com')
+			->setTo(self::$to)
+			->setSubject($subject)
+			->send();
+
+		return true;
+    }
+
+	public static function newAchievementToAdmin(){
+
+		$subject = 'Достижение ожидает модерации на сайте VolvoVTC.com';
+
+		Yii::$app->mailer->compose('admin/newachievement')->setFrom('info@volvovtc.com')
 			->setTo(self::$to)
 			->setSubject($subject)
 			->send();
