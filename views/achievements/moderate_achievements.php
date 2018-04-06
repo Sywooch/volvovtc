@@ -24,17 +24,16 @@ $this->title = 'Модерация достижений - Volvo Trucks'; ?>
         ]) ?>
         <?php foreach($progress as $item) : ?>
             <div class="card horizontal <?php if($item->complete == 0) : ?>grey<?php else: ?>green<?php endif?> lighten-4 hoverable">
-                <?php $image = Yii::$app->request->baseUrl . '/images/achievements/'. ($item->image != '' ? $item->image : 'default.jpg'); ?>
-                <div class="card-image no-img_horizontal" style="background-image: url(<?= $image ?>)">
-                    <a href="<?= Url::to(['achievements/edit', 'id' => $item->ach_id]) ?>"></a>
+                <div class="card-image" style="max-height: 200px;">
+					<img src="<?= Yii::$app->request->baseUrl?>/images/achievements/progress/<?= $item->proof ?>" class="materialboxed responsive-img">
                 </div>
                 <div class="card-stacked">
                     <div class="card-content">
                         <div class="card-title">
-                            <a class="black-text" href="<?= Url::to(['site/profile', 'id' => $item->uid]) ?>">[<?= $item->u_company ?>] <?= $item->u_nickname ?></a>
+                            <a class="black-text" href="<?= Url::to(['members/edit', 'id' => $item->member_id]) ?>">[<?= $item->u_company ?>] <?= $item->u_nickname ?></a>
                             - <a class="black-text" href="<?= Url::to(['achievements/edit', 'id' => $item->ach_id]) ?>"><?= $item->title ?></a></div>
                         <p><?= $item->description ?></p>
-                        <p><a target="_blank" href="<?=Yii::$app->request->baseUrl?>/images/achievements/progress/<?= $item->proof ?>" class="fs17">СМОТРЕТЬ СКРИНШОТ</a></p>
+                        <p></p>
                     </div>
                     <?php if($item->complete == 0) : ?>
                         <div class="card-action">
@@ -44,6 +43,7 @@ $this->title = 'Модерация достижений - Volvo Trucks'; ?>
                             <a href="<?= Url::to(['achievements/deny', 'id' => $item->id]) ?>" onclick="return confirm('Запись будет удалена безвозвратно. Уверены?')">
                                 <i class="material-icons notranslate to-text">clear</i>Отклонить
                             </a>
+							<a target="_blank" href="<?=Yii::$app->request->baseUrl?>/images/achievements/progress/<?= $item->proof ?>">Оригинал скриншота</a>
                         </div>
                     <?php endif ?>
                 </div>

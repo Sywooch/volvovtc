@@ -14,6 +14,7 @@ class AchievementsProgress extends ActiveRecord{
 	public $scores;
 	public $u_company;
 	public $u_nickname;
+	public $member_id;
 
     public function rules(){
         return [

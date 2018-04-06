@@ -167,10 +167,12 @@ class AchievementsController extends Controller{
 						'achievements.description',
 						'achievements.image',
 						'users.company as u_company',
-						'users.nickname as u_nickname'
+						'users.nickname as u_nickname',
+						'vtc_members.id as member_id'
 					])
 				->innerJoin('achievements', 'achievements_progress.ach_id = achievements.id')
-				->innerJoin('users', 'achievements_progress.uid = users.id');
+				->innerJoin('users', 'achievements_progress.uid = users.id')
+				->leftJoin('vtc_members', 'users.id = vtc_members.user_id');
             $total = $query->count();
             $pagination = new Pagination([
                 'defaultPageSize' => 10,
