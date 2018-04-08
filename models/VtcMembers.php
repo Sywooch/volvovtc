@@ -111,6 +111,12 @@ class VtcMembers extends ActiveRecord{
         return $additional;
     }
 
+	public static function hasVacation($vacation){
+		$vacation = new \DateTime($vacation);
+		$now = new \DateTime();
+		return $vacation > $now;
+    }
+
     public static function cleanVacations(){
         $members = VtcMembers::find()->where(['!=', 'vacation', ''])->all();
         foreach($members as $member){
