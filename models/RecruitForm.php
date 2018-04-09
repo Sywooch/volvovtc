@@ -18,7 +18,7 @@ class RecruitForm extends Model{
 	public $companies = false;
 	public $mic = false;
 	public $teamspeak = false;
-    public $hear_from = array();
+    public $hear_from;
     public $invited_by;
     public $comment;
     public $reason;
