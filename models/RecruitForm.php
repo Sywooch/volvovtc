@@ -183,12 +183,11 @@ class RecruitForm extends Model{
         $claim->hear_from = $this->hear_from;
         $claim->viewed = $this->viewed;
         $claim->comment = $this->comment;
-//        \Kint::dump($claim); exit;
         if($claim->save()) {
             if(User::isAdmin() && $this->status == '1') {
                 $last_member = VtcMembers::find()->orderBy(['sort' => SORT_DESC])->one();
                 $member = new VtcMembers();
-                $member->user_id = $this->user_id;
+                $member->user_id = $claim->user_id;
                 $member->start_date = date('Y-m-d');
                 $member->sort = ($last_member ? intval($last_member->sort) : 0)+1;
                 $user = User::findOne($claim->user_id);

@@ -34,9 +34,9 @@ class ClaimsRecruit extends ActiveRecord{
     public function rules(){
         return [
             [['user_id'], 'required'],
-            [['user_id', 'status', 'viewed'], 'integer'],
+            [['user_id', 'status', 'viewed', 'invited_by'], 'integer'],
             [['date'], 'safe'],
-            [['invited_by', 'hear_from', 'reason'], 'string', 'max' => 255],
+            [['hear_from', 'reason'], 'string', 'max' => 255],
             [['comment'], 'string', 'max' => 512],
         ];
     }
