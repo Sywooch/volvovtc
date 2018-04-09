@@ -166,6 +166,24 @@ class Convoys extends ActiveRecord{
         return $need ? substr($string, 0, strlen($string) - 2) : false;
     }
 
+	public static function getDLCList($game = null){
+		$ets = [
+			'Going East!' => 'Going East!',
+			'Scandinavia' => 'Scandinavia',
+			'Vive la France!' => 'Vive la France!',
+			'Italia' => 'Italia',
+			'High Power Cargo Pack' => 'High Power Cargo Pack',
+			'Schwarzmüller Trailer Pack' => 'Schwarzmüller Trailer Pack',
+			'Special Transport' => 'Special Transport',
+			'Heavy Cargo Pack (ETS2)' => 'Heavy Cargo Pack (ETS2)',
+		];
+		$ats = [
+			'Heavy Cargo Pack (ATS)' => 'Heavy Cargo Pack (ATS)',
+			'New Mexico' => 'New Mexico',
+		];
+		return $game ? $game : ArrayHelper::merge($ets, $ats);
+    }
+
     public static function getVarList($string, $with_img){
         $var_images = [
             '1' => 'var1',
