@@ -34,11 +34,15 @@ use app\models\User; ?>
                     <div class="flex claim-info">
                         <div style="max-width: 70%">
                             <p class="nowrap"><?= Yii::$app->formatter->asDate($recruit->date, 'long') ?></p>
-                            <?php if($recruit->hear_from) : ?>
+                            <?php if($recruit->hear_from && $recruit->hear_from != 'Другой вариант') : ?>
                                 <p><b>Откуда узнали?</b> <?= strip_tags($recruit->hear_from) ?></p>
                             <?php endif ?>
                             <?php if($recruit->invited_by) : ?>
-                                <p><b>Кто пригласил?</b> <?= strip_tags($recruit->invited_by) ?></p>
+                                <p><b>Кто пригласил?</b>
+									<a href="<?= Url::to(['site/profile', 'id' => $recruit->i_id]) ?>" style="color: inherit">
+										<?= ($recruit->i_company ? '['.$recruit->i_company.'] ' : ' ').$recruit->i_nickname ?>
+									</a>
+								</p>
                             <?php endif ?>
                             <?php if($recruit->comment) : ?>
                                 <p><b>Комментарий:</b> <?= strip_tags($recruit->comment, '<br>'); ?></p>

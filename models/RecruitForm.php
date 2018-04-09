@@ -6,8 +6,19 @@ use Yii;
 use yii\base\Model;
 
 class RecruitForm extends Model{
-    
-    public $hear_from;
+
+	public $user;
+	public $claim;
+
+	// claim
+	public $dlc = array();
+	public $save_editing = false;
+	public $tedit = false;
+	public $mods = false;
+	public $companies = false;
+	public $mic = false;
+	public $teamspeak = false;
+    public $hear_from = array();
     public $invited_by;
     public $comment;
     public $reason;
@@ -15,29 +26,64 @@ class RecruitForm extends Model{
     public $user_id;
     public $viewed;
 
+    // invited
+	public $i_id;
+	public $i_company;
+	public $i_nickname;
+
+	// user
+    public $uid;
     public $first_name;
     public $last_name;
+    public $company;
+    public $nickname;
+    public $registered;
     public $birth_date;
     public $city;
     public $country;
+    public $truckersmp;
     public $steam;
     public $vk;
 
-    public $user;
+    // viewed
+    public $a_first_name;
+    public $a_last_name;
 
     public function __construct($id = null){
-        $this->user = User::findOne(Yii::$app->user->id);
-        $this->steam = $this->user->steam;
-        $this->vk = $this->user->vk;
-        $this->first_name = $this->user->first_name;
-        $this->last_name = $this->user->last_name;
-        $this->birth_date = $this->user->birth_date;
-        $this->city = $this->user->city;
-        $this->country = $this->user->country;
+		$this->user = User::findOne(Yii::$app->user->id);
+		$this->steam = $this->user->steam;
+		$this->vk = $this->user->vk;
+		$this->first_name = $this->user->first_name;
+		$this->last_name = $this->user->last_name;
+		$this->birth_date = $this->user->birth_date;
+		$this->city = $this->user->city;
+		$this->country = $this->user->country;
         if(isset($id)){
-            $claim = ClaimsRecruit::findOne($id);
-            $this->user_id = $claim->user_id;
-            $this->hear_from = str_replace("<br />","", $claim->hear_from);
+            $claim = ClaimsRecruit::find()
+				->select([
+					'claims_recruit.*',
+					'users.*',
+					'invited.id as i_id',
+					'invited.company as i_company',
+					'invited.nickname as i_nickname',
+					'admin.first_name as a_first_name',
+					'admin.last_name as a_last_name',
+				])
+				->innerJoin('users', 'users.id = claims_recruit.user_id')
+				->leftJoin('users as admin', 'admin.id = claims_recruit.viewed')
+				->leftJoin('vtc_members', 'vtc_members.id = claims_recruit.invited_by')
+				->leftJoin('users as invited', 'invited.id = vtc_members.user_id')
+				->where(['claims_recruit.id' => $id])
+				->one();
+			$this->claim = $claim;
+			$this->mods = $claim->mods == 1;
+			$this->tedit = $claim->tedit == 1;
+			$this->save_editing = $claim->save_editing == 1;
+			$this->mic = $claim->mic == 1;
+            $this->teamspeak = $claim->teamspeak == 1;
+            $this->companies = $claim->companies == 1;
+            $this->dlc = explode('%', $claim->dlc);
+            $this->hear_from = $claim->hear_from;
             $this->invited_by = $claim->invited_by;
             $this->comment = str_replace("<br />","", $claim->comment);
             $this->reason = $claim->reason;
@@ -48,9 +94,11 @@ class RecruitForm extends Model{
 
     public function rules(){
         return [
-            [['hear_from', 'invited_by', 'comment', 'reason'], 'string'],
-            [['user_id', 'status', 'viewed'], 'integer'],
-            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'required', 'message' => 'Заполдните все обязательные поля'],
+            [['hear_from', 'comment', 'reason'], 'string'],
+            [['user_id', 'status', 'viewed', 'invited_by'], 'integer'],
+			[['mods', 'tedit', 'save_editing', 'mic', 'teamspeak', 'companies'], 'boolean'],
+			[['dlc'], 'safe'],
+            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'required', 'message' => 'Заполните все обязательные поля'],
             [['steam'], 'url', 'message' => 'Неверная ссылка Steam', 'defaultScheme' => 'https'],
             [['vk'], 'url', 'message' => 'Неверная ссылка VK', 'defaultScheme' => 'https'],
             [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'checkUserAttributes']
@@ -99,14 +147,21 @@ class RecruitForm extends Model{
     }
 
     public function afterValidate() {
-        $this->user->update();
+		$this->user->update();
     }
 
     public function addClaim(){
         $claim = new ClaimsRecruit();
         $claim->user_id = Yii::$app->user->id;
+		$claim->mods = $this->mods ? '1' : '0';
+		$claim->tedit = $this->tedit ? '1' : '0';
+		$claim->save_editing = $this->save_editing ? '1' : '0';
+		$claim->mic = $this->mic ? '1' : '0';
+		$claim->teamspeak = $this->teamspeak ? '1' : '0';
+		$claim->companies = $this->companies ? '1' : '0';
+		$claim->dlc = implode('%', $this->dlc);
         $claim->invited_by = $this->invited_by;
-        $claim->hear_from = nl2br($this->hear_from);
+        $claim->hear_from = $this->hear_from;
         $claim->comment = nl2br($this->comment);
         $claim->date = date('Y-m-d');
         Mail::newClaimToAdmin('на вступление', $claim, Yii::$app->user->identity);
@@ -115,14 +170,22 @@ class RecruitForm extends Model{
 
     public function editClaim($id){
         $claim = ClaimsRecruit::findOne($id);
+		$claim->mods = $this->mods ? '1' : '0';
+		$claim->tedit = $this->tedit ? '1' : '0';
+		$claim->save_editing = $this->save_editing ? '1' : '0';
+		$claim->mic = $this->mic ? '1' : '0';
+		$claim->teamspeak = $this->teamspeak ? '1' : '0';
+		$claim->companies = $this->companies ? '1' : '0';
+		$claim->dlc = implode('%', $this->dlc);
         $claim->status = $this->status;
         $claim->reason = $this->reason;
         $claim->invited_by = $this->invited_by;
         $claim->hear_from = $this->hear_from;
         $claim->viewed = $this->viewed;
         $claim->comment = $this->comment;
+//        \Kint::dump($claim); exit;
         if($claim->save()) {
-            if($this->status == '1') {
+            if(User::isAdmin() && $this->status == '1') {
                 $last_member = VtcMembers::find()->orderBy(['sort' => SORT_DESC])->one();
                 $member = new VtcMembers();
                 $member->user_id = $this->user_id;

@@ -111,7 +111,7 @@ class ClaimsController extends Controller{
             switch(Yii::$app->request->get('claim')){
                 case 'recruit' : {
                     $form = new RecruitForm($id);
-                    $claim = ClaimsRecruit::findOne($id);
+                    $claim = $form->claim;
                     $render = 'edit_recruit_claim';
                     break;
                 }
@@ -143,8 +143,7 @@ class ClaimsController extends Controller{
                 }
             }
             // if admin or (claim id = user id and status = 0)
-            $user = User::findIdentity($claim->user_id);
-            if(($user->id == $claim->user_id && $claim->status == '0') || User::isAdmin()){
+            if((Yii::$app->user->id == $claim->user_id && $claim->status == '0') || User::isAdmin()){
                 $user = User::findIdentity($claim->user_id);
                 return $this->render($render, [
                     'model' => $form,

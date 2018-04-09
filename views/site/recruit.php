@@ -4,6 +4,9 @@ use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
 
+$this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/select2.min.js?t='.time(),  ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
+$this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2.min.css?t='.time());
+$this->registerCssFile(Yii::$app->request->baseUrl.'/assets/css/select2-custom.css?t='.time());
 $this->title = 'Вступить в Volvo Trucks'; ?>
 
 <div class="container">
@@ -11,7 +14,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
     <?php if($step == '1') : ?>
 
         <div class="card grey lighten-4">
-            <div class="card-image no-img" style="background-image: url(assets/img/recruit/recruit.jpg)">
+            <div class="card-image no-img" style="background-image: url(<?= Yii::$app->request->baseUrl ?>assets/img/recruit/recruit.jpg)">
                 <span class="recruit-text-f text-shadow">Вступление в компанию</span>
                 <span class="recruit-text-s text-shadow">Шаг 1</span>
             </div>
@@ -27,7 +30,9 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                 </ol>
             </div>
             <div class="card-action">
-                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light">Далее<i class="material-icons notranslate right">arrow_forward</i></a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light">
+					Далее<i class="material-icons notranslate right">arrow_forward</i>
+				</a>
             </div>
         </div>
 
@@ -36,7 +41,7 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
     <?php if($step == '2') : ?>
 
         <div class="card grey lighten-4">
-            <div class="card-image no-img" style="background-image: url(assets/img/recruit/recruit-2.jpg)">
+            <div class="card-image no-img" style="background-image: url(<?= Yii::$app->request->baseUrl ?>assets/img/recruit/recruit-2.jpg)">
                 <span class="recruit-text-f text-shadow">Вступление в компанию</span>
                 <span class="recruit-text-s text-shadow">Шаг 2</span>
             </div>
@@ -51,8 +56,12 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
 
             </div>
             <div class="card-action">
-                <a href="<?= Url::to(['site/recruit', 'step' => '1']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons notranslate left">arrow_back</i>Назад</a>
-                <a href="<?= Url::to(['site/recruit', 'step' => '3']) ?>" class="btn indigo darken-3 waves-effect waves-light disabled" id="recruit-btn">Далее<i class="material-icons notranslate right">arrow_forward</i></a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '1']) ?>" class="btn indigo darken-3 waves-effect waves-light">
+					<i class="material-icons notranslate left">arrow_back</i>Назад
+				</a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '3']) ?>" class="btn indigo darken-3 waves-effect waves-light disabled" id="recruit-btn">
+					Далее<i class="material-icons notranslate right">arrow_forward</i>
+				</a>
             </div>
         </div>
 
@@ -64,46 +73,134 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
             'fieldConfig' => [
                 'template' => "<div class=\"input-field col l9 s11\">{label}{input}</div>".
                     "<div class=\"col l3 s1 valign-wrapper helper\">{error}</div>",
-                'options' => ['class' => 'row'],
+//                'options' => ['class' => 'row'],
                 'inputOptions' => ['autocomplete' => 'Off']
             ],
         ]); ?>
         <div class="card grey lighten-4">
-            <div class="card-image no-img" style="background-image: url(assets/img/recruit/recruit-3.jpg)">
+            <div class="card-image no-img" style="background-image: url(<?= Yii::$app->request->baseUrl ?>assets/img/recruit/recruit-3.jpg)">
                 <span class="recruit-text-f text-shadow">Вступление в компанию</span>
                 <span class="recruit-text-s text-shadow">Шаг 3</span>
             </div>
-            <div class="card-content">
+            <div class="card-content row">
                 <?php if(!$model->first_name) : ?>
                     <?= $form->field($model, 'first_name')->textInput()->label('Имя (обязательно)')->error(false) ?>
                 <?php endif ?>
+
                 <?php if(!$model->last_name) : ?>
                     <?= $form->field($model, 'last_name')->textInput()->label('Фамилия (обязательно)')->error(false) ?>
                 <?php endif ?>
+
                 <?php if(!$model->birth_date) : ?>
                     <?= $form->field($model, 'birth_date', ['template' => '<div class="col l9 s11">{label}{input}</div>'])
                         ->input('date', ['class' => 'datepicker-profile'])->label('Дата рождения (обязательно)')->error(false) ?>
                 <?php endif ?>
+
                 <?php if(!$model->country) : ?>
                     <?= $form->field($model, 'country')->textInput()->label('Страна (обязательно)')->error(false) ?>
                 <?php endif ?>
+
                 <?php if(!$model->city) : ?>
                     <?= $form->field($model, 'city')->textInput()->label('Город (обязательно)')->error(false) ?>
                 <?php endif ?>
+
                 <?php if(!\app\models\RecruitForm::validateUrl('vk', $model->vk)) :
                     $model->vk = ''; ?>
                     <?= $form->field($model, 'vk')->textInput()->label('Ссылка на Ваш профиль ВКонтакте (обязательно)')->error(false) ?>
                 <?php endif ?>
+
                 <?php if(!\app\models\RecruitForm::validateUrl('steam', $model->steam)) :
                     $model->steam = ''; ?>
                     <?= $form->field($model, 'steam')->textInput()->label('Ссылка на Ваш профиль в Steam (обязательно)')->error(false) ?>
                 <?php endif ?>
-                <?= $form->field($model, 'invited_by')->textInput()->label('Кто Вас пригласил в ВТК Volvo Trucks?') ?>
-                <?= $form->field($model, 'hear_from')->textarea(['class' => 'materialize-textarea'])->label('Как вы узнали про ВТК Volvo Trucks?') ?>
-                <?= $form->field($model, 'comment')->textarea(['class' => 'materialize-textarea'])->label('Ваш комментарий к заявке') ?>
+
+				<?= $form->field($model, 'hear_from', [
+						'template' => '<div class="col l9 s11" style="margin-bottom: 20px">{label}{input}</div>',
+						'options' => ['class' => 'col l6 s12']
+				])->radioList([
+						'Пригласил знакомый' => 'Пригласил знакомый',
+						'Из интернета' => 'Из интернета',
+						'Увидел на конвое' => 'Увидел на конвое',
+						'Реклама в игровом чате' => 'Реклама в игровом чате',
+						'Другой вариант' => 'Другой вариант (укажите в комментарие)'
+					], ['item' => function($index, $label, $name, $checked, $value) {
+						$return = '<p><input class="with-gap" type="radio" name="'.$name.'" value="'.$value.'" id="'.$value.'">';
+						$return .= '<label for="'.$value.'">' . ucwords($label) . '</label></p>';
+						return $return;
+					},
+						'tag' => false
+					])->label('Как вы узнали про ВТК Volvo Trucks?') ?>
+
+				<?= $form->field($model, 'dlc', [
+					'template' => '<div class="col l9 s11" style="margin-bottom: 20px">{label}{input}</div>',
+					'options' => ['class' => 'col l6 s12']
+				])->checkboxList(\app\models\Convoys::getDLCList(), ['item' => function($index, $label, $name, $checked, $value) {
+					$return = '<p><input type="checkbox" name="'.$name.'" value="'.$value.'" id="'.$value.'">';
+					$return .= '<label for="'.$value.'">' . ucwords($label) . '</label></p>';
+					return $return;
+				},
+					'tag' => false
+				])->label('Какие DLC имеете?') ?>
+
+				<?= $form->field($model, 'invited_by', ['template' => '<div class="col l9 s11" style="margin-bottom: 20px">{label}{input}</div>'])
+					->dropdownList($members, [
+						'id' => 'members-select',
+						'class' => 'browser-default'
+					])?>
+
+				<div class="col s12">
+					<?= $form->field($model, 'companies', [
+						'template' => '{input}{label}',
+						'options' => [
+							'tag' => false
+						]
+					])->checkbox(['label' => null])->error(false)->label('Состоял ранее в ВТК') ?>
+
+					<?= $form->field($model, 'mic', [
+						'template' => '{input}{label}',
+						'options' => [
+							'tag' => false
+						]
+					])->checkbox(['label' => null])->error(false)->label('Есть микрофон') ?>
+
+					<?= $form->field($model, 'teamspeak', [
+						'template' => '{input}{label}',
+						'options' => [
+							'tag' => false
+						]
+					])->checkbox(['label' => null])->error(false)->label('Есть TeamSpeak') ?>
+				</div>
+				<div class="col s12">
+					<?= $form->field($model, 'mods', [
+						'template' => '{input}{label}',
+						'options' => [
+							'tag' => false
+						]
+					])->checkbox(['label' => null])->error(false)->label('Пользуюсь модами для МП') ?>
+
+					<?= $form->field($model, 'tedit', [
+						'template' => '{input}{label}',
+						'options' => [
+							'tag' => false
+						]
+					])->checkbox(['label' => null])->error(false)->label('Умею пользоваться Tedit') ?>
+
+					<?= $form->field($model, 'save_editing', [
+						'template' => '{input}{label}',
+						'options' => [
+							'tag' => false
+						]
+					])->checkbox(['label' => null])->error(false)->label('Умею пользоваться пропиской') ?>
+
+				</div>
+
+				<?= $form->field($model, 'comment')->textarea(['class' => 'materialize-textarea'])->label('Ваш комментарий к заявке (не обязательно)') ?>
+
             </div>
             <div class="card-action">
-                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light"><i class="material-icons notranslate left">arrow_back</i>Назад</a>
+                <a href="<?= Url::to(['site/recruit', 'step' => '2']) ?>" class="btn indigo darken-3 waves-effect waves-light">
+					<i class="material-icons notranslate left">arrow_back</i>Назад
+				</a>
                 <?=Html::submitButton('Подать заявку '.
                     Html::tag('i', 'send', ['class' => 'material-icons notranslate right']), [
                     'class' => 'btn indigo darken-3 waves-effect waves-light'
@@ -111,6 +208,9 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
             </div>
         </div>
         <?php ActiveForm::end(); ?>
+		<script>
+			$('#members-select').select2();
+		</script>
 
     <?php endif ?>
 

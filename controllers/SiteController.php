@@ -174,12 +174,15 @@ class SiteController extends Controller{
                 if($model->addClaim()) return $this->redirect(['site/claims']);
             }
             $rules = '';
+            $members = null;
             $step = Yii::$app->request->get('step');
             if($step == '2') $rules = Other::findOne(['category' => 'rules']);
+            if($step == '3') $members = array_replace(['' => 'Никто не приглашал / Другой человек'], VtcMembers::getMembersArray());
             return $this->render('recruit', [
                 'model' => $model,
                 'step' => $step == '' || $step > 3 ? '1' : $step,
-                'rules' => $rules
+                'rules' => $rules,
+				'members' => $members
             ]);
         }else{
             return $this->redirect(['site/login']);
