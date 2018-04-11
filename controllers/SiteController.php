@@ -237,10 +237,9 @@ class SiteController extends Controller{
 		$model = new LoginForm();
         if(Yii::$app->request->get('social') == 'steam'){
 			if($steamid = Steam::authUser()){
-				return User::loginBySteamId($steamid) ?
-					$this->goBack() :
-					$this->redirect(['site/login']);
+				 if(User::loginBySteamId($steamid)) return $this->goBack();
 			}
+			return $this->redirect(['site/login']);
 		}
         if ($model->load(Yii::$app->request->post())){
             $model->attributes = Yii::$app->request->post();

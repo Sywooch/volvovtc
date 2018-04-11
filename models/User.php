@@ -66,8 +66,10 @@ class User extends ActiveRecord implements IdentityInterface{
 				explode('/', $json->profileurl)[4] :
 				$json->steamid;
 			$user->email = $user->username.'@volvovtc.com';
-			$user->first_name = explode(' ', $json->realname)[0];
-			$user->last_name = explode(' ', $json->realname)[1];
+			if(property_exists($json, 'realname')){
+				$user->first_name = explode(' ', $json->realname)[0];
+				$user->last_name = explode(' ', $json->realname)[1];
+			}
 			$url = $json->avatarfull;
 			$img = $_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/users/'.$json->steamid.'.jpg';
 			file_put_contents($img, Steam::getData($url));
@@ -76,9 +78,11 @@ class User extends ActiveRecord implements IdentityInterface{
 			$user->truckersmp = $tr_id ? 'https://truckersmp.com/user/'.$tr_id : null;
 			$user->steamid = $json->steamid;
 			$user->steam = $json->profileurl;
-			foreach(Steam::getUsersGames($json->steamid) as $game){
-				if($game->appid == '227300') $user->has_ets = '1';
-				if($game->appid == '270880') $user->has_ats = '1';
+			if($games = Steam::getUsersGames($json->steamid)){
+				foreach($games as $game){
+					if($game->appid == '227300') $user->has_ets = '1';
+					if($game->appid == '270880') $user->has_ats = '1';
+				}
 			}
 			$user->nickname = $json->personaname;
 			$user->social = 'steam';

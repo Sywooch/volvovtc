@@ -31,7 +31,21 @@ class Steam{
 
 	public static function getUsersGames($steamid){
 		$json = json_decode(self::getData('http://api.steampowered.com/IPlayerService/GetOwnedGames/v0001/?key='.self::$key.'&steamid='.$steamid.'&format=json'));
-		return $json->response->games;
+		return property_exists($json->response, 'games') ? $json->response->games : false;
+    }
+
+	public static function getUserPlayTime($steamid, $appid){
+		if($games = self::getUsersGames($steamid)){
+			foreach($games as $game){
+				if($game->appid == $appid){
+					$playtime = round(intval($game->playtime_forever) / 60);
+					break;
+				}
+			}
+			return $playtime;
+		}else{
+			return false;
+		}
     }
 
     public static function authUser(){
@@ -39,7 +53,7 @@ class Steam{
 		try{
 			$openid = new LightOpenID('http://'.$_SERVER['HTTP_HOST']);
 			if(!$openid->mode){
-				$openid->identity = 'http://steamcommunity.com/openid/?l=english';
+				$openid->identity = 'http://steamcommunity.com/openid/?l=russian';
 				header('Location: '. $openid->authUrl());
 				exit();
 			}elseif($openid->mode == 'cancel'){
@@ -47,12 +61,10 @@ class Steam{
 			}else{
 				if($openid->validate() !== false){
 					$id = $openid->data['openid_identity'];
-					$ptn = '/^http:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/';
+					$ptn = '/^https:\/\/steamcommunity\.com\/openid\/id\/(7[0-9]{15,25}+)$/';
 					preg_match($ptn, $id, $matches);
 					$url = 'http://api.steampowered.com/ISteamUser/GetPlayerSummaries/v0002/?key='.self::$key.'&steamids='.$matches[1];
-//					$json_object = file_get_contents($url);
 					$json_object = self::getData($url);
-//					\Kint::dump($json_object);
 					$json = json_decode($json_object);
 					return $json->response->players[0];
 				}else{
