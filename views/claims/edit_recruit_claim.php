@@ -107,7 +107,26 @@ $this->title = 'Редактировать заявление на вступл�
 					'tag' => false
 				])->label('Какие DLC имеете?') ?>
 
-				<?= $form->field($model, 'invited_by', ['template' => '<div class="col l9 s11" style="margin-bottom: 20px">{label}{input}</div>'])
+				<?php if(Yii::$app->user->identity->has_ets || Yii::$app->user->identity->has_ats) : ?>
+				<div class="col l9 s11">
+					<?php if(Yii::$app->user->identity->has_ets) : ?>
+						<?= $form->field($model, 'ets_playtime', [
+							'template' => '<div class="input-field">{label}{input}</div>',
+							'options' => ['class' => 'col l6 s12', 'style' => 'padding: 0 .75rem 0 0']
+						])->input('number', ['min' => 0])->label('Ваше время в ETS2 (часов)') ?>
+					<?php endif ?>
+
+					<?php if(Yii::$app->user->identity->has_ats) : ?>
+						<?= $form->field($model, 'ats_playtime', [
+							'template' => '<div class="input-field">{label}{input}</div>',
+							'options' => ['class' => 'col l6 s12', 'style' => 'padding: 0 0 0 .75rem']
+						])->input('number', ['min' => 0])->label('Ваше время в ATS (часов)') ?>
+					<?php endif ?>
+				</div>
+				<div class="clearfix"></div>
+			<?php endif ?>
+
+			<?= $form->field($model, 'invited_by', ['template' => '<div class="col l9 s11" style="margin-bottom: 20px">{label}{input}</div>'])
 					->dropdownList(array_replace(['' => 'Никто не приглашал / Другой человек'], VtcMembers::getMembersArray()), [
 						'id' => 'members-select',
 						'class' => 'browser-default'
@@ -166,7 +185,7 @@ $this->title = 'Редактировать заявление на вступл�
 				</script>
             <?php }else{ ?>
 				<div class="col m6 s12">
-					<p>Как узнали про ВТК Volvo Trucks: <b><?= $model->claim->hear_from ?></b></p>
+					<p>Как узнали про ВТК Volvo Trucks: <b><?= $model->claim->hear_from ? $model->claim->hear_from : '&mdash;' ?></b></p>
 					<?= $form->field($model, 'hear_from')->hiddenInput()->label(false) ?>
 					<p>Кто пригласил:
 						<b>
@@ -196,6 +215,12 @@ $this->title = 'Редактировать заявление на вступл�
 							<?= $form->field($model, 'comment')->hiddenInput()->label(false) ?>
 						</b>
 					</p>
+					<?php if($model->claim->ets_playtime) : ?>
+					    <p>Опыт в ETS2: <b><?= $model->claim->ets_playtime ?> ч.</b></p>
+					<?php endif ?>
+					<?php if($model->claim->ats_playtime) : ?>
+					    <p>Опыт в ATS: <b><?= $model->claim->ats_playtime ?> ч.</b></p>
+					<?php endif ?>
 				</div>
 				<div class="col m6 s12">
 					<h6>Наличие DLC:</h6>

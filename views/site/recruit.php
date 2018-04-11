@@ -104,6 +104,11 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
                     <?= $form->field($model, 'city')->textInput()->label('Город (обязательно)')->error(false) ?>
                 <?php endif ?>
 
+
+                <?php if(!$model->nickname) : ?>
+                    <?= $form->field($model, 'nickname')->textInput()->label('Игровой никнейм (обязательно)')->error(false) ?>
+                <?php endif ?>
+
                 <?php if(!\app\models\RecruitForm::validateUrl('vk', $model->vk)) :
                     $model->vk = ''; ?>
                     <?= $form->field($model, 'vk')->textInput()->label('Ссылка на Ваш профиль ВКонтакте (обязательно)')->error(false) ?>
@@ -141,6 +146,25 @@ $this->title = 'Вступить в Volvo Trucks'; ?>
 				},
 					'tag' => false
 				])->label('Какие DLC имеете?') ?>
+
+				<?php if(Yii::$app->user->identity->has_ets || Yii::$app->user->identity->has_ats) : ?>
+					<div class="col l9 s11">
+						<?php if(Yii::$app->user->identity->has_ets) : ?>
+							<?= $form->field($model, 'ets_playtime', [
+								'template' => '<div class="input-field">{label}{input}</div>',
+								'options' => ['class' => 'col l6 s12', 'style' => 'padding: 0 .75rem 0 0']
+							])->input('number', ['min' => 0])->label('Ваше время в ETS2 (часов)') ?>
+						<?php endif ?>
+
+						<?php if(Yii::$app->user->identity->has_ats) : ?>
+							<?= $form->field($model, 'ats_playtime', [
+								'template' => '<div class="input-field">{label}{input}</div>',
+								'options' => ['class' => 'col l6 s12', 'style' => 'padding: 0 0 0 .75rem']
+							])->input('number', ['min' => 0])->label('Ваше время в ATS (часов)') ?>
+						<?php endif ?>
+					</div>
+					<div class="clearfix"></div>
+				<?php endif ?>
 
 				<?= $form->field($model, 'invited_by', ['template' => '<div class="col l9 s11" style="margin-bottom: 20px">{label}{input}</div>'])
 					->dropdownList($members, [

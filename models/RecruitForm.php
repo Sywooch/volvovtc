@@ -25,6 +25,8 @@ class RecruitForm extends Model{
     public $status;
     public $user_id;
     public $viewed;
+    public $ets_playtime;
+    public $ats_playtime;
 
     // invited
 	public $i_id;
@@ -51,6 +53,7 @@ class RecruitForm extends Model{
 
     public function __construct($id = null){
 		$this->user = User::findOne(Yii::$app->user->id);
+		$this->nickname = $this->user->nickname;
 		$this->steam = $this->user->steam;
 		$this->vk = $this->user->vk;
 		$this->first_name = $this->user->first_name;
@@ -58,6 +61,10 @@ class RecruitForm extends Model{
 		$this->birth_date = $this->user->birth_date;
 		$this->city = $this->user->city;
 		$this->country = $this->user->country;
+		if($this->user->steamid){
+			$this->ets_playtime = $this->user->has_ets ? Steam::getUserPlayTime($this->user->steamid, '227300') : null;
+			$this->ats_playtime = $this->user->has_ats ? Steam::getUserPlayTime($this->user->steamid, '270880') : null;
+		}
         if(isset($id)){
             $claim = ClaimsRecruit::find()
 				->select([
@@ -84,6 +91,8 @@ class RecruitForm extends Model{
             $this->companies = $claim->companies == 1;
             $this->dlc = explode('%', $claim->dlc);
             $this->hear_from = $claim->hear_from;
+            $this->ets_playtime = $claim->ets_playtime;
+            $this->ats_playtime = $claim->ats_playtime;
             $this->invited_by = $claim->invited_by;
             $this->comment = str_replace("<br />","", $claim->comment);
             $this->reason = $claim->reason;
@@ -95,19 +104,20 @@ class RecruitForm extends Model{
     public function rules(){
         return [
             [['hear_from', 'comment', 'reason'], 'string'],
-            [['user_id', 'status', 'viewed', 'invited_by'], 'integer'],
+            [['user_id', 'status', 'viewed', 'invited_by', 'ets_playtime', 'ats_playtime'], 'integer'],
 			[['mods', 'tedit', 'save_editing', 'mic', 'teamspeak', 'companies'], 'boolean'],
 			[['dlc'], 'safe'],
-            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'required', 'message' => 'Заполните все обязательные поля'],
+            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country', 'nickname'], 'required', 'message' => 'Заполните все обязательные поля'],
             [['steam'], 'url', 'message' => 'Неверная ссылка Steam', 'defaultScheme' => 'https'],
             [['vk'], 'url', 'message' => 'Неверная ссылка VK', 'defaultScheme' => 'https'],
-            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country'], 'checkUserAttributes']
+            [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country', 'nickname'], 'checkUserAttributes']
         ];
     }
 
     public function checkUserAttributes($attribute, $params){
         if($this->$attribute){
             switch ($attribute){
+                case 'nickname' : $this->user->nickname = $this->nickname; break;
                 case 'first_name' : $this->user->first_name = $this->first_name; break;
                 case 'last_name' : $this->user->last_name = $this->last_name; break;
                 case 'birth_date' : $this->user->birth_date = $this->birth_date; break;
@@ -159,9 +169,12 @@ class RecruitForm extends Model{
 		$claim->mic = $this->mic ? '1' : '0';
 		$claim->teamspeak = $this->teamspeak ? '1' : '0';
 		$claim->companies = $this->companies ? '1' : '0';
+		$claim->ets_playtime = $this->ets_playtime;
+		$claim->ats_playtime = $this->ats_playtime;
 		$claim->dlc = implode('%', $this->dlc);
         $claim->invited_by = $this->invited_by;
         $claim->hear_from = $this->hear_from;
+        $claim->comment = nl2br($this->comment);
         $claim->comment = nl2br($this->comment);
         $claim->date = date('Y-m-d');
         Mail::newClaimToAdmin('на вступление', $claim, Yii::$app->user->identity);
@@ -176,6 +189,8 @@ class RecruitForm extends Model{
 		$claim->mic = $this->mic ? '1' : '0';
 		$claim->teamspeak = $this->teamspeak ? '1' : '0';
 		$claim->companies = $this->companies ? '1' : '0';
+		$claim->ets_playtime = $this->ets_playtime;
+		$claim->ats_playtime = $this->ats_playtime;
 		$claim->dlc = implode('%', $this->dlc);
         $claim->status = $this->status;
         $claim->reason = $this->reason;
