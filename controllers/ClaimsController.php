@@ -123,7 +123,7 @@ class ClaimsController extends Controller{
                 }
                 case 'nickname' : {
                     $form = new NicknameForm($id);
-                    $claim = ClaimsNickname::findOne($id);
+                    $claim = $form->claim;
                     $render = 'edit_nickname_claim';
                     break;
                 }

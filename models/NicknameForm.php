@@ -7,6 +7,9 @@ use yii\base\Model;
 
 class NicknameForm extends Model{
 
+	public $user;
+	public $claim;
+
     public $new_nickname;
     public $old_nickname;
     public $reason;
@@ -17,7 +20,20 @@ class NicknameForm extends Model{
 
     public function __construct($id = null){
         if(isset($id)){
-            $claim = ClaimsNickname::findOne($id);
+            $claim = ClaimsNickname::find()
+				->select([
+					'users.*',
+					'users.id as uid',
+					'claims_nickname.*',
+					'admin.first_name as a_first_name',
+					'admin.last_name as a_last_name',
+					'vtc_members.id as v_member_id'
+				])
+				->innerJoin('users', 'users.id = claims_nickname.user_id')
+				->leftJoin('users as admin', 'admin.id = claims_nickname.viewed')
+				->leftJoin('vtc_members', 'vtc_members.id = claims_nickname.member_id')
+				->where(['claims_nickname.id' => $id])->one();
+            $this->claim = $claim;
             $this->member_id = $claim->member_id;
             $this->user_id = $claim->user_id;
             $this->new_nickname = $claim->new_nickname;
