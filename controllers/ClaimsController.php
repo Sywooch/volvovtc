@@ -145,26 +145,10 @@ class ClaimsController extends Controller{
 
     public function actionRemove(){
         if(User::isAdmin() && Yii::$app->request->get('claim') && Yii::$app->request->get('id')){
-            $id = Yii::$app->request->get('id');
-            switch(Yii::$app->request->get('claim')){
-                case 'recruit' :
-                    RecruitForm::deleteClaim($id);
-                    return $this->redirect(['claims/index', '#' => 'recruit']);
-                    break;
-                case 'dismissal' :
-                    FiredForm::deleteClaim($id);
-                    return $this->redirect(['claims/index', '#' => 'dismissal']);
-                    break;
-                case 'nickname' :
-                    NicknameForm::deleteClaim($id);
-                    return $this->redirect(['claims/index', '#' => 'nickname']);
-                    break;
-                case 'vacation' :
-                default :
-                    VacationForm::deleteClaim($id);
-                    return $this->redirect(['claims/index', '#' => 'vacation']);
-                    break;
-            }
+			$claim = str_replace('dismissal', 'fired', Yii::$app->request->get('claim'));
+			$class = '\app\models\\'.ucfirst($claim).'Form';
+			$class::deleteClaim(Yii::$app->request->get('id'));
+			return $this->redirect(['claims/index', '#' => Yii::$app->request->get('claim')]);
         }else{
             return $this->render('//site/error');
         }
