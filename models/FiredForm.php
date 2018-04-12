@@ -7,6 +7,9 @@ use yii\base\Model;
 
 class FiredForm extends Model{
 
+	public $user;
+	public $claim;
+
     public $id;
     public $reason;
     public $status;
@@ -14,14 +17,30 @@ class FiredForm extends Model{
     public $user_id;
     public $viewed;
 
+	// viewed
+	public $a_first_name;
+	public $a_last_name;
+
     public function __construct($id = null){
         if(isset($id)){
-            $claim = ClaimsFired::findOne($id);
-            $this->member_id = $claim->member_id;
-            $this->user_id = $claim->user_id;
-            $this->reason = $claim->reason;
-            $this->status = $claim->status;
-            $this->viewed = $claim->viewed;
+			$claim = ClaimsFired::find()
+				->select([
+					'claims_fired.*',
+					'users.*',
+					'admin.first_name as a_first_name',
+					'admin.last_name as a_last_name',
+					'vtc_members.id as v_member_id'
+				])
+				->innerJoin('users', 'users.id = claims_fired.user_id')
+				->leftJoin('users as admin', 'admin.id = claims_fired.viewed')
+				->leftJoin('vtc_members', 'vtc_members.id = claims_fired.member_id')
+				->where(['claims_fired.id'=> $id])->one();
+			$this->claim = $claim;
+            $this->member_id = $this->claim->member_id;
+            $this->user_id = $this->claim->user_id;
+            $this->reason = $this->claim->reason;
+            $this->status = $this->claim->status;
+            $this->viewed = $this->claim->viewed;
         }
     }
 

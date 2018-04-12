@@ -44,8 +44,11 @@ use app\models\User; ?>
                         <div class="claim-status" style="flex: 1;">
                             <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?></p>
 							<?php if($claim->viewed): ?>
-								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$claim->viewed]) ?>">
-									Рассмотрел: <?= $claim->first_name ?> <?= $claim->last_name ?>
+								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' => $claim->viewed]) ?>">
+									Рассмотрел:
+									<a href="<?= Url::to(['site/profile', 'id' => $claim->viewed]) ?>" class="grey-text">
+										<?= $claim->first_name ?> <?= $claim->last_name ?>
+									</a>
 								</a>
 							<?php endif ?>
                         </div>

@@ -117,7 +117,7 @@ class ClaimsController extends Controller{
                 }
                 case 'dismissal' : {
                     $form = new FiredForm($id);
-                    $claim = ClaimsFired::findOne($id);
+                    $claim = $form->claim;
                     $render = 'edit_fired_claim';
                     break;
                 }
@@ -144,11 +144,10 @@ class ClaimsController extends Controller{
             }
             // if admin or (claim id = user id and status = 0)
             if((Yii::$app->user->id == $claim->user_id && $claim->status == '0') || User::isAdmin()){
-                $user = User::findIdentity($claim->user_id);
                 return $this->render($render, [
                     'model' => $form,
                     'claim' => $claim,
-                    'user' => $user,
+                    'user' => User::findIdentity($claim->user_id),
                     'viewed' => User::find()->select('first_name, last_name')->where(['id' => $form->viewed])->one()
                 ]);
             }else{
