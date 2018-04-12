@@ -17,10 +17,6 @@ class FiredForm extends Model{
     public $user_id;
     public $viewed;
 
-	// viewed
-	public $a_first_name;
-	public $a_last_name;
-
     public function __construct($id = null){
         if(isset($id)){
 			$claim = ClaimsFired::find()
