@@ -28,28 +28,15 @@ class RecruitForm extends Model{
     public $ets_playtime;
     public $ats_playtime;
 
-    // invited
-	public $i_id;
-	public $i_company;
-	public $i_nickname;
-
 	// user
-    public $uid;
     public $first_name;
     public $last_name;
-    public $company;
     public $nickname;
-    public $registered;
     public $birth_date;
     public $city;
     public $country;
-    public $truckersmp;
     public $steam;
     public $vk;
-
-    // viewed
-    public $a_first_name;
-    public $a_last_name;
 
     public function __construct($id = null){
 		$this->user = User::findOne(Yii::$app->user->id);
@@ -80,8 +67,7 @@ class RecruitForm extends Model{
 				->leftJoin('users as admin', 'admin.id = claims_recruit.viewed')
 				->leftJoin('vtc_members', 'vtc_members.id = claims_recruit.invited_by')
 				->leftJoin('users as invited', 'invited.id = vtc_members.user_id')
-				->where(['claims_recruit.id' => $id])
-				->one();
+				->where(['claims_recruit.id' => $id])->one();
 			$this->claim = $claim;
 			$this->mods = $claim->mods == 1;
 			$this->tedit = $claim->tedit == 1;

@@ -189,7 +189,7 @@ $this->title = 'Редактировать заявление на вступл�
 					<?= $form->field($model, 'hear_from')->hiddenInput()->label(false) ?>
 					<p>Кто пригласил:
 						<b>
-							<a href="<?= Url::to(['site/profile', 'id' => $model->i_id]) ?>" style="color: inherit;">
+							<a href="<?= Url::to(['site/profile', 'id' => $model->claim->i_id]) ?>" style="color: inherit;">
 								<?= $model->claim->invited_by ? ($model->claim->i_company ? '['.$model->claim->i_company.'] ' : ' ').$model->claim->i_nickname : '&mdash;' ?>
 								<?= $form->field($model, 'invited_by')->hiddenInput()->label(false) ?>
 							</a>
