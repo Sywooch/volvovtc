@@ -26,6 +26,7 @@ class ClaimsRecruit extends ActiveRecord{
 	public $steam;
 	public $vk;
 	public $picture;
+	public $last_active;
 
 	// viewed
 	public $a_first_name;
