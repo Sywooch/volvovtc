@@ -90,6 +90,10 @@ a{color: #3f51b5;}
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:after{background-color: #00f;}
 [type="radio"]:checked+label:after, [type="radio"].with-gap:checked+label:before, [type="radio"].with-gap:checked+label:after{border-color: #00f;}
 
+	/* switch */
+.switch label input[type=checkbox]:checked+.lever{background-color: rgba(0, 0, 255, .5);}
+.switch label input[type=checkbox]:checked+.lever:after{background-color: #00f;}
+
 	/* select */
 select option, .dropdown-content li>span{ color: #0d3896;}
 .input-field .prefix ~ .form-group{margin-left: 3rem; width: calc(100% - 3rem);}
