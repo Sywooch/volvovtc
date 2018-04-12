@@ -110,25 +110,8 @@ class ClaimsController extends Controller{
         if(Yii::$app->request->get('claim') && Yii::$app->request->get('id')){
             $id = Yii::$app->request->get('id');
             $claim = str_replace('dismissal', 'fired', Yii::$app->request->get('claim'));
-            switch(Yii::$app->request->get('claim')){
-                case 'recruit' : {
-                    $form = new RecruitForm($id);
-                    break;
-                }
-                case 'dismissal' : {
-                    $form = new FiredForm($id);
-                    break;
-                }
-                case 'nickname' : {
-                    $form = new NicknameForm($id);
-                    break;
-                }
-                case 'vacation' :
-                default: {
-                    $form = new VacationForm($id);
-                    break;
-                }
-            }
+            $class = '\app\models\\'.ucfirst($claim).'Form';
+            $form = new $class($id);
             if($form->load(Yii::$app->request->post()) && $form->validate()) {
                 if($result = $form->editClaim($id)){
                     return $this->redirect(['claims/index', '#' => Yii::$app->request->get('claim')]);
@@ -151,29 +134,10 @@ class ClaimsController extends Controller{
 
     public function actionApply(){
         if(Yii::$app->request->get('claim') && Yii::$app->request->get('id')){
-            switch(Yii::$app->request->get('claim')){
-                case 'recruit' : {
-                    RecruitForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['claims/index', '#' => 'recruit']);
-                    break;
-                }
-                case 'dismissal' : {
-                    FiredForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['claims/index', '#' => 'dismissal']);
-                    break;
-                }
-                case 'nickname' : {
-                    NicknameForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['claims/index', '#' => 'nickname']);
-                    break;
-                }
-                case 'vacation' :
-                default : {
-                    VacationForm::quickClaimApply(Yii::$app->request->get('id'));
-                    return $this->redirect(['claims/index', '#' => 'vacation']);
-                    break;
-                }
-            }
+			$claim = str_replace('dismissal', 'fired', Yii::$app->request->get('claim'));
+			$class = '\app\models\\'.ucfirst($claim).'Form';
+			$class::quickClaimApply(Yii::$app->request->get('id'));
+			return $this->redirect(['claims/index', '#' => Yii::$app->request->get('claim')]);
         }else{
             return $this->render('//site/error');
         }
