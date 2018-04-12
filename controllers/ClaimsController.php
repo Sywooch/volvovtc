@@ -14,6 +14,7 @@ use app\models\User;
 use app\models\VacationForm;
 use app\models\VtcMembers;
 use Yii;
+use yii\helpers\StringHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 
@@ -108,30 +109,23 @@ class ClaimsController extends Controller{
     public function actionEdit(){
         if(Yii::$app->request->get('claim') && Yii::$app->request->get('id')){
             $id = Yii::$app->request->get('id');
+            $claim = str_replace('dismissal', 'fired', Yii::$app->request->get('claim'));
             switch(Yii::$app->request->get('claim')){
                 case 'recruit' : {
                     $form = new RecruitForm($id);
-                    $claim = $form->claim;
-                    $render = 'edit_recruit_claim';
                     break;
                 }
                 case 'dismissal' : {
                     $form = new FiredForm($id);
-                    $claim = $form->claim;
-                    $render = 'edit_fired_claim';
                     break;
                 }
                 case 'nickname' : {
                     $form = new NicknameForm($id);
-                    $claim = $form->claim;
-                    $render = 'edit_nickname_claim';
                     break;
                 }
                 case 'vacation' :
                 default: {
                     $form = new VacationForm($id);
-                    $claim = ClaimsVacation::findOne($id);
-                $render = 'edit_vacation_claim';
                     break;
                 }
             }
@@ -142,13 +136,10 @@ class ClaimsController extends Controller{
                     $form->addError('id','Возникла ошибка');
                 }
             }
-            // if admin or (claim id = user id and status = 0)
-            if((Yii::$app->user->id == $claim->user_id && $claim->status == '0') || User::isAdmin()){
-                return $this->render($render, [
-                    'model' => $form,
-                    'claim' => $claim,
-                    'user' => User::findIdentity($claim->user_id),
-                    'viewed' => User::find()->select('first_name, last_name')->where(['id' => $form->viewed])->one()
+            // if admin or (claim user id = user id and status = 0)
+            if((Yii::$app->user->id == $form->claim->user_id && $form->claim->status == '0') || User::isAdmin()){
+                return $this->render('edit_'.$claim.'_claim', [
+                    'model' => $form
                 ]);
             }else{
                 return $this->redirect(['claims/index', '#' => Yii::$app->request->get('claim')]);

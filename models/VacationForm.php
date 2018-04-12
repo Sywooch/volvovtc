@@ -7,6 +7,9 @@ use yii\base\Model;
 
 class VacationForm extends Model{
 
+	public $user;
+	public $claim;
+
     public $to_date;
     public $reason;
     public $status;
@@ -17,7 +20,20 @@ class VacationForm extends Model{
 
     public function __construct($id = null){
         if(isset($id)){
-            $claim = ClaimsVacation::findOne($id);
+            $claim = ClaimsVacation::find()
+				->select([
+					'users.*',
+					'users.id as uid',
+					'claims_vacation.*',
+					'admin.first_name as a_first_name',
+					'admin.last_name as a_last_name',
+					'vtc_members.id as v_member_id'
+				])
+				->innerJoin('users', 'users.id = claims_vacation.user_id')
+				->leftJoin('users as admin', 'admin.id = claims_vacation.viewed')
+				->leftJoin('vtc_members', 'vtc_members.id = claims_vacation.member_id')
+				->where(['claims_vacation.id' => $id])->one();
+			$this->claim = $claim;
             $this->member_id = $claim->member_id;
             $this->user_id = $claim->user_id;
             $this->to_date = $claim->to_date;

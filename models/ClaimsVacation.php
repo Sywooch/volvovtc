@@ -7,10 +7,26 @@ use yii\db\ActiveRecord;
 
 class ClaimsVacation extends ActiveRecord{
 
-	public $nickname;
+	// user
+	public $uid;
 	public $first_name;
 	public $last_name;
+	public $company;
+	public $nickname;
+	public $registered;
+	public $birth_date;
+	public $city;
+	public $country;
+	public $truckersmp;
+	public $steam;
+	public $vk;
 	public $picture;
+	public $last_active;
+
+	// viewed
+	public $a_first_name;
+	public $a_last_name;
+
 	public $v_member_id;
 
     public function rules(){
@@ -27,11 +43,11 @@ class ClaimsVacation extends ActiveRecord{
 	public static function getClaims($limit = null){
 		$claims = ClaimsVacation::find()
 			->select([
+				'users.*',
+				'users.id as uid',
 				'claims_vacation.*',
-				'users.nickname',
-				'users.picture',
-				'admin.first_name as first_name',
-				'admin.last_name as last_name',
+				'admin.first_name as a_first_name',
+				'admin.last_name as a_last_name',
 				'vtc_members.id as v_member_id'
 			])
 			->innerJoin('users', 'users.id = claims_vacation.user_id')
