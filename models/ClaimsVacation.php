@@ -53,7 +53,7 @@ class ClaimsVacation extends ActiveRecord{
 			->innerJoin('users', 'users.id = claims_vacation.user_id')
 			->leftJoin('users as admin', 'admin.id = claims_vacation.viewed')
 			->leftJoin('vtc_members', 'vtc_members.id = claims_vacation.member_id')
-			->orderBy(['id'=> SORT_DESC]);
+			->orderBy(['claims_vacation.id'=> SORT_DESC]);
 		if($limit) $claims = $claims->limit($limit);
 		return $claims = $claims->all();
 	}
