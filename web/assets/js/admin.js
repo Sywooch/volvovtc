@@ -23,7 +23,11 @@ $(document).ready(function(){
 		}
     });
 
-    $('#addmodform-picture, #trailersform-picture, #achievementsform-image, #addconvoyform-picture_full').change(function(){
+    $('#addconvoyform-picture_full').change(function(){
+        readURL(this, '#preview');
+    });
+
+    $('#addmodform-picture, #trailersform-picture, #achievementsform-image').change(function(){
         $('#trailer-description').html('');
         $('#trailer-name').html('');
         $('#trailer-select').val('0').trigger("change");
@@ -38,11 +42,12 @@ $(document).ready(function(){
 
 }); // end of document ready
 
-function readURL(input) {
+function readURL(input, selector) {
+	if(selector === undefined) selector = '#trailer-image, #preview';
     if (input.files && input.files[0]){
         var reader = new FileReader();
         reader.onload = function (e) {
-            $('#trailer-image, #preview').attr('src', e.target.result);
+            $(selector).attr('src', e.target.result);
         };
         reader.readAsDataURL(input.files[0]);
     }
