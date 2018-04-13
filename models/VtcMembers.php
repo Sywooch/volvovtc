@@ -16,11 +16,17 @@ class VtcMembers extends ActiveRecord{
 	public $picture;
 	public $vk;
 	public $steam;
+	public $steamid;
 	public $truckersmp;
 	public $visible_truckersmp;
 	public $visible_steam;
+	public $achievements;
+
 	public $post_name;
 	public $post_admin;
+
+	public $i_id;
+	public $i_nickname;
 
     public $banned = false;
 
@@ -146,9 +152,7 @@ class VtcMembers extends ActiveRecord{
         return $bans;
     }
 
-    public static function getMemberNickname($id){
-        $member = VtcMembers::findOne($id);
-        $user = User::findOne($member->user_id);
+    public static function getMemberNickname($user){
         $truckersmp = TruckersMP::getMemberTruckersMpNickname($user->steamid);
         $steam = Steam::getPlayerNickname($user->steamid);
         if(strpos($truckersmp, '[Volvo Trucks]') !== false){

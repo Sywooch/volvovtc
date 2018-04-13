@@ -28,6 +28,13 @@ $this->title = 'Редактирование информации о водит�
                         ])
                         ->label('Дата вступления') ?>
                 </div>
+				<?php if($model->member->invited_by) : ?>
+					<p>Пригласил:
+						<a href="<?= Url::to(['members/edit', 'id' => $model->member->invited_by]) ?>" style="color: inherit;">
+							[Volvo Trucks] <?= $model->member->i_nickname ?>
+						</a>
+					</p>
+				<?php endif ?>
                 <div class="clearfix"></div>
             </div>
         </div>
@@ -103,7 +110,7 @@ $this->title = 'Редактирование информации о водит�
             <div class="card-panel grey lighten-4 ">
                 <?= $form->field($model, 'vk')->textInput() ?>
                 <?= $form->field($model, 'steam')->textInput() ?>
-                <?= $form->field($model, 'truckersmp')->textInput(['readonly' => 'readonly']) ?>
+				<?= Html::textInput('truckersmp', $model->member->truckersmp, ['readonly' => 'readonly']) ?>
                 <?= $form->field($model, 'nickname')->textInput() ?>
             </div>
         </div>
@@ -195,8 +202,7 @@ $this->title = 'Редактирование информации о водит�
                 </li>
             </ul>
         </div>
-        <?php if($model->scores_history) :
-        $scores = unserialize($model->scores_history); ?>
+        <?php if($scores = unserialize($model->member->scores_history)) : ?>
             <div class="col s12">
                 <div class="card-panel grey lighten-4">
                     <h5 class="light">История баллов</h5>

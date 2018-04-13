@@ -10,7 +10,6 @@ use yii\web\UploadedFile;
 class MemberForm extends Model{
 
     public $id;
-    public $user_id;
     public $vacation;
     public $vacation_undefined = false;
     public $can_lead = false;
@@ -20,7 +19,6 @@ class MemberForm extends Model{
     public $scores_total;
     public $scores_month;
     public $scores_other;
-    public $scores_history;
     public $exam_driving = false;
     public $exam_3_cat = false;
     public $exam_2_cat = false;
@@ -29,26 +27,34 @@ class MemberForm extends Model{
     public $post_id;
     public $start_date;
     public $notify = array();
-    public $achievements = array();
 
     public $vk;
     public $steam;
-    public $truckersmp;
     public $first_name;
     public $last_name;
     public $birth_date;
     public $nickname;
+	public $achievements = array();
+
+	public $member;
 
     public function __construct($id = null){
         if(isset($id)){
-			if(!$member = VtcMembers::findOne($id)) return false;
-			if(!$user = User::findOne($member->user_id)) return false;
-            $this->id = $id;
-            $this->user_id = $user->id;
+        	$member = VtcMembers::find()->select([
+					'users.*',
+					'vtc_members.*',
+					'm_invited.user_id as i_uid',
+					'u_invited.nickname as i_nickname',
+				])
+				->innerJoin('users', 'users.id = vtc_members.user_id')
+				->leftJoin('vtc_members as m_invited', 'm_invited.id = vtc_members.invited_by')
+				->leftJoin('users as u_invited', 'u_invited.id = m_invited.user_id')
+				->where(['vtc_members.id' => $id])->one();
+        	$this->member = $member;
             $this->vacation = $member->vacation;
 			$this->achievements = array();
-			if($user->achievements){
-				foreach (unserialize($user->achievements) as $achievement){
+			if($member->achievements){
+				foreach (unserialize($member->achievements) as $achievement){
 					$this->achievements[$achievement] = true;
 				}
 			}
@@ -60,7 +66,6 @@ class MemberForm extends Model{
             $this->scores_total = $member->scores_total;
             $this->scores_month = $member->scores_month;
             $this->scores_other = $member->scores_other;
-            $this->scores_history = $member->scores_history;
             $this->exam_driving = $member->exam_driving == '1';
             $this->exam_3_cat = $member->exam_3_cat == '1';
             $this->exam_2_cat = $member->exam_2_cat == '1';
@@ -68,13 +73,12 @@ class MemberForm extends Model{
             $this->additional = $member->additional;
             $this->post_id = $member->post_id;
             $this->start_date = $member->start_date;
-            $this->vk = $user->vk;
-            $this->steam = $user->steam;
-            $this->truckersmp = $user->truckersmp;
-            $this->first_name = $user->first_name;
-            $this->last_name = $user->last_name;
-            $this->birth_date = $user->birth_date;
-            $this->nickname = VtcMembers::getMemberNickname($id);
+            $this->vk = $member->vk;
+            $this->steam = $member->steam;
+            $this->first_name = $member->first_name;
+            $this->last_name = $member->last_name;
+            $this->birth_date = $member->birth_date;
+            $this->nickname = VtcMembers::getMemberNickname($member);
         }
     }
 
@@ -140,8 +144,7 @@ class MemberForm extends Model{
 		$member->scores_total = $this->scores_total;
 		$member->scores_month = $this->scores_month;
         $member->scores_other = $this->scores_other;
-        $member->additional = $this->additional;
-        $member->additional = VtcMembers::updateAdditionalByScores($member);
+        $member->additional = $this->additional ? $this->additional : VtcMembers::updateAdditionalByScores($member);
         $member->exam_driving = $this->exam_driving ? '1' : '0';
         $member->exam_3_cat = $this->exam_3_cat ? '1' : '0';
         $member->exam_2_cat = $this->exam_2_cat ? '1' : '0';

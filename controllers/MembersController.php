@@ -80,9 +80,8 @@ class MembersController extends Controller{
                 'all_achievements' => Achievements::find()->all(),
                 'achievements_progress' => AchievementsProgress::find()
                     ->select(['ach_id'])
-                    ->where(['uid' => $model->user_id, 'complete' => 1])
-                    ->asArray()
-                    ->all()
+                    ->where(['uid' => $model->member->user_id, 'complete' => 1])
+                    ->asArray()->all()
             ]);
         }else{
             return $this->render('//site/error');
