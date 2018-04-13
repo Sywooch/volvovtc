@@ -7,6 +7,7 @@
 
 namespace app\assets;
 
+use app\models\User;
 use yii\web\AssetBundle;
 
 /**
@@ -29,4 +30,10 @@ class AppAsset extends AssetBundle
     public $depends = [
         'yii\web\YiiAsset',
     ];
+
+	public function init(){
+		parent::init();
+		if(User::isAdmin()) $this->js[] = 'assets/js/admin.js';
+    }
+
 }

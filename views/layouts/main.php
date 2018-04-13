@@ -3,10 +3,6 @@
 use yii\helpers\Html;
 use app\assets\AppAsset;
 
-if (\app\models\User::isAdmin()){
-    $this->registerJsFile(Yii::$app->request->baseUrl.'/assets/js/admin.js',
-        ['position' => yii\web\View::POS_HEAD, 'depends' => [\yii\web\JqueryAsset::className()]]);
-}
 AppAsset::register($this); ?>
 
 <?php $this->beginPage() ?>
