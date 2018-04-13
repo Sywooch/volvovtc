@@ -164,7 +164,7 @@ class AddConvoyForm extends Model{
                 $convoy->extra_picture = time().'_'.str_replace(['.png', '.jpg'], '', $extra_picture->name).'_'.time().'.jpg';
 				$extra_picture->saveAs($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/convoys/'.$convoy->extra_picture);
             }
-            Mail::newMemberConvoyToAdmin($convoy->id);
+            if(!User::isAdmin()) Mail::newMemberConvoyToAdmin($convoy->id);
             $convoy->update();
             return $convoy->id;
         }else{
