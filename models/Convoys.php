@@ -23,7 +23,7 @@ class Convoys extends ActiveRecord{
             [['visible', 'open', 'updated_by', 'week_day'], 'integer'],
             [['description'], 'string', 'max' => 2048],
             [['rest', 'participants'], 'string', 'max' => 1024],
-            [['add_info'], 'string', 'max' => 512],
+            [['add_info'], 'string', 'max' => 8096],
             [['picture_full', 'picture_small', 'start_city', 'start_company', 'finish_city', 'finish_company', 'extra_picture'], 'string', 'max' => 255],
             [['server'], 'string', 'max' => 45],
             [['length'], 'string', 'max' => 10],
