@@ -277,7 +277,6 @@ $(document).on('ready', function(){
         var files = $(this).parents('.modal').find('[type=file]')[0].files;
 		var uid = $(this).data('uid');
 		var achid = $(this).attr('data-achid');
-		console.log(achid);
         if(files.length === 1){
             var data = new FormData();
             $.each(files, function(key, value){
@@ -334,9 +333,6 @@ $(document).on('ready', function(){
                     $('.participants-count').html(response.participants[100].length);
                     $('.participate-btns button').removeClass('disabled');
                     button.addClass('disabled');
-                    if($('#modal').length){
-                        console.log('true');
-                    }
                 }
             },
             complete : function(){
@@ -347,7 +343,6 @@ $(document).on('ready', function(){
     });
 
     $('#step4 a.modal-close').click(function(){
-        // console.log($('#step4 #accept')[0]);
         var uid = $(this).data('uid');
         var complete = $('#step4 #accept')[0].checked;
         $.ajax({
@@ -363,7 +358,7 @@ $(document).on('ready', function(){
                 $('#step4').modal('close');
             },
             success : function(response){
-                // console.log(response);
+
             }
         });
     });
