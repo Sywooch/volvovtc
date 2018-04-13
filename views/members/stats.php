@@ -47,7 +47,7 @@ $this->title = 'Статистика Volvo Trucks';
                     <tr class="<?php if(\app\models\VtcMembers::hasVacation($member->vacation) || $member->vacation_undefined == '1') : ?>yellow lighten-4<?php endif ?><?php if($member->banned): ?>red lighten-4<?php endif ?>" data-uid="<?= $member->user_id ?>">
                         <td><?= $i++ ?></td>
                         <td style="text-align: left; padding-left: 20px;white-space: nowrap;">
-                            <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member->user_id)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->picture ?>)"></a>
+                            <a class="member-img circle z-depth-3 waves-effect waves-light <?php if(\app\models\User::isOnline($member)) : ?>online<?php endif ?>" href="<?= Url::to(['site/profile', 'id' => $member->user_id]) ?>" style="background-image: url(<?=Yii::$app->request->baseUrl?>/images/users/<?= $member->picture ?>)"></a>
                             <div style="display: inline-block; vertical-align: middle;">
                                 <a href="<?= \app\models\User::isAdmin() ?
 									Url::to(['members/edit', 'id' => $member->id]) :
@@ -55,7 +55,11 @@ $this->title = 'Статистика Volvo Trucks';
 									[Volvo Trucks] <?= $member->nickname ?>
 								</a>
                                 <?php if($member->vacation != '' || $member->vacation_undefined == '1') : ?>
-                                    <span class="member-vacation grey-text" style="display: block;">В отпуске <?= $member->vacation_undefined == '1' ? 'на н. срок' : 'до ' . \app\controllers\SiteController::getRuDate($member->vacation) ?></span>
+                                    <span class="member-vacation grey-text" style="display: block;">
+										В отпуске <?= $member->vacation_undefined == '1' ?
+											'на н. срок' :
+											'до ' . Yii::$app->formatter->asDate($member->vacation, 'long') ?>
+									</span>
                                 <?php endif ?>
                             </div>
                         </td>

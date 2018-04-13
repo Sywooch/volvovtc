@@ -21,6 +21,7 @@ class VtcMembers extends ActiveRecord{
 	public $visible_truckersmp;
 	public $visible_steam;
 	public $achievements;
+	public $last_active;
 
 	public $post_name;
 	public $post_admin;
