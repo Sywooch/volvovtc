@@ -190,6 +190,7 @@ class RecruitForm extends Model{
                 $member = new VtcMembers();
                 $member->user_id = $claim->user_id;
                 $member->start_date = date('Y-m-d');
+                $member->invited_by = $claim->invited_by;
                 $member->sort = ($last_member ? intval($last_member->sort) : 0)+1;
                 $user = User::findOne($claim->user_id);
                 $user->company = 'Volvo Trucks';
@@ -212,6 +213,7 @@ class RecruitForm extends Model{
             $last_member = VtcMembers::find()->orderBy(['sort' => SORT_DESC])->one();
             $member = new VtcMembers();
             $member->user_id = $claim->user_id;
+			$member->invited_by = $claim->invited_by;
             $member->start_date = date('Y-m-d');
             $member->sort = ($last_member ? intval($last_member->sort) : 0)+1;
             $user = User::findOne($claim->user_id);
