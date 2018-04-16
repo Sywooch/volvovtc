@@ -104,4 +104,10 @@ class AchievementsProgress extends ActiveRecord{
         }
         return $ach->delete() !== false;
     }
+
+	public static function deleteAchievement($id){
+		$ach = AchievementsProgress::findOne($id);
+		return $ach->delete();
+    }
+
 }

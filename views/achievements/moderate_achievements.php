@@ -34,17 +34,20 @@ $this->title = 'Модерация достижений - Volvo Trucks'; ?>
                             - <a class="black-text" href="<?= Url::to(['achievements/edit', 'id' => $item->ach_id]) ?>"><?= $item->title ?></a></div>
                         <p><?= $item->description ?></p>
                     </div>
-                    <?php if($item->complete == 0) : ?>
-                        <div class="card-action">
-                            <a href="<?= Url::to(['achievements/apply', 'id' => $item->id]) ?>" onclick="return confirm('Одобрить?')">
-                                <i class="material-icons notranslate to-text">done</i>Одобрить
-                            </a>
-                            <a href="<?= Url::to(['achievements/deny', 'id' => $item->id]) ?>" onclick="return confirm('Запись будет удалена безвозвратно. Уверены?')">
-                                <i class="material-icons notranslate to-text">clear</i>Отклонить
-                            </a>
-							<a target="_blank" href="<?=Yii::$app->request->baseUrl?>/images/achievements/progress/<?= $item->proof ?>">Оригинал скриншота</a>
-                        </div>
-                    <?php endif ?>
+					<div class="card-action">
+						<?php if($item->complete == 0) : ?>
+								<a href="<?= Url::to(['achievements/apply', 'id' => $item->id]) ?>" onclick="return confirm('Одобрить?')">
+									<i class="material-icons notranslate to-text">done</i>Одобрить
+								</a>
+								<a href="<?= Url::to(['achievements/deny', 'id' => $item->id]) ?>" onclick="return confirm('Запись будет удалена безвозвратно. Уверены?')">
+									<i class="material-icons notranslate to-text">clear</i>Отклонить
+								</a>
+						<?php endif ?>
+						<a target="_blank" href="<?=Yii::$app->request->baseUrl?>/images/achievements/progress/<?= $item->proof ?>">Оригинал скриншота</a>
+						<a href="<?= Url::to(['achievements/delete', 'id' => $item->id]) ?>" onclick="return confirm('Удалить?')">
+							<i class="material-icons notranslate to-text">delete</i>Удалить
+						</a>
+					</div>
                 </div>
             </div>
         <?php endforeach ?>

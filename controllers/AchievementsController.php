@@ -213,4 +213,12 @@ class AchievementsController extends Controller{
         }
     }
 
+	public function actionDelete(){
+		if(User::isAdmin() && Yii::$app->request->get('id')){
+			AchievementsProgress::deleteAchievement(Yii::$app->request->get('id'));
+			return $this->redirect(['achievements/moderate']);
+		}
+		return $this->render('//site/error');
+    }
+
 }
