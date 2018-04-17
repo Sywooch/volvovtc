@@ -55,7 +55,8 @@ $config = [
                 '' => 'site/index',
 
                 // achievements
-                'achievements' => 'achievements/index',
+				'achievements/page/<page:\d+>/' => 'achievements/index',
+				'achievements' => 'achievements/index',
                 'achievements/<action:\w+>/<id:\d+>/<operation:\w+>' => 'achievements/<action>',
                 'achievements/<action:\w+>/<id:\d+>' => 'achievements/<action>',
                 'achievements/<action:\w+>' => 'achievements/<action>',

@@ -91,7 +91,7 @@ $this->title = 'Достижения - Volvo Trucks';
                                         <i class="material-icons notranslate green-text large text-shadow">check</i>
                                     </div>
                                 <?php endif ?>
-                                <img src="images/achievements/<?= $achievement->image ? $achievement->image : 'default.jpg' ?>">
+                                <img src="<?= Yii::$app->request->baseUrl ?>/images/achievements/<?= $achievement->image ? $achievement->image : 'default.jpg' ?>">
                                 <div class="card-title text-shadow"><?= $achievement->title ?></div>
                             </div>
                             <div class="card-content">
