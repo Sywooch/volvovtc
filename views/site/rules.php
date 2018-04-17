@@ -15,12 +15,8 @@ $this->title = 'Правила ВТК Volvo Trucks';
         </div>
         <div class="card-content list-style-default">
             <?= $rules->text ?>
+			<p class="grey-text">Последнее изменение правил: <?= Yii::$app->formatter->asDate($rules->date, 'long') ?></p>
         </div>
-        <?php if(\app\models\User::isAdmin()): ?>
-            <div class="card-action">
-                <a href="<?= Url::to(['site/rules', 'action' => 'edit']) ?>" class="indigo-text text-darken-3">Редактировать правила</a>
-            </div>
-        <?php endif ?>
     </div>
     <?php if(\app\models\User::isAdmin()): ?>
         <div class="fixed-action-btn">

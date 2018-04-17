@@ -20,6 +20,7 @@ class Other extends ActiveRecord{
     public static function updateRules($text){
         $rules = Other::findOne(['category' => 'rules']);
         $rules->text = $text;
+        $rules->date = date('Y-m-d');
         return $rules->update() !== false;
     }
 }

@@ -143,7 +143,7 @@ class SiteController extends Controller{
             if(Yii::$app->request->post('rules')){
                 if(Other::updateRules(Yii::$app->request->post('rules'))){
                     if(Yii::$app->request->post('notify') == '1'){
-                        Notifications::addNotificationsToMembers('Новые изменения в правилах ВТК!');
+                        Notifications::addNotificationsToMembers('Изменения в правилах ВТК!');
                     }
                     return $this->redirect(['site/rules']);
                 }
