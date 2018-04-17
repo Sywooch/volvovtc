@@ -54,14 +54,16 @@ class AchievementsController extends Controller{
 
     public function actionIndex(){
         if(User::isVtcMember()){
-            $query = Achievements::find();
-            if(!User::isAdmin()) $query = $query->where(['visible' => '1']);
+            $query = Achievements::find()
+				->select(['achievements.*', 'related.id as related', 'related.title as r_title'])
+				->leftJoin('achievements as related', 'achievements.related = related.id');
+            if(!User::isAdmin()) $query = $query->where(['achievements.visible' => '1']);
             if(Yii::$app->request->get('q')){
                 $q = Yii::$app->request->get('q');
-                $query->where(['like', 'title', $q])
-                    ->orWhere(['like', 'description', $q]);
+                $query->where(['like', 'achievements.title', $q])
+                    ->orWhere(['like', 'achievements.description', $q]);
             }
-            $user_ach_progress = AchievementsProgress::find()->select(['ach_id'])->where(['uid' => Yii::$app->user->id, 'complete' => 1])->asArray()->all();
+            $user_ach_progress = AchievementsProgress::find()->select(['ach_id', 'complete'])->where(['uid' => Yii::$app->user->id])->asArray()->all();
             $total = $query->count();
             $pagination = new Pagination([
                 'defaultPageSize' => 15,
@@ -69,7 +71,12 @@ class AchievementsController extends Controller{
             ]);
             $moderate_count = 0;
             if(User::isAdmin()){
-                $moderate_count = AchievementsProgress::find()->where(['complete' => 0])->count();
+                $moderate_count = AchievementsProgress::find()
+					->innerJoin('achievements', 'achievements_progress.ach_id = achievements.id')
+					->innerJoin('users', 'achievements_progress.uid = users.id')
+					->innerJoin('vtc_members', 'users.id = vtc_members.user_id')
+					->where(['achievements_progress.complete' => 0])
+					->count();
             }
             return $this->render('index', [
                 'achievements' => $query->orderBy(['sort' => SORT_DESC])->offset($pagination->offset)->limit($pagination->limit)->all(),
@@ -172,7 +179,7 @@ class AchievementsController extends Controller{
 					])
 				->innerJoin('achievements', 'achievements_progress.ach_id = achievements.id')
 				->innerJoin('users', 'achievements_progress.uid = users.id')
-				->leftJoin('vtc_members', 'users.id = vtc_members.user_id');
+				->innerJoin('vtc_members', 'users.id = vtc_members.user_id');
             $total = $query->count();
             $pagination = new Pagination([
                 'defaultPageSize' => 10,

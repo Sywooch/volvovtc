@@ -66,7 +66,7 @@
             </ul>
         </li>
         <?php if(\app\models\User::isAdmin()) :
-            $c_id = ['trailers', 'achievements', 'members', 'appeals'];
+            $c_id = ['trailers', 'members', 'appeals'];
             $a_id = ['users']; ?>
             <li<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                 <ul class="collapsible collapsible-accordion">
@@ -79,7 +79,6 @@
                                 <li><a href="<?=Url::to(['site/users'])?>">ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                                 <li><a href="<?=Url::to(['trailers/index'])?>">УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                                 <li><a href="<?=Url::to(['appeals/index'])?>">ЖАЛОБЫ</a></li>
-                                <li><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                             </ul>
                         </div>
                     </li>
@@ -93,7 +92,7 @@
         <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>>
             <a href="<?=Url::to(['claims/index'])?>"><i class="material-icons notranslate">receipt</i>ЗАЯВЛЕНИЯ</a>
         </li>
-        <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
+        <?php if(\app\models\User::isVtcMember()) : ?>
             <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>>
                 <a href="<?=Url::to(['achievements/index'])?>"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a>
             </li>

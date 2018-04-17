@@ -7,6 +7,8 @@ use yii\db\ActiveRecord;
 
 class Achievements extends ActiveRecord{
 
+	public $r_title;
+
     public function rules(){
         return [
             [['title', 'date', 'sort'], 'required'],
@@ -20,7 +22,11 @@ class Achievements extends ActiveRecord{
 
     public static function removeAchievement($id){
         $ach = Achievements::findOne($id);
-        if($ach->image !== 'default.jpg' && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$ach->image)){
+        if($ach->related && $related_ach = Achievements::find()->where(['related' => $id])->one()){
+			$related_ach->related = $ach->related;
+			$related_ach->update();
+		}
+        if($ach->image && file_exists($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$ach->image)){
             unlink($_SERVER['DOCUMENT_ROOT'].Yii::$app->request->baseUrl.'/web/images/achievements/'.$ach->image);
         }
         return $ach->delete();

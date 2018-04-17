@@ -14,38 +14,45 @@ $this->title = 'Достижения - Volvo Trucks';
 </div>
 <div class="container">
     <?php if(count($achievements) > 0) { ?>
-        <div class="col s12 card-panel grey lighten-4 search">
-            <form method="get">
-                <div class="input-field">
-                    <button type="submit" class="prefix user-search waves-effect circle">
-                        <i class="material-icons notranslate">search</i>
-                    </button>
-                    <input placeholder="Искать достижение" type="text" name="q" <?php if(Yii::$app->request->get('q')): ?>value="<?= Yii::$app->request->get('q') ?>"<?php endif ?>>
-                    <?php if(Yii::$app->request->get('q')) : ?>
-                        <a href="<?= Url::to(['achievements/index']) ?>" class="search-reset waves-effect circle">
-                            <i class="material-icons notranslate">clear</i>
-                        </a>
-                    <?php endif; ?>
-                </div>
-            </form>
-        </div>
-        <?= LinkPager::widget([
-            'pagination' => $pagination,
-            'firstPageLabel' => 'Начало',
-            'lastPageLabel' => 'Конец',
-            'options' => [
-                'class' => 'pagination center col m6 s12'
-            ],
-            'prevPageCssClass' => 'waves-effect',
-            'pageCssClass' => 'waves-effect',
-            'nextPageCssClass' => 'waves-effect',
-            'activePageCssClass' => 'active waves-effect',
-            'disabledPageCssClass' => 'disabled',
-            'maxButtonCount' => 5
-        ]) ?>
+		<div class="row">
+			<div class="col m6 s12">
+				<div class="card-panel grey lighten-4 search">
+					<form method="get">
+						<div class="input-field">
+							<button type="submit" class="prefix user-search waves-effect circle">
+								<i class="material-icons notranslate">search</i>
+							</button>
+							<input placeholder="Искать достижение" type="text" name="q" <?php if(Yii::$app->request->get('q')): ?>value="<?= Yii::$app->request->get('q') ?>"<?php endif ?>>
+							<?php if(Yii::$app->request->get('q')) : ?>
+								<a href="<?= Url::to(['achievements/index']) ?>" class="search-reset waves-effect circle">
+									<i class="material-icons notranslate">clear</i>
+								</a>
+							<?php endif; ?>
+						</div>
+					</form>
+				</div>
+			</div>
+			<?= LinkPager::widget([
+				'pagination' => $pagination,
+				'firstPageLabel' => 'Начало',
+				'lastPageLabel' => 'Конец',
+				'options' => [
+					'class' => 'pagination center col m6 s12'
+				],
+				'prevPageCssClass' => 'waves-effect',
+				'pageCssClass' => 'waves-effect',
+				'nextPageCssClass' => 'waves-effect',
+				'activePageCssClass' => 'active waves-effect',
+				'disabledPageCssClass' => 'disabled',
+				'maxButtonCount' => 5
+			]) ?>
+		</div>
         <div class="row">
             <?php $i =  0;
             foreach ($achievements as $key => $achievement):
+				// show if no relation
+				// show if has relation and user complete related achievement
+				// show if user is admin
                 if(!$achievement->related || $achievement->related && ($user_complete_ach && in_array($achievement->related, $user_complete_ach)) || \app\models\User::isAdmin()):
                     $progress_percent = 0;
                     $card_color = 'grey lighten-4';
@@ -56,9 +63,12 @@ $this->title = 'Достижения - Volvo Trucks';
                         $completed = true;
                     }
                     $progress = 0;
+					$count = 0;
                     if(!$completed){
                         foreach ($user_ach_progress as $ach){
-                            if($achievement->id == $ach['ach_id']) $progress++;
+                            if($achievement->id == $ach['ach_id']){
+								$ach['complete'] == 1 ? $progress++ : $count++;
+							}
                         }
                         if($progress > 0) $progress_percent = $progress / $achievement->progress * 100;
                     } ?>
@@ -71,7 +81,10 @@ $this->title = 'Достижения - Volvo Trucks';
                                     </div>
                                 <?php endif;?>
                                 <?php if($achievement->related && \app\models\User::isAdmin()): ?>
-                                    <div class="achievement-related"><i class="material-icons notranslate">redo</i></div>
+                                    <div class="achievement-related">
+										<i class="material-icons notranslate"
+										   title="Зависит от достижения &quot;<?= $achievement->r_title ?>&quot;">redo</i>
+									</div>
                                 <?php endif ?>
                                 <?php if($completed): ?>
                                     <div class="complete-achievement flex">
@@ -83,6 +96,12 @@ $this->title = 'Достижения - Volvo Trucks';
                             </div>
                             <div class="card-content">
                                 <p><?= $achievement->description ?></p>
+								<?php if($progress_percent > 0) : ?>
+									<p class="grey-text">Ход выполнения: <?= $progress ?>/<?= $achievement->progress ?></p>
+								<?php endif;?>
+								<?php if($count > 0) : ?>
+								    <p class="grey-text">Скриншотов на модерации: <?= $count ?></p>
+								<?php endif ?>
                             </div>
                             <div class="card-action" style="position: relative; min-height: 55px;">
                                 <?php if(!$completed) : ?>
@@ -169,7 +188,7 @@ $this->title = 'Достижения - Volvo Trucks';
             </div>
         </div>
     <?php }else{ ?>
-        <h5 class="light">Нету достижений</h5>
+        <h5 class="light">Нет достижений</h5>
     <?php } ?>
     <?php if(\app\models\User::isAdmin()): ?>
         <div class="fixed-action-btn tooltipped" data-position="left" data-tooltip="Новое достижение">
@@ -179,7 +198,7 @@ $this->title = 'Достижения - Volvo Trucks';
         </div>
         <div class="fixed-action-btn tooltipped" style="margin-bottom: 71px" data-position="left" data-tooltip="Модерация достижений">
             <a href="<?=Url::to(['achievements/moderate'])?>" class="btn-floating btn-large waves-effect waves-light green">
-                <i class="material-icons notranslate">check_circle</i>
+                <i class="material-icons notranslate">check</i>
                 <?php if($moderate_count > 0) : ?>
                     <span class="moderate-count white-text"><?= $moderate_count ?></span>
                 <?php endif ?>

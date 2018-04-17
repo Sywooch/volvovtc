@@ -45,7 +45,7 @@
                     </ul>
                 </li>
                 <?php if(\app\models\User::isAdmin()) :
-                    $c_id = ['trailers', 'achievements', 'members', 'appeals'];
+                    $c_id = ['trailers', 'members', 'appeals'];
                     $a_id = ['users']; ?>
                     <li id="manage-btn"<?php if(in_array(Yii::$app->controller->id, $c_id) || in_array(Yii::$app->controller->action->id, $a_id)){?> class="active"<?php } ?>>
                         <a href="<?=Url::to(['members/stats'])?>">УПРАВЛЕНИЕ</a>
@@ -55,14 +55,13 @@
                             <li><a href="<?=Url::to(['site/users'])?>"><i class="material-icons notranslate left">people</i>ПОЛЬЗОВАТЕЛИ САЙТА</a></li>
                             <li><a href="<?=Url::to(['trailers/index'])?>"><i class="material-icons notranslate left">local_shipping</i>УПРАВЛЕНИЕ ПРИЦЕПАМИ</a></li>
                             <li><a href="<?=Url::to(['appeals/index'])?>"><i class="material-icons notranslate left">info</i>ЖАЛОБЫ</a></li>
-                            <li><a href="<?=Url::to(['achievements/index'])?>"><i class="material-icons notranslate left">stars</i>ДОСТИЖЕНИЯ</a></li>
                         </ul>
                     </li>
                 <?php else: ?>
                     <li<?php if(Yii::$app->controller->action->id === 'members'){?> class="active"<?php } ?>><a href="<?=Url::to(['site/members'])?>">ВОДИТЕЛИ</a></li>
                 <?php endif ?>
                 <li<?php if(Yii::$app->controller->action->id === 'claims'){?> class="active"<?php } ?>><a href="<?=Url::to(['claims/index'])?>">ЗАЯВЛЕНИЯ</a></li>
-                <?php if(\app\models\User::isVtcMember() && !\app\models\User::isAdmin()) : ?>
+                <?php if(\app\models\User::isVtcMember()) : ?>
                     <li<?php if(Yii::$app->controller->id === 'achievements'){?> class="active"<?php } ?>><a href="<?=Url::to(['achievements/index'])?>">ДОСТИЖЕНИЯ</a></li>
                 <?php endif ?>
                 <?php if(Yii::$app->user->isGuest) : ?>
