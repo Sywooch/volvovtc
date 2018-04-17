@@ -9,11 +9,9 @@ class Other extends ActiveRecord{
 
     public function rules(){
         return [
-            [['id'], 'required'],
-            [['id'], 'integer'],
+            [['date'], 'safe'],
             [['category'], 'string', 'max' => 45],
             [['text'], 'string', 'max' => 20000],
-            [['id'], 'unique'],
         ];
     }
 
