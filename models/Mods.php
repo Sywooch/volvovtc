@@ -62,25 +62,4 @@ class Mods extends ActiveRecord{
         return $mod_2->update() == 1 && $mod->update() == 1 ? true : false;
     }
 
-    public static function getTrailerData($mod){
-        $description = '';
-        $name = '';
-        $image = 'mods/default.jpg';
-        if($mod->trailer && !$mod->picture) {
-            if($trailer = \app\models\Trailers::findOne($mod->trailer)){
-                $image = 'trailers/'.$trailer->picture;
-                $name = $trailer->name;
-                $description = $trailer->description;
-            }
-        }
-        if($mod->picture){
-            $image = 'mods/'. $mod->picture;
-        }
-        return [
-            'image' => $image,
-            'name' => $name,
-            'description' => $description,
-        ];
-    }
-
 }
