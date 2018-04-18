@@ -49,7 +49,7 @@ use app\models\User; ?>
                             <?php endif ?>
                         </div>
                         <div class="claim-status" style="flex: 1;">
-                            <p><b class="fs17"><?= \app\models\ClaimsRecruit::getStatusTitle($recruit->status) ?></b><br><?= strip_tags($recruit->reason) ?></p>
+                            <p><b class="fs17"><?= $recruit->getStatusTitle() ?></b><br><?= str_replace(',', '<br>', $recruit->reason) ?></p>
                             <?php if($recruit->viewed): ?>
                                 <a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$recruit->viewed]) ?>">
 									Рассмотрел: <?= $recruit->a_first_name ?> <?= $recruit->a_last_name ?>

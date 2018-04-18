@@ -2,10 +2,7 @@
 
 namespace app\models;
 
-use Yii;
-use yii\db\ActiveRecord;
-
-class ClaimsRecruit extends ActiveRecord{
+class ClaimsRecruit extends Claims{
 
 	// invited
 	public $i_id;
@@ -42,15 +39,15 @@ class ClaimsRecruit extends ActiveRecord{
         ];
     }
 
-    public static function getStatusTitle($status){
-        switch ($status){
-            case '1': return 'Одобрено'; break;
-            case '2': return 'Отказ'; break;
-            case '3': return 'На удержании'; break;
-            case '0':
-            default : return 'Рассматривается'; break;
-        }
-    }
+//    public function getStatusTitle(){
+//        switch ($this->status){
+//            case '1': return 'Одобрено'; break;
+//            case '2': return 'Отказ'; break;
+//            case '3': return 'На удержании'; break;
+//            case '0':
+//            default : return 'Рассматривается'; break;
+//        }
+//    }
 
 	public static function getClaims($limit = null){
 		$claims = ClaimsRecruit::find()
@@ -72,6 +69,20 @@ class ClaimsRecruit extends ActiveRecord{
 			->orderBy(['id'=> SORT_DESC]);
 		if($limit) $claims = $claims->limit($limit);
 		return $claims = $claims->all();
+    }
+
+	public function getReasonList(){
+		return [
+			'steam' => 'п.2.6.1 - Неверный профиль Steam',
+			'steam2' => 'п.2.6.2 - Профиль Steam скрыт',
+			'vk' => 'п.2.6.3 - Неверный профиль ВКонтакте',
+			'truckersmp' => 'п.2.6.4 - Отсутствие профиля TruckersMP',
+			'vk2' => 'п.2.6.5 - Личные сообщения ВКонтакте закрыты',
+			'age' => 'п.2.6.6 - Возраст',
+			'vtc' => 'п.2.6.7 - Другая ВТК',
+			'birthdate' => 'п.2.6.8 - Неверная дата рождения',
+			'rep-' => 'п.2.6.9 - Плохая репутация',
+		];
     }
 
 }

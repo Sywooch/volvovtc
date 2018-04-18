@@ -40,6 +40,10 @@ $(document).ready(function(){
         $(list).hasClass('active') ? $(list).removeClass('active') : $(list).addClass('active');
     });
 
+    $('#recruitform-status').change(function(){
+    	$(this).val() == 2 ? $('#claim-reasons').show() : $('#claim-reasons').hide();
+	})
+
 }); // end of document ready
 
 function readURL(input, selector) {

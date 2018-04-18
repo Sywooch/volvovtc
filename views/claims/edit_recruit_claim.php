@@ -231,8 +231,9 @@ $this->title = 'Редактировать заявление на вступл�
 					</ul>
 				</div>
             <?php } ?>
+			<div class="clearfix"></div>
             <?php if(\app\models\User::isAdmin()) : ?>
-				<div class="input-field col l4 s12">
+				<div class="input-field col l3 s12">
 					<?= $form->field($model, 'status')->dropdownList([
 						'0' => 'Рассматривается',
 						'1' => 'Одобрено',
@@ -240,8 +241,20 @@ $this->title = 'Редактировать заявление на вступл�
 						'3' => 'На удержании'
 					])->label(false)->error(false) ?>
 				</div>
-				<div class="input-field col l5 s12">
-					<?= $form->field($model, 'reason')->textInput() ?>
+				<div class="col l6 s12" style="display: none;" id="claim-reasons">
+					<?= $form->field($model, 'reason', [
+						'template' => '{label}{input}',
+						'options' => ['class' => '']
+					])->checkboxList($model->claim->getReasonList(), ['item' => function($index, $label, $name, $checked, $value) {
+						$return = '<p><input type="checkbox" name="'.$name.'" value="'.$value.'" id="'.$value.'"'.($checked ? ' checked' : '').'>';
+						$return .= '<label for="'.$value.'">' . ucwords($label) . '</label></p>';
+						return $return;
+					},
+						'tag' => false
+					])->label('Причина отказа') ?>
+					<?= $form->field($model, 'reason[text]', [
+							'template' => '<div class="input-field col l8 s12">{label}{input}</div>'
+					])->textInput()->label('Кастомный текст')->error(false) ?>
 				</div>
             <?php endif ?>
         </div>
