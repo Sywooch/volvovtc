@@ -142,7 +142,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
         </div>
     </div>
 
-    <?php if($convoy->open) : ?>
+    <?php if(!\app\models\User::isVtcMember()) : ?>
         <ul class="collapsible" data-collapsible="accordion">
             <li>
                 <div class="collapsible-header grey lighten-4">
@@ -158,7 +158,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
                             <h5 class="card-title light">
                                 Вариаци<?= $convoy->truck_var == 2 || $convoy->truck_var == 4 || $convoy->truck_var == 5 ? 'и' : 'я' ?> на конвой:
                             </h5>
-                            <?= Convoys::getVarList(explode(',', $convoy->truck_var)[0], explode(',', $convoy->truck_var)[1] == '1') ?>
+                            <?= $convoy->getVarList() ?>
                             <?php if($convoy->add_info) : ?>
                                 <p><?= $convoy->add_info ?></p>
                             <?php endif ?>
@@ -194,7 +194,7 @@ $card_color = $convoy->visible == '1' ? 'grey lighten-4' : 'yellow lighten-5';
 							</div>
                         </div>
                     </div>
-    <?php  if($convoy->open) : ?>
+    <?php  if(!\app\models\User::isVtcMember()) : ?>
 				</div>
 			</li>
 		</ul>

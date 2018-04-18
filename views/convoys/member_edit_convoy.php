@@ -150,7 +150,7 @@ $this->registerJsFile(Yii::$app->request->baseUrl.'/lib/ck-editor/ckeditor.js?t=
 			<div class="card-panel grey lighten-4">
 				<div class="input-field">
 					<?= $form->field($model, 'truck_var', ['template' => '{input}{label}'])
-						->dropdownList(\app\models\Convoys::getVariationsByGame($model->game))
+						->dropdownList($model->convoy->getVariationsByGame())
 						->error(false) ?>
 				</div>
 				<div style="padding-bottom: 20px;">

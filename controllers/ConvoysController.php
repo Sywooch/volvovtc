@@ -116,7 +116,6 @@ class ConvoysController extends Controller{
     public function actionAdd(){
         if(User::canCreateConvoy()){
             $model = new AddConvoyForm();
-			$model->game = Yii::$app->request->get('game', 'ets');
 			if(!User::isAdmin()){
 				$model->communications = 'volvotrucks.ts-3.top';
 				$model->visible = false;
@@ -133,8 +132,8 @@ class ConvoysController extends Controller{
             }
             return $this->render(User::isAdmin() ? 'edit_convoy' : 'member_edit_convoy', [
                 'model' => $model,
-                'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], Yii::$app->request->get('game', 'ets')),
-                'servers' => TruckersMP::getServersList(Yii::$app->request->get('game', 'ets'))
+                'trailers' => Trailers::getTrailers(['0' => 'Любой прицеп', '-1' => 'Без прицепа'], $model->game),
+                'servers' => TruckersMP::getServersList($model->game)
             ]);
         }else{
             return $this->render('//site/error');

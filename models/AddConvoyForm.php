@@ -37,13 +37,16 @@ class AddConvoyForm extends Model{
     public $map_remove = false;
     public $attach_var_photo = true;
 
+    public $convoy;
+
     public function __construct($id = null){
         if(isset($id)){
             $convoy = Convoys::find()
 				->select(['convoys.*', 'trailers.name AS tr_name', 'trailers.picture AS tr_image'])
 				->leftJoin('trailers', 'trailers.id = convoys.trailer')
-				->where(['convoys.id' => Yii::$app->request->get('id')])
+				->where(['convoys.id' => $id])
 				->one();
+            $this->convoy = $convoy;
             $this->start_city = $convoy->start_city;
             $this->picture_small = $convoy->picture_small;
             $this->start_company = $convoy->start_company;
@@ -72,7 +75,11 @@ class AddConvoyForm extends Model{
             $this->author = $convoy->author;
             $this->game = $convoy->game;
             $this->dlc = unserialize($convoy->dlc);
-        }
+        }else{
+			$this->convoy = new Convoys();
+			$this->game = Yii::$app->request->get('game', 'ets');
+			$this->convoy->game = $this->game;
+		}
     }
 
     public function rules() {

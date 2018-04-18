@@ -110,8 +110,8 @@ class Convoys extends ActiveRecord{
         $convoy->save();
     }
 
-    public static function getVariationsByGame($game = 'ets'){
-        if($game == 'ets' || $game == ''){
+    public function getVariationsByGame(){
+        if($this->game == 'ets' || $this->game == ''){
             $vars = [
                 '0' => 'Любая вариация',
                 '1' => 'Вариация №1',
@@ -124,7 +124,7 @@ class Convoys extends ActiveRecord{
                 '6' => 'Легковой автомобиль Scout',
                 '7' => 'Тягач, как в описании',
             ];
-        }else if($game == 'ats'){
+        }else if($this->game == 'ats'){
             $vars = [
                 '0' => 'Любой тягач',
                 '6' => 'Тягач, как в описании',
@@ -134,29 +134,18 @@ class Convoys extends ActiveRecord{
         return $vars;
     }
 
-    public static function getVariationName($short, $link = false){
-        switch ($short){
-            case '0' : $variation = 'Любая вариация'; break;
-            case '7' : $variation = 'Тягач, как в описании'; break;
-            case '6' : $variation = 'Легковой автомобиль Scout'; break;
-            case '5' : $variation = 'Вариация №1 или №3'; break;
-            case '4' : $variation = 'Вариация №1 или №2'; break;
-            case '3' : $variation = 'Вариация №3'; break;
-            case '2' : $variation = 'Вариация №2'; break;
-            case '21' : $variation = 'Вариация №2.1'; break;
-            case '22' : $variation = 'Вариация №2.2'; break;
-            case '1' :
-            default: $variation = 'Вариация №1'; break;
-        }
+    public function getVariationName($short, $link = false){
+    	$vars = $this->getVariationsByGame();
+        $variation = $vars[$short];
         if($link && ($short == '1' || $short == '21' || $short == '22' || $short == '3')){
             $variation = '<a href="'.Url::to(['site/variations', '#' => $short]).'">'.$variation.'</a>';
         }
         return $variation;
     }
 
-    public static function getDLCString($dlc){
+    public static function getDLCString($dlc, $prefix = 'Для участия необходимо'){
         $need = false;
-        $string = '<i class="material-icons left" style="font-size: 22px">warning</i>Для участия необходимо ';
+        $string = '<i class="material-icons left" style="font-size: 22px">warning</i>'.$prefix.' ';
         foreach ($dlc as $key => $item){
             if($item == '1'){
                 $string .= 'DLC '.$key.', ';
@@ -184,14 +173,14 @@ class Convoys extends ActiveRecord{
 		return $game ? $game : ArrayHelper::merge($ets, $ats);
     }
 
-    public static function getVarList($string, $with_img){
+    public function getVarList(){
         $var_images = [
             '1' => 'var1',
             '21' => 'var2',
             '22' => 'var22'
         ];
         $list = '<ul class="var-list">';
-        switch ($string){
+        switch (explode(',', $this->truck_var)[0]){
             case '1' : $vars = ['1']; break;
             case '2' : $vars = ['21', '22']; break;
             case '21' : $vars = ['21']; break;
@@ -205,8 +194,8 @@ class Convoys extends ActiveRecord{
             default : $vars = ['0']; break;
         }
         foreach ($vars as $var){
-            $list .= '<li><p class="var-name">'.self::getVariationName($var, true).'</p>';
-            if($with_img && array_key_exists($var, $var_images)) {
+            $list .= '<li><p class="var-name">'.$this->getVariationName($var, true).'</p>';
+            if(explode(',', $this->truck_var)[1] == '1' && array_key_exists($var, $var_images)) {
                 $list .= '<img class="responsive-img materialboxed z-depth-2" src="/assets/img/variations/'.$var_images[$var].'.jpg">';
             }
             $list .= '</li>';

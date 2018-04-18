@@ -133,7 +133,7 @@ $this->registerMetaTag([
 							<?php endif ?>
                             <?php if($dlc = unserialize($mod->dlc)) : ?>
                                 <p class="grey-text">
-                                    <?= str_replace('Для участия н', 'Н', \app\models\Convoys::getDLCString($dlc)) ?>
+                                    <?= \app\models\Convoys::getDLCString($dlc, 'Необходимо') ?>
                                 </p>
                             <?php endif ?>
 							<h6 class="fs17 mod-title"><b><?= $mod->title ?></b></h6>
