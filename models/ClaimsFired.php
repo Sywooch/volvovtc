@@ -2,10 +2,7 @@
 
 namespace app\models;
 
-use Yii;
-use yii\db\ActiveRecord;
-
-class ClaimsFired extends ActiveRecord{
+class ClaimsFired extends Claims{
 
 	public $v_member_id;
 

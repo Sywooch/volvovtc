@@ -42,7 +42,7 @@ use app\models\User; ?>
                             <?php endif ?>
                         </div>
                         <div class="claim-status" style="flex: 1;">
-                            <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?></p>
+                            <p class="fs17 bold"><?= $claim->getStatusTitle() ?></p>
 							<?php if($claim->viewed): ?>
 								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' => $claim->viewed]) ?>">
 									Рассмотрел:

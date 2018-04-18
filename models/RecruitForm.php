@@ -89,10 +89,10 @@ class RecruitForm extends Model{
 
     public function rules(){
         return [
-            [['hear_from', 'comment', 'reason'], 'string'],
+            [['hear_from', 'comment'], 'string'],
             [['user_id', 'status', 'viewed', 'invited_by', 'ets_playtime', 'ats_playtime'], 'integer'],
 			[['mods', 'tedit', 'save_editing', 'mic', 'teamspeak', 'companies'], 'boolean'],
-			[['dlc'], 'safe'],
+			[['dlc', 'reason'], 'safe'],
             [['steam', 'vk', 'first_name', 'last_name', 'birth_date', 'city', 'country', 'nickname'], 'required', 'message' => 'Заполните все обязательные поля'],
             [['steam'], 'url', 'message' => 'Неверная ссылка Steam', 'defaultScheme' => 'https'],
             [['vk'], 'url', 'message' => 'Неверная ссылка VK', 'defaultScheme' => 'https'],
@@ -179,7 +179,12 @@ class RecruitForm extends Model{
 		$claim->ats_playtime = $this->ats_playtime;
 		$claim->dlc = implode('%', $this->dlc);
         $claim->status = $this->status;
-        $claim->reason = $this->reason;
+		$claim->reason = '';
+		$reasons = $claim->getReasonList();
+        foreach($this->reason as $item){
+			$claim->reason .= key_exists($item, $reasons) ? $reasons[$item] : $item;
+			$claim->reason .= ',';
+		}
         $claim->invited_by = $this->invited_by;
         $claim->hear_from = $this->hear_from;
         $claim->viewed = $this->viewed;

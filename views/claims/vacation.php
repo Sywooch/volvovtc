@@ -42,7 +42,7 @@ use app\models\User; ?>
 										'По ' . Yii::$app->formatter->asDate($claim->to_date, 'long') ?></b></p>
                         </div>
                         <div class="claim-status" style="flex: 1;">
-                            <p class="fs17 bold"><?= \app\models\ClaimsRecruit::getStatusTitle($claim->status) ?><br><?= strip_tags($claim->reason) ?></p>
+                            <p class="fs17 bold"><?= $claim->getStatusTitle() ?><br><?= strip_tags($claim->reason) ?></p>
 							<?php if($claim->viewed): ?>
 								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$claim->viewed]) ?>">
 									Рассмотрел: <?= $claim->first_name ?> <?= $claim->last_name ?>

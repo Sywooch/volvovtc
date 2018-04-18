@@ -2,10 +2,7 @@
 
 namespace app\models;
 
-use Yii;
-use yii\db\ActiveRecord;
-
-class ClaimsVacation extends ActiveRecord{
+class ClaimsVacation extends Claims{
 
 	// user
 	public $uid;
