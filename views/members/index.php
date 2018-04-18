@@ -30,7 +30,7 @@ $this->title = 'Сотрудники Volvo Trucks'; ?>
                     </p>
                     <p>В компании с
                         <span class="nowrap"><b><?= Yii::$app->formatter->asDate($member->start_date, 'long') ?></b></span>
-                        <span class="nowrap">(<?= \app\models\VtcMembers::getMemberDays($member->start_date); ?>)</span>
+                        <span class="nowrap">(<?= $member->getMemberDays(); ?>)</span>
                     </p>
                 </div>
                 <div class="card-action">

@@ -118,8 +118,8 @@ class VtcMembers extends ActiveRecord{
         return $additional;
     }
 
-	public static function hasVacation($vacation){
-		$vacation = new \DateTime($vacation);
+	public function hasVacation(){
+		$vacation = new \DateTime($this->vacation);
 		$now = new \DateTime();
 		return $vacation > $now;
     }
@@ -153,20 +153,20 @@ class VtcMembers extends ActiveRecord{
         return $bans;
     }
 
-    public static function getMemberNickname($user){
-        $truckersmp = TruckersMP::getMemberTruckersMpNickname($user->steamid);
-        $steam = Steam::getPlayerNickname($user->steamid);
+    public function getMemberNickname(){
+        $truckersmp = TruckersMP::getMemberTruckersMpNickname($this->steamid);
+        $steam = Steam::getPlayerNickname($this->steamid);
         if(strpos($truckersmp, '[Volvo Trucks]') !== false){
             return str_replace(['[Volvo Trucks]', '[Volvo Trucks] '], '', $truckersmp);
         }else if(strpos($steam, '[Volvo Trucks]') !== false){
             return str_replace(['[Volvo Trucks]', '[Volvo Trucks] '], '', $steam);
         }else{
-            return $user->nickname;
+            return $this->nickname;
         }
     }
 
-    public static function getMemberDays($start_date){
-        $datetime1 = new DateTime($start_date);
+    public function getMemberDays(){
+        $datetime1 = new DateTime($this->start_date);
         $datetime2 = new DateTime();
         $days = intval($datetime1->diff($datetime2)->format('%a'));
         if($days == 1) $days .= ' день';

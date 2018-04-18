@@ -78,7 +78,7 @@ class MemberForm extends Model{
             $this->first_name = $member->first_name;
             $this->last_name = $member->last_name;
             $this->birth_date = $member->birth_date;
-            $this->nickname = VtcMembers::getMemberNickname($member);
+            $this->nickname = $member->getMemberNickname();
         }
     }
 
