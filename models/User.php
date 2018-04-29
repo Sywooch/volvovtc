@@ -169,15 +169,8 @@ class User extends ActiveRecord implements IdentityInterface{
     		$user = User::findOne($user);
 		}
         if($user->last_active){
-            $last_active = new \DateTime($user->last_active);
-            $now = new \DateTime();
-            $interval = $last_active->diff($now);
-            $years = $interval->format('%y');
-            $months = $interval->format('%m');
-            $days = $interval->format('%d');
-            $hours = $interval->format('%h');
-            $minutes = $interval->format('%i');
-            if($years == '0' && $months == '0' && $days == '0' && $hours == '0' && intval($minutes) < 3) return true;
+            $last_active = strtotime($user->last_active);
+            if(time() - $last_active <= 120) return true;
         }
         return false;
     }
