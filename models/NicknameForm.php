@@ -57,7 +57,7 @@ class NicknameForm extends Model{
         $user = VtcMembers::find()->select(['id'])->where(['user_id' => Yii::$app->user->id])->one();
         $claim->member_id = $user->id;
         $claim->user_id = Yii::$app->user->id;
-        $claim->new_nickname = $this->new_nickname;
+        $claim->new_nickname = trim(str_replace('[Volvo Trucks]', '', $this->new_nickname));
         $claim->old_nickname = Yii::$app->user->identity->nickname;
         $claim->date = date('Y-m-d');
         Mail::newClaimToAdmin('на смену ника', $claim, Yii::$app->user->identity);
@@ -69,12 +69,12 @@ class NicknameForm extends Model{
         $claim->status = $this->status;
         $claim->reason = $this->reason;
         $claim->viewed = $this->viewed;
-        $claim->new_nickname = $this->new_nickname;
+        $claim->new_nickname = trim(str_replace('[Volvo Trucks]', '', $this->new_nickname));
         if($claim->save()) {
             if($this->status == '1') {
                 $member = VtcMembers::find()->select(['user_id'])->where(['id' => $claim->member_id])->one();
                 $user = User::findOne($member->user_id);
-                $user->nickname = $this->new_nickname;
+                $user->nickname = $claim->new_nickname;
                 Notifications::addNotification('Ваше заявление на смену ника было одобрено', $member->user_id);
                 return $user->save();
             } else {
@@ -107,7 +107,7 @@ class NicknameForm extends Model{
 
     public function attributeLabels() {
         return [
-            'new_nickname' => 'Новый никнейм',
+            'new_nickname' => 'Новый никнейм (без тега)',
             'reason' => 'Причина (если отказ)',
             'status' => 'Статус заявки',
         ];

@@ -69,7 +69,7 @@ use app\models\User; ?>
                             </a>
                         <?php endif; ?>
                         <?php if(User::isAdmin()) : ?>
-                            <a onclick='return confirm("Удалить?")' href="<?=Url::to(['claims/delete',
+                            <a onclick='return confirm("Удалить?")' href="<?=Url::to(['claims/remove',
                                 'claim' => 'nickname',
                                 'id' => $claim->id
                             ]) ?>"><i class="material-icons notranslate to-text">delete</i>Удалить
