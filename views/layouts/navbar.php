@@ -77,13 +77,13 @@
                     <li id="notification-item" class="notification-btn-item">
                         <a class="notification-btn">
                             <i class="material-icons notranslate">notifications</i>
-                            <?php if(isset($this->params['hasUnreadNotifications']) && $this->params['hasUnreadNotifications']) : ?>
+                            <?php if(Yii::$app->user->identity->notifications && Yii::$app->user->identity->has_unread_notifications) : ?>
                                 <div class="new-notifications z-depth-2 green"></div>
                             <?php endif ?>
                         </a>
                         <ul class="notification-list z-depth-3">
-                            <?php if(isset($this->params['notifications']) && count($this->params['notifications']) > 0):
-                                foreach($this->params['notifications'] as $notification): ?>
+                            <?php if(Yii::$app->user->identity->notifications && count(Yii::$app->user->identity->notifications) > 0):
+                                foreach(Yii::$app->user->identity->notifications as $notification): ?>
                                     <li class="flex<?php if($notification->status == '0'): ?> unread-notification<?php endif ?>" data-id="<?= $notification->id ?>" style="justify-content: space-between">
                                         <span class="truncate"><?= $notification->text ?></span>
                                         <a class="clear-notification right tooltipped " data-position="left" data-tooltip="Скрыть"><i class="material-icons notranslate">clear</i></a>

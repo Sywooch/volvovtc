@@ -7,15 +7,14 @@ use yii\db\ActiveRecord;
 use yii\web\IdentityInterface;
 
 class User extends ActiveRecord implements IdentityInterface{
-    
-//    public $id;
-//    public $username;
-//    public $password;
-//    public $authKey;
-//    public $accessToken;
+
     public $age;
+
     public $member_id;
     public $step4_complete;
+
+    public $notifications = null;
+    public $has_unread_notifications = false;
 
     public static function tableName() {
         return 'users';
@@ -27,7 +26,21 @@ class User extends ActiveRecord implements IdentityInterface{
 			->leftJoin('vtc_members', 'users.id = vtc_members.user_id')
 			->where(['users.id' => $id])->one();
     	$user->setUserActivity();
+    	$user->getUserNotifications();
         return $user;
+    }
+
+	public function getUserNotifications(){
+		$this->notifications = Notifications::find()
+			->where(['uid' => $this->id])
+			->orderBy(['date' => SORT_DESC, 'status' => SORT_ASC])
+			->all();
+		foreach ($this->notifications as $notification){
+			if($notification->status == '0') {
+				$this->has_unread_notifications = true;
+				break;
+			}
+		}
     }
 
     public static function findIdentityByAccessToken($token, $type = null){

@@ -24,25 +24,7 @@ class TrailersController extends Controller{
     public function beforeAction($action){
 		if(Yii::$app->user->isGuest){
 			return $this->redirect(['site/login']);
-		}else{
-            // notifications
-            $has_unread = false;
-            $notifications = Notifications::find()
-                ->where(['uid' => Yii::$app->user->id])
-                ->orderBy(['date' => SORT_DESC, 'status' => SORT_ASC])
-                ->all();
-            foreach ($notifications as $notification){
-                if($notification->status == '0') {
-                    $has_unread = true;
-                    break;
-                }
-            }
-            Yii::$app->view->params['notifications'] = $notifications;
-            Yii::$app->view->params['hasUnreadNotifications'] = $has_unread;
-			if(!User::canCreateConvoy()){
-				return $this->redirect(['//site/error']);
-			}
-        }
+		}
         return parent::beforeAction($action);
     }
 
