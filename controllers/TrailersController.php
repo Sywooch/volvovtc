@@ -31,14 +31,6 @@ class TrailersController extends Controller{
         ];
     }
 
-	public function actions(){
-		return [
-			'error' => [
-				'class' => 'yii\web\ErrorAction',
-			]
-		];
-	}
-
     public function actionIndex(){
 		$query = Trailers::find();
 		if(Yii::$app->request->get('q')){

@@ -33,14 +33,6 @@ class ModificationsController extends Controller{
 		];
 	}
 
-	public function actions(){
-		return [
-			'error' => [
-				'class' => 'yii\web\ErrorAction',
-			]
-		];
-	}
-
     public function actionIndex(){
     	$game = Yii::$app->request->get('game', null);
     	$category = Yii::$app->request->get('category', null);

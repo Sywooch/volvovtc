@@ -30,14 +30,6 @@ class GalleryController extends Controller{
 		];
 	}
 
-	public function actions(){
-		return [
-			'error' => [
-				'class' => 'yii\web\ErrorAction',
-			]
-		];
-	}
-
     public function actionIndex(){
 		$photos = Gallery::find();
 		if(!User::isAdmin()) $photos = $photos->where(['visible' => '1'])->orWhere(['uploaded_by' => Yii::$app->user->id]);

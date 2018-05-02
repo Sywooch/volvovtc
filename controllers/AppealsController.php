@@ -32,14 +32,6 @@ class AppealsController extends Controller{
 		];
 	}
 
-	public function actions(){
-		return [
-			'error' => [
-				'class' => 'yii\web\ErrorAction',
-			]
-		];
-	}
-
     public function actionIndex(){
         if(User::isAdmin()){
             $query = Appeals::find()
