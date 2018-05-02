@@ -408,6 +408,10 @@ th.first .preloader-wrapper{vertical-align: middle;}
 #gallery-send-btn{ position: relative;}
 #gallery-send-btn .preloader-wrapper{ position: absolute; left:calc(50% - 15px);top: 5px;}
 
+/* error */
+.error .container{background-image: url(/assets/img/404.jpg); background-size: cover; min-height: 70vh; flex-direction: column; justify-content: center}
+.error a{text-decoration: underline;}
+
  /* datepicker */
 .picker__weekday-display{background-color: #072b7b;}
 .picker__date-display, .picker__day--selected{background-color: #0d3896 !important;}
