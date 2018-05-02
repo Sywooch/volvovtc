@@ -2,33 +2,15 @@
 
 namespace app\controllers;
 
-use app\models\AddModForm;
-use app\models\FiredForm;
 use app\models\Mail;
-use app\models\MemberForm;
-use app\models\Mods;
-use app\models\ModsCategories;
-use app\models\ModsSubcategories;
-use app\models\NicknameForm;
 use app\models\Notifications;
 use app\models\Other;
 use app\models\PasswordForm;
 use app\models\Recaptcha;
 use app\models\Steam;
 use app\models\TruckersMP;
-use app\models\VacationForm;
 use app\models\ResetForm;
-use app\models\Trailers;
-use app\models\TrailersForm;
 use Yii;
-use app\models\AddConvoyForm;
-use app\models\AddNewsForm;
-use app\models\ClaimsFired;
-use app\models\ClaimsNickname;
-use app\models\ClaimsRecruit;
-use app\models\ClaimsVacation;
-use app\models\Convoys;
-use app\models\News;
 use app\models\RecruitForm;
 use app\models\SignupForm;
 use app\models\ProfileForm;
@@ -41,7 +23,6 @@ use yii\web\Controller;
 use yii\filters\VerbFilter;
 use app\models\LoginForm;
 use yii\web\Response;
-use yii\widgets\ActiveForm;
 
 class SiteController extends Controller{
 
@@ -82,9 +63,6 @@ class SiteController extends Controller{
     public function beforeAction($action){
         // getting user notifications
         if(!Yii::$app->user->isGuest){
-            // online
-            User::setUserActivity(Yii::$app->user->id);
-
             // notifications
             $has_unread = false;
             $notifications = Notifications::find()

@@ -29,9 +29,6 @@ class ClaimsController extends Controller{
     public function beforeAction($action){
         // getting user notifications
         if(!Yii::$app->user->isGuest){
-            // online
-            User::setUserActivity(Yii::$app->user->id);
-
             // notifications
             $has_unread = false;
             $notifications = Notifications::find()

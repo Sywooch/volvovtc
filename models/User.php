@@ -26,6 +26,7 @@ class User extends ActiveRecord implements IdentityInterface{
 			->select(['users.*', 'vtc_members.id as member_id', 'vtc_members.step4_complete'])
 			->leftJoin('vtc_members', 'users.id = vtc_members.user_id')
 			->where(['users.id' => $id])->one();
+    	$user->setUserActivity();
         return $user;
     }
 
@@ -158,10 +159,9 @@ class User extends ActiveRecord implements IdentityInterface{
         return false;
     }
 
-    public static function setUserActivity($id){
-        $user = User::findOne($id);
-        $user->last_active = date('Y-m-d H:i');
-        $user->update();
+    public function setUserActivity(){
+        $this->last_active = date('Y-m-d H:i');
+        $this->update();
     }
 
     public static function isOnline($user){

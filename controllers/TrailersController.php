@@ -25,9 +25,6 @@ class TrailersController extends Controller{
 		if(Yii::$app->user->isGuest){
 			return $this->redirect(['site/login']);
 		}else{
-            // online
-            User::setUserActivity(Yii::$app->user->id);
-
             // notifications
             $has_unread = false;
             $notifications = Notifications::find()
