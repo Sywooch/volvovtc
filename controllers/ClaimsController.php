@@ -8,30 +8,40 @@ use app\models\ClaimsRecruit;
 use app\models\ClaimsVacation;
 use app\models\FiredForm;
 use app\models\NicknameForm;
-use app\models\Notifications;
-use app\models\RecruitForm;
 use app\models\User;
 use app\models\VacationForm;
-use app\models\VtcMembers;
 use Yii;
-use yii\helpers\StringHelper;
-use yii\helpers\Url;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class ClaimsController extends Controller{
 
-    public function actions(){
-        return [
-            'error' => ['class' => 'yii\web\ErrorAction'],
-        ];
-    }
+	public function behaviors(){
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => ['index'],
+						'allow' => true,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
+		];
+	}
 
-    public function beforeAction($action){
-		if(Yii::$app->user->isGuest && $this->action->id != 'index'){
-			return $this->redirect(['site/login']);
-		}
-        return parent::beforeAction($action);
-    }
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
         return $this->render('index', [

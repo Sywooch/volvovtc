@@ -4,33 +4,43 @@ namespace app\controllers;
 
 use app\models\AddConvoyForm;
 use app\models\Convoys;
-use app\models\Mods;
-use app\models\Notifications;
 use app\models\Trailers;
 use app\models\TruckersMP;
 use app\models\User;
 use app\models\VtcMembers;
 use Yii;
-use yii\helpers\Url;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 use yii\web\Response;
 
 class ConvoysController extends Controller{
 
-    public function actions(){
-        return [
-            'error' => ['class' => 'yii\web\ErrorAction'],
-        ];
-    }
+	public function behaviors(){
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => ['index'],
+						'allow' => true,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
+		];
+	}
 
-    public function beforeAction($action){
-		if(!Yii::$app->request->isAjax && $this->action->id != 'index'){
-			if(Yii::$app->user->isGuest){
-				return $this->redirect(['site/login']);
-			}
-		}
-        return parent::beforeAction($action);
-    }
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
         if(Yii::$app->request->get('id')){

@@ -6,27 +6,38 @@ use app\models\Trailers;
 use app\models\TrailersCategories;
 use app\models\TrailersForm;
 use yii\data\Pagination;
-use yii\helpers\Url;
+use yii\filters\AccessControl;
 use yii\web\Controller;
-use app\models\Notifications;
-use app\models\User;
 use Yii;
 use yii\web\Response;
 
 class TrailersController extends Controller{
 
-    public function actions(){
+    public function behaviors(){
         return [
-            'error' => ['class' => 'yii\web\ErrorAction'],
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'allow' => false,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
         ];
     }
 
-    public function beforeAction($action){
-		if(Yii::$app->user->isGuest){
-			return $this->redirect(['site/login']);
-		}
-        return parent::beforeAction($action);
-    }
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
 		$query = Trailers::find();

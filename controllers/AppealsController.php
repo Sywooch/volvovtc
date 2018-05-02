@@ -4,30 +4,41 @@ namespace app\controllers;
 
 use app\models\AppealForm;
 use app\models\Appeals;
-use app\models\Notifications;
 use app\models\User;
 use app\models\VtcMembers;
 use Yii;
 use yii\data\Pagination;
-use yii\helpers\Url;
+use yii\filters\AccessControl;
 use yii\web\Controller;
 
 class AppealsController extends Controller{
 
-    public function actions(){
-        return [
-            'error' => ['class' => 'yii\web\ErrorAction'],
-        ];
-    }
+	public function behaviors(){
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => ['add', 'thx'],
+						'allow' => true,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
+		];
+	}
 
-    public function beforeAction($action){
-		if($this->action->id != 'add' && $this->action->id != 'thx'){
-			if(Yii::$app->user->isGuest){
-				return $this->redirect(['site/login']);
-			}
-		}
-        return parent::beforeAction($action);
-    }
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
         if(User::isAdmin()){
@@ -80,7 +91,7 @@ class AppealsController extends Controller{
     }
 
     public function actionViewed(){
-        if(User::isAdmin()){
+        if(User::isAdmin() && Yii::$app->request->get('id')){
             Appeals::viewedAppeal(Yii::$app->request->get('id'));
             return $this->redirect(['appeals/index']);
         }else{
@@ -89,7 +100,7 @@ class AppealsController extends Controller{
     }
 
     public function actionRemove(){
-        if(User::isAdmin()){
+        if(User::isAdmin() && Yii::$app->request->get('id')){
             Appeals::removeAppeal(Yii::$app->request->get('id'));
             return $this->redirect(['appeals/index']);
         }else{

@@ -5,26 +5,41 @@ namespace app\controllers;
 use app\models\AddModForm;
 use app\models\ModsCategories;
 use app\models\ModsSubcategories;
-use app\models\Notifications;
 use app\models\Trailers;
 use app\models\User;
 use Yii;
 use app\models\Mods;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
 use yii\helpers\Url;
 use yii\web\Controller;
 
 class ModificationsController extends Controller{
 
-    public function beforeAction($action){
-        if($this->action->id == 'add' && $this->action->id == 'edit'){
-			if(Yii::$app->user->isGuest){
-				return $this->redirect(['site/login']);
-			}
-		}
-        return parent::beforeAction($action);
-    }
+	public function behaviors(){
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'only' => ['add', 'edit'],
+				'rules' => [
+					[
+						'actions' => ['add', 'edit'],
+						'allow' => false,
+						'roles' => ['?']
+					],
+				],
+			],
+		];
+	}
+
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
     	$game = Yii::$app->request->get('game', null);

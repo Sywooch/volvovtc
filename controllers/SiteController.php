@@ -30,10 +30,10 @@ class SiteController extends Controller{
         return [
             'access' => [
                 'class' => AccessControl::className(),
-                'only' => ['logout'],
+                'only' => ['logout', 'recruit'],
                 'rules' => [
                     [
-                        'actions' => ['logout'],
+                        'actions' => ['logout', 'recruit'],
                         'allow' => true,
                         'roles' => ['@'],
                     ],
@@ -52,11 +52,7 @@ class SiteController extends Controller{
         return [
             'error' => [
                 'class' => 'yii\web\ErrorAction',
-            ],
-            'captcha' => [
-                'class' => 'yii\captcha\CaptchaAction',
-                'fixedVerifyCode' => YII_ENV_TEST ? 'testme' : null,
-            ],
+            ]
         ];
     }
     
@@ -125,25 +121,21 @@ class SiteController extends Controller{
     }
 
     public function actionRecruit(){
-        if(!Yii::$app->user->isGuest){
-            $model = new RecruitForm();
-            if($model->load(Yii::$app->request->post()) && $model->validate()){
-                if($model->addClaim()) return $this->redirect(['site/claims']);
-            }
-            $rules = '';
-            $members = null;
-            $step = Yii::$app->request->get('step');
-            if($step == '2') $rules = Other::findOne(['category' => 'rules']);
-            if($step == '3') $members = array_replace(['' => 'Никто не приглашал / Другой человек'], VtcMembers::getMembersArray());
-            return $this->render('recruit', [
-                'model' => $model,
-                'step' => $step == '' || $step > 3 ? '1' : $step,
-                'rules' => $rules,
-				'members' => $members
-            ]);
-        }else{
-            return $this->redirect(['site/login']);
-        }
+		$model = new RecruitForm();
+		if($model->load(Yii::$app->request->post()) && $model->validate()){
+			if($model->addClaim()) return $this->redirect(['site/claims']);
+		}
+		$rules = '';
+		$members = null;
+		$step = Yii::$app->request->get('step');
+		if($step == '2') $rules = Other::findOne(['category' => 'rules']);
+		if($step == '3') $members = array_replace(['' => 'Никто не приглашал / Другой человек'], VtcMembers::getMembersArray());
+		return $this->render('recruit', [
+			'model' => $model,
+			'step' => $step == '' || $step > 3 ? '1' : $step,
+			'rules' => $rules,
+			'members' => $members
+		]);
     }
 
     public function actionSignup(){

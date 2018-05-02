@@ -5,32 +5,43 @@ namespace app\controllers;
 use app\models\Achievements;
 use app\models\AchievementsProgress;
 use app\models\MemberForm;
-use app\models\Notifications;
 use app\models\User;
 use app\models\VtcMembers;
 use app\models\VtcPositions;
 use Yii;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use yii\web\Response;
 
 class MembersController extends Controller{
 
-    public function actions(){
-        return [
-            'error' => ['class' => 'yii\web\ErrorAction'],
-        ];
-    }
+	public function behaviors(){
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => ['index', 'stats'],
+						'allow' => true,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
+		];
+	}
 
-    public function beforeAction($action){
-		if(!Yii::$app->request->isAjax && $this->action->id != 'index' && $this->action->id != 'stats'){
-			if(Yii::$app->user->isGuest){
-				return $this->redirect(['site/login']);
-			}
-		}
-        return parent::beforeAction($action);
-    }
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
         return $this->render('index', [

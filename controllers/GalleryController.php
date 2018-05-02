@@ -3,27 +3,39 @@
 namespace app\controllers;
 
 use app\models\Gallery;
-use app\models\Notifications;
 use app\models\User;
 use Yii;
+use yii\filters\AccessControl;
+use yii\web\Controller;
 use yii\web\Response;
-use yii\helpers\Url;
 
-class GalleryController extends \yii\web\Controller{
+class GalleryController extends Controller{
 
-	public function actions(){
+	public function behaviors(){
 		return [
-			'error' => ['class' => 'yii\web\ErrorAction'],
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'actions' => ['index'],
+						'allow' => true,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
 		];
 	}
 
-	public function beforeAction($action){
-		if(!Yii::$app->request->isAjax && $this->action->id != 'index'){
-			if(Yii::$app->user->isGuest){
-				return $this->redirect(['site/login']);
-			}
-		}
-		return parent::beforeAction($action);
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
 	}
 
     public function actionIndex(){

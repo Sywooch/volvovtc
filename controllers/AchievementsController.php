@@ -6,31 +6,41 @@ use app\models\AchievementsProgress;
 use app\models\Mail;
 use Yii;
 use yii\data\Pagination;
+use yii\filters\AccessControl;
 use yii\helpers\ArrayHelper;
-use yii\helpers\Url;
 use yii\web\Controller;
 use app\models\User;
-use app\models\Notifications;
 use app\models\Achievements;
 use app\models\AchievementsForm;
 use yii\web\Response;
 
 class AchievementsController extends Controller{
 
-    public function actions(){
-        return [
-            'error' => ['class' => 'yii\web\ErrorAction'],
-        ];
-    }
+	public function behaviors(){
+		return [
+			'access' => [
+				'class' => AccessControl::className(),
+				'rules' => [
+					[
+						'allow' => false,
+						'roles' => ['?']
+					],
+					[
+						'allow' => true,
+						'roles' => ['@']
+					],
+				],
+			],
+		];
+	}
 
-    public function beforeAction($action){
-        if(!Yii::$app->request->isAjax){
-			if(Yii::$app->user->isGuest){
-				return $this->redirect(['site/login']);
-			}
-		}
-        return parent::beforeAction($action);
-    }
+	public function actions(){
+		return [
+			'error' => [
+				'class' => 'yii\web\ErrorAction',
+			]
+		];
+	}
 
     public function actionIndex(){
         if(User::isVtcMember()){
