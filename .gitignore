@@ -68,6 +68,7 @@ tests/_support/_generated
 /web/assets/*
 !/web/assets/css
 !/web/assets/js
+!/web/assets/fonts
 !/web/assets/img
 !/web/assets/materialize
 !/web/assets/lightGallery
