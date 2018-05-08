@@ -47,7 +47,7 @@ use app\models\User; ?>
 								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' => $claim->viewed]) ?>">
 									Рассмотрел:
 									<a href="<?= Url::to(['site/profile', 'id' => $claim->viewed]) ?>" class="grey-text">
-										<?= $claim->first_name ?> <?= $claim->last_name ?>
+										<?= $claim->a_first_name ?> <?= $claim->a_last_name ?>
 									</a>
 								</a>
 							<?php endif ?>

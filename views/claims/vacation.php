@@ -45,7 +45,7 @@ use app\models\User; ?>
                             <p class="fs17 bold"><?= $claim->getStatusTitle() ?><br><?= strip_tags($claim->reason) ?></p>
 							<?php if($claim->viewed): ?>
 								<a class="grey-text" href="<?= Url::to(['site/profile', 'id' =>$claim->viewed]) ?>">
-									Рассмотрел: <?= $claim->first_name ?> <?= $claim->last_name ?>
+									Рассмотрел: <?= $claim->a_first_name ?> <?= $claim->a_last_name ?>
 								</a>
 							<?php endif ?>
                         </div>
