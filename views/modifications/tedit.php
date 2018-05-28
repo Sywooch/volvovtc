@@ -72,9 +72,9 @@ $this->registerMetaTag([
 				<p class="grey-text">Автор программы: knox_xss</p>
             </div>
 			<div class="card-action">
-				<a class="btn indigo darken-3 waves-effect waves-light" href="<?= Yii::$app->request->baseUrl ?>/tedit_v6.13.1.1.rar" target="_blank">
+				<a class="btn indigo darken-3 waves-effect waves-light" href="<?= Yii::$app->request->baseUrl ?>/tedit_v6.14.2.rar" target="_blank">
 					<i class="material-icons notranslate left">file_download</i>
-					Скачать TEDIT v6.13.1.1
+					Скачать TEDIT v6.14.2
 				</a>
 				<a href="http://truck-sim.club/topic/21801-svoi-pritcep-tedit-v6112-reliz-i-obschee-obsuzhdenie/?p=371683" class="right btn-flat" target="_blank">
 					Всегда свежая версия
