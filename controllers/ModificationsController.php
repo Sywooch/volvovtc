@@ -28,6 +28,11 @@ class ModificationsController extends Controller{
 						'allow' => false,
 						'roles' => ['?']
 					],
+					[
+						'actions' => ['add', 'edit'],
+						'allow' => true,
+						'roles' => ['@']
+					],
 				],
 			],
 		];
